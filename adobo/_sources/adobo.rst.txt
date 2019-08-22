@@ -20,6 +20,14 @@ adobo.data module
    :undoc-members:
    :show-inheritance:
 
+adobo.normalize module
+----------------------
+
+.. automodule:: adobo.normalize
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 adobo.plotting module
 ---------------------
 

@@ -1,7 +1,7 @@
 Welcome to adobo's documentation!
 =================================
 
-adobo is an analysis framework for single cell RNA-seq data written in Python.
+adobo is an analysis framework consisting of a set of Python modules to enable exploratory analysis of single cell RNA-seq data.
 
 .. toctree::
    :maxdepth: 2
