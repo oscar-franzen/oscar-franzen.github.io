@@ -33,10 +33,22 @@
   <ul>
 <li><a class="reference internal" href="#">adobo package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-adobo.IO">adobo.IO module</a></li>
-<li><a class="reference internal" href="#module-adobo.data">adobo.data module</a></li>
-<li><a class="reference internal" href="#module-adobo.plotting">adobo.plotting module</a></li>
-<li><a class="reference internal" href="#module-adobo.preproc">adobo.preproc module</a></li>
+<li><a class="reference internal" href="#module-adobo.IO">adobo.IO module</a><ul>
+<li><a class="reference internal" href="#summary">Summary</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-adobo.data">adobo.data module</a><ul>
+<li><a class="reference internal" href="#id1">Summary</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-adobo.plotting">adobo.plotting module</a><ul>
+<li><a class="reference internal" href="#id2">Summary</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-adobo.preproc">adobo.preproc module</a><ul>
+<li><a class="reference internal" href="#id3">Summary</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-adobo">Module contents</a></li>
 </ul>
 </li>
@@ -74,6 +86,9 @@
 </div>
 <div class="section" id="module-adobo.IO">
 <span id="adobo-io-module"></span><h2>adobo.IO module<a class="headerlink" href="#module-adobo.IO" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="summary">
+<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h3>
+<p>Functions for reading and writing scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.IO.load_from_file">
 <code class="sig-prename descclassname">adobo.IO.</code><code class="sig-name descname">load_from_file</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">sep='\t'</em>, <em class="sig-param">header=0</em>, <em class="sig-param">column_id=True</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.IO.load_from_file" title="Permalink to this definition">¶</a></dt>
@@ -91,32 +106,29 @@ columns are cells and rows are genes.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
+<dd class="field-even"><p>A data class object.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>A data class object.</p>
+<dd class="field-odd"><p><a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
 
 </div>
+</div>
 <div class="section" id="module-adobo.data">
 <span id="adobo-data-module"></span><h2>adobo.data module<a class="headerlink" href="#module-adobo.data" title="Permalink to this headline">¶</a></h2>
-<p>adobo</p>
-<p>Description:
-An analysis framework for scRNA-seq data.</p>
-<p>How to use:
-<a class="reference external" href="https://github.com/oscar-franzen/adobo/">https://github.com/oscar-franzen/adobo/</a></p>
-<p>Contact:
-Oscar Franzen &lt;<a class="reference external" href="mailto:p&#46;oscar&#46;franzen&#37;&#52;&#48;gmail&#46;com">p<span>&#46;</span>oscar<span>&#46;</span>franzen<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;</p>
+<div class="section" id="id1">
+<h3>Summary<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>This module contains a data storage class.</p>
 <dl class="class">
-<dt id="adobo.data.data">
-<em class="property">class </em><code class="sig-prename descclassname">adobo.data.</code><code class="sig-name descname">data</code><span class="sig-paren">(</span><em class="sig-param">raw_mat</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.data" title="Permalink to this definition">¶</a></dt>
+<dt id="adobo.data.dataset">
+<em class="property">class </em><code class="sig-prename descclassname">adobo.data.</code><code class="sig-name descname">dataset</code><span class="sig-paren">(</span><em class="sig-param">raw_mat</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.dataset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Storage container for raw data and analysis results.</p>
 <dl class="attribute">
-<dt id="adobo.data.data.exp_mat">
-<code class="sig-name descname">exp_mat</code><a class="headerlink" href="#adobo.data.data.exp_mat" title="Permalink to this definition">¶</a></dt>
+<dt id="adobo.data.dataset.exp_mat">
+<code class="sig-name descname">exp_mat</code><a class="headerlink" href="#adobo.data.dataset.exp_mat" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raw read count matrix.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -126,8 +138,8 @@ Oscar Franzen &lt;<a class="reference external" href="mailto:p&#46;oscar&#46;fra
 </dd></dl>
 
 <dl class="attribute">
-<dt id="adobo.data.data.exp_mito">
-<code class="sig-name descname">exp_mito</code><a class="headerlink" href="#adobo.data.data.exp_mito" title="Permalink to this definition">¶</a></dt>
+<dt id="adobo.data.dataset.exp_mito">
+<code class="sig-name descname">exp_mito</code><a class="headerlink" href="#adobo.data.dataset.exp_mito" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raw read count matrix containing mitochondrial genes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -137,8 +149,8 @@ Oscar Franzen &lt;<a class="reference external" href="mailto:p&#46;oscar&#46;fra
 </dd></dl>
 
 <dl class="attribute">
-<dt id="adobo.data.data.exp_ERCC">
-<code class="sig-name descname">exp_ERCC</code><a class="headerlink" href="#adobo.data.data.exp_ERCC" title="Permalink to this definition">¶</a></dt>
+<dt id="adobo.data.dataset.exp_ERCC">
+<code class="sig-name descname">exp_ERCC</code><a class="headerlink" href="#adobo.data.dataset.exp_ERCC" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raw read count matrix containing ERCC spikes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -150,8 +162,12 @@ Oscar Franzen &lt;<a class="reference external" href="mailto:p&#46;oscar&#46;fra
 </dd></dl>
 
 </div>
+</div>
 <div class="section" id="module-adobo.plotting">
 <span id="adobo-plotting-module"></span><h2>adobo.plotting module<a class="headerlink" href="#module-adobo.plotting" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>Summary<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Functions for plotting scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.plotting.barplot_genes_per_cell">
 <code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">barplot_genes_per_cell</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">barcolor='#E69F00'</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">title='expressed genes'</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.barplot_genes_per_cell" title="Permalink to this definition">¶</a></dt>
@@ -197,8 +213,12 @@ Oscar Franzen &lt;<a class="reference external" href="mailto:p&#46;oscar&#46;fra
 </dd></dl>
 
 </div>
+</div>
 <div class="section" id="module-adobo.preproc">
 <span id="adobo-preproc-module"></span><h2>adobo.preproc module<a class="headerlink" href="#module-adobo.preproc" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3>Summary<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>Functions for pre-processing scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.preproc.detect_ERCC_spikes">
 <code class="sig-prename descclassname">adobo.preproc.</code><code class="sig-name descname">detect_ERCC_spikes</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">ERCC_pattern='^ERCC[_-]\\S+$'</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.preproc.detect_ERCC_spikes" title="Permalink to this definition">¶</a></dt>
@@ -327,6 +347,7 @@ the gene.</p></li>
 <code class="sig-prename descclassname">adobo.preproc.</code><code class="sig-name descname">warn</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.preproc.warn" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+</div>
 </div>
 <div class="section" id="module-adobo">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-adobo" title="Permalink to this headline">¶</a></h2>
