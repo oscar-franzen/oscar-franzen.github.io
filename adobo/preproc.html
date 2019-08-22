@@ -30,35 +30,48 @@ def warn(*args, **kwargs):
 import warnings
 warnings.warn = warn
 
-def simple_filters(obj, minreads=1000, minexpgenes=0.001, verbose=False):
-    &#34;&#34;&#34;
-    Removes cells with too few reads and genes with very low expression.
+def simple_filter(obj, minreads=1000, minexpgenes=0.001, verbose=False):
+    &#34;&#34;&#34;Removes cells with too few reads and genes with very low expression
 
-    Arguments:
-        minreads        Minimum number of reads per cell required to keep the cell
-        minexpgenes     If this value is a float, then at least that fraction of
-                        cells must express the gene. If integer, then it denotes the
-                        minimum that number of cells must express the gene.
+    Parameters
+    ----------
+        obj : data
+              A data class object
+        minreads : int, optional
+                   Minimum number of reads per cell required to keep the cell.
+        minexpgenes : str, optional
+                      If this value is a float, then at least that fraction of cells must
+                      express the gene. If integer, then it denotes the minimum that
+                      number of cells must express the gene.
+        title : str, optional
+                Title of the plot
+
+    Returns
+    -------
+    A data class object.
     &#34;&#34;&#34;
-    cell_counts = self.exp_mat.sum(axis=0)
+    exp_mat = obj.exp_mat
+    cell_counts = exp_mat.sum(axis=0)
     r = cell_counts &gt; minreads
-    self.exp_mat = self.exp_mat[self.exp_mat.columns[r]]
+    exp_mat = exp_mat[exp_mat.columns[r]]
     if verbose:
         print(&#39;%s cells removed&#39; % np.sum(np.logical_not(r)))
     if minexpgenes &gt; 0:
         if type(minexpgenes) == int:
-            genes_expressed = self.exp_mat.apply(lambda x: sum(x &gt; 0), axis=1)
+            genes_expressed = exp_mat.apply(lambda x: sum(x &gt; 0), axis=1)
             target_genes = genes_expressed[genes_expressed&gt;minexpgenes].index
             d = &#39;{0:,g}&#39;.format(np.sum(genes_expressed &lt;= minexpgenes))
-            self.exp_mat = self.exp_mat[self.exp_mat.index.isin(target_genes)]
+            exp_mat = exp_mat[exp_mat.index.isin(target_genes)]
             if verbose:
                 print(&#39;Removed %s genes.&#39; % d)
         else:
-            genes_expressed = self.exp_mat.apply(lambda x: sum(x &gt; 0)/len(x), axis=1)
+            genes_expressed = exp_mat.apply(lambda x: sum(x &gt; 0)/len(x), axis=1)
             d = &#39;{0:,g}&#39;.format(np.sum(genes_expressed &lt;= minexpgenes))
-            self.exp_mat = self.exp_mat[genes_expressed &gt; minexpgenes]
+            exp_mat = exp_mat[genes_expressed &gt; minexpgenes]
             if verbose:
                 print(&#39;Removed %s genes.&#39; % d)
+    obj.exp_mat = exp_mat
+    return obj
 
 def remove_empty(obj, verbose=False):
     &#34;&#34;&#34;Removes empty cells and genes
@@ -146,36 +159,48 @@ def detect_ERCC_spikes(obj, ERCC_pattern=&#39;^ERCC[_-]\S+$&#39;, verbose=False)
     if verbose:
         print(&#39;%s ERCC spikes detected&#39; % np.sum(s))
     obj.exp_mat = exp_mat
+    obj.exp_ERCC = exp_ERCC
     return obj
 
-def auto_clean(self, rRNA_genes, sd_thres=3, seed=42, verbose=False):
-    &#34;&#34;&#34;
-    Finds low quality cells using five metrics:
+def find_low_quality_cells(obj, rRNA_genes, sd_thres=3, seed=42, verbose=False):
+    &#34;&#34;&#34;Statistical detection of low quality cells
+    
+    Extended Summary
+    ----------------
+    Mahalanobis distances are computed from five quality metrics. A robust estimate of
+    covariance is used in the Mahalanobis function. Cells with Mahalanobis distances of
+    three standard deviations from the mean are by default considered outliers.
+    The five metrics are:
 
         1. log-transformed number of molecules detected
         2. the number of genes detected
         3. the percentage of reads mapping to ribosomal
         4. mitochondrial genes
         5. ERCC recovery (if available)
-        
-    Arguments:
-        rRNA_genes      List of rRNA genes.
-        sd_thres        Number of standard deviations to consider significant, i.e.
-                        cells are low quality if this. Set to higher to remove
-                        fewer cells. Default is 3.
-        seed            For the random number generator.
 
-    Remarks:
-        This function computes Mahalanobis distances from the quality metrics. A
-        robust estimate of covariance is used in the Mahalanobis function. Cells with
-        Mahalanobis distances of three standard deviations from the mean are
-        considered outliers.
+    Parameters
+    ----------
+        obj : data
+              A data class object
+        rRNA_genes : list
+                     List of rRNA genes.
+        sd_thres : float, optional
+                   Number of standard deviations to consider significant, i.e. cells are
+                   low quality if this. Set to higher to remove fewer cells (default 3).
+        seed : float, optional
+               For the random number generator.
+        verbose : boolean, optional
+                  Be verbose or not (default False).
+
+    Returns
+    -------
+    A data class object.
     &#34;&#34;&#34;
     
-    data = self.exp_mat
-    data_mt = self.exp_mito
-    data_ERCC = self.exp_ERCC
-    
+    data = obj.exp_mat
+    data_mt = obj.exp_mito
+    data_ERCC = obj.exp_ERCC
+
     if type(data_ERCC) == None:
         raise Exception(&#39;auto_clean() needs ERCC spikes&#39;)
     if type(data_mt) == None:
@@ -204,10 +229,12 @@ def auto_clean(self, rRNA_genes, sd_thres=3, seed=42, verbose=False):
     thres_upper = MD_mean + MD_sd * sd_thres
 
     res = (mahal_dists &lt; thres_lower) | (mahal_dists &gt; thres_upper)
-    self.low_quality_cells = data.columns[res].values
+    low_quality_cells = data.columns[res].values
     
     if verbose:
-        print(&#39;%s low quality cell(s) identified&#39; % len(self.low_quality_cells))</code></pre>
+        print(&#39;%s low quality cell(s) identified&#39; % len(low_quality_cells))
+    obj.low_quality_cells = low_quality_cells
+    return obj</code></pre>
 </details>
 </section>
 <section>
@@ -217,95 +244,6 @@ def auto_clean(self, rRNA_genes, sd_thres=3, seed=42, verbose=False):
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="adobo.preproc.auto_clean"><code class="name flex">
-<span>def <span class="ident">auto_clean</span></span>(<span>self, rRNA_genes, sd_thres=3, seed=42, verbose=False)</span>
-</code></dt>
-<dd>
-<section class="desc"><p>Finds low quality cells using five metrics:</p>
-<pre><code>1. log-transformed number of molecules detected
-2. the number of genes detected
-3. the percentage of reads mapping to ribosomal
-4. mitochondrial genes
-5. ERCC recovery (if available)
-</code></pre>
-<h2 id="arguments">Arguments</h2>
-<p>rRNA_genes
-List of rRNA genes.
-sd_thres
-Number of standard deviations to consider significant, i.e.
-cells are low quality if this. Set to higher to remove
-fewer cells. Default is 3.
-seed
-For the random number generator.</p>
-<h2 id="remarks">Remarks</h2>
-<p>This function computes Mahalanobis distances from the quality metrics. A
-robust estimate of covariance is used in the Mahalanobis function. Cells with
-Mahalanobis distances of three standard deviations from the mean are
-considered outliers.</p></section>
-<details class="source">
-<summary>Source code</summary>
-<pre><code class="python">def auto_clean(self, rRNA_genes, sd_thres=3, seed=42, verbose=False):
-    &#34;&#34;&#34;
-    Finds low quality cells using five metrics:
-
-        1. log-transformed number of molecules detected
-        2. the number of genes detected
-        3. the percentage of reads mapping to ribosomal
-        4. mitochondrial genes
-        5. ERCC recovery (if available)
-        
-    Arguments:
-        rRNA_genes      List of rRNA genes.
-        sd_thres        Number of standard deviations to consider significant, i.e.
-                        cells are low quality if this. Set to higher to remove
-                        fewer cells. Default is 3.
-        seed            For the random number generator.
-
-    Remarks:
-        This function computes Mahalanobis distances from the quality metrics. A
-        robust estimate of covariance is used in the Mahalanobis function. Cells with
-        Mahalanobis distances of three standard deviations from the mean are
-        considered outliers.
-    &#34;&#34;&#34;
-    
-    data = self.exp_mat
-    data_mt = self.exp_mito
-    data_ERCC = self.exp_ERCC
-    
-    if type(data_ERCC) == None:
-        raise Exception(&#39;auto_clean() needs ERCC spikes&#39;)
-    if type(data_mt) == None:
-        raise Exception(&#39;No mitochondrial genes found. Run detect_mito() first.&#39;)
-
-    reads_per_cell = data.sum(axis=0) # no. reads/cell
-    no_genes_det = np.sum(data &gt; 0, axis=0)
-    data_rRNA = data.loc[data.index.intersection(rRNA_genes)]
-    
-    perc_rRNA = data_rRNA.sum(axis=0)/reads_per_cell*100
-    perc_mt = data_mt.sum(axis=0)/reads_per_cell*100
-    perc_ERCC = data_ERCC.sum(axis=0)/reads_per_cell*100
-
-    qc_mat = pd.DataFrame({&#39;reads_per_cell&#39; : np.log(reads_per_cell),
-                           &#39;no_genes_det&#39; : no_genes_det,
-                           &#39;perc_rRNA&#39; : perc_rRNA,
-                           &#39;perc_mt&#39; : perc_mt,
-                           &#39;perc_ERCC&#39; : perc_ERCC})
-    robust_cov = MinCovDet(random_state=seed).fit(qc_mat)
-    mahal_dists = robust_cov.mahalanobis(qc_mat)
-
-    MD_mean = np.mean(mahal_dists)
-    MD_sd = np.std(mahal_dists)
-
-    thres_lower = MD_mean - MD_sd * sd_thres
-    thres_upper = MD_mean + MD_sd * sd_thres
-
-    res = (mahal_dists &lt; thres_lower) | (mahal_dists &gt; thres_upper)
-    self.low_quality_cells = data.columns[res].values
-    
-    if verbose:
-        print(&#39;%s low quality cell(s) identified&#39; % len(self.low_quality_cells))</code></pre>
-</details>
-</dd>
 <dt id="adobo.preproc.detect_ERCC_spikes"><code class="name flex">
 <span>def <span class="ident">detect_ERCC_spikes</span></span>(<span>obj, ERCC_pattern='^ERCC[_-]\\S+$', verbose=False)</span>
 </code></dt>
@@ -346,6 +284,7 @@ verbose : boolean, optional
     if verbose:
         print(&#39;%s ERCC spikes detected&#39; % np.sum(s))
     obj.exp_mat = exp_mat
+    obj.exp_ERCC = exp_ERCC
     return obj</code></pre>
 </details>
 </dd>
@@ -391,6 +330,114 @@ verbose : boolean, optional
         obj.exp_mito = exp_mito
     if verbose:
         print(&#39;%s mitochondrial genes detected and removed&#39; % np.sum(mt_count))
+    return obj</code></pre>
+</details>
+</dd>
+<dt id="adobo.preproc.find_low_quality_cells"><code class="name flex">
+<span>def <span class="ident">find_low_quality_cells</span></span>(<span>obj, rRNA_genes, sd_thres=3, seed=42, verbose=False)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Statistical detection of low quality cells</p>
+<h2 id="extended-summary">Extended Summary</h2>
+<p>Mahalanobis distances are computed from five quality metrics. A robust estimate of
+covariance is used in the Mahalanobis function. Cells with Mahalanobis distances of
+three standard deviations from the mean are by default considered outliers.
+The five metrics are:</p>
+<pre><code>1. log-transformed number of molecules detected
+2. the number of genes detected
+3. the percentage of reads mapping to ribosomal
+4. mitochondrial genes
+5. ERCC recovery (if available)
+</code></pre>
+<h2 id="parameters">Parameters</h2>
+<pre><code>obj : data
+      A data class object
+rRNA_genes : list
+             List of rRNA genes.
+sd_thres : float, optional
+           Number of standard deviations to consider significant, i.e. cells are
+           low quality if this. Set to higher to remove fewer cells (default 3).
+seed : float, optional
+       For the random number generator.
+verbose : boolean, optional
+          Be verbose or not (default False).
+</code></pre>
+<h2 id="returns">Returns</h2>
+<p>A data class object.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def find_low_quality_cells(obj, rRNA_genes, sd_thres=3, seed=42, verbose=False):
+    &#34;&#34;&#34;Statistical detection of low quality cells
+    
+    Extended Summary
+    ----------------
+    Mahalanobis distances are computed from five quality metrics. A robust estimate of
+    covariance is used in the Mahalanobis function. Cells with Mahalanobis distances of
+    three standard deviations from the mean are by default considered outliers.
+    The five metrics are:
+
+        1. log-transformed number of molecules detected
+        2. the number of genes detected
+        3. the percentage of reads mapping to ribosomal
+        4. mitochondrial genes
+        5. ERCC recovery (if available)
+
+    Parameters
+    ----------
+        obj : data
+              A data class object
+        rRNA_genes : list
+                     List of rRNA genes.
+        sd_thres : float, optional
+                   Number of standard deviations to consider significant, i.e. cells are
+                   low quality if this. Set to higher to remove fewer cells (default 3).
+        seed : float, optional
+               For the random number generator.
+        verbose : boolean, optional
+                  Be verbose or not (default False).
+
+    Returns
+    -------
+    A data class object.
+    &#34;&#34;&#34;
+    
+    data = obj.exp_mat
+    data_mt = obj.exp_mito
+    data_ERCC = obj.exp_ERCC
+
+    if type(data_ERCC) == None:
+        raise Exception(&#39;auto_clean() needs ERCC spikes&#39;)
+    if type(data_mt) == None:
+        raise Exception(&#39;No mitochondrial genes found. Run detect_mito() first.&#39;)
+
+    reads_per_cell = data.sum(axis=0) # no. reads/cell
+    no_genes_det = np.sum(data &gt; 0, axis=0)
+    data_rRNA = data.loc[data.index.intersection(rRNA_genes)]
+    
+    perc_rRNA = data_rRNA.sum(axis=0)/reads_per_cell*100
+    perc_mt = data_mt.sum(axis=0)/reads_per_cell*100
+    perc_ERCC = data_ERCC.sum(axis=0)/reads_per_cell*100
+
+    qc_mat = pd.DataFrame({&#39;reads_per_cell&#39; : np.log(reads_per_cell),
+                           &#39;no_genes_det&#39; : no_genes_det,
+                           &#39;perc_rRNA&#39; : perc_rRNA,
+                           &#39;perc_mt&#39; : perc_mt,
+                           &#39;perc_ERCC&#39; : perc_ERCC})
+    robust_cov = MinCovDet(random_state=seed).fit(qc_mat)
+    mahal_dists = robust_cov.mahalanobis(qc_mat)
+
+    MD_mean = np.mean(mahal_dists)
+    MD_sd = np.std(mahal_dists)
+
+    thres_lower = MD_mean - MD_sd * sd_thres
+    thres_upper = MD_mean + MD_sd * sd_thres
+
+    res = (mahal_dists &lt; thres_lower) | (mahal_dists &gt; thres_upper)
+    low_quality_cells = data.columns[res].values
+    
+    if verbose:
+        print(&#39;%s low quality cell(s) identified&#39; % len(low_quality_cells))
+    obj.low_quality_cells = low_quality_cells
     return obj</code></pre>
 </details>
 </dd>
@@ -446,49 +493,69 @@ verbose : boolean, optional
     return obj</code></pre>
 </details>
 </dd>
-<dt id="adobo.preproc.simple_filters"><code class="name flex">
-<span>def <span class="ident">simple_filters</span></span>(<span>obj, minreads=1000, minexpgenes=0.001, verbose=False)</span>
+<dt id="adobo.preproc.simple_filter"><code class="name flex">
+<span>def <span class="ident">simple_filter</span></span>(<span>obj, minreads=1000, minexpgenes=0.001, verbose=False)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Removes cells with too few reads and genes with very low expression.</p>
-<h2 id="arguments">Arguments</h2>
-<p>minreads
-Minimum number of reads per cell required to keep the cell
-minexpgenes
-If this value is a float, then at least that fraction of
-cells must express the gene. If integer, then it denotes the
-minimum that number of cells must express the gene.</p></section>
+<section class="desc"><p>Removes cells with too few reads and genes with very low expression</p>
+<h2 id="parameters">Parameters</h2>
+<pre><code>obj : data
+      A data class object
+minreads : int, optional
+           Minimum number of reads per cell required to keep the cell.
+minexpgenes : str, optional
+              If this value is a float, then at least that fraction of cells must
+              express the gene. If integer, then it denotes the minimum that
+              number of cells must express the gene.
+title : str, optional
+        Title of the plot
+</code></pre>
+<h2 id="returns">Returns</h2>
+<p>A data class object.</p></section>
 <details class="source">
 <summary>Source code</summary>
-<pre><code class="python">def simple_filters(obj, minreads=1000, minexpgenes=0.001, verbose=False):
-    &#34;&#34;&#34;
-    Removes cells with too few reads and genes with very low expression.
+<pre><code class="python">def simple_filter(obj, minreads=1000, minexpgenes=0.001, verbose=False):
+    &#34;&#34;&#34;Removes cells with too few reads and genes with very low expression
 
-    Arguments:
-        minreads        Minimum number of reads per cell required to keep the cell
-        minexpgenes     If this value is a float, then at least that fraction of
-                        cells must express the gene. If integer, then it denotes the
-                        minimum that number of cells must express the gene.
+    Parameters
+    ----------
+        obj : data
+              A data class object
+        minreads : int, optional
+                   Minimum number of reads per cell required to keep the cell.
+        minexpgenes : str, optional
+                      If this value is a float, then at least that fraction of cells must
+                      express the gene. If integer, then it denotes the minimum that
+                      number of cells must express the gene.
+        title : str, optional
+                Title of the plot
+
+    Returns
+    -------
+    A data class object.
     &#34;&#34;&#34;
-    cell_counts = self.exp_mat.sum(axis=0)
+    exp_mat = obj.exp_mat
+    cell_counts = exp_mat.sum(axis=0)
     r = cell_counts &gt; minreads
-    self.exp_mat = self.exp_mat[self.exp_mat.columns[r]]
+    exp_mat = exp_mat[exp_mat.columns[r]]
     if verbose:
         print(&#39;%s cells removed&#39; % np.sum(np.logical_not(r)))
     if minexpgenes &gt; 0:
         if type(minexpgenes) == int:
-            genes_expressed = self.exp_mat.apply(lambda x: sum(x &gt; 0), axis=1)
+            genes_expressed = exp_mat.apply(lambda x: sum(x &gt; 0), axis=1)
             target_genes = genes_expressed[genes_expressed&gt;minexpgenes].index
             d = &#39;{0:,g}&#39;.format(np.sum(genes_expressed &lt;= minexpgenes))
-            self.exp_mat = self.exp_mat[self.exp_mat.index.isin(target_genes)]
+            exp_mat = exp_mat[exp_mat.index.isin(target_genes)]
             if verbose:
                 print(&#39;Removed %s genes.&#39; % d)
         else:
-            genes_expressed = self.exp_mat.apply(lambda x: sum(x &gt; 0)/len(x), axis=1)
+            genes_expressed = exp_mat.apply(lambda x: sum(x &gt; 0)/len(x), axis=1)
             d = &#39;{0:,g}&#39;.format(np.sum(genes_expressed &lt;= minexpgenes))
-            self.exp_mat = self.exp_mat[genes_expressed &gt; minexpgenes]
+            exp_mat = exp_mat[genes_expressed &gt; minexpgenes]
             if verbose:
-                print(&#39;Removed %s genes.&#39; % d)</code></pre>
+                print(&#39;Removed %s genes.&#39; % d)
+    obj.exp_mat = exp_mat
+    return obj</code></pre>
 </details>
 </dd>
 <dt id="adobo.preproc.warn"><code class="name flex">
@@ -519,12 +586,12 @@ minimum that number of cells must express the gene.</p></section>
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
-<ul class="two-column">
-<li><code><a title="adobo.preproc.auto_clean" href="#adobo.preproc.auto_clean">auto_clean</a></code></li>
+<ul class="">
 <li><code><a title="adobo.preproc.detect_ERCC_spikes" href="#adobo.preproc.detect_ERCC_spikes">detect_ERCC_spikes</a></code></li>
 <li><code><a title="adobo.preproc.detect_mito" href="#adobo.preproc.detect_mito">detect_mito</a></code></li>
+<li><code><a title="adobo.preproc.find_low_quality_cells" href="#adobo.preproc.find_low_quality_cells">find_low_quality_cells</a></code></li>
 <li><code><a title="adobo.preproc.remove_empty" href="#adobo.preproc.remove_empty">remove_empty</a></code></li>
-<li><code><a title="adobo.preproc.simple_filters" href="#adobo.preproc.simple_filters">simple_filters</a></code></li>
+<li><code><a title="adobo.preproc.simple_filter" href="#adobo.preproc.simple_filter">simple_filter</a></code></li>
 <li><code><a title="adobo.preproc.warn" href="#adobo.preproc.warn">warn</a></code></li>
 </ul>
 </li>
