@@ -1,9 +1,6 @@
 Welcome to adobo's documentation!
 =================================
 
-.. automodule:: data
-    :members:
-
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
