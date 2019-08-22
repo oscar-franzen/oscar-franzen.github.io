@@ -217,24 +217,31 @@ this is the case, set this to True, otherwise False (default: True).</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A dataset class object.</p></li>
-<li><p><strong>method</strong> (<em>{'depth'</em><em>, </em><em>'rpkm'}</em>) – Specifies the method to use. <cite>depth</cite> refers to simple normalization strategy
-involving dividing by total number of reads per cell. <cite>rpkm</cite> performs RPKM
-normalization and requires the <cite>exon_lengths</cite> parameter to be set.</p></li>
+<li><p><strong>method</strong> (<em>{'standard'</em><em>, </em><em>'rpkm'</em><em>, </em><em>'cpm'}</em>) – Specifies the method to use. <cite>standard</cite> refers to the simplest normalization
+strategy involving scaling genes by total number of reads per cell. <cite>rpkm</cite>
+performs RPKM normalization and requires the <cite>exon_lengths</cite> parameter to be set.</p></li>
 <li><p><strong>log2</strong> (<cite>bool</cite>) – Perform log2 transformation (default: True)</p></li>
 <li><p><strong>small_const</strong> (<cite>float</cite>) – A small constant to add to expression values to avoid log’ing genes with zero
 expression (default: 1).</p></li>
 <li><p><strong>remove_low_qual_cells</strong> (<cite>bool</cite>) – Remove low quality cells identified using <a class="reference internal" href="#adobo.preproc.find_low_quality_cells" title="adobo.preproc.find_low_quality_cells"><code class="xref py py-meth docutils literal notranslate"><span class="pre">adobo.preproc.find_low_quality_cells()</span></code></a>.</p></li>
 <li><p><strong>exon_lengths</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame containing two columns; first column should be gene names
 matching the data matrix and the second column should contain exon lengths.</p></li>
-<li><p><strong>scaling_factor</strong> (<em>int</em><em>,</em>) – Scaling factor used to multiply the scaled counts with. Only used for
+<li><p><strong>scaling_factor</strong> (<cite>int</cite>) – Scaling factor used to multiply the scaled counts with. Only used for
 <cite>method=”depth”</cite> (default: 10000).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
+</dl>
+<p class="rubric">References</p>
+<dl class="simple">
+<dt>[0] Cole et al, doi:10.1101/235382</dt><dd><p><a class="reference external" href="https://www.biorxiv.org/content/10.1101/235382v2">https://www.biorxiv.org/content/10.1101/235382v2</a></p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None</p>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
