@@ -33,11 +33,11 @@
   <ul>
 <li><a class="reference internal" href="#">adobo package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#adobo-io-module">adobo.IO module</a></li>
-<li><a class="reference internal" href="#adobo-data-module">adobo.data module</a></li>
-<li><a class="reference internal" href="#adobo-plotting-module">adobo.plotting module</a></li>
-<li><a class="reference internal" href="#adobo-preproc-module">adobo.preproc module</a></li>
-<li><a class="reference internal" href="#module-contents">Module contents</a></li>
+<li><a class="reference internal" href="#module-adobo.IO">adobo.IO module</a></li>
+<li><a class="reference internal" href="#module-adobo.data">adobo.data module</a></li>
+<li><a class="reference internal" href="#module-adobo.plotting">adobo.plotting module</a></li>
+<li><a class="reference internal" href="#module-adobo.preproc">adobo.preproc module</a></li>
+<li><a class="reference internal" href="#module-adobo">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -72,20 +72,264 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="adobo-io-module">
-<h2>adobo.IO module<a class="headerlink" href="#adobo-io-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-adobo.IO">
+<span id="adobo-io-module"></span><h2>adobo.IO module<a class="headerlink" href="#module-adobo.IO" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="adobo.IO.load_from_file">
+<code class="sig-prename descclassname">adobo.IO.</code><code class="sig-name descname">load_from_file</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">sep='\t'</em>, <em class="sig-param">header=0</em>, <em class="sig-param">column_id=True</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.IO.load_from_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a gene expression matrix consisting of raw read counts</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<cite>str</cite>) – Path to the file containing input data. Should be a matrix where
+columns are cells and rows are genes.</p></li>
+<li><p><strong>sep</strong> (<cite>str</cite>, optional (default: “\t”)) – Character used to separate fields.</p></li>
+<li><p><strong>header</strong> (<cite>str</cite>, optional (default: <cite>0</cite>)) – If the data file has a header. 0 means yes otherwise None.</p></li>
+<li><p><strong>Summary</strong> (<em>Extended</em>) – </p></li>
+<li><p><strong>----------------</strong> – </p></li>
+<li><p><strong>expression matrix should not be normalized.</strong> (<em>Gene</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A data class object.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
-<div class="section" id="adobo-data-module">
-<h2>adobo.data module<a class="headerlink" href="#adobo-data-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-adobo.data">
+<span id="adobo-data-module"></span><h2>adobo.data module<a class="headerlink" href="#module-adobo.data" title="Permalink to this headline">¶</a></h2>
+<p>adobo</p>
+<p>Description:
+An analysis framework for scRNA-seq data.</p>
+<p>How to use:
+<a class="reference external" href="https://github.com/oscar-franzen/adobo/">https://github.com/oscar-franzen/adobo/</a></p>
+<p>Contact:
+Oscar Franzen &lt;<a class="reference external" href="mailto:p&#46;oscar&#46;franzen&#37;&#52;&#48;gmail&#46;com">p<span>&#46;</span>oscar<span>&#46;</span>franzen<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;</p>
+<dl class="class">
+<dt id="adobo.data.data">
+<em class="property">class </em><code class="sig-prename descclassname">adobo.data.</code><code class="sig-name descname">data</code><span class="sig-paren">(</span><em class="sig-param">raw_mat</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Storage container for raw data and analysis results.</p>
+<dl class="attribute">
+<dt id="adobo.data.data.exp_mat">
+<code class="sig-name descname">exp_mat</code><a class="headerlink" href="#adobo.data.data.exp_mat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raw read count matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adobo.data.data.exp_mito">
+<code class="sig-name descname">exp_mito</code><a class="headerlink" href="#adobo.data.data.exp_mito" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raw read count matrix containing mitochondrial genes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adobo.data.data.exp_ERCC">
+<code class="sig-name descname">exp_ERCC</code><a class="headerlink" href="#adobo.data.data.exp_ERCC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raw read count matrix containing ERCC spikes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="adobo-plotting-module">
-<h2>adobo.plotting module<a class="headerlink" href="#adobo-plotting-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-adobo.plotting">
+<span id="adobo-plotting-module"></span><h2>adobo.plotting module<a class="headerlink" href="#module-adobo.plotting" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="adobo.plotting.barplot_genes_per_cell">
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">barplot_genes_per_cell</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">barcolor='#E69F00'</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">title='expressed genes'</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.barplot_genes_per_cell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a bar plot of number of expressed genes per cell</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (data, <a class="reference internal" href="#module-adobo.data" title="adobo.data"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data</span></code></a>) – A data class object</p></li>
+<li><p><strong>barcolor</strong> (<cite>str</cite>, optional (default: “#E69F00”)) – Color of the bars (default is orange).</p></li>
+<li><p><strong>filename</strong> (<cite>str</cite>, optional) – Write plot to file.</p></li>
+<li><p><strong>title</strong> (<cite>str</cite>, optional (default: “sequencing reads”)) – Title of the plot.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="adobo.plotting.barplot_reads_per_cell">
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">barplot_reads_per_cell</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">barcolor='#E69F00'</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">title='sequencing reads'</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.barplot_reads_per_cell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a bar plot of read counts per cell</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (data, <a class="reference internal" href="#module-adobo.data" title="adobo.data"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data</span></code></a>) – A data class object.</p></li>
+<li><p><strong>barcolor</strong> (<cite>str</cite>, optional (default: “#E69F00”)) – Color of the bars (default is orange).</p></li>
+<li><p><strong>filename</strong> (<cite>str</cite>, optional) – Write plot to file.</p></li>
+<li><p><strong>title</strong> (<cite>str</cite>, optional (default: “sequencing reads”)) – Title of the plot.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
-<div class="section" id="adobo-preproc-module">
-<h2>adobo.preproc module<a class="headerlink" href="#adobo-preproc-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-adobo.preproc">
+<span id="adobo-preproc-module"></span><h2>adobo.preproc module<a class="headerlink" href="#module-adobo.preproc" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="adobo.preproc.detect_ERCC_spikes">
+<code class="sig-prename descclassname">adobo.preproc.</code><code class="sig-name descname">detect_ERCC_spikes</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">ERCC_pattern='^ERCC[_-]\\S+$'</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.preproc.detect_ERCC_spikes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Moves ERCC (if present) to a separate container</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.data" title="adobo.data.data"><em>data</em></a>) – A data class object</p></li>
+<li><p><strong>ERCC_pattern</strong> (<em>str</em><em>, </em><em>optional</em>) – A regular expression matching ERCC gene symbols</p></li>
+<li><p><strong>verbose</strong> (<em>boolean</em><em>, </em><em>optional</em>) – Be verbose or not (default False)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A data class object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="adobo.preproc.detect_mito">
+<code class="sig-prename descclassname">adobo.preproc.</code><code class="sig-name descname">detect_mito</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">mito_pattern='^mt-'</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.preproc.detect_mito" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove mitochondrial genes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.data" title="adobo.data.data"><em>data</em></a>) – A data class object</p></li>
+<li><p><strong>mito_pattern</strong> (<em>str</em><em>, </em><em>optional</em>) – A regular expression matching mitochondrial gene symbols</p></li>
+<li><p><strong>verbose</strong> (<em>boolean</em><em>, </em><em>optional</em>) – Be verbose or not (default False)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A data class object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="adobo.preproc.find_low_quality_cells">
+<code class="sig-prename descclassname">adobo.preproc.</code><code class="sig-name descname">find_low_quality_cells</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">rRNA_genes</em>, <em class="sig-param">sd_thres=3</em>, <em class="sig-param">seed=42</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.preproc.find_low_quality_cells" title="Permalink to this definition">¶</a></dt>
+<dd><p>Statistical detection of low quality cells</p>
+<p>Mahalanobis distances are computed from five quality metrics. A robust estimate of
+covariance is used in the Mahalanobis function. Cells with Mahalanobis distances of
+three standard deviations from the mean are by default considered outliers.
+The five metrics are:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>log-transformed number of molecules detected</p></li>
+<li><p>the number of genes detected</p></li>
+<li><p>the percentage of reads mapping to ribosomal</p></li>
+<li><p>mitochondrial genes</p></li>
+<li><p>ERCC recovery (if available)</p></li>
+</ol>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.data" title="adobo.data.data"><em>data</em></a>) – A data class object</p></li>
+<li><p><strong>rRNA_genes</strong> (<em>list</em>) – List of rRNA genes.</p></li>
+<li><p><strong>sd_thres</strong> (<em>float</em><em>, </em><em>optional</em>) – Number of standard deviations to consider significant, i.e. cells are
+low quality if this. Set to higher to remove fewer cells (default 3).</p></li>
+<li><p><strong>seed</strong> (<em>float</em><em>, </em><em>optional</em>) – For the random number generator.</p></li>
+<li><p><strong>verbose</strong> (<em>boolean</em><em>, </em><em>optional</em>) – Be verbose or not (default False).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A data class object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="adobo.preproc.remove_empty">
+<code class="sig-prename descclassname">adobo.preproc.</code><code class="sig-name descname">remove_empty</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.preproc.remove_empty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes empty cells and genes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.data" title="adobo.data.data"><em>data</em></a>) – A data class object</p></li>
+<li><p><strong>verbose</strong> (<em>boolean</em><em>, </em><em>optional</em>) – Be verbose or not (default False)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A data class object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="adobo.preproc.simple_filter">
+<code class="sig-prename descclassname">adobo.preproc.</code><code class="sig-name descname">simple_filter</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">minreads=1000</em>, <em class="sig-param">minexpgenes=0.001</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.preproc.simple_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes cells with too few reads and genes with very low expression</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.data" title="adobo.data.data"><em>data</em></a>) – A data class object</p></li>
+<li><p><strong>minreads</strong> (<em>int</em><em>, </em><em>optional</em>) – Minimum number of reads per cell required to keep the cell.</p></li>
+<li><p><strong>minexpgenes</strong> (<em>str</em><em>, </em><em>optional</em>) – If this value is a float, then at least that fraction of cells must
+express the gene. If integer, then it denotes the minimum that
+number of cells must express the gene.</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – Title of the plot</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A data class object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="adobo.preproc.warn">
+<code class="sig-prename descclassname">adobo.preproc.</code><code class="sig-name descname">warn</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.preproc.warn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
-<div class="section" id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-adobo">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-adobo" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -108,7 +352,7 @@
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2019, qwe.
+        &#169; Copyright 2019, Oscar Franzen.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
     </div>
   </body>
