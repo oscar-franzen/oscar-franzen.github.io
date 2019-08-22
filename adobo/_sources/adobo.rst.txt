@@ -1,0 +1,46 @@
+adobo package
+=============
+
+Submodules
+----------
+
+adobo.IO module
+---------------
+
+.. automodule:: adobo.IO
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+adobo.data module
+-----------------
+
+.. automodule:: adobo.data
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+adobo.plotting module
+---------------------
+
+.. automodule:: adobo.plotting
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+adobo.preproc module
+--------------------
+
+.. automodule:: adobo.preproc
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: adobo
+   :members:
+   :undoc-members:
+   :show-inheritance:

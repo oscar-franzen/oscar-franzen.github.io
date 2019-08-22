@@ -1,0 +1,23 @@
+The adobo API reference
+=============================
+
+.. automodule:: adobo
+    :members:
+    
+The “data” module
+------------------
+
+.. automodule:: adobo.data
+    :members:
+
+The “IO” module
+--------------------
+
+.. automodule:: adobo.IO
+    :members:
+
+The “preproc” module
+--------------------
+
+.. automodule:: adobo.preproc
+    :members:
