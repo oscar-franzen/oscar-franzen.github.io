@@ -41,13 +41,16 @@
 <li><a class="reference internal" href="#id1">Summary</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-adobo.normalize">adobo.normalize module</a></li>
-<li><a class="reference internal" href="#module-adobo.plotting">adobo.plotting module</a><ul>
+<li><a class="reference internal" href="#module-adobo.normalize">adobo.normalize module</a><ul>
 <li><a class="reference internal" href="#id2">Summary</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-adobo.preproc">adobo.preproc module</a><ul>
+<li><a class="reference internal" href="#module-adobo.plotting">adobo.plotting module</a><ul>
 <li><a class="reference internal" href="#id3">Summary</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-adobo.preproc">adobo.preproc module</a><ul>
+<li><a class="reference internal" href="#id4">Summary</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-adobo">Module contents</a></li>
@@ -164,16 +167,41 @@ this is the case, set this to True, otherwise False (default: True).</p></li>
 </dl>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="adobo.data.dataset.low_quality_cells">
+<code class="sig-name descname">low_quality_cells</code><a class="headerlink" href="#adobo.data.dataset.low_quality_cells" title="Permalink to this definition">¶</a></dt>
+<dd><p>Low quality cells identified with <a class="reference internal" href="#adobo.preproc.find_low_quality_cells" title="adobo.preproc.find_low_quality_cells"><code class="xref py py-meth docutils literal notranslate"><span class="pre">adobo.preproc.find_low_quality_cells()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><cite>list</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adobo.data.dataset.norm">
+<code class="sig-name descname">norm</code><a class="headerlink" href="#adobo.data.dataset.norm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalized gene expression data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </div>
 </div>
 <div class="section" id="module-adobo.normalize">
 <span id="adobo-normalize-module"></span><h2>adobo.normalize module<a class="headerlink" href="#module-adobo.normalize" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>Summary<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>This module contains functions to normalize raw read counts.</p>
 <dl class="function">
-<dt id="adobo.normalize.normalize">
-<code class="sig-prename descclassname">adobo.normalize.</code><code class="sig-name descname">normalize</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">method='depth'</em>, <em class="sig-param">log=True</em>, <em class="sig-param">remove_low_qual_cells=True</em>, <em class="sig-param">exon_lengths=None</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.normalize.normalize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Normalize gene expression data</p>
+<dt id="adobo.normalize.norm">
+<code class="sig-prename descclassname">adobo.normalize.</code><code class="sig-name descname">norm</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">method='depth'</em>, <em class="sig-param">log2=True</em>, <em class="sig-param">small_const=1</em>, <em class="sig-param">remove_low_qual_cells=True</em>, <em class="sig-param">exon_lengths=None</em>, <em class="sig-param">scaling_factor=10000</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.normalize.norm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalizes gene expression data</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -181,10 +209,14 @@ this is the case, set this to True, otherwise False (default: True).</p></li>
 <li><p><strong>method</strong> (<em>{'depth'</em><em>, </em><em>'rpkm'}</em>) – Specifies the method to use. <cite>depth</cite> refers to simple normalization strategy
 involving dividing by total number of reads per cell. <cite>rpkm</cite> performs RPKM
 normalization and requires the <cite>exon_lengths</cite> parameter to be set.</p></li>
-<li><p><strong>log</strong> (<cite>bool</cite>) – Perform log2 transformation (default: True)</p></li>
+<li><p><strong>log2</strong> (<cite>bool</cite>) – Perform log2 transformation (default: True)</p></li>
+<li><p><strong>small_const</strong> (<cite>float</cite>) – A small constant to add to expression values to avoid log’ing genes with zero
+expression (default: 1).</p></li>
 <li><p><strong>remove_low_qual_cells</strong> (<cite>bool</cite>) – Remove low quality cells identified using <a class="reference internal" href="#adobo.preproc.find_low_quality_cells" title="adobo.preproc.find_low_quality_cells"><code class="xref py py-meth docutils literal notranslate"><span class="pre">adobo.preproc.find_low_quality_cells()</span></code></a>.</p></li>
 <li><p><strong>exon_lengths</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame containing two columns; first column should be gene names
 matching the data matrix and the second column should contain exon lengths.</p></li>
+<li><p><strong>scaling_factor</strong> (<em>int</em><em>,</em>) – Scaling factor used to multiply the scaled counts with. Only used for
+<cite>method=”depth”</cite> (default: 10000).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -197,10 +229,11 @@ matching the data matrix and the second column should contain exon lengths.</p><
 </dd></dl>
 
 </div>
+</div>
 <div class="section" id="module-adobo.plotting">
 <span id="adobo-plotting-module"></span><h2>adobo.plotting module<a class="headerlink" href="#module-adobo.plotting" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id2">
-<h3>Summary<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3>Summary<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>Functions for plotting scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.plotting.barplot_genes_per_cell">
@@ -250,8 +283,8 @@ matching the data matrix and the second column should contain exon lengths.</p><
 </div>
 <div class="section" id="module-adobo.preproc">
 <span id="adobo-preproc-module"></span><h2>adobo.preproc module<a class="headerlink" href="#module-adobo.preproc" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id3">
-<h3>Summary<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h3>Summary<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>Functions for pre-processing scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.preproc.detect_ERCC_spikes">
