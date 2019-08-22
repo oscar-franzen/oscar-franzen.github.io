@@ -48,9 +48,6 @@ import os
 import pandas as pd
 import numpy as np
 
-import matplotlib.pyplot as plt
-from matplotlib.pyplot import figure
-
 from sklearn.covariance import MinCovDet
 
 class data:
@@ -68,7 +65,7 @@ class data:
         genes = &#39;{:,}&#39;.format(self.exp_mat.shape[0])
         cells = &#39;{:,}&#39;.format(self.exp_mat.shape[1])
         #s = &#34;%s genes and %s cells\n\%s low quality cells&#34; % (genes, cells, len(self.low_quality_cells))
-        s = &#34;%s genes and %s cells&#34; % (genes, cells)
+        s = &#34;Raw read counts matrix contains:\n%s genes and %s cells&#34; % (genes, cells)
         return s
     
     def __repr__(self):
@@ -107,7 +104,7 @@ class data:
         genes = &#39;{:,}&#39;.format(self.exp_mat.shape[0])
         cells = &#39;{:,}&#39;.format(self.exp_mat.shape[1])
         #s = &#34;%s genes and %s cells\n\%s low quality cells&#34; % (genes, cells, len(self.low_quality_cells))
-        s = &#34;%s genes and %s cells&#34; % (genes, cells)
+        s = &#34;Raw read counts matrix contains:\n%s genes and %s cells&#34; % (genes, cells)
         return s
     
     def __repr__(self):

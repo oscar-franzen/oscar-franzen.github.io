@@ -22,10 +22,30 @@
 <section id="section-intro">
 <details class="source">
 <summary>Source code</summary>
-<pre><code class="python">def barplot_reads_per_cell(self, barcolor=&#39;#E69F00&#39;, filename=None,
+<pre><code class="python">import numpy as np
+import matplotlib.pyplot as plt
+
+def barplot_reads_per_cell(obj, barcolor=&#39;#E69F00&#39;, filename=None,
                            title=&#39;sequencing reads&#39;):
-    &#34;&#34;&#34; Generates a bar plot of read counts per cell. &#34;&#34;&#34;
-    cell_counts = self.exp_mat.sum(axis=0)
+    &#34;&#34;&#34;Generates a bar plot of read counts per cell
+
+    Parameters
+    ----------
+        obj : data
+              A data class object
+        barcolor : str, optional
+                   Color of the bars (default is orange)
+        filename : str, optional
+                   Write plot to file
+        title : str, optional
+                Title of the plot
+
+    Returns
+    -------
+    None   
+    &#34;&#34;&#34;
+    exp_mat = obj.exp_mat
+    cell_counts = exp_mat.sum(axis=0)
     plt.clf()
     colors = [barcolor]*(len(cell_counts))
 
@@ -40,10 +60,27 @@
         plt.show()
     plt.close()
     
-def barplot_genes_per_cell(self, barcolor=&#39;#E69F00&#39;, filename=None,
+def barplot_genes_per_cell(obj, barcolor=&#39;#E69F00&#39;, filename=None,
                            title=&#39;expressed genes&#39;):
-    &#34;&#34;&#34; Generates a bar plot of number of expressed genes per cell. &#34;&#34;&#34;
-    genes_expressed = self.exp_mat.apply(lambda x: sum(x &gt; 0), axis=0)
+    &#34;&#34;&#34;Generates a bar plot of number of expressed genes per cell
+
+    Parameters
+    ----------
+        obj : data
+              A data class object
+        barcolor : str, optional
+                   Color of the bars (default is orange)
+        filename : str, optional
+                   Write plot to file
+        title : str, optional
+                Title of the plot
+
+    Returns
+    -------
+    None   
+    &#34;&#34;&#34;
+    exp_mat = obj.exp_mat
+    genes_expressed = exp_mat.apply(lambda x: sum(x &gt; 0), axis=0)
 
     plt.clf()
     plt.bar(np.arange(len(genes_expressed)), sorted(genes_expressed, reverse=True),
@@ -66,16 +103,48 @@ def barplot_genes_per_cell(self, barcolor=&#39;#E69F00&#39;, filename=None,
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="adobo.plotting.barplot_genes_per_cell"><code class="name flex">
-<span>def <span class="ident">barplot_genes_per_cell</span></span>(<span>self, barcolor='#E69F00', filename=None, title='expressed genes')</span>
+<span>def <span class="ident">barplot_genes_per_cell</span></span>(<span>obj, barcolor='#E69F00', filename=None, title='expressed genes')</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Generates a bar plot of number of expressed genes per cell.</p></section>
+<section class="desc"><p>Generates a bar plot of number of expressed genes per cell</p>
+<h2 id="parameters">Parameters</h2>
+<pre><code>obj : data
+      A data class object
+barcolor : str, optional
+           Color of the bars (default is orange)
+filename : str, optional
+           Write plot to file
+title : str, optional
+        Title of the plot
+</code></pre>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>None</code></dt>
+<dd>&nbsp;</dd>
+</dl></section>
 <details class="source">
 <summary>Source code</summary>
-<pre><code class="python">def barplot_genes_per_cell(self, barcolor=&#39;#E69F00&#39;, filename=None,
+<pre><code class="python">def barplot_genes_per_cell(obj, barcolor=&#39;#E69F00&#39;, filename=None,
                            title=&#39;expressed genes&#39;):
-    &#34;&#34;&#34; Generates a bar plot of number of expressed genes per cell. &#34;&#34;&#34;
-    genes_expressed = self.exp_mat.apply(lambda x: sum(x &gt; 0), axis=0)
+    &#34;&#34;&#34;Generates a bar plot of number of expressed genes per cell
+
+    Parameters
+    ----------
+        obj : data
+              A data class object
+        barcolor : str, optional
+                   Color of the bars (default is orange)
+        filename : str, optional
+                   Write plot to file
+        title : str, optional
+                Title of the plot
+
+    Returns
+    -------
+    None   
+    &#34;&#34;&#34;
+    exp_mat = obj.exp_mat
+    genes_expressed = exp_mat.apply(lambda x: sum(x &gt; 0), axis=0)
 
     plt.clf()
     plt.bar(np.arange(len(genes_expressed)), sorted(genes_expressed, reverse=True),
@@ -91,16 +160,48 @@ def barplot_genes_per_cell(self, barcolor=&#39;#E69F00&#39;, filename=None,
 </details>
 </dd>
 <dt id="adobo.plotting.barplot_reads_per_cell"><code class="name flex">
-<span>def <span class="ident">barplot_reads_per_cell</span></span>(<span>self, barcolor='#E69F00', filename=None, title='sequencing reads')</span>
+<span>def <span class="ident">barplot_reads_per_cell</span></span>(<span>obj, barcolor='#E69F00', filename=None, title='sequencing reads')</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Generates a bar plot of read counts per cell.</p></section>
+<section class="desc"><p>Generates a bar plot of read counts per cell</p>
+<h2 id="parameters">Parameters</h2>
+<pre><code>obj : data
+      A data class object
+barcolor : str, optional
+           Color of the bars (default is orange)
+filename : str, optional
+           Write plot to file
+title : str, optional
+        Title of the plot
+</code></pre>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>None</code></dt>
+<dd>&nbsp;</dd>
+</dl></section>
 <details class="source">
 <summary>Source code</summary>
-<pre><code class="python">def barplot_reads_per_cell(self, barcolor=&#39;#E69F00&#39;, filename=None,
+<pre><code class="python">def barplot_reads_per_cell(obj, barcolor=&#39;#E69F00&#39;, filename=None,
                            title=&#39;sequencing reads&#39;):
-    &#34;&#34;&#34; Generates a bar plot of read counts per cell. &#34;&#34;&#34;
-    cell_counts = self.exp_mat.sum(axis=0)
+    &#34;&#34;&#34;Generates a bar plot of read counts per cell
+
+    Parameters
+    ----------
+        obj : data
+              A data class object
+        barcolor : str, optional
+                   Color of the bars (default is orange)
+        filename : str, optional
+                   Write plot to file
+        title : str, optional
+                Title of the plot
+
+    Returns
+    -------
+    None   
+    &#34;&#34;&#34;
+    exp_mat = obj.exp_mat
+    cell_counts = exp_mat.sum(axis=0)
     plt.clf()
     colors = [barcolor]*(len(cell_counts))
 

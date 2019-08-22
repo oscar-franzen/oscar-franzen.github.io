@@ -22,7 +22,9 @@
 <section id="section-intro">
 <details class="source">
 <summary>Source code</summary>
-<pre><code class="python"># Suppress warnings from sklearn
+<pre><code class="python">import numpy as np
+
+# Suppress warnings from sklearn
 def warn(*args, **kwargs):
     pass
 import warnings
@@ -58,43 +60,93 @@ def simple_filters(obj, minreads=1000, minexpgenes=0.001, verbose=False):
             if verbose:
                 print(&#39;Removed %s genes.&#39; % d)
 
-def remove_empty(self, verbose=False):
-    &#34;&#34;&#34; Removes empty cells and genes &#34;&#34;&#34;
-    data_zero = self.exp_mat == 0
+def remove_empty(obj, verbose=False):
+    &#34;&#34;&#34;Removes empty cells and genes
+
+    Parameters
+    ----------
+        obj : data
+              A data class object
+        verbose : boolean, optional
+                  Be verbose or not (default False)
+
+    Returns
+    -------
+    A data class object.    
+    &#34;&#34;&#34;
+    exp_mat = obj.exp_mat
+    data_zero = exp_mat == 0
 
     cells = data_zero.sum(axis=0)
     genes = data_zero.sum(axis=1)
 
-    total_genes = self.exp_mat.shape[0]
-    total_cells = self.exp_mat.shape[1]
+    total_genes = exp_mat.shape[0]
+    total_cells = exp_mat.shape[1]
 
     if np.sum(cells == total_cells) &gt; 0:
         r = np.logical_not(cells == total_cells)
-        self.exp_mat = self.exp_mat[self.exp_mat.columns[r]]
+        exp_mat = exp_mat[exp_mat.columns[r]]
         if verbose:
             print(&#39;%s empty cells will be removed&#39; % (np.sum(cells == total_cells)))
     if np.sum(genes == total_genes) &gt; 0:
         r = np.logical_not(genes == total_genes)
-        self.exp_mat = self.exp_mat.loc[self.exp_mat.index[r]]
+        exp_mat = exp_mat.loc[exp_mat.index[r]]
         if verbose:
-            log_info(&#39;%s empty genes will be removed&#39; % (np.sum(genes == total_genes)))
+            print(&#39;%s empty genes will be removed&#39; % (np.sum(genes == total_genes)))
+    obj.exp_mat = exp_mat
+    return obj
 
-def detect_mito(self, mito_pattern=&#39;^mt-&#39;, verbose=False):
-    &#34;&#34;&#34; Remove mitochondrial genes. &#34;&#34;&#34;
-    mt_count = self.exp_mat.index.str.contains(mito_pattern, regex=True, case=False)
+def detect_mito(obj, mito_pattern=&#39;^mt-&#39;, verbose=False):
+    &#34;&#34;&#34;Remove mitochondrial genes
+
+    Parameters
+    ----------
+        obj : data
+              A data class object
+        mito_pattern : str, optional
+                       A regular expression matching mitochondrial gene symbols
+        verbose : boolean, optional
+                  Be verbose or not (default False)
+
+    Returns
+    -------
+    A data class object.
+    &#34;&#34;&#34;
+    exp_mat = obj.exp_mat
+    mt_count = exp_mat.index.str.contains(mito_pattern, regex=True, case=False)
     if np.sum(mt_count) &gt; 0:
-        self.exp_mito = self.exp_mat.loc[self.exp_mat.index[mt_count]]
-        self.exp_mat = self.exp_mat.loc[self.exp_mat.index[np.logical_not(mt_count)]]
+        exp_mito = exp_mat.loc[exp_mat.index[mt_count]]
+        exp_mat = exp_mat.loc[exp_mat.index[np.logical_not(mt_count)]]
+        obj.exp_mat = exp_mat
+        obj.exp_mito = exp_mito
     if verbose:
         print(&#39;%s mitochondrial genes detected and removed&#39; % np.sum(mt_count))
+    return obj
         
-def detect_ERCC_spikes(self, ERCC_pattern=&#39;^ERCC[_-]\S+$&#39;, verbose=False):
-    &#34;&#34;&#34; Moves ERCC (if present) to a separate container. &#34;&#34;&#34;
-    s = self.exp_mat.index.str.contains(ERCC_pattern)
-    self.exp_ERCC = self.exp_mat[s]
-    self.exp_mat = self.exp_mat[np.logical_not(s)]
+def detect_ERCC_spikes(obj, ERCC_pattern=&#39;^ERCC[_-]\S+$&#39;, verbose=False):
+    &#34;&#34;&#34;Moves ERCC (if present) to a separate container
+
+    Parameters
+    ----------
+        obj : data
+              A data class object
+        ERCC_pattern : str, optional
+                       A regular expression matching ERCC gene symbols
+        verbose : boolean, optional
+                  Be verbose or not (default False)
+
+    Returns
+    -------
+    A data class object.
+    &#34;&#34;&#34;
+    exp_mat = obj.exp_mat
+    s = exp_mat.index.str.contains(ERCC_pattern)
+    exp_ERCC = exp_mat[s]
+    exp_mat = exp_mat[np.logical_not(s)]
     if verbose:
         print(&#39;%s ERCC spikes detected&#39; % np.sum(s))
+    obj.exp_mat = exp_mat
+    return obj
 
 def auto_clean(self, rRNA_genes, sd_thres=3, seed=42, verbose=False):
     &#34;&#34;&#34;
@@ -255,65 +307,143 @@ considered outliers.</p></section>
 </details>
 </dd>
 <dt id="adobo.preproc.detect_ERCC_spikes"><code class="name flex">
-<span>def <span class="ident">detect_ERCC_spikes</span></span>(<span>self, ERCC_pattern='^ERCC[_-]\\S+$', verbose=False)</span>
+<span>def <span class="ident">detect_ERCC_spikes</span></span>(<span>obj, ERCC_pattern='^ERCC[_-]\\S+$', verbose=False)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Moves ERCC (if present) to a separate container.</p></section>
+<section class="desc"><p>Moves ERCC (if present) to a separate container</p>
+<h2 id="parameters">Parameters</h2>
+<pre><code>obj : data
+      A data class object
+ERCC_pattern : str, optional
+               A regular expression matching ERCC gene symbols
+verbose : boolean, optional
+          Be verbose or not (default False)
+</code></pre>
+<h2 id="returns">Returns</h2>
+<p>A data class object.</p></section>
 <details class="source">
 <summary>Source code</summary>
-<pre><code class="python">def detect_ERCC_spikes(self, ERCC_pattern=&#39;^ERCC[_-]\S+$&#39;, verbose=False):
-    &#34;&#34;&#34; Moves ERCC (if present) to a separate container. &#34;&#34;&#34;
-    s = self.exp_mat.index.str.contains(ERCC_pattern)
-    self.exp_ERCC = self.exp_mat[s]
-    self.exp_mat = self.exp_mat[np.logical_not(s)]
+<pre><code class="python">def detect_ERCC_spikes(obj, ERCC_pattern=&#39;^ERCC[_-]\S+$&#39;, verbose=False):
+    &#34;&#34;&#34;Moves ERCC (if present) to a separate container
+
+    Parameters
+    ----------
+        obj : data
+              A data class object
+        ERCC_pattern : str, optional
+                       A regular expression matching ERCC gene symbols
+        verbose : boolean, optional
+                  Be verbose or not (default False)
+
+    Returns
+    -------
+    A data class object.
+    &#34;&#34;&#34;
+    exp_mat = obj.exp_mat
+    s = exp_mat.index.str.contains(ERCC_pattern)
+    exp_ERCC = exp_mat[s]
+    exp_mat = exp_mat[np.logical_not(s)]
     if verbose:
-        print(&#39;%s ERCC spikes detected&#39; % np.sum(s))</code></pre>
+        print(&#39;%s ERCC spikes detected&#39; % np.sum(s))
+    obj.exp_mat = exp_mat
+    return obj</code></pre>
 </details>
 </dd>
 <dt id="adobo.preproc.detect_mito"><code class="name flex">
-<span>def <span class="ident">detect_mito</span></span>(<span>self, mito_pattern='^mt-', verbose=False)</span>
+<span>def <span class="ident">detect_mito</span></span>(<span>obj, mito_pattern='^mt-', verbose=False)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Remove mitochondrial genes.</p></section>
+<section class="desc"><p>Remove mitochondrial genes</p>
+<h2 id="parameters">Parameters</h2>
+<pre><code>obj : data
+      A data class object
+mito_pattern : str, optional
+               A regular expression matching mitochondrial gene symbols
+verbose : boolean, optional
+          Be verbose or not (default False)
+</code></pre>
+<h2 id="returns">Returns</h2>
+<p>A data class object.</p></section>
 <details class="source">
 <summary>Source code</summary>
-<pre><code class="python">def detect_mito(self, mito_pattern=&#39;^mt-&#39;, verbose=False):
-    &#34;&#34;&#34; Remove mitochondrial genes. &#34;&#34;&#34;
-    mt_count = self.exp_mat.index.str.contains(mito_pattern, regex=True, case=False)
+<pre><code class="python">def detect_mito(obj, mito_pattern=&#39;^mt-&#39;, verbose=False):
+    &#34;&#34;&#34;Remove mitochondrial genes
+
+    Parameters
+    ----------
+        obj : data
+              A data class object
+        mito_pattern : str, optional
+                       A regular expression matching mitochondrial gene symbols
+        verbose : boolean, optional
+                  Be verbose or not (default False)
+
+    Returns
+    -------
+    A data class object.
+    &#34;&#34;&#34;
+    exp_mat = obj.exp_mat
+    mt_count = exp_mat.index.str.contains(mito_pattern, regex=True, case=False)
     if np.sum(mt_count) &gt; 0:
-        self.exp_mito = self.exp_mat.loc[self.exp_mat.index[mt_count]]
-        self.exp_mat = self.exp_mat.loc[self.exp_mat.index[np.logical_not(mt_count)]]
+        exp_mito = exp_mat.loc[exp_mat.index[mt_count]]
+        exp_mat = exp_mat.loc[exp_mat.index[np.logical_not(mt_count)]]
+        obj.exp_mat = exp_mat
+        obj.exp_mito = exp_mito
     if verbose:
-        print(&#39;%s mitochondrial genes detected and removed&#39; % np.sum(mt_count))</code></pre>
+        print(&#39;%s mitochondrial genes detected and removed&#39; % np.sum(mt_count))
+    return obj</code></pre>
 </details>
 </dd>
 <dt id="adobo.preproc.remove_empty"><code class="name flex">
-<span>def <span class="ident">remove_empty</span></span>(<span>self, verbose=False)</span>
+<span>def <span class="ident">remove_empty</span></span>(<span>obj, verbose=False)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Removes empty cells and genes</p></section>
+<section class="desc"><p>Removes empty cells and genes</p>
+<h2 id="parameters">Parameters</h2>
+<pre><code>obj : data
+      A data class object
+verbose : boolean, optional
+          Be verbose or not (default False)
+</code></pre>
+<h2 id="returns">Returns</h2>
+<p>A data class object.</p></section>
 <details class="source">
 <summary>Source code</summary>
-<pre><code class="python">def remove_empty(self, verbose=False):
-    &#34;&#34;&#34; Removes empty cells and genes &#34;&#34;&#34;
-    data_zero = self.exp_mat == 0
+<pre><code class="python">def remove_empty(obj, verbose=False):
+    &#34;&#34;&#34;Removes empty cells and genes
+
+    Parameters
+    ----------
+        obj : data
+              A data class object
+        verbose : boolean, optional
+                  Be verbose or not (default False)
+
+    Returns
+    -------
+    A data class object.    
+    &#34;&#34;&#34;
+    exp_mat = obj.exp_mat
+    data_zero = exp_mat == 0
 
     cells = data_zero.sum(axis=0)
     genes = data_zero.sum(axis=1)
 
-    total_genes = self.exp_mat.shape[0]
-    total_cells = self.exp_mat.shape[1]
+    total_genes = exp_mat.shape[0]
+    total_cells = exp_mat.shape[1]
 
     if np.sum(cells == total_cells) &gt; 0:
         r = np.logical_not(cells == total_cells)
-        self.exp_mat = self.exp_mat[self.exp_mat.columns[r]]
+        exp_mat = exp_mat[exp_mat.columns[r]]
         if verbose:
             print(&#39;%s empty cells will be removed&#39; % (np.sum(cells == total_cells)))
     if np.sum(genes == total_genes) &gt; 0:
         r = np.logical_not(genes == total_genes)
-        self.exp_mat = self.exp_mat.loc[self.exp_mat.index[r]]
+        exp_mat = exp_mat.loc[exp_mat.index[r]]
         if verbose:
-            log_info(&#39;%s empty genes will be removed&#39; % (np.sum(genes == total_genes)))</code></pre>
+            print(&#39;%s empty genes will be removed&#39; % (np.sum(genes == total_genes)))
+    obj.exp_mat = exp_mat
+    return obj</code></pre>
 </details>
 </dd>
 <dt id="adobo.preproc.simple_filters"><code class="name flex">
