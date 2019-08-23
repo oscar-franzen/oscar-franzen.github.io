@@ -211,14 +211,14 @@ this is the case, set this to True, otherwise False (default: True).</p></li>
 <p>This module contains functions to normalize raw read counts.</p>
 <dl class="function">
 <dt id="adobo.normalize.full_quantile_normalization">
-<code class="sig-prename descclassname">adobo.normalize.</code><code class="sig-name descname">full_quantile_normalization</code><span class="sig-paren">(</span><em class="sig-param">d</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.normalize.full_quantile_normalization" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.normalize.</code><code class="sig-name descname">full_quantile_normalization</code><span class="sig-paren">(</span><em class="sig-param">data</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.normalize.full_quantile_normalization" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs full quantile normalization (FQN).</p>
 <p class="rubric">Notes</p>
 <p>FQN was a popular normalization scheme for microarray data.
 The present function does not handle ties well.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>obj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame object containing raw read counts (rows=genes,
+<dd class="field-odd"><p><strong>data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame object containing raw read counts (rows=genes,
 columns=cells).</p>
 </dd>
 </dl>
@@ -264,6 +264,32 @@ matching the data matrix and the second column should contain exon lengths.</p><
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="adobo.normalize.standard_normalization">
+<code class="sig-prename descclassname">adobo.normalize.</code><code class="sig-name descname">standard_normalization</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">scaling_factor</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.normalize.standard_normalization" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs a standard normalization by total read depth per cell and then multiplies
+with a scaling factor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame object containing raw read counts (rows=genes,
+columns=cells).</p></li>
+<li><p><strong>scaling_factor</strong> (<cite>int</cite>) – Scaling factor used to multiply the scaled counts with (default: 10000).</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>[0] Evans et al. (2018) <a class="reference external" href="https://academic.oup.com/bib/article/19/5/776/3056951">https://academic.oup.com/bib/article/19/5/776/3056951</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A normalized data matrix with same dimensions as before.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></p>
 </dd>
 </dl>
 </dd></dl>
