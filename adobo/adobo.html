@@ -223,7 +223,10 @@ columns=cells).</p>
 </dd>
 </dl>
 <p class="rubric">References</p>
-<p>[0] Bolstad et al. (2003) <a class="reference external" href="https://academic.oup.com/bioinformatics/article/19/2/185/372664">https://academic.oup.com/bioinformatics/article/19/2/185/372664</a></p>
+<dl class="simple">
+<dt>[0] Bolstad et al. (2003) Bioinformatics</dt><dd><p><a class="reference external" href="https://academic.oup.com/bioinformatics/article/19/2/185/372664">https://academic.oup.com/bioinformatics/article/19/2/185/372664</a></p>
+</dd>
+</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A normalized data matrix with same dimensions as before.</p>
@@ -244,7 +247,8 @@ columns=cells).</p>
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A dataset class object.</p></li>
 <li><p><strong>method</strong> (<em>{'standard'</em><em>, </em><em>'rpkm'}</em>) – Specifies the method to use. <cite>standard</cite> refers to the simplest normalization
 strategy involving scaling genes by total number of reads per cell. <cite>rpkm</cite>
-performs RPKM normalization and requires the <cite>exon_lengths</cite> parameter to be set.</p></li>
+performs RPKM normalization and requires the <cite>exon_lengths</cite> parameter to be set.
+<cite>fqn</cite> performs a full-quantile normalization.</p></li>
 <li><p><strong>log2</strong> (<cite>bool</cite>) – Perform log2 transformation (default: True)</p></li>
 <li><p><strong>small_const</strong> (<cite>float</cite>) – A small constant to add to expression values to avoid log’ing genes with zero
 expression (default: 1).</p></li>
@@ -257,7 +261,10 @@ matching the data matrix and the second column should contain exon lengths.</p><
 </dd>
 </dl>
 <p class="rubric">References</p>
-<p>[0] Cole et al. (2019) <a class="reference external" href="https://www.biorxiv.org/content/10.1101/235382v2">https://www.biorxiv.org/content/10.1101/235382v2</a></p>
+<dl class="simple">
+<dt>[0] Cole et al. (2019) Cell Systems</dt><dd><p><a class="reference external" href="https://www.biorxiv.org/content/10.1101/235382v2">https://www.biorxiv.org/content/10.1101/235382v2</a></p>
+</dd>
+</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p></p>
@@ -283,7 +290,10 @@ columns=cells).</p></li>
 </dd>
 </dl>
 <p class="rubric">References</p>
-<p>[0] Evans et al. (2018) <a class="reference external" href="https://academic.oup.com/bib/article/19/5/776/3056951">https://academic.oup.com/bib/article/19/5/776/3056951</a></p>
+<dl class="simple">
+<dt>[0] Evans et al. (2018) Briefings in Bioinformatics</dt><dd><p><a class="reference external" href="https://academic.oup.com/bib/article/19/5/776/3056951">https://academic.oup.com/bib/article/19/5/776/3056951</a></p>
+</dd>
+</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A normalized data matrix with same dimensions as before.</p>
