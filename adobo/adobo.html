@@ -210,6 +210,31 @@ this is the case, set this to True, otherwise False (default: True).</p></li>
 <h3>Summary<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>This module contains functions to normalize raw read counts.</p>
 <dl class="function">
+<dt id="adobo.normalize.full_quantile_normalization">
+<code class="sig-prename descclassname">adobo.normalize.</code><code class="sig-name descname">full_quantile_normalization</code><span class="sig-paren">(</span><em class="sig-param">d</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.normalize.full_quantile_normalization" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs full quantile normalization (FQN).</p>
+<p class="rubric">Notes</p>
+<p>FQN was a popular normalization scheme for microarray data.
+The present function does not handle ties well.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>obj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame object containing raw read counts (rows=genes,
+columns=cells).</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>[0] Bolstad et al. (2003) <a class="reference external" href="https://academic.oup.com/bioinformatics/article/19/2/185/372664">https://academic.oup.com/bioinformatics/article/19/2/185/372664</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A normalized data matrix with same dimensions as before.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
 <dt id="adobo.normalize.norm">
 <code class="sig-prename descclassname">adobo.normalize.</code><code class="sig-name descname">norm</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">method='depth'</em>, <em class="sig-param">log2=True</em>, <em class="sig-param">small_const=1</em>, <em class="sig-param">remove_low_qual_cells=True</em>, <em class="sig-param">exon_lengths=None</em>, <em class="sig-param">scaling_factor=10000</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.normalize.norm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Normalizes gene expression data</p>
@@ -217,7 +242,7 @@ this is the case, set this to True, otherwise False (default: True).</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A dataset class object.</p></li>
-<li><p><strong>method</strong> (<em>{'standard'</em><em>, </em><em>'rpkm'</em><em>, </em><em>'cpm'}</em>) – Specifies the method to use. <cite>standard</cite> refers to the simplest normalization
+<li><p><strong>method</strong> (<em>{'standard'</em><em>, </em><em>'rpkm'}</em>) – Specifies the method to use. <cite>standard</cite> refers to the simplest normalization
 strategy involving scaling genes by total number of reads per cell. <cite>rpkm</cite>
 performs RPKM normalization and requires the <cite>exon_lengths</cite> parameter to be set.</p></li>
 <li><p><strong>log2</strong> (<cite>bool</cite>) – Perform log2 transformation (default: True)</p></li>
