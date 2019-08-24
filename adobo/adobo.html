@@ -212,7 +212,7 @@ this is the case, set this to True, otherwise False (default: True).</p></li>
 <dl class="function">
 <dt id="adobo.normalize.clr_normalization">
 <code class="sig-prename descclassname">adobo.normalize.</code><code class="sig-name descname">clr_normalization</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">axis='genes'</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.normalize.clr_normalization" title="Permalink to this definition">¶</a></dt>
-<dd><p>Performs centered log ratio transformation similar to Seurat</p>
+<dd><p>Performs centered log ratio normalization similar to Seurat</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -240,7 +240,8 @@ columns=cells).</p></li>
 <dl class="function">
 <dt id="adobo.normalize.full_quantile_normalization">
 <code class="sig-prename descclassname">adobo.normalize.</code><code class="sig-name descname">full_quantile_normalization</code><span class="sig-paren">(</span><em class="sig-param">data</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.normalize.full_quantile_normalization" title="Permalink to this definition">¶</a></dt>
-<dd><p>Performs full quantile normalization (FQN).</p>
+<dd><p>Performs full quantile normalization (FQN). FQN was shown to perform well on single
+cell data [1].</p>
 <p class="rubric">Notes</p>
 <p>FQN was a popular normalization scheme for microarray data.
 The present function does not handle ties well.</p>
@@ -253,6 +254,8 @@ columns=cells).</p>
 <p class="rubric">References</p>
 <dl class="simple">
 <dt>[0] Bolstad et al. (2003) Bioinformatics</dt><dd><p><a class="reference external" href="https://academic.oup.com/bioinformatics/article/19/2/185/372664">https://academic.oup.com/bioinformatics/article/19/2/185/372664</a></p>
+</dd>
+<dt>[1] Cole et al. (2019) Cell Systems</dt><dd><p><a class="reference external" href="https://www.biorxiv.org/content/10.1101/235382v2">https://www.biorxiv.org/content/10.1101/235382v2</a></p>
 </dd>
 </dl>
 <dl class="field-list simple">
@@ -273,10 +276,11 @@ columns=cells).</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A dataset class object.</p></li>
-<li><p><strong>method</strong> (<em>{'standard'</em><em>, </em><em>'rpkm'}</em>) – Specifies the method to use. <cite>standard</cite> refers to the simplest normalization
+<li><p><strong>method</strong> (<cite>{‘standard’, ‘rpkm’, ‘fqn’, ‘clr’}</cite>) – Specifies the method to use. <cite>standard</cite> refers to the simplest normalization
 strategy involving scaling genes by total number of reads per cell. <cite>rpkm</cite>
 performs RPKM normalization and requires the <cite>exon_lengths</cite> parameter to be set.
-<cite>fqn</cite> performs a full-quantile normalization.</p></li>
+<cite>fqn</cite> performs a full-quantile normalization. <cite>clr</cite> performs centered log ratio
+normalization.</p></li>
 <li><p><strong>log2</strong> (<cite>bool</cite>) – Perform log2 transformation (default: True)</p></li>
 <li><p><strong>small_const</strong> (<cite>float</cite>) – A small constant to add to expression values to avoid log’ing genes with zero
 expression (default: 1).</p></li>
