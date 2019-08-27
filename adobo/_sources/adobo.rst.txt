@@ -44,6 +44,14 @@ adobo.preproc module
    :undoc-members:
    :show-inheritance:
 
+adobo.stats module
+------------------
+
+.. automodule:: adobo.stats
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 
 Module contents
 ---------------

@@ -53,6 +53,10 @@
 <li><a class="reference internal" href="#id4">Summary</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#module-adobo.stats">adobo.stats module</a><ul>
+<li><a class="reference internal" href="#id5">Summary</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-adobo">Module contents</a></li>
 </ul>
 </li>
@@ -338,6 +342,36 @@ columns=cells).</p></li>
 </dl>
 </dd></dl>
 
+<dl class="function">
+<dt id="adobo.normalize.vsn">
+<code class="sig-prename descclassname">adobo.normalize.</code><code class="sig-name descname">vsn</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">min_cells=10</em>, <em class="sig-param">gmean_eps=1</em>, <em class="sig-param">n_genes=2000</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.normalize.vsn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs variance stabilizing normaliztion</p>
+<p class="rubric">Notes</p>
+<p>Adapted from the vst function in the R package sctransform [0].</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame object containing raw read counts (rows=genes,
+columns=cells).</p></li>
+<li><p><strong>min_cells</strong> (<cite>int</cite>) – Minimum number of cells expressing a gene for the gene to be used (default: 10).</p></li>
+<li><p><strong>gmean_eps</strong> (<cite>float</cite>) – A small constant to avoid log(0)=-Inf (default: 1).</p></li>
+<li><p><strong>n_genes</strong> (<cite>int</cite>) – Number of genes to use when estimating parameters (default: 2000).</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>[0] <a class="reference external" href="https://cran.r-project.org/web/packages/sctransform/index.html">https://cran.r-project.org/web/packages/sctransform/index.html</a>
+[1] <a class="reference external" href="https://www.biorxiv.org/content/10.1101/576827v1">https://www.biorxiv.org/content/10.1101/576827v1</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A normalized data matrix with same dimensions as before.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 </div>
 <div class="section" id="module-adobo.plotting">
@@ -518,6 +552,88 @@ the gene (default: 0.001).</p></li>
 <li><p><em>int</em> – Number of genes removed.</p></li>
 </ul>
 </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-adobo.stats">
+<span id="adobo-stats-module"></span><h2>adobo.stats module<a class="headerlink" href="#module-adobo.stats" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h3>Summary<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>Statistical helper functions.</p>
+<dl class="function">
+<dt id="adobo.stats.bw_nrd">
+<code class="sig-prename descclassname">adobo.stats.</code><code class="sig-name descname">bw_nrd</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.stats.bw_nrd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Selects bandwidth for gaussian kernels</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<cite>list</cite>) – An input list of data points.</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>Scott, D. W. (1992) _Multivariate Density Estimation: Theory,
+Practice, and Visualization._ New York: Wiley.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>KDE bandwidth.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="adobo.stats.is_outlier">
+<code class="sig-prename descclassname">adobo.stats.</code><code class="sig-name descname">is_outlier</code><span class="sig-paren">(</span><em class="sig-param">y</em>, <em class="sig-param">x</em>, <em class="sig-param">thres=10</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.stats.is_outlier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="adobo.stats.row_geometric_mean">
+<code class="sig-prename descclassname">adobo.stats.</code><code class="sig-name descname">row_geometric_mean</code><span class="sig-paren">(</span><em class="sig-param">mat</em>, <em class="sig-param">eps=1</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.stats.row_geometric_mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the geometric mean for every row in a data frame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mat</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame object containing raw read counts (rows=genes,
+columns=cells).</p></li>
+<li><p><strong>eps</strong> (<em>float</em>) – A small constant to avoid log(0)=-inf (default: 1).</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Geometric_mean">https://en.wikipedia.org/wiki/Geometric_mean</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Computed values.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="adobo.stats.theta_ml">
+<code class="sig-prename descclassname">adobo.stats.</code><code class="sig-name descname">theta_ml</code><span class="sig-paren">(</span><em class="sig-param">y</em>, <em class="sig-param">mu</em>, <em class="sig-param">limit=10</em>, <em class="sig-param">eps=2.220446049250313e-16</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.stats.theta_ml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimates theta of the Negative Binomial Distribution using maximum likelihood</p>
+<p class="rubric">Notes</p>
+<p>Adapted from the theta.ml function of the R package MASS.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y</strong> (<cite>list</cite>) – List of observed values from the negative binomial.</p></li>
+<li><p><strong>mu</strong> (<cite>list</cite>) – Estimated mean vector.</p></li>
+<li><p><strong>limit</strong> (<cite>int</cite>) – Maximum number of iterations (default: 10).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Estimated theta.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 </dd></dl>
