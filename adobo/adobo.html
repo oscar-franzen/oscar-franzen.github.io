@@ -333,7 +333,7 @@ normalization. <cite>vsn</cite> performs a variance stabilizing normalization.</
 <li><p><strong>small_const</strong> (<cite>float</cite>) – A small constant to add to expression values to avoid log’ing genes with zero
 expression (default: 1).</p></li>
 <li><p><strong>remove_low_qual_cells</strong> (<cite>bool</cite>) – Remove low quality cells identified using <a class="reference internal" href="#adobo.preproc.find_low_quality_cells" title="adobo.preproc.find_low_quality_cells"><code class="xref py py-meth docutils literal notranslate"><span class="pre">adobo.preproc.find_low_quality_cells()</span></code></a>.</p></li>
-<li><p><strong>gene_lengths</strong> (<cite>:class:`pandas.Series`</cite> or <cite>str</cite>) – A <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code> containing the gene lengths in base pairs and gene names set as index. The
+<li><p><strong>gene_lengths</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code> or <cite>str</cite>) – A <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code> containing the gene lengths in base pairs and gene names set as index. The
 names must match the gene names used in <cite>data</cite> (the order does not need to match
 and any symbols not found in the data will be discarded). Normally gene lengths
 should be the combined length of exons for every gene. If gene_lengths is a <cite>str</cite>
@@ -373,7 +373,7 @@ a SMART-Seq2 protocol.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame object containing raw read counts (rows=genes, columns=cells).</p></li>
-<li><p><strong>gene_lengths</strong> (<cite>:class:`pandas.Series`</cite> or <cite>str</cite>) – Should contain the gene lengths in base pairs and gene names set as index. The
+<li><p><strong>gene_lengths</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code> or <cite>str</cite>) – Should contain the gene lengths in base pairs and gene names set as index. The
 names must match the gene names used in <cite>data</cite>. Normally gene lengths should be
 the combined length of exons for every gene. If gene_lengths is a <cite>str</cite> then it is
 taken as a filename and loaded; first column is gene names and second column is
