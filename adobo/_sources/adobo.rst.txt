@@ -12,10 +12,26 @@ adobo.IO module
    :undoc-members:
    :show-inheritance:
 
+adobo.constants module
+----------------------
+
+.. automodule:: adobo.constants
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 adobo.data module
 -----------------
 
 .. automodule:: adobo.data
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+adobo.log module
+----------------
+
+.. automodule:: adobo.log
    :members:
    :undoc-members:
    :show-inheritance:

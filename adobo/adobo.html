@@ -37,10 +37,12 @@
 <li><a class="reference internal" href="#summary">Summary</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#module-adobo.constants">adobo.constants module</a></li>
 <li><a class="reference internal" href="#module-adobo.data">adobo.data module</a><ul>
 <li><a class="reference internal" href="#id1">Summary</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#module-adobo.log">adobo.log module</a></li>
 <li><a class="reference internal" href="#module-adobo.normalize">adobo.normalize module</a><ul>
 <li><a class="reference internal" href="#id2">Summary</a></li>
 </ul>
@@ -128,6 +130,9 @@ this is the case, set this to True, otherwise False (default: True).</p></li>
 
 </div>
 </div>
+<div class="section" id="module-adobo.constants">
+<span id="adobo-constants-module"></span><h2>adobo.constants module<a class="headerlink" href="#module-adobo.constants" title="Permalink to this headline">¶</a></h2>
+</div>
 <div class="section" id="module-adobo.data">
 <span id="adobo-data-module"></span><h2>adobo.data module<a class="headerlink" href="#module-adobo.data" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id1">
@@ -150,8 +155,8 @@ this is the case, set this to True, otherwise False (default: True).</p></li>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="adobo.data.dataset.exp_mito">
-<code class="sig-name descname">exp_mito</code><a class="headerlink" href="#adobo.data.dataset.exp_mito" title="Permalink to this definition">¶</a></dt>
+<dt id="adobo.data.dataset._exp_mito">
+<code class="sig-name descname">_exp_mito</code><a class="headerlink" href="#adobo.data.dataset._exp_mito" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raw read count matrix containing mitochondrial genes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -161,8 +166,8 @@ this is the case, set this to True, otherwise False (default: True).</p></li>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="adobo.data.dataset.exp_ERCC">
-<code class="sig-name descname">exp_ERCC</code><a class="headerlink" href="#adobo.data.dataset.exp_ERCC" title="Permalink to this definition">¶</a></dt>
+<dt id="adobo.data.dataset._exp_ERCC">
+<code class="sig-name descname">_exp_ERCC</code><a class="headerlink" href="#adobo.data.dataset._exp_ERCC" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raw read count matrix containing ERCC spikes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -172,8 +177,8 @@ this is the case, set this to True, otherwise False (default: True).</p></li>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="adobo.data.dataset.low_quality_cells">
-<code class="sig-name descname">low_quality_cells</code><a class="headerlink" href="#adobo.data.dataset.low_quality_cells" title="Permalink to this definition">¶</a></dt>
+<dt id="adobo.data.dataset._low_quality_cells">
+<code class="sig-name descname">_low_quality_cells</code><a class="headerlink" href="#adobo.data.dataset._low_quality_cells" title="Permalink to this definition">¶</a></dt>
 <dd><p>Low quality cells identified with <a class="reference internal" href="#adobo.preproc.find_low_quality_cells" title="adobo.preproc.find_low_quality_cells"><code class="xref py py-meth docutils literal notranslate"><span class="pre">adobo.preproc.find_low_quality_cells()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -204,9 +209,47 @@ this is the case, set this to True, otherwise False (default: True).</p></li>
 </dl>
 </dd></dl>
 
+<dl class="method">
+<dt id="adobo.data.dataset.exp_ERCC">
+<em class="property">property </em><code class="sig-name descname">exp_ERCC</code><a class="headerlink" href="#adobo.data.dataset.exp_ERCC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.data.dataset.exp_mito">
+<em class="property">property </em><code class="sig-name descname">exp_mito</code><a class="headerlink" href="#adobo.data.dataset.exp_mito" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.data.dataset.get_assay">
+<code class="sig-name descname">get_assay</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.dataset.get_assay" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.data.dataset.info">
+<code class="sig-name descname">info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.dataset.info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.data.dataset.low_quality_cells">
+<em class="property">property </em><code class="sig-name descname">low_quality_cells</code><a class="headerlink" href="#adobo.data.dataset.low_quality_cells" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.data.dataset.set_assay">
+<code class="sig-name descname">set_assay</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.dataset.set_assay" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>
+</div>
+<div class="section" id="module-adobo.log">
+<span id="adobo-log-module"></span><h2>adobo.log module<a class="headerlink" href="#module-adobo.log" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="adobo.log.warning">
+<code class="sig-prename descclassname">adobo.log.</code><code class="sig-name descname">warning</code><span class="sig-paren">(</span><em class="sig-param">msg</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.log.warning" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 <div class="section" id="module-adobo.normalize">
 <span id="adobo-normalize-module"></span><h2>adobo.normalize module<a class="headerlink" href="#module-adobo.normalize" title="Permalink to this headline">¶</a></h2>
@@ -220,8 +263,7 @@ this is the case, set this to True, otherwise False (default: True).</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame object containing raw read counts (rows=genes,
-columns=cells).</p></li>
+<li><p><strong>data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame object containing raw read counts (rows=genes, columns=cells).</p></li>
 <li><p><strong>axis</strong> (<em>{'genes'</em><em>, </em><em>'cells'}</em>) – Normalize over genes or cells (default: genes).</p></li>
 </ul>
 </dd>
@@ -251,8 +293,7 @@ cell data [1].</p>
 The present function does not handle ties well.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame object containing raw read counts (rows=genes,
-columns=cells).</p>
+<dd class="field-odd"><p><strong>data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame object containing raw read counts (rows=genes, columns=cells).</p>
 </dd>
 </dl>
 <p class="rubric">References</p>
@@ -274,23 +315,31 @@ columns=cells).</p>
 
 <dl class="function">
 <dt id="adobo.normalize.norm">
-<code class="sig-prename descclassname">adobo.normalize.</code><code class="sig-name descname">norm</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">method='depth'</em>, <em class="sig-param">log2=True</em>, <em class="sig-param">small_const=1</em>, <em class="sig-param">remove_low_qual_cells=True</em>, <em class="sig-param">exon_lengths=None</em>, <em class="sig-param">scaling_factor=10000</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.normalize.norm" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.normalize.</code><code class="sig-name descname">norm</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">method='standard'</em>, <em class="sig-param">log2=True</em>, <em class="sig-param">small_const=1</em>, <em class="sig-param">remove_low_qual_cells=True</em>, <em class="sig-param">gene_lengths=None</em>, <em class="sig-param">scaling_factor=10000</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.normalize.norm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Normalizes gene expression data</p>
+<p class="rubric">Notes</p>
+<p>A wrapper function around the individual normalization functions, which can also be
+called directly.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A dataset class object.</p></li>
-<li><p><strong>method</strong> (<cite>{‘standard’, ‘rpkm’, ‘fqn’, ‘clr’}</cite>) – Specifies the method to use. <cite>standard</cite> refers to the simplest normalization
+<li><p><strong>method</strong> (<cite>{‘standard’, ‘rpkm’, ‘fqn’, ‘clr’, ‘vsn’}</cite>) – Specifies the method to use. <cite>standard</cite> refers to the simplest normalization
 strategy involving scaling genes by total number of reads per cell. <cite>rpkm</cite>
-performs RPKM normalization and requires the <cite>exon_lengths</cite> parameter to be set.
+performs RPKM normalization and requires the <cite>gene_lengths</cite> parameter to be set.
 <cite>fqn</cite> performs a full-quantile normalization. <cite>clr</cite> performs centered log ratio
-normalization.</p></li>
-<li><p><strong>log2</strong> (<cite>bool</cite>) – Perform log2 transformation (default: True)</p></li>
+normalization. <cite>vsn</cite> performs a variance stabilizing normalization.</p></li>
+<li><p><strong>log2</strong> (<cite>bool</cite>) – Perform log2 transformation. Not done if method=’vsn’ (default: True)</p></li>
 <li><p><strong>small_const</strong> (<cite>float</cite>) – A small constant to add to expression values to avoid log’ing genes with zero
 expression (default: 1).</p></li>
 <li><p><strong>remove_low_qual_cells</strong> (<cite>bool</cite>) – Remove low quality cells identified using <a class="reference internal" href="#adobo.preproc.find_low_quality_cells" title="adobo.preproc.find_low_quality_cells"><code class="xref py py-meth docutils literal notranslate"><span class="pre">adobo.preproc.find_low_quality_cells()</span></code></a>.</p></li>
-<li><p><strong>exon_lengths</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame containing two columns; first column should be gene names
-matching the data matrix and the second column should contain exon lengths.</p></li>
+<li><p><strong>gene_lengths</strong> (<cite>:class:`pandas.Series`</cite> or <cite>str</cite>) – A <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code> containing the gene lengths in base pairs and gene names set as index. The
+names must match the gene names used in <cite>data</cite> (the order does not need to match
+and any symbols not found in the data will be discarded). Normally gene lengths
+should be the combined length of exons for every gene. If gene_lengths is a <cite>str</cite>
+then it is taken as a filename and loaded; first column is gene names and second
+column is the length, field separator is one space. gene_lengths is only needed
+if method=’rpkm’.</p></li>
 <li><p><strong>scaling_factor</strong> (<cite>int</cite>) – Scaling factor used to multiply the scaled counts with. Only used for
 <cite>method=”depth”</cite> (default: 10000).</p></li>
 <li><p><strong>axis</strong> (<em>{'genes'</em><em>, </em><em>'cells'}</em>) – Only applicable when <cite>method=”clr”</cite>, defines the axis to normalize across,
@@ -308,7 +357,41 @@ matching the data matrix and the second column should contain exon lengths.</p><
 <dd class="field-odd"><p></p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p>None</p>
+<dd class="field-even"><p>Nothing. Modifies the passed object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="adobo.normalize.rpkm">
+<code class="sig-prename descclassname">adobo.normalize.</code><code class="sig-name descname">rpkm</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">gene_lengths</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.normalize.rpkm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalize expression values as RPKM</p>
+<p class="rubric">Notes</p>
+<p>This method should be used if you need to adjust for gene length, such as in
+a SMART-Seq2 protocol.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame object containing raw read counts (rows=genes, columns=cells).</p></li>
+<li><p><strong>gene_lengths</strong> (<cite>:class:`pandas.Series`</cite> or <cite>str</cite>) – Should contain the gene lengths in base pairs and gene names set as index. The
+names must match the gene names used in <cite>data</cite>. Normally gene lengths should be
+the combined length of exons for every gene. If gene_lengths is a <cite>str</cite> then it is
+taken as a filename and loaded; first column is gene names and second column is
+the length, field separator is one space.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="simple">
+<dt>[0] Conesa et al. (2016) Genome Biology</dt><dd><p><a class="reference external" href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-016-0881-8">https://genomebiology.biomedcentral.com/articles/10.1186/s13059-016-0881-8</a></p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A normalized data matrix with same dimensions as before.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -321,8 +404,7 @@ then multiplying with a scaling factor.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame object containing raw read counts (rows=genes,
-columns=cells).</p></li>
+<li><p><strong>data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame object containing raw read counts (rows=genes, columns=cells).</p></li>
 <li><p><strong>scaling_factor</strong> (<cite>int</cite>) – Scaling factor used to multiply the scaled counts with (default: 10000).</p></li>
 </ul>
 </dd>
@@ -345,14 +427,14 @@ columns=cells).</p></li>
 <dl class="function">
 <dt id="adobo.normalize.vsn">
 <code class="sig-prename descclassname">adobo.normalize.</code><code class="sig-name descname">vsn</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">min_cells=10</em>, <em class="sig-param">gmean_eps=1</em>, <em class="sig-param">n_genes=2000</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.normalize.vsn" title="Permalink to this definition">¶</a></dt>
-<dd><p>Performs variance stabilizing normaliztion</p>
+<dd><p>Performs variance stabilizing normaliztion based on a negative binomial regression
+model with regularized parameters</p>
 <p class="rubric">Notes</p>
-<p>Adapted from the vst function in the R package sctransform [0].</p>
+<p>Adopts a subset of the functionality of the vst function in the R package sctransform [0].</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame object containing raw read counts (rows=genes,
-columns=cells).</p></li>
+<li><p><strong>data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame object containing raw read counts (rows=genes, columns=cells).</p></li>
 <li><p><strong>min_cells</strong> (<cite>int</cite>) – Minimum number of cells expressing a gene for the gene to be used (default: 10).</p></li>
 <li><p><strong>gmean_eps</strong> (<cite>float</cite>) – A small constant to avoid log(0)=-Inf (default: 1).</p></li>
 <li><p><strong>n_genes</strong> (<cite>int</cite>) – Number of genes to use when estimating parameters (default: 2000).</p></li>
@@ -475,7 +557,7 @@ columns=cells).</p></li>
 <dl class="function">
 <dt id="adobo.preproc.find_low_quality_cells">
 <code class="sig-prename descclassname">adobo.preproc.</code><code class="sig-name descname">find_low_quality_cells</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">rRNA_genes</em>, <em class="sig-param">sd_thres=3</em>, <em class="sig-param">seed=42</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.preproc.find_low_quality_cells" title="Permalink to this definition">¶</a></dt>
-<dd><p>Statistical detection of low quality cells</p>
+<dd><p>Statistical detection of low quality cells using Mahalanobis distances</p>
 <p class="rubric">Notes</p>
 <p>Mahalanobis distances are computed from five quality metrics. A robust estimate of
 covariance is used in the Mahalanobis function. Cells with Mahalanobis distances of
@@ -494,7 +576,8 @@ The five metrics are:</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object.</p></li>
-<li><p><strong>rRNA_genes</strong> (<cite>list</cite>) – List of rRNA genes.</p></li>
+<li><p><strong>rRNA_genes</strong> (<cite>list</cite> or <cite>str</cite>) – Either a list of rRNA genes or a string containing the path to a file containing
+the rRNA genes (one gene per line).</p></li>
 <li><p><strong>sd_thres</strong> (<cite>float</cite>, optional) – Number of standard deviations to consider significant, i.e. cells are low quality
 if this. Set to higher to remove fewer cells (default: 3).</p></li>
 <li><p><strong>seed</strong> (<cite>float</cite>, optional) – For the random number generator (default: 42).</p></li>
@@ -642,6 +725,11 @@ columns=cells).</p></li>
 </div>
 <div class="section" id="module-adobo">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-adobo" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="adobo.excepthook">
+<code class="sig-prename descclassname">adobo.</code><code class="sig-name descname">excepthook</code><span class="sig-paren">(</span><em class="sig-param">type</em>, <em class="sig-param">value</em>, <em class="sig-param">tb</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.excepthook" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 </div>
 
