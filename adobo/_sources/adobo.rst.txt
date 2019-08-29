@@ -12,6 +12,14 @@ adobo.IO module
    :undoc-members:
    :show-inheritance:
 
+adobo.cluster module
+--------------------
+
+.. automodule:: adobo.cluster
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 adobo.constants module
 ----------------------
 
@@ -24,6 +32,14 @@ adobo.data module
 -----------------
 
 .. automodule:: adobo.data
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+adobo.hvg module
+----------------
+
+.. automodule:: adobo.hvg
    :members:
    :undoc-members:
    :show-inheritance:

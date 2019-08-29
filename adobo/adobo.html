@@ -37,26 +37,31 @@
 <li><a class="reference internal" href="#summary">Summary</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#module-adobo.cluster">adobo.cluster module</a></li>
 <li><a class="reference internal" href="#module-adobo.constants">adobo.constants module</a></li>
 <li><a class="reference internal" href="#module-adobo.data">adobo.data module</a><ul>
 <li><a class="reference internal" href="#id1">Summary</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-adobo.log">adobo.log module</a></li>
-<li><a class="reference internal" href="#module-adobo.normalize">adobo.normalize module</a><ul>
+<li><a class="reference internal" href="#module-adobo.hvg">adobo.hvg module</a><ul>
 <li><a class="reference internal" href="#id2">Summary</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-adobo.plotting">adobo.plotting module</a><ul>
+<li><a class="reference internal" href="#module-adobo.log">adobo.log module</a></li>
+<li><a class="reference internal" href="#module-adobo.normalize">adobo.normalize module</a><ul>
 <li><a class="reference internal" href="#id3">Summary</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-adobo.preproc">adobo.preproc module</a><ul>
+<li><a class="reference internal" href="#module-adobo.plotting">adobo.plotting module</a><ul>
 <li><a class="reference internal" href="#id4">Summary</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-adobo.stats">adobo.stats module</a><ul>
+<li><a class="reference internal" href="#module-adobo.preproc">adobo.preproc module</a><ul>
 <li><a class="reference internal" href="#id5">Summary</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-adobo.stats">adobo.stats module</a><ul>
+<li><a class="reference internal" href="#id6">Summary</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-adobo">Module contents</a></li>
@@ -129,6 +134,9 @@ this is the case, set this to True, otherwise False (default: True).</p></li>
 </dd></dl>
 
 </div>
+</div>
+<div class="section" id="module-adobo.cluster">
+<span id="adobo-cluster-module"></span><h2>adobo.cluster module<a class="headerlink" href="#module-adobo.cluster" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-adobo.constants">
 <span id="adobo-constants-module"></span><h2>adobo.constants module<a class="headerlink" href="#module-adobo.constants" title="Permalink to this headline">¶</a></h2>
@@ -236,9 +244,78 @@ this is the case, set this to True, otherwise False (default: True).</p></li>
 
 <dl class="method">
 <dt id="adobo.data.dataset.set_assay">
-<code class="sig-name descname">set_assay</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.dataset.set_assay" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_assay</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">key=1</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.dataset.set_assay" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-adobo.hvg">
+<span id="adobo-hvg-module"></span><h2>adobo.hvg module<a class="headerlink" href="#module-adobo.hvg" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>Summary<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Functions for detection of highly variable genes.</p>
+<dl class="function">
+<dt id="adobo.hvg.find_hvg">
+<code class="sig-prename descclassname">adobo.hvg.</code><code class="sig-name descname">find_hvg</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">method='seurat'</em>, <em class="sig-param">ngenes=1000</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.hvg.find_hvg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds highly variable genes</p>
+<p class="rubric">Notes</p>
+<p>A wrapper function around the individual HVG functions, which can also be
+called directly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A dataset class object.</p></li>
+<li><p><strong>method</strong> (<cite>{‘seurat’}</cite>) – Specifies the method to be used</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="simple">
+<dt>[0] Yip et al. (2018) Briefings in Bioinformatics</dt><dd><p><a class="reference external" href="https://academic.oup.com/bib/advance-article/doi/10.1093/bib/bby011/4898116">https://academic.oup.com/bib/advance-article/doi/10.1093/bib/bby011/4898116</a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#adobo.hvg.seurat" title="adobo.hvg.seurat"><code class="xref py py-func docutils literal notranslate"><span class="pre">seurat()</span></code></a></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Nothing. Modifies the passed object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="adobo.hvg.seurat">
+<code class="sig-prename descclassname">adobo.hvg.</code><code class="sig-name descname">seurat</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">ngenes=1000</em>, <em class="sig-param">num_bin=20</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.hvg.seurat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves a list of highly variable genes using Seurat’s strategy</p>
+<p class="rubric">Notes</p>
+<p>The function bins the genes according to average expression, then calculates
+dispersion for each bin as variance to mean ratio. Within each bin, Z-scores are
+calculated and returned. Z-scores are ranked and the top 1000 are selected.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame object containing raw read counts (rows=genes, columns=cells).</p></li>
+<li><p><strong>ngenes</strong> (<cite>int</cite>) – Number of top highly variable genes to return.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>[0] <a class="reference external" href="https://cran.r-project.org/web/packages/Seurat/index.html">https://cran.r-project.org/web/packages/Seurat/index.html</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list containing highly variable genes.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><cite>list</cite></p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -253,12 +330,12 @@ this is the case, set this to True, otherwise False (default: True).</p></li>
 </div>
 <div class="section" id="module-adobo.normalize">
 <span id="adobo-normalize-module"></span><h2>adobo.normalize module<a class="headerlink" href="#module-adobo.normalize" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id2">
-<h3>Summary<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3>Summary<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>This module contains functions to normalize raw read counts.</p>
 <dl class="function">
-<dt id="adobo.normalize.clr_normalization">
-<code class="sig-prename descclassname">adobo.normalize.</code><code class="sig-name descname">clr_normalization</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">axis='genes'</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.normalize.clr_normalization" title="Permalink to this definition">¶</a></dt>
+<dt id="adobo.normalize.clr">
+<code class="sig-prename descclassname">adobo.normalize.</code><code class="sig-name descname">clr</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">axis='genes'</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.normalize.clr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs centered log ratio normalization similar to Seurat</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -284,8 +361,8 @@ this is the case, set this to True, otherwise False (default: True).</p></li>
 </dd></dl>
 
 <dl class="function">
-<dt id="adobo.normalize.full_quantile_normalization">
-<code class="sig-prename descclassname">adobo.normalize.</code><code class="sig-name descname">full_quantile_normalization</code><span class="sig-paren">(</span><em class="sig-param">data</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.normalize.full_quantile_normalization" title="Permalink to this definition">¶</a></dt>
+<dt id="adobo.normalize.fqn">
+<code class="sig-prename descclassname">adobo.normalize.</code><code class="sig-name descname">fqn</code><span class="sig-paren">(</span><em class="sig-param">data</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.normalize.fqn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs full quantile normalization (FQN). FQN was shown to perform well on single
 cell data [1].</p>
 <p class="rubric">Notes</p>
@@ -352,6 +429,10 @@ if method=’rpkm’.</p></li>
 <dt>[0] Cole et al. (2019) Cell Systems</dt><dd><p><a class="reference external" href="https://www.biorxiv.org/content/10.1101/235382v2">https://www.biorxiv.org/content/10.1101/235382v2</a></p>
 </dd>
 </dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#adobo.normalize.standard" title="adobo.normalize.standard"><code class="xref py py-func docutils literal notranslate"><span class="pre">standard()</span></code></a>, <a class="reference internal" href="#adobo.normalize.rpkm" title="adobo.normalize.rpkm"><code class="xref py py-func docutils literal notranslate"><span class="pre">rpkm()</span></code></a>, <a class="reference internal" href="#adobo.normalize.fqn" title="adobo.normalize.fqn"><code class="xref py py-func docutils literal notranslate"><span class="pre">fqn()</span></code></a>, <a class="reference internal" href="#adobo.normalize.clr" title="adobo.normalize.clr"><code class="xref py py-func docutils literal notranslate"><span class="pre">clr()</span></code></a>, <a class="reference internal" href="#adobo.normalize.vsn" title="adobo.normalize.vsn"><code class="xref py py-func docutils literal notranslate"><span class="pre">vsn()</span></code></a></p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p></p>
@@ -397,8 +478,8 @@ the length, field separator is one space.</p></li>
 </dd></dl>
 
 <dl class="function">
-<dt id="adobo.normalize.standard_normalization">
-<code class="sig-prename descclassname">adobo.normalize.</code><code class="sig-name descname">standard_normalization</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">scaling_factor</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.normalize.standard_normalization" title="Permalink to this definition">¶</a></dt>
+<dt id="adobo.normalize.standard">
+<code class="sig-prename descclassname">adobo.normalize.</code><code class="sig-name descname">standard</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">scaling_factor</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.normalize.standard" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs a standard normalization by scaling with the total read depth per cell and
 then multiplying with a scaling factor.</p>
 <dl class="field-list simple">
@@ -458,8 +539,8 @@ model with regularized parameters</p>
 </div>
 <div class="section" id="module-adobo.plotting">
 <span id="adobo-plotting-module"></span><h2>adobo.plotting module<a class="headerlink" href="#module-adobo.plotting" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id3">
-<h3>Summary<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h3>Summary<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>Functions for plotting scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.plotting.barplot_genes_per_cell">
@@ -509,8 +590,8 @@ model with regularized parameters</p>
 </div>
 <div class="section" id="module-adobo.preproc">
 <span id="adobo-preproc-module"></span><h2>adobo.preproc module<a class="headerlink" href="#module-adobo.preproc" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id4">
-<h3>Summary<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h3>Summary<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>Functions for pre-processing scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.preproc.detect_ERCC_spikes">
@@ -643,8 +724,8 @@ the gene (default: 0.001).</p></li>
 </div>
 <div class="section" id="module-adobo.stats">
 <span id="adobo-stats-module"></span><h2>adobo.stats module<a class="headerlink" href="#module-adobo.stats" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id5">
-<h3>Summary<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h3>Summary<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>Statistical helper functions.</p>
 <dl class="function">
 <dt id="adobo.stats.bw_nrd">
