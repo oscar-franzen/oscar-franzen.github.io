@@ -1,6 +1,13 @@
 adobo package
 =============
 
+Subpackages
+-----------
+
+.. toctree::
+
+   adobo.glm
+
 Submodules
 ----------
 

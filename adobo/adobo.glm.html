@@ -1,0 +1,1153 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>adobo.glm package &#8212; adobo  documentation</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">adobo  documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">adobo.glm package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-adobo.glm.families">adobo.glm.families module</a></li>
+<li><a class="reference internal" href="#module-adobo.glm.glm">adobo.glm.glm module</a></li>
+<li><a class="reference internal" href="#module-adobo.glm.glmnet">adobo.glm.glmnet module</a></li>
+<li><a class="reference internal" href="#module-adobo.glm.simulation">adobo.glm.simulation module</a></li>
+<li><a class="reference internal" href="#module-adobo.glm.utils">adobo.glm.utils module</a></li>
+<li><a class="reference internal" href="#module-adobo.glm">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/adobo.glm.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="adobo-glm-package">
+<h1>adobo.glm package<a class="headerlink" href="#adobo-glm-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-adobo.glm.families">
+<span id="adobo-glm-families-module"></span><h2>adobo.glm.families module<a class="headerlink" href="#module-adobo.glm.families" title="Permalink to this headline">¶</a></h2>
+<p>Exponential families for GLMs</p>
+<dl class="class">
+<dt id="adobo.glm.families.Bernoulli">
+<em class="property">class </em><code class="sig-prename descclassname">adobo.glm.families.</code><code class="sig-name descname">Bernoulli</code><a class="headerlink" href="#adobo.glm.families.Bernoulli" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#adobo.glm.families.ExponentialFamily" title="adobo.glm.families.ExponentialFamily"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.glm.families.ExponentialFamily</span></code></a>, <a class="reference internal" href="#adobo.glm.families.ExponentialFamilyMixin" title="adobo.glm.families.ExponentialFamilyMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.glm.families.ExponentialFamilyMixin</span></code></a></p>
+<p>A Bernoulli exponential family, used to fit a classical logistic model.</p>
+<p>The GLM fit with this family has the following structure equation:</p>
+<blockquote>
+<div><p>y | X ~ Bernoulli(p = X beta)</p>
+</div></blockquote>
+<dl class="method">
+<dt id="adobo.glm.families.Bernoulli.d_inv_link">
+<code class="sig-name descname">d_inv_link</code><span class="sig-paren">(</span><em class="sig-param">nu</em>, <em class="sig-param">mu</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.families.Bernoulli.d_inv_link" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.families.Bernoulli.deviance">
+<code class="sig-name descname">deviance</code><span class="sig-paren">(</span><em class="sig-param">y</em>, <em class="sig-param">mu</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.families.Bernoulli.deviance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="adobo.glm.families.Bernoulli.has_dispersion">
+<code class="sig-name descname">has_dispersion</code><em class="property"> = False</em><a class="headerlink" href="#adobo.glm.families.Bernoulli.has_dispersion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.families.Bernoulli.initial_working_response">
+<code class="sig-name descname">initial_working_response</code><span class="sig-paren">(</span><em class="sig-param">y</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.families.Bernoulli.initial_working_response" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.families.Bernoulli.initial_working_weights">
+<code class="sig-name descname">initial_working_weights</code><span class="sig-paren">(</span><em class="sig-param">y</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.families.Bernoulli.initial_working_weights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.families.Bernoulli.inv_link">
+<code class="sig-name descname">inv_link</code><span class="sig-paren">(</span><em class="sig-param">nu</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.families.Bernoulli.inv_link" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.families.Bernoulli.sample">
+<code class="sig-name descname">sample</code><span class="sig-paren">(</span><em class="sig-param">mus</em>, <em class="sig-param">dispersion</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.families.Bernoulli.sample" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.families.Bernoulli.variance">
+<code class="sig-name descname">variance</code><span class="sig-paren">(</span><em class="sig-param">mu</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.families.Bernoulli.variance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="adobo.glm.families.Exponential">
+<em class="property">class </em><code class="sig-prename descclassname">adobo.glm.families.</code><code class="sig-name descname">Exponential</code><a class="headerlink" href="#adobo.glm.families.Exponential" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#adobo.glm.families.Gamma" title="adobo.glm.families.Gamma"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.glm.families.Gamma</span></code></a></p>
+<p>An Exponential distribution exponential family.</p>
+<p>The GLM fit with this family has the following structure equation:</p>
+<blockquote>
+<div><p>y | X = Exponentiatl(scale = exp(X beta))</p>
+</div></blockquote>
+<p>The only difference between this family and the Gamma family is that the
+dispersion is fixed at 1.</p>
+<dl class="attribute">
+<dt id="adobo.glm.families.Exponential.has_dispersion">
+<code class="sig-name descname">has_dispersion</code><em class="property"> = False</em><a class="headerlink" href="#adobo.glm.families.Exponential.has_dispersion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="adobo.glm.families.ExponentialFamily">
+<em class="property">class </em><code class="sig-prename descclassname">adobo.glm.families.</code><code class="sig-name descname">ExponentialFamily</code><a class="headerlink" href="#adobo.glm.families.ExponentialFamily" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>An ExponentialFamily must implement at least four methods and define one
+attribute.</p>
+<dl class="method">
+<dt>
+<code class="sig-name descname">inv_link:</code></dt>
+<dd><p>The inverse link function.</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">d_inv_link:</code></dt>
+<dd><p>The derivative of the inverse link function.</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">variance:</code></dt>
+<dd><p>The variance funtion linking the mean to the variance of the
+distribution.</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">deviance:</code></dt>
+<dd><p>The deviance of the family. Used as a measure of model fit.</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">sample:</code></dt>
+<dd><p>A sampler from the conditional distribution of the reponse.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.families.ExponentialFamily.d_inv_link">
+<em class="property">abstract </em><code class="sig-name descname">d_inv_link</code><span class="sig-paren">(</span><em class="sig-param">nu</em>, <em class="sig-param">mu</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.families.ExponentialFamily.d_inv_link" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.families.ExponentialFamily.deviance">
+<em class="property">abstract </em><code class="sig-name descname">deviance</code><span class="sig-paren">(</span><em class="sig-param">y</em>, <em class="sig-param">mu</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.families.ExponentialFamily.deviance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.families.ExponentialFamily.inv_link">
+<em class="property">abstract </em><code class="sig-name descname">inv_link</code><span class="sig-paren">(</span><em class="sig-param">nu</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.families.ExponentialFamily.inv_link" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.families.ExponentialFamily.sample">
+<em class="property">abstract </em><code class="sig-name descname">sample</code><span class="sig-paren">(</span><em class="sig-param">mus</em>, <em class="sig-param">dispersion</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.families.ExponentialFamily.sample" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.families.ExponentialFamily.variance">
+<em class="property">abstract </em><code class="sig-name descname">variance</code><span class="sig-paren">(</span><em class="sig-param">mu</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.families.ExponentialFamily.variance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="adobo.glm.families.ExponentialFamilyMixin">
+<em class="property">class </em><code class="sig-prename descclassname">adobo.glm.families.</code><code class="sig-name descname">ExponentialFamilyMixin</code><a class="headerlink" href="#adobo.glm.families.ExponentialFamilyMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Implementations of methods common to all ExponentialFamilies.</p>
+<dl class="method">
+<dt id="adobo.glm.families.ExponentialFamilyMixin.penalized_deviance">
+<code class="sig-name descname">penalized_deviance</code><span class="sig-paren">(</span><em class="sig-param">y</em>, <em class="sig-param">mu</em>, <em class="sig-param">alpha</em>, <em class="sig-param">coef</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.families.ExponentialFamilyMixin.penalized_deviance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="adobo.glm.families.Gamma">
+<em class="property">class </em><code class="sig-prename descclassname">adobo.glm.families.</code><code class="sig-name descname">Gamma</code><a class="headerlink" href="#adobo.glm.families.Gamma" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#adobo.glm.families.ExponentialFamily" title="adobo.glm.families.ExponentialFamily"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.glm.families.ExponentialFamily</span></code></a>, <a class="reference internal" href="#adobo.glm.families.ExponentialFamilyMixin" title="adobo.glm.families.ExponentialFamilyMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.glm.families.ExponentialFamilyMixin</span></code></a></p>
+<p>A Gamma exponential family.</p>
+<p>The GLM fit with this family has the following structure equation:</p>
+<blockquote>
+<div><p>y | X ~ Gamma(shape = dispersion, scale = exp(X beta) / dispersion)</p>
+</div></blockquote>
+<p>Here, sigma is a nuisance parameter.</p>
+<p>Note: In this family we use the logarithmic link function, instead of the
+reciporical link function.  Although the reciporical is the canonical link,
+the logarithmic link is more commonly used in Gamma regression.</p>
+<dl class="method">
+<dt id="adobo.glm.families.Gamma.d_inv_link">
+<code class="sig-name descname">d_inv_link</code><span class="sig-paren">(</span><em class="sig-param">nu</em>, <em class="sig-param">mu</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.families.Gamma.d_inv_link" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.families.Gamma.deviance">
+<code class="sig-name descname">deviance</code><span class="sig-paren">(</span><em class="sig-param">y</em>, <em class="sig-param">mu</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.families.Gamma.deviance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="adobo.glm.families.Gamma.has_dispersion">
+<code class="sig-name descname">has_dispersion</code><em class="property"> = True</em><a class="headerlink" href="#adobo.glm.families.Gamma.has_dispersion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.families.Gamma.identity_link">
+<code class="sig-name descname">identity_link</code><span class="sig-paren">(</span><em class="sig-param">nu</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.families.Gamma.identity_link" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.families.Gamma.inv_link">
+<code class="sig-name descname">inv_link</code><span class="sig-paren">(</span><em class="sig-param">nu</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.families.Gamma.inv_link" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.families.Gamma.sample">
+<code class="sig-name descname">sample</code><span class="sig-paren">(</span><em class="sig-param">mu</em>, <em class="sig-param">dispersion</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.families.Gamma.sample" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.families.Gamma.variance">
+<code class="sig-name descname">variance</code><span class="sig-paren">(</span><em class="sig-param">mu</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.families.Gamma.variance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="adobo.glm.families.Gaussian">
+<em class="property">class </em><code class="sig-prename descclassname">adobo.glm.families.</code><code class="sig-name descname">Gaussian</code><a class="headerlink" href="#adobo.glm.families.Gaussian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#adobo.glm.families.ExponentialFamily" title="adobo.glm.families.ExponentialFamily"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.glm.families.ExponentialFamily</span></code></a>, <a class="reference internal" href="#adobo.glm.families.ExponentialFamilyMixin" title="adobo.glm.families.ExponentialFamilyMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.glm.families.ExponentialFamilyMixin</span></code></a></p>
+<p>A Gaussian exponential family, used to fit a classical linear model.</p>
+<p>The GLM fit with this family has the following structure equation:</p>
+<blockquote>
+<div><p>y | X ~ Gaussian(mu = X beta, sigma = dispersion)</p>
+</div></blockquote>
+<p>Here, sigma is a nuisance parameter.</p>
+<dl class="method">
+<dt id="adobo.glm.families.Gaussian.d_inv_link">
+<code class="sig-name descname">d_inv_link</code><span class="sig-paren">(</span><em class="sig-param">nu</em>, <em class="sig-param">mu</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.families.Gaussian.d_inv_link" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.families.Gaussian.deviance">
+<code class="sig-name descname">deviance</code><span class="sig-paren">(</span><em class="sig-param">y</em>, <em class="sig-param">mu</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.families.Gaussian.deviance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="adobo.glm.families.Gaussian.has_dispersion">
+<code class="sig-name descname">has_dispersion</code><em class="property"> = True</em><a class="headerlink" href="#adobo.glm.families.Gaussian.has_dispersion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.families.Gaussian.initial_working_response">
+<code class="sig-name descname">initial_working_response</code><span class="sig-paren">(</span><em class="sig-param">y</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.families.Gaussian.initial_working_response" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.families.Gaussian.initial_working_weights">
+<code class="sig-name descname">initial_working_weights</code><span class="sig-paren">(</span><em class="sig-param">y</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.families.Gaussian.initial_working_weights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.families.Gaussian.inv_link">
+<code class="sig-name descname">inv_link</code><span class="sig-paren">(</span><em class="sig-param">nu</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.families.Gaussian.inv_link" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.families.Gaussian.sample">
+<code class="sig-name descname">sample</code><span class="sig-paren">(</span><em class="sig-param">mus</em>, <em class="sig-param">dispersion</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.families.Gaussian.sample" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.families.Gaussian.variance">
+<code class="sig-name descname">variance</code><span class="sig-paren">(</span><em class="sig-param">mu</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.families.Gaussian.variance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="adobo.glm.families.Poisson">
+<em class="property">class </em><code class="sig-prename descclassname">adobo.glm.families.</code><code class="sig-name descname">Poisson</code><a class="headerlink" href="#adobo.glm.families.Poisson" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#adobo.glm.families.QuasiPoisson" title="adobo.glm.families.QuasiPoisson"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.glm.families.QuasiPoisson</span></code></a></p>
+<p>A QuasiPoisson exponential family, used to fit a possibly overdispersed
+Poisson regression.</p>
+<p>The GLM fit with this family has the following structure equation:</p>
+<blockquote>
+<div><p>y | X ~ Poisson(mu = exp(X beta))</p>
+</div></blockquote>
+<p>The Poisson model does not estimate a dispersion parameter; if
+overdispersion is present, the standard errors estimated in this model may
+be too small.  If this is the case, consider fitting a QuasiPoisson model.</p>
+<dl class="attribute">
+<dt id="adobo.glm.families.Poisson.has_dispersion">
+<code class="sig-name descname">has_dispersion</code><em class="property"> = False</em><a class="headerlink" href="#adobo.glm.families.Poisson.has_dispersion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="adobo.glm.families.QuasiPoisson">
+<em class="property">class </em><code class="sig-prename descclassname">adobo.glm.families.</code><code class="sig-name descname">QuasiPoisson</code><a class="headerlink" href="#adobo.glm.families.QuasiPoisson" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#adobo.glm.families.ExponentialFamily" title="adobo.glm.families.ExponentialFamily"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.glm.families.ExponentialFamily</span></code></a>, <a class="reference internal" href="#adobo.glm.families.ExponentialFamilyMixin" title="adobo.glm.families.ExponentialFamilyMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.glm.families.ExponentialFamilyMixin</span></code></a></p>
+<p>A QuasiPoisson exponential family, used to fit a possibly overdispersed
+Poisson regression.</p>
+<p>The GLM fit with this family has the following structure equation:</p>
+<blockquote>
+<div><p>y | X ~ Poisson(mu = exp(X beta))</p>
+</div></blockquote>
+<p>The parameter esimtates of this model are the same as a Poisson model, but
+a dispersion parameter is estimated, allowing for possibly larger standards
+errors when overdispersion is present.</p>
+<dl class="method">
+<dt id="adobo.glm.families.QuasiPoisson.d_inv_link">
+<code class="sig-name descname">d_inv_link</code><span class="sig-paren">(</span><em class="sig-param">nu</em>, <em class="sig-param">mu</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.families.QuasiPoisson.d_inv_link" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.families.QuasiPoisson.deviance">
+<code class="sig-name descname">deviance</code><span class="sig-paren">(</span><em class="sig-param">y</em>, <em class="sig-param">mu</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.families.QuasiPoisson.deviance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="adobo.glm.families.QuasiPoisson.has_dispersion">
+<code class="sig-name descname">has_dispersion</code><em class="property"> = True</em><a class="headerlink" href="#adobo.glm.families.QuasiPoisson.has_dispersion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.families.QuasiPoisson.inv_link">
+<code class="sig-name descname">inv_link</code><span class="sig-paren">(</span><em class="sig-param">nu</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.families.QuasiPoisson.inv_link" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.families.QuasiPoisson.sample">
+<code class="sig-name descname">sample</code><span class="sig-paren">(</span><em class="sig-param">mus</em>, <em class="sig-param">dispersion</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.families.QuasiPoisson.sample" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.families.QuasiPoisson.variance">
+<code class="sig-name descname">variance</code><span class="sig-paren">(</span><em class="sig-param">mu</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.families.QuasiPoisson.variance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-adobo.glm.glm">
+<span id="adobo-glm-glm-module"></span><h2>adobo.glm.glm module<a class="headerlink" href="#module-adobo.glm.glm" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="adobo.glm.glm.GLM">
+<em class="property">class </em><code class="sig-prename descclassname">adobo.glm.glm.</code><code class="sig-name descname">GLM</code><span class="sig-paren">(</span><em class="sig-param">family</em>, <em class="sig-param">alpha=0.0</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.glm.GLM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A generalized linear model.</p>
+<p>GLMs are a generalization of the classical linear and logistic models to
+other conditional distributions of response y.  A GLM is specified by a
+<em>link function</em> G and a family of <em>conditional distributions</em> dist, with
+the model specification given by</p>
+<blockquote>
+<div><p>y | X ~ dist(theta = G(X * beta))</p>
+</div></blockquote>
+<p>Here beta are the parameters fit in the model, with X * beta a matrix
+multiplication just like in linear regression.  Above, theta is a
+<em>parameter</em> of the one parameter family of distributions dist.</p>
+<p>In this implementation, a specific GLM is specified with a <em>family</em> object
+of ExponentialFamily type, which contains the information about the
+conditional distribution of y, and its connection to X, needed to construct
+the model. See the documentation for ExponentialFamily for
+details.</p>
+<p>The model is fit to data using the well known Fisher Scoring algorithm,
+which is a version of Newton’s method where the hessian is replaced with
+its expectation with respect to the assumed distribution of Y.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>family</strong> (<em>ExponentialFamily object</em>) – The exponential family used in the model.</p></li>
+<li><p><strong>alpha</strong> (<em>float</em><em>, </em><em>non-negative</em>) – The ridge regularization strength. If non-zero, the loss function
+minimized is a penalized deviance, where the penalty is alpha *
+np.sum(model.coef_**2).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="adobo.glm.glm.GLM.family">
+<code class="sig-name descname">family</code><a class="headerlink" href="#adobo.glm.glm.GLM.family" title="Permalink to this definition">¶</a></dt>
+<dd><p>The exponential family used in the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>ExponentialFamily object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adobo.glm.glm.GLM.alpha">
+<code class="sig-name descname">alpha</code><a class="headerlink" href="#adobo.glm.glm.GLM.alpha" title="Permalink to this definition">¶</a></dt>
+<dd><p>The regularization strength.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float, non-negative</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adobo.glm.glm.GLM.formula">
+<code class="sig-name descname">formula</code><a class="headerlink" href="#adobo.glm.glm.GLM.formula" title="Permalink to this definition">¶</a></dt>
+<dd><p>An (optional) formula specifying the model.  Used in the case that X is
+passed as a DataFrame.  For documentation on model formulas, please see
+the patsy library documentation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adobo.glm.glm.GLM.X_info">
+<code class="sig-name descname">X_info</code><a class="headerlink" href="#adobo.glm.glm.GLM.X_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Contains information about the model formula used to process the
+training data frame into a design matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>patsy.design_info.DesignInfo object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adobo.glm.glm.GLM.X_names">
+<code class="sig-name descname">X_names</code><a class="headerlink" href="#adobo.glm.glm.GLM.X_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Names for the predictors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>List[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adobo.glm.glm.GLM.y_names">
+<code class="sig-name descname">y_names</code><a class="headerlink" href="#adobo.glm.glm.GLM.y_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name for the target varaible.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adobo.glm.glm.GLM.coef_">
+<code class="sig-name descname">coef_</code><a class="headerlink" href="#adobo.glm.glm.GLM.coef_" title="Permalink to this definition">¶</a></dt>
+<dd><p>The fit parameter estimates.  None if the model has not yet been fit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>array, shape (n_features, )</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adobo.glm.glm.GLM.deviance_">
+<code class="sig-name descname">deviance_</code><a class="headerlink" href="#adobo.glm.glm.GLM.deviance_" title="Permalink to this definition">¶</a></dt>
+<dd><p>The final deviance of the fit model on the training data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adobo.glm.glm.GLM.information_matrix_">
+<code class="sig-name descname">information_matrix_</code><a class="headerlink" href="#adobo.glm.glm.GLM.information_matrix_" title="Permalink to this definition">¶</a></dt>
+<dd><p>The estimated information matrix. This information matrix is evaluated
+at the fit parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>array, shape (n_features, n_features)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adobo.glm.glm.GLM.n">
+<code class="sig-name descname">n</code><a class="headerlink" href="#adobo.glm.glm.GLM.n" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of samples used to fit the model, or the sum of the sample
+weights.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>integer, positive</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adobo.glm.glm.GLM.p">
+<code class="sig-name descname">p</code><a class="headerlink" href="#adobo.glm.glm.GLM.p" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of fit parameters in the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>integer, positive</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Notes</p>
+<p>Instead of supplying a <cite>fit_intercept</cite> argument, we have instead assumed
+the programmer has included a column of ones as the <em>first</em> column X. The
+fit method will throw an exception if this is not the case.</p>
+<dl class="method">
+<dt id="adobo.glm.glm.GLM.clone">
+<code class="sig-name descname">clone</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.glm.GLM.clone" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.glm.GLM.coef_covariance_matrix_">
+<em class="property">property </em><code class="sig-name descname">coef_covariance_matrix_</code><a class="headerlink" href="#adobo.glm.glm.GLM.coef_covariance_matrix_" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.glm.GLM.coef_standard_error_">
+<em class="property">property </em><code class="sig-name descname">coef_standard_error_</code><a class="headerlink" href="#adobo.glm.glm.GLM.coef_standard_error_" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.glm.GLM.dispersion_">
+<em class="property">property </em><code class="sig-name descname">dispersion_</code><a class="headerlink" href="#adobo.glm.glm.GLM.dispersion_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an estimate of the dispersion parameter phi.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.glm.GLM.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">y=None</em>, <em class="sig-param">formula=None</em>, <em class="sig-param">*</em>, <em class="sig-param">X_names=None</em>, <em class="sig-param">y_name=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.glm.GLM.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit the GLM model to training data.</p>
+<p>Fitting the model uses the well known Fisher scoring algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>array</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>) or </em><em>pd.DataFrame</em>) – Training data.</p></li>
+<li><p><strong>y</strong> (<em>array</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>)</em>) – Target values.</p></li>
+<li><p><strong>formula</strong> (<em>str</em>) – A formula specifying the model.  Used in the case that X is passed
+as a DataFrame.  For documentation on model formulas, please see
+the patsy library documentation.</p></li>
+<li><p><strong>warm_start</strong> (<em>array</em><em>, </em><em>shape</em><em> (</em><em>n_features</em><em>, </em><em>)</em>) – Initial values to use for the parameter estimates in the
+optimization, useful when fitting an entire regulatization path of
+models.  If not supplies, the initial intercept estimate will be
+the mean of the target array, and all other parameter estimates
+will be initialized to zero.</p></li>
+<li><p><strong>offset</strong> (<em>array</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>)</em>) – <dl class="simple">
+<dt>Offsets for samples.  If provided, the model fit is</dt><dd><p>E[Y|X] = family.identity_link(np.dot(X, coef) + offset)</p>
+</dd>
+</dl>
+<p>This is specially useful in models with exposures, as in Poisson
+regression.</p>
+</p></li>
+<li><p><strong>sample_weights</strong> (<em>array</em><em>, </em><em>shape</em><em> (</em><em>n_sample</em><em>, </em><em>)</em>) – Sample weights used in the deviance minimized by the model. If
+provided, each term in the deviance being minimized is multiplied
+by its corrosponding weight.</p></li>
+<li><p><strong>max_iter</strong> (<em>positive integer</em>) – The maximum number of iterations for the fitting algorithm.</p></li>
+<li><p><strong>tol</strong> (<em>float</em><em>, </em><em>non-negative and less than one</em>) – The convergence tolerance for the fitting algorithm.  The relative
+change in deviance is compared to this tolerance to check for
+convergence.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>self</strong> – The fit model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>GLM object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.glm.GLM.p_values_">
+<em class="property">property </em><code class="sig-name descname">p_values_</code><a class="headerlink" href="#adobo.glm.glm.GLM.p_values_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an array of p-values for the fit coefficients.  These
+p-values test the hypothesis that the given parameter is zero.</p>
+<p>Note: We use the asymptotic normal approximation to the p-values for
+all models.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.glm.GLM.predict">
+<code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">offset=None</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.glm.GLM.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return predictions from a fit model.</p>
+<p>Predictions are computed using the inverse link function in the family
+used to fit the model:</p>
+<blockquote>
+<div><p>preds = family.identity_link(np.dot(X, <a href="#id1"><span class="problematic" id="id2">self.coef_</span></a>)</p>
+</div></blockquote>
+<p>Note that in the case of binary models, predict <em>does not</em> make class
+assignmnets, it returns a probability of class membership.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>array</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Data set.</p></li>
+<li><p><strong>offset</strong> (<em>array</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>)</em>) – Offsets to add on the linear scale when making predictions.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>preds</strong> – Model predictions.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array, shape (n_samples, )</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.glm.GLM.score">
+<code class="sig-name descname">score</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.glm.GLM.score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the deviance of a fit model on a given dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>array</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Data set.</p></li>
+<li><p><strong>y</strong> (<em>array</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>)</em>) – Labels for X.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>deviance</strong> – Model deviance scored using supplied data and labels.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array, shape (n_samples, )</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.glm.GLM.summary">
+<code class="sig-name descname">summary</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.glm.GLM.summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print a summary of the model.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-adobo.glm.glmnet">
+<span id="adobo-glm-glmnet-module"></span><h2>adobo.glm.glmnet module<a class="headerlink" href="#module-adobo.glm.glmnet" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="adobo.glm.glmnet.ElasticNet">
+<em class="property">class </em><code class="sig-prename descclassname">adobo.glm.glmnet.</code><code class="sig-name descname">ElasticNet</code><span class="sig-paren">(</span><em class="sig-param">lam</em>, <em class="sig-param">alpha</em>, <em class="sig-param">max_iter=200</em>, <em class="sig-param">tol=0.0010000000000000002</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.glmnet.ElasticNet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Fit an elastic net model.</p>
+<p>The elastic net is a regularized regularized linear regression model
+incorporating both L1 and L2 penalty terms.  It is fit by minimizing the
+penalized loss function:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>sum((y - y_hat)**2)</dt><dd><ul class="simple">
+<li><p>lam * ((1 - alpha)/2 * sum(beta**2)</p></li>
+<li><p>alpha * sum(abs(beta)))</p></li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lam</strong> (<em>float</em>) – The overall strength of the regularization.</p></li>
+<li><p><strong>alpha</strong> (<em>float in the interval</em><em> [</em><em>0</em><em>, </em><em>1</em><em>]</em>) – The relative strengths of the L1 and L2 regularization.</p></li>
+<li><p><strong>max_iter</strong> (<em>positive integer</em>) – The maximum number of coordinate descent cycles before breaking out of
+the descent loop.</p></li>
+<li><p><strong>tol</strong> (<em>float</em>) – The convergence tolerance.  The actual convergence tolerance is applied
+to the absolute multiplicative change in the coefficient vector. When
+the coefficient vector changes by less than n_params * tol in one full
+coordinate descent cycle, the algorithm terminates.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="adobo.glm.glmnet.ElasticNet.intercept_">
+<code class="sig-name descname">intercept_</code><a class="headerlink" href="#adobo.glm.glmnet.ElasticNet.intercept_" title="Permalink to this definition">¶</a></dt>
+<dd><p>The fit intercept in the regression.  This is stored separately, as the
+penalty terms are <em>not</em> applied to the intercept.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adobo.glm.glmnet.ElasticNet.n">
+<code class="sig-name descname">n</code><a class="headerlink" href="#adobo.glm.glmnet.ElasticNet.n" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of samples used to fit the model, or the sum of the sample
+weights.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>integer, positive</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adobo.glm.glmnet.ElasticNet.p">
+<code class="sig-name descname">p</code><a class="headerlink" href="#adobo.glm.glmnet.ElasticNet.p" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of fit parameters in the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>integer, positive</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">Additionally, the following private attributes are used by the fitting</code></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">algorithm.  They are stored permanently so they can be used as warm starts</code></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">to other ElasticNet objects. This is used both when fitting an entire</code></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">regularization path of models, and also when fitting Glmnet objects, which</code></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">procede by solving quadratic approximations to the Glmnet loss using the</code></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">ElasticNet.</code></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">The array below (and many of the other arrays used internally during</code></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">fitting) use a peculiar ordering.  Instead of being arranged to match the</code></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">order of the features in a training matrix X, they are instead arranged in</code></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">order that the predictors enter the model.  This allows for efficient</code></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">calculation of the update steps in ElasticNet.fit.</code></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="adobo.glm.glmnet.ElasticNet._active_coefs">
+<code class="sig-name descname">_active_coefs</code><a class="headerlink" href="#adobo.glm.glmnet.ElasticNet._active_coefs" title="Permalink to this definition">¶</a></dt>
+<dd><p>The active set of coefficients. They are stored in the order that their
+associated features enter into the model, i.e. the j’th coefficient in
+this list is associated with the j’th feature to enter the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>array, shape (n_features,)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adobo.glm.glmnet.ElasticNet._active_coef_idx_list">
+<code class="sig-name descname">_active_coef_idx_list</code><a class="headerlink" href="#adobo.glm.glmnet.ElasticNet._active_coef_idx_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>The indices of the active coefficients into the column dimension of
+the training data.  I.e. the j’th active coefficient is associated with
+the _active_coef_idx_list[j]’th column of X.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>array, shape (n_features,)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adobo.glm.glmnet.ElasticNet._j_to_active_map">
+<code class="sig-name descname">_j_to_active_map</code><a class="headerlink" href="#adobo.glm.glmnet.ElasticNet._j_to_active_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maps a column index of X to an index into _active_coefs.  I.e., the
+position of the j’th column of X in the order in which coefficients
+enter into the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dictionary, positive integer =&gt; positive integer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">References</p>
+<p>The implementation here is based on the discussion in Friedman, Hastie, and
+Tibshirani: Regularization Paths for Generalized Linear Models via
+Coordinate Descent (hereafter referenced as [FHT]).</p>
+<dl class="method">
+<dt id="adobo.glm.glmnet.ElasticNet.coef_">
+<em class="property">property </em><code class="sig-name descname">coef_</code><a class="headerlink" href="#adobo.glm.glmnet.ElasticNet.coef_" title="Permalink to this definition">¶</a></dt>
+<dd><p>The coefficient estimates of a fit model.</p>
+<p>This attribute returns the coefficient estimates in the same order as
+the associated columns in X.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.glmnet.ElasticNet.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">y</em>, <em class="sig-param">offset=None</em>, <em class="sig-param">sample_weights=None</em>, <em class="sig-param">warm_start=None</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.glmnet.ElasticNet.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit an elastic net with coordinate descent.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>array</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training data.</p></li>
+<li><p><strong>y</strong> (<em>array</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>)</em>) – Target values.</p></li>
+<li><p><strong>offset</strong> (<em>array</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>)</em>) – <dl class="simple">
+<dt>Offsets for samples.  If provided, the model fit is</dt><dd><p>E[Y|X] = np.dot(X, coef) + offset</p>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>sample_weights</strong> (<em>array</em><em>, </em><em>shape</em><em> (</em><em>n_sample</em><em>, </em><em>)</em>) – Sample weights used in the deviance minimized by the model. If
+provided, each term in the deviance being minimized is multiplied
+by its corresponding weight.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>self</strong> – The fit model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>ElasticNet object</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The following data structures are used internally by the fitting
+algorithm.</p>
+<dl class="simple">
+<dt>x_means: array, shape (n_features,)</dt><dd><p>The weighted column means of the training data X.</p>
+</dd>
+<dt>xy_dots: array, shape (n_features,)</dt><dd><p>The dot products of the columns in the training matrix X with the
+target y. Arranged in the same order as the columns of X.</p>
+</dd>
+<dt>offset_dots: array, shape(n_features,)</dt><dd><p>The weighted dot products of the columns of X with the offset
+vector.</p>
+</dd>
+<dt>xx_dots: array, shape (n_features,)</dt><dd><p>The weighted dot products of the columns of the training matrix X
+with themselves.  I.e., each individual column with itself.</p>
+</dd>
+<dt>xtx_dots: array, shape (n_features, n_features)</dt><dd><p>The matrix of weighted dot products of the columns of the training
+data X with themselves; this includes all such dot products, not
+just those between columns and themselves. The columns of this
+matrix are permuted so that the dot products stored in column j of
+xtx_dots are associated with the j’th coefficient to enter the
+model. The rows are in order of the columns of X. This matrix is
+initialized to zero, and filled in lazily as coefficients enter the
+model, as the cross-column dot products are only needed for the
+features currently active in the model.</p>
+</dd>
+</dl>
+<p>In addition, see the Attributes notes in the documentation of this
+class for information on how the coefficient estimates are managed
+internally.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.glmnet.ElasticNet.predict">
+<code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param">X</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.glmnet.ElasticNet.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return predictions given an array X.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>array</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Data.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>preds</strong> – Predictions.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array, shape (n_samples, )</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="adobo.glm.glmnet.GLMNet">
+<em class="property">class </em><code class="sig-prename descclassname">adobo.glm.glmnet.</code><code class="sig-name descname">GLMNet</code><span class="sig-paren">(</span><em class="sig-param">family</em>, <em class="sig-param">lambdas</em>, <em class="sig-param">alpha</em>, <em class="sig-param">max_iter=10</em>, <em class="sig-param">tol=0.00010000000000000002</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.glmnet.GLMNet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="adobo.glm.glmnet.GLMNet.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.glmnet.GLMNet.fit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.glmnet.GLMNet.make_working_response_and_weights">
+<code class="sig-name descname">make_working_response_and_weights</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">y</em>, <em class="sig-param">enet</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.glmnet.GLMNet.make_working_response_and_weights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-adobo.glm.simulation">
+<span id="adobo-glm-simulation-module"></span><h2>adobo.glm.simulation module<a class="headerlink" href="#module-adobo.glm.simulation" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="adobo.glm.simulation.Simulation">
+<em class="property">class </em><code class="sig-prename descclassname">adobo.glm.simulation.</code><code class="sig-name descname">Simulation</code><span class="sig-paren">(</span><em class="sig-param">glm</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.simulation.Simulation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Run resampling simulations of a glm object.</p>
+<p>This object implements respampling stratgies, for example the parametric
+end non-parametric bootstrap.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>glm</strong> – A GLM type object.</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="adobo.glm.simulation.Simulation.non_parametric_bootstrap">
+<code class="sig-name descname">non_parametric_bootstrap</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">y</em>, <em class="sig-param">n_sim=100</em>, <em class="sig-param">offset=None</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.simulation.Simulation.non_parametric_bootstrap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit models to non-parameteric bootstrap samples.</p>
+<p>The non-parametric operates by sampling data with replacement from the
+pair (X, y), and then fitting glm models to the resampled pairs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>array</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Data.</p></li>
+<li><p><strong>y</strong> (<em>array</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>)</em>) – Targets.</p></li>
+<li><p><strong>n_sim</strong> (<em>positive integer</em>) – The number of times to resample the data.</p></li>
+<li><p><strong>offset</strong> (<em>array</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>)</em>) – Offsets to use in predictions feeding into the conditional
+distributions.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The list of fit models.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>models</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.simulation.Simulation.parametric_bootstrap">
+<code class="sig-name descname">parametric_bootstrap</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">n_sim=100</em>, <em class="sig-param">offset=None</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.simulation.Simulation.parametric_bootstrap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit models to parameteric bootstrap samples.</p>
+<p>The parametric operates by sampling data from the conditional
+distributions y | X for a fixed matrix of predictors X, and then
+fitting glm models to each pair (X, y).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>array</em><em>, </em><em>shape</em><em> (</em><em>n_sample</em><em>, </em><em>n_features</em><em>)</em>) – Data.</p></li>
+<li><p><strong>n_sim</strong> (<em>positive integer</em>) – The number of times to sample from the coditional distributions
+y | X.</p></li>
+<li><p><strong>offset</strong> (<em>array</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>)</em>) – Offsets to use in predictions feeding into the conditional
+distributions.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The list of fit models.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>models</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adobo.glm.simulation.Simulation.sample">
+<code class="sig-name descname">sample</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">n_sim=100</em>, <em class="sig-param">offset=None</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.simulation.Simulation.sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sample points from the conditional distribution y | X.</p>
+<p>A fitted GLM model determines conditional distributions y | X.  Given a
+matrix of predictors, this method samples y from each conditional
+distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>array</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Data.</p></li>
+<li><p><strong>n_sim</strong> (<em>positive integer</em>) – The number of times to sample from the coditional distributions
+y | X.</p></li>
+<li><p><strong>offset</strong> (<em>array</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>)</em>) – Offsets to use in the predictions feeding into the conditional
+distributions.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>simulations</strong> – The sampled y values.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array, shape (n_sim, n_samples)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-adobo.glm.utils">
+<span id="adobo-glm-utils-module"></span><h2>adobo.glm.utils module<a class="headerlink" href="#module-adobo.glm.utils" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="adobo.glm.utils.check_commensurate">
+<code class="sig-prename descclassname">adobo.glm.utils.</code><code class="sig-name descname">check_commensurate</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.utils.check_commensurate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="adobo.glm.utils.check_intercept">
+<code class="sig-prename descclassname">adobo.glm.utils.</code><code class="sig-name descname">check_intercept</code><span class="sig-paren">(</span><em class="sig-param">X</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.utils.check_intercept" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="adobo.glm.utils.check_offset">
+<code class="sig-prename descclassname">adobo.glm.utils.</code><code class="sig-name descname">check_offset</code><span class="sig-paren">(</span><em class="sig-param">y</em>, <em class="sig-param">offset</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.utils.check_offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="adobo.glm.utils.check_sample_weights">
+<code class="sig-prename descclassname">adobo.glm.utils.</code><code class="sig-name descname">check_sample_weights</code><span class="sig-paren">(</span><em class="sig-param">y</em>, <em class="sig-param">sample_weights</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.utils.check_sample_weights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="adobo.glm.utils.check_types">
+<code class="sig-prename descclassname">adobo.glm.utils.</code><code class="sig-name descname">check_types</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">y</em>, <em class="sig-param">formula</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.utils.check_types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="adobo.glm.utils.default_X_names">
+<code class="sig-prename descclassname">adobo.glm.utils.</code><code class="sig-name descname">default_X_names</code><span class="sig-paren">(</span><em class="sig-param">X</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.utils.default_X_names" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="adobo.glm.utils.default_y_name">
+<code class="sig-prename descclassname">adobo.glm.utils.</code><code class="sig-name descname">default_y_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.utils.default_y_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="adobo.glm.utils.has_converged">
+<code class="sig-prename descclassname">adobo.glm.utils.</code><code class="sig-name descname">has_converged</code><span class="sig-paren">(</span><em class="sig-param">loss</em>, <em class="sig-param">loss_prev</em>, <em class="sig-param">tol</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.utils.has_converged" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="adobo.glm.utils.has_intercept_column">
+<code class="sig-prename descclassname">adobo.glm.utils.</code><code class="sig-name descname">has_intercept_column</code><span class="sig-paren">(</span><em class="sig-param">X</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.utils.has_intercept_column" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="adobo.glm.utils.has_same_length">
+<code class="sig-prename descclassname">adobo.glm.utils.</code><code class="sig-name descname">has_same_length</code><span class="sig-paren">(</span><em class="sig-param">v</em>, <em class="sig-param">w</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.utils.has_same_length" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="adobo.glm.utils.is_commensurate">
+<code class="sig-prename descclassname">adobo.glm.utils.</code><code class="sig-name descname">is_commensurate</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.utils.is_commensurate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="adobo.glm.utils.soft_threshold">
+<code class="sig-prename descclassname">adobo.glm.utils.</code><code class="sig-name descname">soft_threshold</code><span class="sig-paren">(</span><em class="sig-param">z</em>, <em class="sig-param">gamma</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.utils.soft_threshold" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="adobo.glm.utils.weighted_column_dots">
+<code class="sig-prename descclassname">adobo.glm.utils.</code><code class="sig-name descname">weighted_column_dots</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">weights</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.utils.weighted_column_dots" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="adobo.glm.utils.weighted_dot">
+<code class="sig-prename descclassname">adobo.glm.utils.</code><code class="sig-name descname">weighted_dot</code><span class="sig-paren">(</span><em class="sig-param">x0</em>, <em class="sig-param">x1</em>, <em class="sig-param">weights</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.utils.weighted_dot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="adobo.glm.utils.weighted_means">
+<code class="sig-prename descclassname">adobo.glm.utils.</code><code class="sig-name descname">weighted_means</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">weights</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.glm.utils.weighted_means" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-adobo.glm">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-adobo.glm" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">adobo  documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Oscar Franzen.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
+    </div>
+  </body>
+</html>
