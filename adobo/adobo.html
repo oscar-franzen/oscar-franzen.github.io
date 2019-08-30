@@ -291,7 +291,7 @@ it.</p>
 <p>Functions for detection of highly variable genes.</p>
 <dl class="function">
 <dt id="adobo.hvg.brennecke">
-<code class="sig-prename descclassname">adobo.hvg.</code><code class="sig-name descname">brennecke</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">norm_ERCC=None</em>, <em class="sig-param">fdr=0.1</em>, <em class="sig-param">minBiolDisp=0.5</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.hvg.brennecke" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.hvg.</code><code class="sig-name descname">brennecke</code><span class="sig-paren">(</span><em class="sig-param">data_norm</em>, <em class="sig-param">norm_ERCC=None</em>, <em class="sig-param">fdr=0.1</em>, <em class="sig-param">minBiolDisp=0.5</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.hvg.brennecke" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements the method of Brennecke et al. (2013) to identify highly variable genes</p>
 <p class="rubric">Notes</p>
 <p>Fits data using GLM with Fisher Scoring. GLM code copied from (credits to &#64;madrury
@@ -299,7 +299,9 @@ for this code): <a class="reference external" href="https://github.com/madrury/p
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>obj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame object containing raw read counts (rows=genes, columns=cells).</p></li>
+<li><p><strong>data_norm</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame containing normalized gene expression data
+(rows=genes, columns=cells).</p></li>
+<li><p><strong>norm_ERCC</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame containing normalized ERCC spikes.</p></li>
 <li><p><strong>ngenes</strong> (<cite>int</cite>) – Number of top highly variable genes to return.</p></li>
 <li><p><strong>num_bins</strong> (<cite>int</cite>) – Number of bins to use.</p></li>
 </ul>
