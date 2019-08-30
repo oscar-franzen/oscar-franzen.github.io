@@ -33,7 +33,6 @@
   <ul>
 <li><a class="reference internal" href="#">Welcome to adobo’s documentation!</a><ul>
 <li><a class="reference internal" href="#what-adobo-is">What adobo is</a><ul>
-<li><a class="reference internal" href="#author-contact-or-support">Author contact or Support</a></li>
 <li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#getting-started">Getting started</a><ul>
 <li><a class="reference internal" href="#loading-the-package">Loading the package</a></li>
@@ -91,9 +90,6 @@
 <p class="admonition-title">Note</p>
 <p>adobo is developed and tested on Python version 3.5.3 - older versions may work but are untested.</p>
 </div>
-<div class="section" id="author-contact-or-support">
-<h3>Author contact or Support<a class="headerlink" href="#author-contact-or-support" title="Permalink to this headline">¶</a></h3>
-</div>
 <div class="section" id="installation">
 <h3>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
 <p>The easiest way to install adobo is to clone the GitHub repository:</p>
@@ -109,6 +105,11 @@
 <p>The first step is to load the adobo package by importing it:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">adobo</span> <span class="k">as</span> <span class="nn">ad</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Debug information in the form of traceback output is suppressed by default. However, this information is often useful when trying to solve program bugs. To enable full traceback set:</p>
+<p><code class="docutils literal notranslate"><span class="pre">ad.debug=1</span></code></p>
 </div>
 </div>
 <div class="section" id="loading-your-data-from-a-text-file">
@@ -219,6 +220,10 @@
 </div>
 <p>The argument <code class="docutils literal notranslate"><span class="pre">rRNA_genes</span></code> should either be a string containing the full path to a file on disk contaiing genes that are rRNA genes (the file should have one gene per line). <code class="docutils literal notranslate"><span class="pre">rRNA_genes</span></code> can also be a <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code> object with gene symbols.</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">find_low_quality_cells</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">rRNA_genes</span><span class="o">=</span><span class="n">rRNA</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Like all adobo functions, <code class="docutils literal notranslate"><span class="pre">find_low_quality_cells</span></code> modifies the passed object. However, <code class="docutils literal notranslate"><span class="pre">find_low_quality_cells</span></code> also returns a list of cells that are classified as low quality; to prevent such behavior simply assign the return to a variable:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">low_q_cells</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">find_low_quality_cells</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">rRNA_genes</span><span class="o">=</span><span class="n">rRNA</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

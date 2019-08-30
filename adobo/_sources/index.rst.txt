@@ -9,9 +9,6 @@ adobo is an analysis framework consisting of a set of Python modules to enable e
 
    adobo is developed and tested on Python version 3.5.3 - older versions may work but are untested.
 
-Author contact or Support
-=========================
-
 Installation
 ============
 The easiest way to install adobo is to clone the GitHub repository:
@@ -31,6 +28,11 @@ The first step is to load the adobo package by importing it:
 .. code-block:: python3
 
    import adobo as ad
+
+.. note::
+   Debug information in the form of traceback output is suppressed by default. However, this information is often useful when trying to solve program bugs. To enable full traceback set:
+   
+   ``ad.debug=1``
 
 Loading your data from a text file
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -164,6 +166,12 @@ The argument ``rRNA_genes`` should either be a string containing the full path t
 .. code-block:: python3
 
    ad.preproc.find_low_quality_cells(data, rRNA_genes=rRNA)
+
+Like all adobo functions, ``find_low_quality_cells`` modifies the passed object. However, ``find_low_quality_cells`` also returns a list of cells that are classified as low quality; to prevent such behavior simply assign the return to a variable:
+
+.. code-block:: python3
+
+   low_q_cells = ad.preproc.find_low_quality_cells(data, rRNA_genes=rRNA)
 
 Normalization
 =============
