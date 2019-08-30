@@ -41,6 +41,7 @@
 <li><a class="reference internal" href="#loading-compressed-data">Loading compressed data</a></li>
 <li><a class="reference internal" href="#data-examination">Data examination</a></li>
 <li><a class="reference internal" href="#cleaning-your-data">Cleaning your data</a></li>
+<li><a class="reference internal" href="#detect-ercc-spikes">Detect ERCC spikes</a></li>
 <li><a class="reference internal" href="#applying-simple-filters">Applying simple filters</a></li>
 <li><a class="reference internal" href="#automatic-detection-of-low-quality-cells">Automatic detection of low quality cells</a></li>
 </ul>
@@ -105,7 +106,7 @@
 </div>
 <div class="section" id="loading-your-data-from-a-text-file">
 <h4>Loading your data from a text file<a class="headerlink" href="#loading-your-data-from-a-text-file" title="Permalink to this headline">¶</a></h4>
-<p>First we need to create a new adobo object, which is an instance of the class <a class="reference internal" href="adobo.html#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>. This will be a new object containing your single cell data. The input file should be a gene expression matrix (rows as genes and cells as columns). Fields can be separated by any character (default is tab) and it can be changed with the <cite>sep</cite> parameter. The data matrix file can have a header or not (<code class="docutils literal notranslate"><span class="pre">header=0</span></code> indicates a header is present, otherwise use <code class="docutils literal notranslate"><span class="pre">header=None</span></code>). If the header of your gene expression matrix contains a label for gene symbols, set <code class="docutils literal notranslate"><span class="pre">column_id=True</span></code>. The function <code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.IO.load_from_file()</span></code> is used to load data from a raw read count matrix:</p>
+<p>First we need to create a new adobo object, which is an instance of the class <a class="reference internal" href="adobo.html#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>. This will be a new object containing your single cell data. The input file should be a gene expression matrix (rows as genes and cells as columns). Fields can be separated by any character (default is tab) and it can be changed with the <cite>sep</cite> argument. The data matrix file can have a header or not (<code class="docutils literal notranslate"><span class="pre">header=0</span></code> indicates a header is present, otherwise use <code class="docutils literal notranslate"><span class="pre">header=None</span></code>). If the header of your gene expression matrix contains a label for gene symbols, set <code class="docutils literal notranslate"><span class="pre">column_id=True</span></code>. The function <a class="reference internal" href="adobo.html#adobo.IO.load_from_file" title="adobo.IO.load_from_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.IO.load_from_file()</span></code></a> is used to load data from a raw read count matrix:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;GSE95315.tab&#39;</span><span class="p">,</span> <span class="n">column_id</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -115,7 +116,7 @@
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Most adobo functions also have a <code class="docutils literal notranslate"><span class="pre">verbose</span></code> parameter, which when <code class="docutils literal notranslate"><span class="pre">True</span></code> makes the function more noisy.</p>
+<p>Most adobo functions also have a <code class="docutils literal notranslate"><span class="pre">verbose</span></code> argument, which when <code class="docutils literal notranslate"><span class="pre">True</span></code> makes the function more noisy.</p>
 </div>
 </div>
 <div class="section" id="getting-detailed-help">
@@ -159,6 +160,18 @@
 </pre></div>
 </div>
 </div>
+<div class="section" id="detect-ercc-spikes">
+<h4>Detect ERCC spikes<a class="headerlink" href="#detect-ercc-spikes" title="Permalink to this headline">¶</a></h4>
+<p>ERCC are known amounts of synthetic constructs added to RNA-seq libraries for quality control and normalization purposes <a class="reference internal" href="#jiang2011" id="id1">[1]</a>. Not all experiments use ERCC spikes, but many do. The ERCC “genes” are usually prefixed with <cite>ERCC-</cite> in the gene expression matrix. This function is used to put them aside so that they are not included in downstream analyses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ERCC_pattern</span></code> argument can be used to set a regular expression for detecting these “genes”.</p>
+</div>
+<p>The <a class="reference internal" href="adobo.html#adobo.preproc.detect_ERCC_spikes" title="adobo.preproc.detect_ERCC_spikes"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.preproc.detect_ERCC_spikes()</span></code></a> is used to filter out the ERCC (stored in <a class="reference internal" href="adobo.html#adobo.data.dataset._exp_ERCC" title="adobo.data.dataset._exp_ERCC"><code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset._exp_ERCC</span></code></a>):</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">detect_ERCC_spikes</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="applying-simple-filters">
 <h4>Applying simple filters<a class="headerlink" href="#applying-simple-filters" title="Permalink to this headline">¶</a></h4>
 <p>Simple filters refers to applying a strict minimum cutoff on the number of expressed genes per cell and the total read depth per cell. Simple filters are usually effective in removing low quality cells and uninformative genes. If your data come from Drop-seq, 10X, etc, requiring at least 1000 uniquely mapped reads per cell is often sufficient:</p>
@@ -169,7 +182,7 @@
 <p class="admonition-title">Important</p>
 <p>If your protocol is applying full-length mRNA sequencing, e.g. SMART-seq2, then your <code class="docutils literal notranslate"><span class="pre">minreads</span></code> threshold should be higher, for example 10000.</p>
 </div>
-<p>It is also desirable to remove genes with an expression signal in very few cells; such genes may contribute more noise than information. The <code class="docutils literal notranslate"><span class="pre">minexpgenes</span></code> parameter can be used to control how genes are filtered out. If you wish to not remove any genes at all, simply set it to zero:</p>
+<p>It is also desirable to remove genes with an expression signal in very few cells; such genes may contribute more noise than information. The <code class="docutils literal notranslate"><span class="pre">minexpgenes</span></code> argument can be used to control how genes are filtered out. If you wish to not remove any genes at all, simply set it to zero:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">simple_filter</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">minreads</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">minexpgenes</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -177,11 +190,12 @@
 </div>
 <div class="section" id="automatic-detection-of-low-quality-cells">
 <h4>Automatic detection of low quality cells<a class="headerlink" href="#automatic-detection-of-low-quality-cells" title="Permalink to this headline">¶</a></h4>
-<p>A more sophisticated approach to detection of low quality cells is to use the function <code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.preproc.find_low_quality_cells()</span></code>, which uses <a class="reference external" href="https://en.wikipedia.org/wiki/Mahalanobis_distance">Mahalanobis distance</a> to identify bad cells from five quality metrics.</p>
+<p>A more sophisticated approach to detection of low quality cells is to use the function <a class="reference internal" href="adobo.html#adobo.preproc.find_low_quality_cells" title="adobo.preproc.find_low_quality_cells"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.preproc.find_low_quality_cells()</span></code></a>, which uses <a class="reference external" href="https://en.wikipedia.org/wiki/Mahalanobis_distance">Mahalanobis distance</a> to identify bad cells from five quality metrics.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p><code class="docutils literal notranslate"><span class="pre">find_low_quality_cells</span></code> requires that your sequencing experiment has used ERCC spikes.</p>
+<p><code class="docutils literal notranslate"><span class="pre">find_low_quality_cells</span></code> requires that there are ERCC spikes in your data.</p>
 </div>
+<p>The argument <code class="docutils literal notranslate"><span class="pre">rRNA_genes</span></code> should either be a string containing the full path to a file on disk contaiing genes that are rRNA genes (the file should have one gene per line). <code class="docutils literal notranslate"><span class="pre">rRNA_genes</span></code> can also be a <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code> object with gene symbols.</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">find_low_quality_cells</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">rRNA_genes</span><span class="o">=</span><span class="n">rRNA</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -195,6 +209,12 @@
 <li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
 <li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
 </ul>
+<p id="bibtex-bibliography-index-0"><dl class="citation">
+<dt class="label" id="jiang2011"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Lichun Jiang, Felix Schlesinger, Carrie A. Davis, Yu Zhang, Renhua Li, Marc Salit, Thomas R. Gingeras, and Brian Oliver. Synthetic spike-in standards for RNA-seq experiments. <em>Genome Research</em>, 21(9):1543–1551, September 2011. <a class="reference external" href="https://doi.org/10.1101/gr.121095.111">doi:10.1101/gr.121095.111</a>.</p>
+</dd>
+</dl>
+</p>
 </div>
 </div>
 </div>

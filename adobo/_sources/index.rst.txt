@@ -22,7 +22,7 @@ Support for ``pip3`` installation is on the TODO list.
 Getting started
 ===============
 Loading the package
-^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
 The first step is to load the adobo package by importing it:
 
 .. code-block:: python3
@@ -31,7 +31,7 @@ The first step is to load the adobo package by importing it:
 
 Loading your data from a text file
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-First we need to create a new adobo object, which is an instance of the class :class:`adobo.data.dataset`. This will be a new object containing your single cell data. The input file should be a gene expression matrix (rows as genes and cells as columns). Fields can be separated by any character (default is tab) and it can be changed with the `sep` parameter. The data matrix file can have a header or not (``header=0`` indicates a header is present, otherwise use ``header=None``). If the header of your gene expression matrix contains a label for gene symbols, set ``column_id=True``. The function :py:func:`adobo.IO.load_from_file` is used to load data from a raw read count matrix:
+First we need to create a new adobo object, which is an instance of the class :class:`adobo.data.dataset`. This will be a new object containing your single cell data. The input file should be a gene expression matrix (rows as genes and cells as columns). Fields can be separated by any character (default is tab) and it can be changed with the `sep` argument. The data matrix file can have a header or not (``header=0`` indicates a header is present, otherwise use ``header=None``). If the header of your gene expression matrix contains a label for gene symbols, set ``column_id=True``. The function :py:func:`adobo.IO.load_from_file` is used to load data from a raw read count matrix:
 
 .. code-block:: python3
 
@@ -43,7 +43,7 @@ First we need to create a new adobo object, which is an instance of the class :c
 
 .. note::
 
-   Most adobo functions also have a ``verbose`` parameter, which when ``True`` makes the function more noisy.
+   Most adobo functions also have a ``verbose`` argument, which when ``True`` makes the function more noisy.
 
 Getting detailed help
 ^^^^^^^^^^^^^^^^^^^^^
@@ -96,6 +96,20 @@ Before we proceed to normalization we should start with some data cleaning. A go
 
    ad.preproc.remove_empty(data)
 
+Detect ERCC spikes
+^^^^^^^^^^^^^^^^^^
+ERCC are known amounts of synthetic constructs added to RNA-seq libraries for quality control and normalization purposes :cite:`Jiang2011`. Not all experiments use ERCC spikes, but many do. The ERCC "genes" are usually prefixed with `ERCC-` in the gene expression matrix. This function is used to put them aside so that they are not included in downstream analyses.
+
+.. note::
+
+   The ``ERCC_pattern`` argument can be used to set a regular expression for detecting these "genes".
+
+The :py:func:`adobo.preproc.detect_ERCC_spikes` is used to filter out the ERCC (stored in :py:attr:`adobo.data.dataset._exp_ERCC`):
+
+.. code-block:: python3
+
+   ad.preproc.detect_ERCC_spikes(data)
+
 Applying simple filters
 ^^^^^^^^^^^^^^^^^^^^^^^
 Simple filters refers to applying a strict minimum cutoff on the number of expressed genes per cell and the total read depth per cell. Simple filters are usually effective in removing low quality cells and uninformative genes. If your data come from Drop-seq, 10X, etc, requiring at least 1000 uniquely mapped reads per cell is often sufficient:
@@ -108,7 +122,7 @@ Simple filters refers to applying a strict minimum cutoff on the number of expre
 
    If your protocol is applying full-length mRNA sequencing, e.g. SMART-seq2, then your ``minreads`` threshold should be higher, for example 10000.
 
-It is also desirable to remove genes with an expression signal in very few cells; such genes may contribute more noise than information. The ``minexpgenes`` parameter can be used to control how genes are filtered out. If you wish to not remove any genes at all, simply set it to zero:
+It is also desirable to remove genes with an expression signal in very few cells; such genes may contribute more noise than information. The ``minexpgenes`` argument can be used to control how genes are filtered out. If you wish to not remove any genes at all, simply set it to zero:
 
 .. code-block:: python3
 
@@ -122,7 +136,9 @@ A more sophisticated approach to detection of low quality cells is to use the fu
 
 .. important::
 
-   ``find_low_quality_cells`` requires that your sequencing experiment has used ERCC spikes.
+   ``find_low_quality_cells`` requires that there are ERCC spikes in your data.
+
+The argument ``rRNA_genes`` should either be a string containing the full path to a file on disk contaiing genes that are rRNA genes (the file should have one gene per line). ``rRNA_genes`` can also be a :py:class:`pandas.Series` object with gene symbols.
 
 .. code-block:: python3
 
@@ -140,3 +156,6 @@ Indices and tables
 
 .. _scRNA-seq: https://en.wikipedia.org/wiki/Single_cell_sequencing
 .. _Mahalanobis distance: https://en.wikipedia.org/wiki/Mahalanobis_distance
+
+.. bibliography:: references.bib
+   :style: unsrt
