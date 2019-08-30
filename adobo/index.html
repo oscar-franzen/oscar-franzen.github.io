@@ -33,6 +33,7 @@
   <ul>
 <li><a class="reference internal" href="#">Welcome to adobo’s documentation!</a><ul>
 <li><a class="reference internal" href="#what-adobo-is">What adobo is</a><ul>
+<li><a class="reference internal" href="#author-contact-or-support">Author contact or Support</a></li>
 <li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#getting-started">Getting started</a><ul>
 <li><a class="reference internal" href="#loading-the-package">Loading the package</a></li>
@@ -41,12 +42,15 @@
 <li><a class="reference internal" href="#loading-compressed-data">Loading compressed data</a></li>
 <li><a class="reference internal" href="#data-examination">Data examination</a></li>
 <li><a class="reference internal" href="#cleaning-your-data">Cleaning your data</a></li>
-<li><a class="reference internal" href="#detect-ercc-spikes">Detect ERCC spikes</a></li>
+<li><a class="reference internal" href="#detecting-ercc-spikes">Detecting ERCC spikes</a></li>
+<li><a class="reference internal" href="#detecting-mitochondrial-genes">Detecting mitochondrial genes</a></li>
 <li><a class="reference internal" href="#applying-simple-filters">Applying simple filters</a></li>
 <li><a class="reference internal" href="#automatic-detection-of-low-quality-cells">Automatic detection of low quality cells</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#normalization">Normalization</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+<li><a class="reference internal" href="#references">References</a></li>
 </ul>
 </li>
 </ul>
@@ -82,10 +86,13 @@
 <h1>Welcome to adobo’s documentation!<a class="headerlink" href="#welcome-to-adobo-s-documentation" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="what-adobo-is">
 <h2>What adobo is<a class="headerlink" href="#what-adobo-is" title="Permalink to this headline">¶</a></h2>
-<p>adobo is an analysis framework consisting of a set of Python modules to enable exploratory analysis of single cell RNA-seq data (<a class="reference external" href="https://en.wikipedia.org/wiki/Single_cell_sequencing">scRNA-seq</a>). adobo can be used to compose scripts, used in interactive workflows and much more.</p>
+<p>adobo is an analysis framework consisting of a set of Python modules to enable exploratory analysis of single cell RNA-seq data (<a class="reference external" href="https://en.wikipedia.org/wiki/Single_cell_sequencing">scRNA-seq</a>). adobo can be used to compose scripts, used in interactive workflows and much more. adobo is developed by Oscar Franzén (limited support is available over e-mail: <a class="reference external" href="mailto:p&#46;oscar&#46;franzen&#37;&#52;&#48;gmail&#46;com">p<span>&#46;</span>oscar<span>&#46;</span>franzen<span>&#64;</span>gmail<span>&#46;</span>com</a>).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>adobo is developed and tested on Python version 3.5.3 - older versions may work but are untested.</p>
+</div>
+<div class="section" id="author-contact-or-support">
+<h3>Author contact or Support<a class="headerlink" href="#author-contact-or-support" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="installation">
 <h3>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
@@ -110,6 +117,10 @@
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;GSE95315.tab&#39;</span><span class="p">,</span> <span class="n">column_id</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The loaded data must not be normalized, i.e. it should be raw read counts.</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>All downstream operations and analyses are performed and stored in an adobo object, i.e. functions are applied on this object.</p>
@@ -121,7 +132,7 @@
 </div>
 <div class="section" id="getting-detailed-help">
 <h4>Getting detailed help<a class="headerlink" href="#getting-detailed-help" title="Permalink to this headline">¶</a></h4>
-<p>All functions in adobo have extensive docstrings, which are accessible on the Python console:</p>
+<p>All functions in adobo have extensive documentation, which are accessible as docstrings on the Python interactive console as well as online:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">ad</span><span class="p">)</span>
 <span class="n">help</span><span class="p">(</span><span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">)</span>
 </pre></div>
@@ -160,8 +171,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="detect-ercc-spikes">
-<h4>Detect ERCC spikes<a class="headerlink" href="#detect-ercc-spikes" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="detecting-ercc-spikes">
+<h4>Detecting ERCC spikes<a class="headerlink" href="#detecting-ercc-spikes" title="Permalink to this headline">¶</a></h4>
 <p>ERCC are known amounts of synthetic constructs added to RNA-seq libraries for quality control and normalization purposes <a class="reference internal" href="#jiang2011" id="id1">[1]</a>. Not all experiments use ERCC spikes, but many do. The ERCC “genes” are usually prefixed with <cite>ERCC-</cite> in the gene expression matrix. This function is used to put them aside so that they are not included in downstream analyses.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -169,6 +180,17 @@
 </div>
 <p>The <a class="reference internal" href="adobo.html#adobo.preproc.detect_ERCC_spikes" title="adobo.preproc.detect_ERCC_spikes"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.preproc.detect_ERCC_spikes()</span></code></a> is used to filter out the ERCC (stored in <a class="reference internal" href="adobo.html#adobo.data.dataset._exp_ERCC" title="adobo.data.dataset._exp_ERCC"><code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset._exp_ERCC</span></code></a>):</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">detect_ERCC_spikes</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="detecting-mitochondrial-genes">
+<h4>Detecting mitochondrial genes<a class="headerlink" href="#detecting-mitochondrial-genes" title="Permalink to this headline">¶</a></h4>
+<p>It’s often a good idea not to include the mitochondrial genes in the analysis and some downstream analyses require that adobo knows which genes are mitochondrial. Usually the mitochondrial genes in human and mouse genomes have gene symbols starting with the prefix <code class="docutils literal notranslate"><span class="pre">mt-</span></code>, but this might vary from species to species.</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">detect_mito</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or specify a custom regular expression to identify them:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">detect_mito</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mito_pattern</span><span class="o">=</span><span class="s1">&#39;^mito-&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -199,8 +221,29 @@
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">find_low_quality_cells</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">rRNA_genes</span><span class="o">=</span><span class="n">rRNA</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="toctree-wrapper compound">
 </div>
+</div>
+<div class="section" id="normalization">
+<h3>Normalization<a class="headerlink" href="#normalization" title="Permalink to this headline">¶</a></h3>
+<p>Normalization removes technical and sometimes experimental biases and is always necessary prior to analysis. Because a single normalization scheme for scRNA-seq data is not available, adobo supports several different procedures:</p>
+<dl class="simple">
+<dt><strong>standard</strong></dt><dd><p>Performs a standard normalization by scaling with the total read depth per cell and then multiplying with a scaling factor.</p>
+</dd>
+<dt><strong>rpkm</strong></dt><dd><p>Normalize expression values as Reads per kilo base per million mapped reads (RPKM) <a class="reference internal" href="#conesa2016" id="id2">[2]</a>. This method should be used if you need to adjust for gene length, such as in a SMART-Seq2 protocol. To use this procedure you must first prepare a file containing combined exon lengths for genes; the file should contain two columns, without a header, and columns separated by one space. The following columns must be present: (1) gene symbols and (2) the sum of exon lengths.</p>
+</dd>
+<dt><strong>fqn</strong></dt><dd><p>Performs full quantile normalization <a class="reference internal" href="#bolstad2003" id="id3">[3]</a>. FQN was a popular normalization scheme for microarray data. It is not very common in single cell analysis despite having been shown to perform well <a class="reference internal" href="#cole2018" id="id4">[4]</a>. The present implementation does not handle ties well.</p>
+</dd>
+<dt><strong>clr</strong></dt><dd><p>Centered log ratio normalization. This normalization scheme was introduced in Seurat version 3.0 <a class="reference internal" href="#stuart2018" id="id5">[5]</a>. A simple normalization scheme and might be an alternative to <code class="docutils literal notranslate"><span class="pre">standard</span></code>.</p>
+</dd>
+<dt><strong>vsn</strong></dt><dd><p>Variance stabilizing normaliztion based on a negative binomial regression model with regularized parameters. Introduced by <a class="reference internal" href="#hafemeister2019" id="id6">[6]</a> and represents the most complex scheme of the above; appears to improve resolution somewhat.</p>
+</dd>
+</dl>
+<p>All normalization schemes, except <code class="docutils literal notranslate"><span class="pre">vsn</span></code>, can be followed by <code class="docutils literal notranslate"><span class="pre">log2</span></code> transformation.</p>
+<p>To perform a <code class="docutils literal notranslate"><span class="pre">standard</span></code> normalization run:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">normalize</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;standard&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="toctree-wrapper compound">
 </div>
 </div>
 <div class="section" id="indices-and-tables">
@@ -209,9 +252,27 @@
 <li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
 <li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
 </ul>
+</div>
+<div class="section" id="references">
+<h3>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
 <p id="bibtex-bibliography-index-0"><dl class="citation">
 <dt class="label" id="jiang2011"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p>Lichun Jiang, Felix Schlesinger, Carrie A. Davis, Yu Zhang, Renhua Li, Marc Salit, Thomas R. Gingeras, and Brian Oliver. Synthetic spike-in standards for RNA-seq experiments. <em>Genome Research</em>, 21(9):1543–1551, September 2011. <a class="reference external" href="https://doi.org/10.1101/gr.121095.111">doi:10.1101/gr.121095.111</a>.</p>
+</dd>
+<dt class="label" id="conesa2016"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Ana Conesa, Pedro Madrigal, Sonia Tarazona, David Gomez-Cabrero, Alejandra Cervera, Andrew McPherson, Michał Wojciech Szcześniak, Daniel J. Gaffney, Laura L. Elo, Xuegong Zhang, and Ali Mortazavi. A survey of best practices for RNA-seq data analysis. <em>Genome Biology</em>, 17(1):13, January 2016. <a class="reference external" href="https://doi.org/10.1186/s13059-016-0881-8">doi:10.1186/s13059-016-0881-8</a>.</p>
+</dd>
+<dt class="label" id="bolstad2003"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>B.M. Bolstad, R.A Irizarry, M. Åstrand, and T.P. Speed. A comparison of normalization methods for high density oligonucleotide array data based on variance and bias. <em>Bioinformatics</em>, 19(2):185–193, 01 2003. <a class="reference external" href="https://doi.org/10.1093/bioinformatics/19.2.185">doi:10.1093/bioinformatics/19.2.185</a>.</p>
+</dd>
+<dt class="label" id="cole2018"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p>Michael B. Cole, Davide Risso, Allon Wagner, David DeTomaso, John Ngai, Elizabeth Purdom, Sandrine Dudoit, and Nir Yosef. Performance assessment and selection of normalization procedures for single-cell rna-seq. <em>bioRxiv</em>, 2018. <a class="reference external" href="https://doi.org/10.1101/235382">doi:10.1101/235382</a>.</p>
+</dd>
+<dt class="label" id="stuart2018"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
+<dd><p>Tim Stuart, Andrew Butler, Paul Hoffman, Christoph Hafemeister, Efthymia Papalexi, William M Mauck III, Marlon Stoeckius, Peter Smibert, and Rahul Satija. Comprehensive integration of single cell data. <em>bioRxiv</em>, 2018. <a class="reference external" href="https://doi.org/10.1101/460147">doi:10.1101/460147</a>.</p>
+</dd>
+<dt class="label" id="hafemeister2019"><span class="brackets"><a class="fn-backref" href="#id6">6</a></span></dt>
+<dd><p>Christoph Hafemeister and Rahul Satija. Normalization and variance stabilization of single-cell rna-seq data using regularized negative binomial regression. <em>bioRxiv</em>, 2019. <a class="reference external" href="https://doi.org/10.1101/576827">doi:10.1101/576827</a>.</p>
 </dd>
 </dl>
 </p>

@@ -3,11 +3,14 @@ Welcome to adobo's documentation!
 
 What adobo is
 *************
-adobo is an analysis framework consisting of a set of Python modules to enable exploratory analysis of single cell RNA-seq data (`scRNA-seq`_). adobo can be used to compose scripts, used in interactive workflows and much more.
+adobo is an analysis framework consisting of a set of Python modules to enable exploratory analysis of single cell RNA-seq data (`scRNA-seq`_). adobo can be used to compose scripts, used in interactive workflows and much more. adobo is developed by Oscar Franzén (limited support is available over e-mail: p.oscar.franzen@gmail.com).
 
 .. note::
 
    adobo is developed and tested on Python version 3.5.3 - older versions may work but are untested.
+
+Author contact or Support
+=========================
 
 Installation
 ============
@@ -37,6 +40,10 @@ First we need to create a new adobo object, which is an instance of the class :c
 
    data = ad.IO.load_from_file('GSE95315.tab', column_id=True)
 
+.. important::
+
+   The loaded data must not be normalized, i.e. it should be raw read counts.
+
 .. note::
 
    All downstream operations and analyses are performed and stored in an adobo object, i.e. functions are applied on this object.
@@ -47,7 +54,7 @@ First we need to create a new adobo object, which is an instance of the class :c
 
 Getting detailed help
 ^^^^^^^^^^^^^^^^^^^^^
-All functions in adobo have extensive docstrings, which are accessible on the Python console:
+All functions in adobo have extensive documentation, which are accessible as docstrings on the Python interactive console as well as online:
 
 .. code-block:: python3
 
@@ -96,8 +103,8 @@ Before we proceed to normalization we should start with some data cleaning. A go
 
    ad.preproc.remove_empty(data)
 
-Detect ERCC spikes
-^^^^^^^^^^^^^^^^^^
+Detecting ERCC spikes
+^^^^^^^^^^^^^^^^^^^^^
 ERCC are known amounts of synthetic constructs added to RNA-seq libraries for quality control and normalization purposes :cite:`Jiang2011`. Not all experiments use ERCC spikes, but many do. The ERCC "genes" are usually prefixed with `ERCC-` in the gene expression matrix. This function is used to put them aside so that they are not included in downstream analyses.
 
 .. note::
@@ -109,6 +116,20 @@ The :py:func:`adobo.preproc.detect_ERCC_spikes` is used to filter out the ERCC (
 .. code-block:: python3
 
    ad.preproc.detect_ERCC_spikes(data)
+
+Detecting mitochondrial genes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+It's often a good idea not to include the mitochondrial genes in the analysis and some downstream analyses require that adobo knows which genes are mitochondrial. Usually the mitochondrial genes in human and mouse genomes have gene symbols starting with the prefix ``mt-``, but this might vary from species to species.
+
+.. code-block:: python3
+
+   ad.preproc.detect_mito(data)
+
+Or specify a custom regular expression to identify them:
+
+.. code-block:: python3
+
+   ad.preproc.detect_mito(data, mito_pattern='^mito-')
 
 Applying simple filters
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -144,6 +165,33 @@ The argument ``rRNA_genes`` should either be a string containing the full path t
 
    ad.preproc.find_low_quality_cells(data, rRNA_genes=rRNA)
 
+Normalization
+=============
+Normalization removes technical and sometimes experimental biases and is always necessary prior to analysis. Because a single normalization scheme for scRNA-seq data is not available, adobo supports several different procedures:
+
+**standard**
+   Performs a standard normalization by scaling with the total read depth per cell and then multiplying with a scaling factor.
+
+**rpkm**
+   Normalize expression values as Reads per kilo base per million mapped reads (RPKM) :cite:`Conesa2016`. This method should be used if you need to adjust for gene length, such as in a SMART-Seq2 protocol. To use this procedure you must first prepare a file containing combined exon lengths for genes; the file should contain two columns, without a header, and columns separated by one space. The following columns must be present: (1) gene symbols and (2) the sum of exon lengths.
+
+**fqn**
+   Performs full quantile normalization :cite:`Bolstad2003`. FQN was a popular normalization scheme for microarray data. It is not very common in single cell analysis despite having been shown to perform well :cite:`Cole2018`. The present implementation does not handle ties well.
+
+**clr**
+   Centered log ratio normalization. This normalization scheme was introduced in Seurat version 3.0 :cite:`Stuart2018`. A simple normalization scheme and might be an alternative to ``standard``.
+
+**vsn**
+   Variance stabilizing normaliztion based on a negative binomial regression model with regularized parameters. Introduced by :cite:`Hafemeister2019` and represents the most complex scheme of the above; appears to improve resolution somewhat.
+
+All normalization schemes, except ``vsn``, can be followed by ``log2`` transformation.
+
+To perform a ``standard`` normalization run:
+
+.. code-block:: python3
+
+   ad.normalize.norm(data, method='standard')
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
@@ -157,5 +205,7 @@ Indices and tables
 .. _scRNA-seq: https://en.wikipedia.org/wiki/Single_cell_sequencing
 .. _Mahalanobis distance: https://en.wikipedia.org/wiki/Mahalanobis_distance
 
+References
+==========
 .. bibliography:: references.bib
    :style: unsrt
