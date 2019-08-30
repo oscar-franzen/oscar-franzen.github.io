@@ -21,22 +21,21 @@ Support for ``pip3`` installation is on the TODO list.
 
 Getting started
 ===============
-Load the package
+Loading the package
 ^^^^^^^^^^^^^^^^
 The first step is to load the adobo package by importing it:
 
-.. code-block:: python
+.. code-block:: python3
 
    import adobo as ad
 
 Loading your data from a text file
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Create a new adobo object, which is an instance of the class :class:`adobo.data.dataset`. This will be a new object containing your single cell data. The input file should be a gene expression matrix (rows as genes and cells as columns). Fields can be separated by any character (default is tab) and it can be changed with the `sep` parameter. The data matrix file can have a header or not (`header=0` indicates a header is present, otherwise use `header=None`). If the header of your gene expression matrix contains a label for gene symbols, set `column_id=True`.
+First we need to create a new adobo object, which is an instance of the class :class:`adobo.data.dataset`. This will be a new object containing your single cell data. The input file should be a gene expression matrix (rows as genes and cells as columns). Fields can be separated by any character (default is tab) and it can be changed with the `sep` parameter. The data matrix file can have a header or not (``header=0`` indicates a header is present, otherwise use ``header=None``). If the header of your gene expression matrix contains a label for gene symbols, set ``column_id=True``. The function :py:func:`adobo.IO.load_from_file` is used to load data from a raw read count matrix:
 
 .. code-block:: python3
 
-   data = ad.IO.load_from_file('GSE95315.tab',
-                               column_id=True)
+   data = ad.IO.load_from_file('GSE95315.tab', column_id=True)
 
 .. note::
 
@@ -44,18 +43,27 @@ Create a new adobo object, which is an instance of the class :class:`adobo.data.
 
 .. note::
 
-   Most adobo functions also have a `verbose` parameter, which when `True` makes the function more noisy.
+   Most adobo functions also have a ``verbose`` parameter, which when ``True`` makes the function more noisy.
 
-Loading compressed data
-^^^^^^^^^^^^^^^^^^^^^^^
-scRNA-seq is zero inflated, and therefore compress strongly. We can therefore load the compressed data directly without having to uncompress it first; the compression format is detected automatically (gzip, bz2, zip and xz are supported). For example:
+Getting detailed help
+^^^^^^^^^^^^^^^^^^^^^
+All functions in adobo have extensive docstrings, which are accessible on the Python console:
 
 .. code-block:: python3
 
-   data = ad.IO.load_from_file('GSE95315.tab.gz',
-                                column_id=True)
+   help(ad)
+   help(ad.IO.load_from_file)
 
-Your gene expression data is stored in the attribute `data.exp_mat`, and after loading it is good to examine that the data were loaded properly:
+
+Loading compressed data
+^^^^^^^^^^^^^^^^^^^^^^^
+scRNA-seq is zero inflated, and therefore compress strongly. We can load the compressed data directly without having to uncompress it first; the compression format is detected automatically (gzip, bz2, zip and xz are supported). For example:
+
+.. code-block:: python3
+
+   data = ad.IO.load_from_file('GSE95315.tab.gz', column_id=True)
+
+Your gene expression data is stored in the attribute ``data.exp_mat``, and after loading it is good to examine that the data were loaded properly:
 
 >>> data
 53,889 genes and 384 cells were loaded
@@ -72,6 +80,14 @@ Which will generate the plot:
 
 .. image:: 2019-08-30-131424_587x441_scrot.png
 
+It is also a good idea to examine number of expressed genes per cell:
+
+.. code-block:: python3
+
+   ad.plotting.barplot_genes_per_cell(data)
+
+.. image:: 2019-08-30-131930_594x451_scrot.png
+
 Cleaning your data
 ^^^^^^^^^^^^^^^^^^
 Before we proceed to normalization we should start with some data cleaning. A good first step is to look for empty cells and genes. Empty genes/cells do obviously not carry any information and can be removed:
@@ -79,6 +95,38 @@ Before we proceed to normalization we should start with some data cleaning. A go
 .. code-block:: python3
 
    ad.preproc.remove_empty(data)
+
+Applying simple filters
+^^^^^^^^^^^^^^^^^^^^^^^
+Simple filters refers to applying a strict minimum cutoff on the number of expressed genes per cell and the total read depth per cell. Simple filters are usually effective in removing low quality cells and uninformative genes. If your data come from Drop-seq, 10X, etc, requiring at least 1000 uniquely mapped reads per cell is often sufficient:
+
+.. code-block:: python3
+
+   ad.preproc.simple_filter(data, minreads=1000, minexpgenes=0.001)
+
+.. important::
+
+   If your protocol is applying full-length mRNA sequencing, e.g. SMART-seq2, then your ``minreads`` threshold should be higher, for example 10000.
+
+It is also desirable to remove genes with an expression signal in very few cells; such genes may contribute more noise than information. The ``minexpgenes`` parameter can be used to control how genes are filtered out. If you wish to not remove any genes at all, simply set it to zero:
+
+.. code-block:: python3
+
+   ad.preproc.simple_filter(data, minreads=1000, minexpgenes=0)
+
+Setting ``minexpgenes`` to a fraction indicates that at least that fraction of cells must express any gene. If ``minexpgenes`` is an integer it refers to the absolute number of cells that at minimum must express the gene for the gene not to be filtered out.
+
+Automatic detection of low quality cells
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+A more sophisticated approach to detection of low quality cells is to use the function :py:func:`adobo.preproc.find_low_quality_cells`, which uses `Mahalanobis distance`_ to identify bad cells from five quality metrics.
+
+.. important::
+
+   ``find_low_quality_cells`` requires that your sequencing experiment has used ERCC spikes.
+
+.. code-block:: python3
+
+   ad.preproc.find_low_quality_cells(data, rRNA_genes=rRNA)
 
 .. toctree::
    :maxdepth: 2
@@ -91,3 +139,4 @@ Indices and tables
 * :ref:`modindex`
 
 .. _scRNA-seq: https://en.wikipedia.org/wiki/Single_cell_sequencing
+.. _Mahalanobis distance: https://en.wikipedia.org/wiki/Mahalanobis_distance

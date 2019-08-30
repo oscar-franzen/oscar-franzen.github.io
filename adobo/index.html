@@ -35,11 +35,14 @@
 <li><a class="reference internal" href="#what-adobo-is">What adobo is</a><ul>
 <li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#getting-started">Getting started</a><ul>
-<li><a class="reference internal" href="#load-the-package">Load the package</a></li>
+<li><a class="reference internal" href="#loading-the-package">Loading the package</a></li>
 <li><a class="reference internal" href="#loading-your-data-from-a-text-file">Loading your data from a text file</a></li>
+<li><a class="reference internal" href="#getting-detailed-help">Getting detailed help</a></li>
 <li><a class="reference internal" href="#loading-compressed-data">Loading compressed data</a></li>
 <li><a class="reference internal" href="#data-examination">Data examination</a></li>
 <li><a class="reference internal" href="#cleaning-your-data">Cleaning your data</a></li>
+<li><a class="reference internal" href="#applying-simple-filters">Applying simple filters</a></li>
+<li><a class="reference internal" href="#automatic-detection-of-low-quality-cells">Automatic detection of low quality cells</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
@@ -93,18 +96,17 @@
 </div>
 <div class="section" id="getting-started">
 <h3>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="load-the-package">
-<h4>Load the package<a class="headerlink" href="#load-the-package" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="loading-the-package">
+<h4>Loading the package<a class="headerlink" href="#loading-the-package" title="Permalink to this headline">¶</a></h4>
 <p>The first step is to load the adobo package by importing it:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">adobo</span> <span class="kn">as</span> <span class="nn">ad</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">adobo</span> <span class="k">as</span> <span class="nn">ad</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="loading-your-data-from-a-text-file">
 <h4>Loading your data from a text file<a class="headerlink" href="#loading-your-data-from-a-text-file" title="Permalink to this headline">¶</a></h4>
-<p>Create a new adobo object, which is an instance of the class <a class="reference internal" href="adobo.html#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>. This will be a new object containing your single cell data. The input file should be a gene expression matrix (rows as genes and cells as columns). Fields can be separated by any character (default is tab) and it can be changed with the <cite>sep</cite> parameter. The data matrix file can have a header or not (<cite>header=0</cite> indicates a header is present, otherwise use <cite>header=None</cite>). If the header of your gene expression matrix contains a label for gene symbols, set <cite>column_id=True</cite>.</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;GSE95315.tab&#39;</span><span class="p">,</span>
-                            <span class="n">column_id</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<p>First we need to create a new adobo object, which is an instance of the class <a class="reference internal" href="adobo.html#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>. This will be a new object containing your single cell data. The input file should be a gene expression matrix (rows as genes and cells as columns). Fields can be separated by any character (default is tab) and it can be changed with the <cite>sep</cite> parameter. The data matrix file can have a header or not (<code class="docutils literal notranslate"><span class="pre">header=0</span></code> indicates a header is present, otherwise use <code class="docutils literal notranslate"><span class="pre">header=None</span></code>). If the header of your gene expression matrix contains a label for gene symbols, set <code class="docutils literal notranslate"><span class="pre">column_id=True</span></code>. The function <code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.IO.load_from_file()</span></code> is used to load data from a raw read count matrix:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;GSE95315.tab&#39;</span><span class="p">,</span> <span class="n">column_id</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -113,17 +115,24 @@
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Most adobo functions also have a <cite>verbose</cite> parameter, which when <cite>True</cite> makes the function more noisy.</p>
+<p>Most adobo functions also have a <code class="docutils literal notranslate"><span class="pre">verbose</span></code> parameter, which when <code class="docutils literal notranslate"><span class="pre">True</span></code> makes the function more noisy.</p>
+</div>
+</div>
+<div class="section" id="getting-detailed-help">
+<h4>Getting detailed help<a class="headerlink" href="#getting-detailed-help" title="Permalink to this headline">¶</a></h4>
+<p>All functions in adobo have extensive docstrings, which are accessible on the Python console:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">ad</span><span class="p">)</span>
+<span class="n">help</span><span class="p">(</span><span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">)</span>
+</pre></div>
 </div>
 </div>
 <div class="section" id="loading-compressed-data">
 <h4>Loading compressed data<a class="headerlink" href="#loading-compressed-data" title="Permalink to this headline">¶</a></h4>
-<p>scRNA-seq is zero inflated, and therefore compress strongly. We can therefore load the compressed data directly without having to uncompress it first; the compression format is detected automatically (gzip, bz2, zip and xz are supported). For example:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;GSE95315.tab.gz&#39;</span><span class="p">,</span>
-                             <span class="n">column_id</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<p>scRNA-seq is zero inflated, and therefore compress strongly. We can load the compressed data directly without having to uncompress it first; the compression format is detected automatically (gzip, bz2, zip and xz are supported). For example:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;GSE95315.tab.gz&#39;</span><span class="p">,</span> <span class="n">column_id</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Your gene expression data is stored in the attribute <cite>data.exp_mat</cite>, and after loading it is good to examine that the data were loaded properly:</p>
+<p>Your gene expression data is stored in the attribute <code class="docutils literal notranslate"><span class="pre">data.exp_mat</span></code>, and after loading it is good to examine that the data were loaded properly:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span>
 <span class="go">53,889 genes and 384 cells were loaded</span>
 </pre></div>
@@ -137,11 +146,43 @@
 </div>
 <p>Which will generate the plot:</p>
 <img alt="_images/2019-08-30-131424_587x441_scrot.png" src="_images/2019-08-30-131424_587x441_scrot.png" />
+<p>It is also a good idea to examine number of expressed genes per cell:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">barplot_genes_per_cell</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/2019-08-30-131930_594x451_scrot.png" src="_images/2019-08-30-131930_594x451_scrot.png" />
 </div>
 <div class="section" id="cleaning-your-data">
 <h4>Cleaning your data<a class="headerlink" href="#cleaning-your-data" title="Permalink to this headline">¶</a></h4>
 <p>Before we proceed to normalization we should start with some data cleaning. A good first step is to look for empty cells and genes. Empty genes/cells do obviously not carry any information and can be removed:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">remove_empty</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="applying-simple-filters">
+<h4>Applying simple filters<a class="headerlink" href="#applying-simple-filters" title="Permalink to this headline">¶</a></h4>
+<p>Simple filters refers to applying a strict minimum cutoff on the number of expressed genes per cell and the total read depth per cell. Simple filters are usually effective in removing low quality cells and uninformative genes. If your data come from Drop-seq, 10X, etc, requiring at least 1000 uniquely mapped reads per cell is often sufficient:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">simple_filter</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">minreads</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">minexpgenes</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>If your protocol is applying full-length mRNA sequencing, e.g. SMART-seq2, then your <code class="docutils literal notranslate"><span class="pre">minreads</span></code> threshold should be higher, for example 10000.</p>
+</div>
+<p>It is also desirable to remove genes with an expression signal in very few cells; such genes may contribute more noise than information. The <code class="docutils literal notranslate"><span class="pre">minexpgenes</span></code> parameter can be used to control how genes are filtered out. If you wish to not remove any genes at all, simply set it to zero:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">simple_filter</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">minreads</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">minexpgenes</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Setting <code class="docutils literal notranslate"><span class="pre">minexpgenes</span></code> to a fraction indicates that at least that fraction of cells must express any gene. If <code class="docutils literal notranslate"><span class="pre">minexpgenes</span></code> is an integer it refers to the absolute number of cells that at minimum must express the gene for the gene not to be filtered out.</p>
+</div>
+<div class="section" id="automatic-detection-of-low-quality-cells">
+<h4>Automatic detection of low quality cells<a class="headerlink" href="#automatic-detection-of-low-quality-cells" title="Permalink to this headline">¶</a></h4>
+<p>A more sophisticated approach to detection of low quality cells is to use the function <code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.preproc.find_low_quality_cells()</span></code>, which uses <a class="reference external" href="https://en.wikipedia.org/wiki/Mahalanobis_distance">Mahalanobis distance</a> to identify bad cells from five quality metrics.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><code class="docutils literal notranslate"><span class="pre">find_low_quality_cells</span></code> requires that your sequencing experiment has used ERCC spikes.</p>
+</div>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">find_low_quality_cells</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">rRNA_genes</span><span class="o">=</span><span class="n">rRNA</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="toctree-wrapper compound">
