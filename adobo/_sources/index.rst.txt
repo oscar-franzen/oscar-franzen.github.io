@@ -1,7 +1,72 @@
 Welcome to adobo's documentation!
-=================================
+#################################
 
-adobo is an analysis framework consisting of a set of Python modules to enable exploratory analysis of single cell RNA-seq data (scRNA-seq).
+What adobo is
+*************
+adobo is an analysis framework consisting of a set of Python modules to enable exploratory analysis of single cell RNA-seq data (`scRNA-seq`_). adobo can be used to compose scripts, used in interactive workflows and much more.
+
+.. note::
+
+   adobo is developed and tested on Python version 3.5.3 - older versions may work but are untested.
+
+Installation
+============
+The easiest way to install adobo is to clone the GitHub repository:
+
+.. code-block:: bash
+
+   $ git clone https://github.com/oscar-franzen/adobo.git
+
+Support for ``pip3`` installation is on the TODO list.
+
+Getting started
+===============
+Load the package
+^^^^^^^^^^^^^^^^
+In your Python console type:
+
+.. code-block:: python
+
+   import adobo as ad
+
+Loading your data
+^^^^^^^^^^^^^^^^^
+Create a new adobo object, which is an instance of the class :class:`adobo.data.dataset`. This will be a new object containing your single cell data. The input file should be a gene expression matrix (rows as genes and cells as columns). Fields can be separated by any character (default is tab) and it can be changed with the `sep` parameter. The data matrix file can have a header or not (`header=0` indicates a header is present, otherwise use `header=None`).
+
+.. note::
+
+   Most adobo functions also have a `verbose` parameter, which when `True` makes the function more noisy.
+
+.. code-block:: python3
+
+   data = ad.IO.load_from_file('input_single_cell_rnaseq_read_counts.mat',
+                               verbose=True,
+                               column_id=False)
+
+.. note::
+
+   All downstream operations and analyses are performed and stored in an adobo object, i.e. functions are applied on this object.
+
+It is also possible to load compressed data; the compression format is detected automatically (gzip, bz2, zip and xz are supported). For example:
+
+.. code-block:: python3
+
+   data = ad.IO.load_from_file('input_single_cell_rnaseq_read_counts.mat.gz',
+                                verbose=True,
+                                column_id=False)
+
+Your gene expression data is stored in the attribute `data.exp_mat`, and after loading it is good to examine that the data were loaded properly:
+
+>>> data
+53,889 genes and 384 cells were loaded
+
+Cleaning your data
+^^^^^^^^^^^^^^^^^^
+Before we proceed to normalization we should start with some data cleaning. A good first step is to look for empty cells and genes. Empty genes/cells do obviously not carry any information and can be removed:
+
+.. code-block:: python3
+
+ad.preproc.remove_empty(data, verbose=True)
 
 .. toctree::
    :maxdepth: 2
@@ -13,4 +78,4 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 
-.. scRNA-seq: https://en.wikipedia.org/wiki/Single_cell_sequencing
+.. _scRNA-seq: https://en.wikipedia.org/wiki/Single_cell_sequencing

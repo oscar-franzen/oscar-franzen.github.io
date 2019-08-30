@@ -31,8 +31,20 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="#">Table of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Welcome to adobo’s documentation!</a></li>
+<li><a class="reference internal" href="#">Welcome to adobo’s documentation!</a><ul>
+<li><a class="reference internal" href="#what-adobo-is">What adobo is</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#getting-started">Getting started</a><ul>
+<li><a class="reference internal" href="#load-the-package">Load the package</a></li>
+<li><a class="reference internal" href="#loading-your-data">Loading your data</a></li>
+<li><a class="reference internal" href="#cleaning-your-data">Cleaning your data</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
   <div role="note" aria-label="source link">
@@ -62,16 +74,77 @@
             
   <div class="section" id="welcome-to-adobo-s-documentation">
 <h1>Welcome to adobo’s documentation!<a class="headerlink" href="#welcome-to-adobo-s-documentation" title="Permalink to this headline">¶</a></h1>
-<p>adobo is an analysis framework consisting of a set of Python modules to enable exploratory analysis of single cell RNA-seq data (scRNA-seq).</p>
+<div class="section" id="what-adobo-is">
+<h2>What adobo is<a class="headerlink" href="#what-adobo-is" title="Permalink to this headline">¶</a></h2>
+<p>adobo is an analysis framework consisting of a set of Python modules to enable exploratory analysis of single cell RNA-seq data (<a class="reference external" href="https://en.wikipedia.org/wiki/Single_cell_sequencing">scRNA-seq</a>). adobo can be used to compose scripts, used in interactive workflows and much more.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>adobo is developed and tested on Python version 3.5.3 - older versions may work but are untested.</p>
+</div>
+<div class="section" id="installation">
+<h3>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
+<p>The easiest way to install adobo is to clone the GitHub repository:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/oscar-franzen/adobo.git
+</pre></div>
+</div>
+<p>Support for <code class="docutils literal notranslate"><span class="pre">pip3</span></code> installation is on the TODO list.</p>
+</div>
+<div class="section" id="getting-started">
+<h3>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="load-the-package">
+<h4>Load the package<a class="headerlink" href="#load-the-package" title="Permalink to this headline">¶</a></h4>
+<p>In your Python console type:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">adobo</span> <span class="kn">as</span> <span class="nn">ad</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="loading-your-data">
+<h4>Loading your data<a class="headerlink" href="#loading-your-data" title="Permalink to this headline">¶</a></h4>
+<p>Create a new adobo object, which is an instance of the class <a class="reference internal" href="adobo.html#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>. This will be a new object containing your single cell data. The input file should be a gene expression matrix (rows as genes and cells as columns). Fields can be separated by any character (default is tab) and it can be changed with the <cite>sep</cite> parameter. The data matrix file can have a header or not (<cite>header=0</cite> indicates a header is present, otherwise use <cite>header=None</cite>).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Most adobo functions also have a <cite>verbose</cite> parameter, which when <cite>True</cite> makes the function more noisy.</p>
+</div>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;input_single_cell_rnaseq_read_counts.mat&#39;</span><span class="p">,</span>
+                            <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                            <span class="n">column_id</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All downstream operations and analyses are performed and stored in an adobo object, i.e. functions are applied on this object.</p>
+</div>
+<p>It is also possible to load compressed data; the compression format is detected automatically (gzip, bz2, zip and xz are supported). For example:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;input_single_cell_rnaseq_read_counts.mat.gz&#39;</span><span class="p">,</span>
+                             <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                             <span class="n">column_id</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Your gene expression data is stored in the attribute <cite>data.exp_mat</cite>, and after loading it is good to examine that the data were loaded properly:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span>
+<span class="go">53,889 genes and 384 cells were loaded</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="cleaning-your-data">
+<h4>Cleaning your data<a class="headerlink" href="#cleaning-your-data" title="Permalink to this headline">¶</a></h4>
+<p>Before we proceed to normalization we should start with some data cleaning. A good first step is to look for empty cells and genes. Empty genes/cells do obviously not carry any information and can be removed:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<p>ad.preproc.remove_empty(data, verbose=True)</p>
 <div class="toctree-wrapper compound">
 </div>
 </div>
+</div>
 <div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<h3>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
 <li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
 </ul>
+</div>
+</div>
 </div>
 
 
