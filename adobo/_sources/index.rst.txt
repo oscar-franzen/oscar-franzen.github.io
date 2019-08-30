@@ -23,42 +23,54 @@ Getting started
 ===============
 Load the package
 ^^^^^^^^^^^^^^^^
-In your Python console type:
+The first step is to load the adobo package by importing it:
 
 .. code-block:: python
 
    import adobo as ad
 
-Loading your data
-^^^^^^^^^^^^^^^^^
-Create a new adobo object, which is an instance of the class :class:`adobo.data.dataset`. This will be a new object containing your single cell data. The input file should be a gene expression matrix (rows as genes and cells as columns). Fields can be separated by any character (default is tab) and it can be changed with the `sep` parameter. The data matrix file can have a header or not (`header=0` indicates a header is present, otherwise use `header=None`).
-
-.. note::
-
-   Most adobo functions also have a `verbose` parameter, which when `True` makes the function more noisy.
+Loading your data from a text file
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Create a new adobo object, which is an instance of the class :class:`adobo.data.dataset`. This will be a new object containing your single cell data. The input file should be a gene expression matrix (rows as genes and cells as columns). Fields can be separated by any character (default is tab) and it can be changed with the `sep` parameter. The data matrix file can have a header or not (`header=0` indicates a header is present, otherwise use `header=None`). If the header of your gene expression matrix contains a label for gene symbols, set `column_id=True`.
 
 .. code-block:: python3
 
-   data = ad.IO.load_from_file('input_single_cell_rnaseq_read_counts.mat',
-                               verbose=True,
-                               column_id=False)
+   data = ad.IO.load_from_file('GSE95315.tab',
+                               column_id=True)
 
 .. note::
 
    All downstream operations and analyses are performed and stored in an adobo object, i.e. functions are applied on this object.
 
-It is also possible to load compressed data; the compression format is detected automatically (gzip, bz2, zip and xz are supported). For example:
+.. note::
+
+   Most adobo functions also have a `verbose` parameter, which when `True` makes the function more noisy.
+
+Loading compressed data
+^^^^^^^^^^^^^^^^^^^^^^^
+scRNA-seq is zero inflated, and therefore compress strongly. We can therefore load the compressed data directly without having to uncompress it first; the compression format is detected automatically (gzip, bz2, zip and xz are supported). For example:
 
 .. code-block:: python3
 
-   data = ad.IO.load_from_file('input_single_cell_rnaseq_read_counts.mat.gz',
-                                verbose=True,
-                                column_id=False)
+   data = ad.IO.load_from_file('GSE95315.tab.gz',
+                                column_id=True)
 
 Your gene expression data is stored in the attribute `data.exp_mat`, and after loading it is good to examine that the data were loaded properly:
 
 >>> data
 53,889 genes and 384 cells were loaded
+
+Data examination
+^^^^^^^^^^^^^^^^
+It's can be useful to examine number of reads per cell in a barplot format:
+
+.. code-block:: python3
+
+   ad.plotting.barplot_reads_per_cell(data)
+
+Which will generate the plot:
+
+.. image:: 2019-08-30-131424_587x441_scrot.png
 
 Cleaning your data
 ^^^^^^^^^^^^^^^^^^
@@ -66,7 +78,7 @@ Before we proceed to normalization we should start with some data cleaning. A go
 
 .. code-block:: python3
 
-ad.preproc.remove_empty(data, verbose=True)
+   ad.preproc.remove_empty(data)
 
 .. toctree::
    :maxdepth: 2
