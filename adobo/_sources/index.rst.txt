@@ -192,7 +192,7 @@ Normalization removes technical and sometimes experimental biases and is always 
 **vsn**
    Variance stabilizing normaliztion based on a negative binomial regression model with regularized parameters. Introduced by :cite:`Hafemeister2019` and represents the most complex scheme of the above; appears to improve resolution somewhat.
 
-All normalization schemes, except ``vsn``, can be followed by ``log2`` transformation.
+All normalization schemes, except ``vsn``, can be followed by log (base 2) transformation (set by the ``log2=True`` flag, which is enabled by default).
 
 To perform a ``standard`` normalization run:
 

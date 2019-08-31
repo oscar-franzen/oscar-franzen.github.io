@@ -243,7 +243,7 @@
 <dt><strong>vsn</strong></dt><dd><p>Variance stabilizing normaliztion based on a negative binomial regression model with regularized parameters. Introduced by <a class="reference internal" href="#hafemeister2019" id="id6">[6]</a> and represents the most complex scheme of the above; appears to improve resolution somewhat.</p>
 </dd>
 </dl>
-<p>All normalization schemes, except <code class="docutils literal notranslate"><span class="pre">vsn</span></code>, can be followed by <code class="docutils literal notranslate"><span class="pre">log2</span></code> transformation.</p>
+<p>All normalization schemes, except <code class="docutils literal notranslate"><span class="pre">vsn</span></code>, can be followed by log (base 2) transformation (set by the <code class="docutils literal notranslate"><span class="pre">log2=True</span></code> flag, which is enabled by default).</p>
 <p>To perform a <code class="docutils literal notranslate"><span class="pre">standard</span></code> normalization run:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">normalize</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;standard&#39;</span><span class="p">)</span>
 </pre></div>
