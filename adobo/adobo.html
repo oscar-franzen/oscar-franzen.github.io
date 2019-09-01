@@ -124,7 +124,7 @@
 <p>Functions for reading and writing scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.IO.load_from_file">
-<code class="sig-prename descclassname">adobo.IO.</code><code class="sig-name descname">load_from_file</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">sep='\t'</em>, <em class="sig-param">header=0</em>, <em class="sig-param">column_id=True</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.IO.load_from_file" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.IO.</code><code class="sig-name descname">load_from_file</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">sep='\t'</em>, <em class="sig-param">header=0</em>, <em class="sig-param">column_id='auto'</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.IO.load_from_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a gene expression matrix consisting of raw read counts</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -133,8 +133,8 @@
 columns are cells and rows are genes.</p></li>
 <li><p><strong>sep</strong> (<cite>str</cite>, optional) – Character used to separate fields (default: “\t”).</p></li>
 <li><p><strong>header</strong> (<cite>str</cite>, optional) – If the data file has a header. 0 means yes otherwise None (default: <cite>0</cite>).</p></li>
-<li><p><strong>column_id</strong> (<cite>bool</cite>, optional) – Whether the header (first line) of the file contains a column ID for the genes. If
-this is the case, set this to True, otherwise False (default: True).</p></li>
+<li><p><strong>column_id</strong> (<em>{'auto'</em><em>, </em><em>'yes'</em><em>, </em><em>'no'}</em><em>, </em><em>optional</em>) – Whether the header (first line) of the file contains a column ID for the genes. If
+this is the case, set this to auto or yes, otherwise no (default: auto).</p></li>
 <li><p><strong>verbose</strong> (<cite>bool</cite>, optional) – To be verbose or not (default: False).</p></li>
 </ul>
 </dd>
@@ -324,8 +324,8 @@ for this code): <a class="reference external" href="https://github.com/madrury/p
 <code class="sig-prename descclassname">adobo.hvg.</code><code class="sig-name descname">find_hvg</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">method='seurat'</em>, <em class="sig-param">ngenes=1000</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.hvg.find_hvg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Finding highly variable genes</p>
 <p class="rubric">Notes</p>
-<p>A wrapper function around the individual HVG functions, which can also be
-called directly.</p>
+<p>A wrapper function around the individual HVG functions, which can also be called
+directly.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -360,7 +360,8 @@ called directly.</p>
 <p class="rubric">Notes</p>
 <p>The function bins the genes according to average expression, then calculates
 dispersion for each bin as variance to mean ratio. Within each bin, Z-scores are
-calculated and returned. Z-scores are ranked and the top 1000 are selected.</p>
+calculated and returned. Z-scores are ranked and the top 1000 are selected. Input data
+should be normalized first.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -575,7 +576,7 @@ then multiplying with a scaling factor.</p>
 <dd><p>Performs variance stabilizing normaliztion based on a negative binomial regression
 model with regularized parameters</p>
 <p class="rubric">Notes</p>
-<p>Adopts a subset of the functionality of the vst function in the R package sctransform [0].</p>
+<p>Adopts a subset of the functionality of <cite>vst</cite> in the R package sctransform [0].</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
