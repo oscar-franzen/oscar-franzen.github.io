@@ -224,6 +224,9 @@ Most algorithms used in scRNA-seq analysis performs better when performed only o
 **brennecke**
     Implements the method described in :cite:`Brennecke2013`. ``brennecke`` estimates and fits technical noise using ERCC spikes (technical genes) by fitting a generalized linear model with a gamma function and identity link and the parameterization w=a_1+u+a0. It then uses the chi2 distribution to test the null hypothesis that the squared coefficient of variation does not exceed a certain minimum. False discovery rate (FDR)<0.10 is considered significant.
 
+**scran**
+    scran fits a polynomial regression model to technical noise by modeling the variance versus mean gene expression relationship of ERCC spikes (the original method used local regression) :cite:`Lun2016`. It then decomposes the variance of the biological gene by subtracting the technical variance component and returning the biological variance component.
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:

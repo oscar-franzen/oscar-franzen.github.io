@@ -274,6 +274,8 @@
 </dd>
 <dt><strong>brennecke</strong></dt><dd><p>Implements the method described in <a class="reference internal" href="#brennecke2013" id="id9">[8]</a>. <code class="docutils literal notranslate"><span class="pre">brennecke</span></code> estimates and fits technical noise using ERCC spikes (technical genes) by fitting a generalized linear model with a gamma function and identity link and the parameterization w=a_1+u+a0. It then uses the chi2 distribution to test the null hypothesis that the squared coefficient of variation does not exceed a certain minimum. False discovery rate (FDR)&lt;0.10 is considered significant.</p>
 </dd>
+<dt><strong>scran</strong></dt><dd><p>scran fits a polynomial regression model to technical noise by modeling the variance versus mean gene expression relationship of ERCC spikes (the original method used local regression) <a class="reference internal" href="#lun2016" id="id10">[9]</a>. It then decomposes the variance of the biological gene by subtracting the technical variance component and returning the biological variance component.</p>
+</dd>
 </dl>
 <div class="toctree-wrapper compound">
 </div>
@@ -311,6 +313,9 @@
 </dd>
 <dt class="label" id="brennecke2013"><span class="brackets"><a class="fn-backref" href="#id9">8</a></span></dt>
 <dd><p>Philip Brennecke, Simon Anders, Jong Kyoung Kim, Aleksandra A Kołodziejczyk, Xiuwei Zhang, Valentina Proserpio, Bianka Baying, Vladimir Benes, Sarah A Teichmann, John C Marioni, and Marcus G Heisler. Accounting for technical noise in single-cell RNA-seq experiments. <em>Nature Methods</em>, 10:1093, September 2013. URL: <a class="reference external" href="https://doi.org/10.1038/nmeth.2645">https://doi.org/10.1038/nmeth.2645</a>.</p>
+</dd>
+<dt class="label" id="lun2016"><span class="brackets"><a class="fn-backref" href="#id10">9</a></span></dt>
+<dd><p>Aaron T. L. Lun, Davis J. McCarthy, and John C. Marioni. A step-by-step workflow for low-level analysis of single-cell RNA-seq data with Bioconductor. <em>F1000Research</em>, 5:2122, 2016. <a class="reference external" href="https://doi.org/10.12688/f1000research.9501.2">doi:10.12688/f1000research.9501.2</a>.</p>
 </dd>
 </dl>
 </p>
