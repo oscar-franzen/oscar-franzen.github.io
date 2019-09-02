@@ -353,7 +353,7 @@ SIAM Journal on Scientific Computing</p>
 
 <dl class="function">
 <dt id="adobo.dr.run_PCA">
-<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">run_PCA</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">method='irlb'</em>, <em class="sig-param">ncomp=75</em>, <em class="sig-param">allgenes=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.run_PCA" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">run_PCA</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">method='irlb'</em>, <em class="sig-param">ncomp=75</em>, <em class="sig-param">allgenes=False</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.run_PCA" title="Permalink to this definition">¶</a></dt>
 <dd><p>Principal Component Analysis</p>
 <p class="rubric">Notes</p>
 <p>A wrapper function around the individual normalization functions, which can also be
@@ -365,6 +365,7 @@ called directly.</p>
 <li><p><strong>method</strong> (<cite>{‘irlb’, ‘svd’}</cite>) – Method to use for PCA. This does not matter much. Default: irlb</p></li>
 <li><p><strong>ncomp</strong> (<cite>int</cite>) – Number of components to return. Default: 75</p></li>
 <li><p><strong>allgenes</strong> (<cite>bool</cite>) – Use all genes instead of only HVG.</p></li>
+<li><p><strong>verbose</strong> (<cite>bool</cite>) – Be noisy or not.</p></li>
 </ul>
 </dd>
 </dl>
