@@ -230,6 +230,9 @@ Most algorithms used in scRNA-seq analysis performs better when performed only o
 **chen2016**
     This method uses linear regression, subsampling, polynomial fitting and gaussian maximum likelihood estimates to derive a set of HVG :cite:`Chen2016`.
 
+**mm**
+    Selection onf HVG by modeling dropout rates using modified Michaelis-Menten kinetics :cite:`Andrews2018`.
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
