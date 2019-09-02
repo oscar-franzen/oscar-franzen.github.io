@@ -231,7 +231,7 @@ Most algorithms used in scRNA-seq analysis performs better when performed only o
     This method uses linear regression, subsampling, polynomial fitting and gaussian maximum likelihood estimates to derive a set of HVG :cite:`Chen2016`.
 
 **mm**
-    Selection onf HVG by modeling dropout rates using modified Michaelis-Menten kinetics :cite:`Andrews2018`.
+    Selection onf HVG by modeling dropout rates using modified Michaelis-Menten kinetics :cite:`Andrews2018`. This method calculates dropout rates and mean expression for every gene, then models these with the Michaelis-Menten equation (parameters are estimated with maximum likelihood optimization). The basis for using MM is because most dropouts are caused by failure of the enzyme reverse transcriptase, thus the dropout rate can be modelled with theory developed for enzyme reactions. This implementation works best for libraries sequenced to saturation (i.e. not Drop-seq).
 
 .. toctree::
    :maxdepth: 2

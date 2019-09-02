@@ -386,10 +386,10 @@ might be fewer than specified by <cite>ngenes</cite> because of FDR consideratio
 
 <dl class="function">
 <dt id="adobo.hvg.mm">
-<code class="sig-prename descclassname">adobo.hvg.</code><code class="sig-name descname">mm</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">fdr=0.1</em>, <em class="sig-param">ngenes=1000</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.hvg.mm" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.hvg.</code><code class="sig-name descname">mm</code><span class="sig-paren">(</span><em class="sig-param">data_norm</em>, <em class="sig-param">log2</em>, <em class="sig-param">fdr=0.1</em>, <em class="sig-param">ngenes=1000</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.hvg.mm" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function implements the approach from Andrews (2018).</p>
 <p class="rubric">Notes</p>
-<p>Input should be raw read counts.</p>
+<p>Input should be normalized but nog log’ed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
