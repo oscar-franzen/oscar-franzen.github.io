@@ -227,6 +227,9 @@ Most algorithms used in scRNA-seq analysis performs better when performed only o
 **scran**
     scran fits a polynomial regression model to technical noise by modeling the variance versus mean gene expression relationship of ERCC spikes (the original method used local regression) :cite:`Lun2016`. It then decomposes the variance of the biological gene by subtracting the technical variance component and returning the biological variance component.
 
+**chen2016**
+    This method uses linear regression, subsampling, polynomial fitting and gaussian maximum likelihood estimates to derive a set of HVG :cite:`Chen2016`.
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:

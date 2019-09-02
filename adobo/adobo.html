@@ -322,6 +322,43 @@ for this code): <a class="reference external" href="https://github.com/madrury/p
 </dd></dl>
 
 <dl class="function">
+<dt id="adobo.hvg.chen2016">
+<code class="sig-prename descclassname">adobo.hvg.</code><code class="sig-name descname">chen2016</code><span class="sig-paren">(</span><em class="sig-param">norm_data</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.hvg.chen2016" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function implements the approach from Chen (2016) to identify highly variable
+genes.</p>
+<p class="rubric">Notes</p>
+<p>Expression counts should be normalized and on a log scale.</p>
+<p>Outline of the steps:</p>
+<ol class="arabic simple">
+<li><p>fits a polynomial regression model to mean and variance of the technical genes</p></li>
+<li><p>decomposes the total variance of the biological genes by subtracting the
+technical variance predicted by the fit</p></li>
+<li><p>sort based on biological variance</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_norm</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame containing normalized gene expression data.</p></li>
+<li><p><strong>ERCC</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame containing normalized ERCC spikes.</p></li>
+<li><p><strong>log2</strong> (<cite>bool</cite>) – If normalized data were log2 transformed or not.</p></li>
+<li><p><strong>ngenes</strong> (<cite>int</cite>) – Number of top highly variable genes to return.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p><a class="reference external" href="https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-016-2897-6">https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-016-2897-6</a>
+<a class="reference external" href="https://github.com/hillas/scVEGs/blob/master/scVEGs.r">https://github.com/hillas/scVEGs/blob/master/scVEGs.r</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list containing highly variable genes.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><cite>list</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
 <dt id="adobo.hvg.find_hvg">
 <code class="sig-prename descclassname">adobo.hvg.</code><code class="sig-name descname">find_hvg</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">method='seurat'</em>, <em class="sig-param">ngenes=1000</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.hvg.find_hvg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Finding highly variable genes</p>
