@@ -40,7 +40,7 @@ First we need to create a new adobo object, which is an instance of the class :c
 
 .. code-block:: python3
 
-   data = ad.IO.load_from_file('GSE95315.tab', column_id='auto')
+   exp = ad.IO.load_from_file('GSE95315.tab', column_id='auto')
 
 .. important::
 
@@ -70,11 +70,11 @@ scRNA-seq is zero inflated, and therefore compress strongly. We can load the com
 
 .. code-block:: python3
 
-   data = ad.IO.load_from_file('GSE95315.tab.gz', column_id='auto')
+   exp = ad.IO.load_from_file('GSE95315.tab.gz', column_id='auto')
 
-Your gene expression data is stored in the attribute ``data.exp_mat``, and after loading it is good to examine that the data were loaded properly:
+Your gene expression data is stored in the attribute ``exp.exp_mat``, and after loading it is good to examine that the data were loaded properly:
 
->>> data
+>>> exp
 53,889 genes and 384 cells were loaded
 
 Data examination
@@ -83,7 +83,7 @@ It's can be useful to examine number of reads per cell in a barplot format:
 
 .. code-block:: python3
 
-   ad.plotting.barplot_reads_per_cell(data)
+   ad.plotting.barplot_reads_per_cell(exp)
 
 Which will generate the plot:
 
@@ -93,7 +93,7 @@ It is also a good idea to examine number of expressed genes per cell:
 
 .. code-block:: python3
 
-   ad.plotting.barplot_genes_per_cell(data)
+   ad.plotting.barplot_genes_per_cell(exp)
 
 .. image:: 2019-08-30-131930_594x451_scrot.png
 
@@ -103,7 +103,7 @@ Before we proceed to normalization we should start with some data cleaning. A go
 
 .. code-block:: python3
 
-   ad.preproc.remove_empty(data)
+   ad.preproc.remove_empty(exp)
 
 Detecting ERCC spikes
 ^^^^^^^^^^^^^^^^^^^^^
@@ -117,7 +117,7 @@ The :py:func:`adobo.preproc.detect_ERCC_spikes` is used to filter out the ERCC (
 
 .. code-block:: python3
 
-   ad.preproc.detect_ERCC_spikes(data)
+   ad.preproc.detect_ERCC_spikes(exp)
 
 Detecting mitochondrial genes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -125,13 +125,13 @@ It's often a good idea not to include the mitochondrial genes in the analysis an
 
 .. code-block:: python3
 
-   ad.preproc.detect_mito(data)
+   ad.preproc.detect_mito(exp)
 
 Or specify a custom regular expression to identify them:
 
 .. code-block:: python3
 
-   ad.preproc.detect_mito(data, mito_pattern='^mito-')
+   ad.preproc.detect_mito(exp, mito_pattern='^mito-')
 
 Applying simple filters
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -139,7 +139,7 @@ Simple filters refers to applying a strict minimum cutoff on the number of expre
 
 .. code-block:: python3
 
-   ad.preproc.simple_filter(data, minreads=1000, minexpgenes=0.001)
+   ad.preproc.simple_filter(exp, minreads=1000, minexpgenes=0.001)
 
 .. important::
 
@@ -149,7 +149,7 @@ It is also desirable to remove genes with an expression signal in very few cells
 
 .. code-block:: python3
 
-   ad.preproc.simple_filter(data, minreads=1000, minexpgenes=0)
+   ad.preproc.simple_filter(exp, minreads=1000, minexpgenes=0)
 
 Setting ``minexpgenes`` to a fraction indicates that at least that fraction of cells must express any gene. If ``minexpgenes`` is an integer it refers to the absolute number of cells that at minimum must express the gene for the gene not to be filtered out.
 
@@ -165,13 +165,13 @@ The argument ``rRNA_genes`` should either be a string containing the full path t
 
 .. code-block:: python3
 
-   ad.preproc.find_low_quality_cells(data, rRNA_genes=rRNA)
+   ad.preproc.find_low_quality_cells(exp, rRNA_genes=rRNA)
 
 Like all adobo functions, ``find_low_quality_cells`` modifies the passed object. However, ``find_low_quality_cells`` also returns a list of cells that are classified as low quality; to prevent such behavior simply assign the return to a variable:
 
 .. code-block:: python3
 
-   low_q_cells = ad.preproc.find_low_quality_cells(data, rRNA_genes=rRNA)
+   low_q_cells = ad.preproc.find_low_quality_cells(exp, rRNA_genes=rRNA)
 
 Normalization
 =============
@@ -198,7 +198,7 @@ To perform a ``standard`` normalization followed by ``log2`` transformation, run
 
 .. code-block:: python3
 
-   ad.normalize.norm(data, method='standard')
+   ad.normalize.norm(exp, method='standard')
 
 .. note::
 
@@ -208,7 +208,7 @@ Examining analysis history
 ==========================
 Downstream analyses are performed on the data object. At any time it's possible to examine what functions have been applied on data object by calling :py:func:`adobo.data.dataset.assays`:
 
->>> data.assays()
+>>> exp.assays()
 Number of mitochondrial genes found: 0
 Number of ERCC spikes found: 92 
 Normalization method: <not performed yet> 

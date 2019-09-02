@@ -117,7 +117,7 @@
 <div class="section" id="loading-your-data-from-a-text-file">
 <h4>Loading your data from a text file<a class="headerlink" href="#loading-your-data-from-a-text-file" title="Permalink to this headline">¶</a></h4>
 <p>First we need to create a new adobo object, which is an instance of the class <a class="reference internal" href="adobo.html#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>. This will be a new object containing your single cell data. The input file should be a gene expression matrix (rows as genes and cells as columns) in plain text format. Fields can be separated by any character (default is tab) and it can be changed with the <code class="docutils literal notranslate"><span class="pre">sep</span></code> argument. The data matrix file can have a header or not (<code class="docutils literal notranslate"><span class="pre">header=0</span></code> indicates a header is present, otherwise use <code class="docutils literal notranslate"><span class="pre">header=None</span></code>). If the header of your gene expression matrix contains a label for gene symbols, set <code class="docutils literal notranslate"><span class="pre">column_id='yes'</span></code> or simply <code class="docutils literal notranslate"><span class="pre">column_id='auto'</span></code> to autodetect this. <a class="reference internal" href="adobo.html#adobo.IO.load_from_file" title="adobo.IO.load_from_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.IO.load_from_file()</span></code></a> calls <code class="xref py py-func docutils literal notranslate"><span class="pre">pandas.DataFrame.read_csv()</span></code> and any additional arguments are passed into this function. The function <a class="reference internal" href="adobo.html#adobo.IO.load_from_file" title="adobo.IO.load_from_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.IO.load_from_file()</span></code></a> is used to load data from a raw read count matrix and the returned object is an instance of <a class="reference internal" href="adobo.html#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;GSE95315.tab&#39;</span><span class="p">,</span> <span class="n">column_id</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">exp</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;GSE95315.tab&#39;</span><span class="p">,</span> <span class="n">column_id</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition important">
@@ -144,11 +144,11 @@
 <div class="section" id="loading-compressed-data">
 <h4>Loading compressed data<a class="headerlink" href="#loading-compressed-data" title="Permalink to this headline">¶</a></h4>
 <p>scRNA-seq is zero inflated, and therefore compress strongly. We can load the compressed data directly without having to uncompress it first; the compression format is detected automatically (gzip, bz2, zip and xz are supported). For example:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;GSE95315.tab.gz&#39;</span><span class="p">,</span> <span class="n">column_id</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">exp</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;GSE95315.tab.gz&#39;</span><span class="p">,</span> <span class="n">column_id</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Your gene expression data is stored in the attribute <code class="docutils literal notranslate"><span class="pre">data.exp_mat</span></code>, and after loading it is good to examine that the data were loaded properly:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span>
+<p>Your gene expression data is stored in the attribute <code class="docutils literal notranslate"><span class="pre">exp.exp_mat</span></code>, and after loading it is good to examine that the data were loaded properly:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">exp</span>
 <span class="go">53,889 genes and 384 cells were loaded</span>
 </pre></div>
 </div>
@@ -156,13 +156,13 @@
 <div class="section" id="data-examination">
 <h4>Data examination<a class="headerlink" href="#data-examination" title="Permalink to this headline">¶</a></h4>
 <p>It’s can be useful to examine number of reads per cell in a barplot format:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">barplot_reads_per_cell</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">barplot_reads_per_cell</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Which will generate the plot:</p>
 <img alt="_images/2019-08-30-131424_587x441_scrot.png" src="_images/2019-08-30-131424_587x441_scrot.png" />
 <p>It is also a good idea to examine number of expressed genes per cell:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">barplot_genes_per_cell</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">barplot_genes_per_cell</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
 </pre></div>
 </div>
 <img alt="_images/2019-08-30-131930_594x451_scrot.png" src="_images/2019-08-30-131930_594x451_scrot.png" />
@@ -170,7 +170,7 @@
 <div class="section" id="cleaning-your-data">
 <h4>Cleaning your data<a class="headerlink" href="#cleaning-your-data" title="Permalink to this headline">¶</a></h4>
 <p>Before we proceed to normalization we should start with some data cleaning. A good first step is to look for empty cells and genes. Empty genes/cells do obviously not carry any information and can be removed:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">remove_empty</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">remove_empty</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -182,25 +182,25 @@
 <p>The <code class="docutils literal notranslate"><span class="pre">ERCC_pattern</span></code> argument can be used to set a regular expression for detecting these “genes”.</p>
 </div>
 <p>The <a class="reference internal" href="adobo.html#adobo.preproc.detect_ERCC_spikes" title="adobo.preproc.detect_ERCC_spikes"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.preproc.detect_ERCC_spikes()</span></code></a> is used to filter out the ERCC (stored in <a class="reference internal" href="adobo.html#adobo.data.dataset._exp_ERCC" title="adobo.data.dataset._exp_ERCC"><code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset._exp_ERCC</span></code></a>):</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">detect_ERCC_spikes</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">detect_ERCC_spikes</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="detecting-mitochondrial-genes">
 <h4>Detecting mitochondrial genes<a class="headerlink" href="#detecting-mitochondrial-genes" title="Permalink to this headline">¶</a></h4>
 <p>It’s often a good idea not to include the mitochondrial genes in the analysis and some downstream analyses require that adobo knows which genes are mitochondrial. Usually the mitochondrial genes in human and mouse genomes have gene symbols starting with the prefix <code class="docutils literal notranslate"><span class="pre">mt-</span></code>, but this might vary from species to species.</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">detect_mito</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">detect_mito</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Or specify a custom regular expression to identify them:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">detect_mito</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mito_pattern</span><span class="o">=</span><span class="s1">&#39;^mito-&#39;</span><span class="p">)</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">detect_mito</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">mito_pattern</span><span class="o">=</span><span class="s1">&#39;^mito-&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="applying-simple-filters">
 <h4>Applying simple filters<a class="headerlink" href="#applying-simple-filters" title="Permalink to this headline">¶</a></h4>
 <p>Simple filters refers to applying a strict minimum cutoff on the number of expressed genes per cell and the total read depth per cell. Simple filters are usually effective in removing low quality cells and uninformative genes. If your data come from Drop-seq, 10X, etc, requiring at least 1000 uniquely mapped reads per cell is often sufficient:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">simple_filter</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">minreads</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">minexpgenes</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">simple_filter</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">minreads</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">minexpgenes</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition important">
@@ -208,7 +208,7 @@
 <p>If your protocol is applying full-length mRNA sequencing, e.g. SMART-seq2, then your <code class="docutils literal notranslate"><span class="pre">minreads</span></code> threshold should be higher, for example 10000.</p>
 </div>
 <p>It is also desirable to remove genes with an expression signal in very few cells; such genes may contribute more noise than information. The <code class="docutils literal notranslate"><span class="pre">minexpgenes</span></code> argument can be used to control how genes are filtered out. If you wish to not remove any genes at all, simply set it to zero:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">simple_filter</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">minreads</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">minexpgenes</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">simple_filter</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">minreads</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">minexpgenes</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Setting <code class="docutils literal notranslate"><span class="pre">minexpgenes</span></code> to a fraction indicates that at least that fraction of cells must express any gene. If <code class="docutils literal notranslate"><span class="pre">minexpgenes</span></code> is an integer it refers to the absolute number of cells that at minimum must express the gene for the gene not to be filtered out.</p>
@@ -221,11 +221,11 @@
 <p><code class="docutils literal notranslate"><span class="pre">find_low_quality_cells</span></code> requires that there are ERCC spikes in your data.</p>
 </div>
 <p>The argument <code class="docutils literal notranslate"><span class="pre">rRNA_genes</span></code> should either be a string containing the full path to a file on disk contaiing genes that are rRNA genes (the file should have one gene per line). <code class="docutils literal notranslate"><span class="pre">rRNA_genes</span></code> can also be a <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code> object with gene symbols.</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">find_low_quality_cells</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">rRNA_genes</span><span class="o">=</span><span class="n">rRNA</span><span class="p">)</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">find_low_quality_cells</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">rRNA_genes</span><span class="o">=</span><span class="n">rRNA</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Like all adobo functions, <code class="docutils literal notranslate"><span class="pre">find_low_quality_cells</span></code> modifies the passed object. However, <code class="docutils literal notranslate"><span class="pre">find_low_quality_cells</span></code> also returns a list of cells that are classified as low quality; to prevent such behavior simply assign the return to a variable:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">low_q_cells</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">find_low_quality_cells</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">rRNA_genes</span><span class="o">=</span><span class="n">rRNA</span><span class="p">)</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">low_q_cells</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">find_low_quality_cells</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">rRNA_genes</span><span class="o">=</span><span class="n">rRNA</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -247,7 +247,7 @@
 </dl>
 <p>All normalization schemes, except <code class="docutils literal notranslate"><span class="pre">vsn</span></code>, can be followed by log (base 2) transformation (set by the <code class="docutils literal notranslate"><span class="pre">log2=True</span></code> flag, which is enabled by default).</p>
 <p>To perform a <code class="docutils literal notranslate"><span class="pre">standard</span></code> normalization followed by <code class="docutils literal notranslate"><span class="pre">log2</span></code> transformation, run:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">normalize</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;standard&#39;</span><span class="p">)</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">normalize</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;standard&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -258,7 +258,7 @@
 <div class="section" id="examining-analysis-history">
 <h3>Examining analysis history<a class="headerlink" href="#examining-analysis-history" title="Permalink to this headline">¶</a></h3>
 <p>Downstream analyses are performed on the data object. At any time it’s possible to examine what functions have been applied on data object by calling <a class="reference internal" href="adobo.html#adobo.data.dataset.assays" title="adobo.data.dataset.assays"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.data.dataset.assays()</span></code></a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">assays</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">exp</span><span class="o">.</span><span class="n">assays</span><span class="p">()</span>
 <span class="go">Number of mitochondrial genes found: 0</span>
 <span class="go">Number of ERCC spikes found: 92</span>
 <span class="go">Normalization method: &lt;not performed yet&gt;</span>

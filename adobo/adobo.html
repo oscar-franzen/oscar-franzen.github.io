@@ -291,7 +291,7 @@ it.</p>
 <p>Functions for detection of highly variable genes.</p>
 <dl class="function">
 <dt id="adobo.hvg.brennecke">
-<code class="sig-prename descclassname">adobo.hvg.</code><code class="sig-name descname">brennecke</code><span class="sig-paren">(</span><em class="sig-param">data_norm</em>, <em class="sig-param">norm_ERCC=None</em>, <em class="sig-param">fdr=0.1</em>, <em class="sig-param">minBiolDisp=0.5</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.hvg.brennecke" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.hvg.</code><code class="sig-name descname">brennecke</code><span class="sig-paren">(</span><em class="sig-param">data_norm</em>, <em class="sig-param">norm_ERCC=None</em>, <em class="sig-param">fdr=0.1</em>, <em class="sig-param">minBiolDisp=0.5</em>, <em class="sig-param">ngenes=1000</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.hvg.brennecke" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements the method of Brennecke et al. (2013) to identify highly variable genes</p>
 <p class="rubric">Notes</p>
 <p>Fits data using GLM with Fisher Scoring. GLM code copied from (credits to &#64;madrury
@@ -330,7 +330,8 @@ directly.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A dataset class object.</p></li>
-<li><p><strong>method</strong> (<cite>{‘seurat’}</cite>) – Specifies the method to be used.</p></li>
+<li><p><strong>method</strong> (<cite>{‘seurat’, ‘brennecke’}</cite>) – Specifies the method to be used.</p></li>
+<li><p><strong>ngenes</strong> (<cite>int</cite>) – Number of genes to return.</p></li>
 </ul>
 </dd>
 </dl>
@@ -819,6 +820,12 @@ Practice, and Visualization._ New York: Wiley.</p>
 <dt id="adobo.stats.is_outlier">
 <code class="sig-prename descclassname">adobo.stats.</code><code class="sig-name descname">is_outlier</code><span class="sig-paren">(</span><em class="sig-param">y</em>, <em class="sig-param">x</em>, <em class="sig-param">thres=10</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.stats.is_outlier" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="function">
+<dt id="adobo.stats.p_adjust_bh">
+<code class="sig-prename descclassname">adobo.stats.</code><code class="sig-name descname">p_adjust_bh</code><span class="sig-paren">(</span><em class="sig-param">p</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.stats.p_adjust_bh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Benjamini-Hochberg p-value correction for multiple hypothesis testing.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="adobo.stats.row_geometric_mean">
