@@ -204,6 +204,26 @@ To perform a ``standard`` normalization followed by ``log2`` transformation, run
 
    If you have previously executed :py:func:`adobo.preproc.detect_ERCC_spikes`, ERCC spikes will be normalized too, and these can be found in :py:attr:`adobo.data.dataset.norm_ERCC`.
 
+Examining analysis history
+==========================
+Downstream analyses are performed on the data object. At any time it's possible to examine what functions have been applied on data object by calling :py:func:`adobo.data.dataset.assays`:
+
+>>> data.assays()
+Number of mitochondrial genes found: 0
+Number of ERCC spikes found: 92 
+Normalization method: <not performed yet> 
+Has HVG discovery been performed? No
+
+Detection of highly variable genes
+==================================
+Most algorithms used in scRNA-seq analysis performs better when performed only on a subset of measured genes :cite:`Yip2018`; this subset is for the most time selected as highly variable genes (HVG). adobo currently implements the following strategies for HVG discovery:
+
+**seurat** 
+    The function bins the genes according to average expression, then calculates dispersion for each bin as variance to mean ratio. Within each bin, Z-scores are calculated and returned. Z-scores are ranked and the top 1000 are selected. Input data should be normalized first. This strategy was introduced in Seruat :cite:`Stuart2018`, it is simple yet highly effective in identifying HVG.
+
+**brennecke**
+    Implements the method described in :cite:`Brennecke2013`. ``brennecke`` estimates and fits technical noise using ERCC spikes (technical genes) by fitting a generalized linear model with a gamma function and identity link and the parameterization w=a_1+u+a0. It then uses the chi2 distribution to test the null hypothesis that the squared coefficient of variation does not exceed a certain minimum. False discovery rate (FDR)<0.10 is considered significant.
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:

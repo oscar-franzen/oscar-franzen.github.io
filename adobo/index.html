@@ -48,6 +48,8 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#normalization">Normalization</a></li>
+<li><a class="reference internal" href="#examining-analysis-history">Examining analysis history</a></li>
+<li><a class="reference internal" href="#detection-of-highly-variable-genes">Detection of highly variable genes</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 <li><a class="reference internal" href="#references">References</a></li>
 </ul>
@@ -252,6 +254,27 @@
 <p class="admonition-title">Note</p>
 <p>If you have previously executed <a class="reference internal" href="adobo.html#adobo.preproc.detect_ERCC_spikes" title="adobo.preproc.detect_ERCC_spikes"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.preproc.detect_ERCC_spikes()</span></code></a>, ERCC spikes will be normalized too, and these can be found in <code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset.norm_ERCC</span></code>.</p>
 </div>
+</div>
+<div class="section" id="examining-analysis-history">
+<h3>Examining analysis history<a class="headerlink" href="#examining-analysis-history" title="Permalink to this headline">¶</a></h3>
+<p>Downstream analyses are performed on the data object. At any time it’s possible to examine what functions have been applied on data object by calling <a class="reference internal" href="adobo.html#adobo.data.dataset.assays" title="adobo.data.dataset.assays"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.data.dataset.assays()</span></code></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">assays</span><span class="p">()</span>
+<span class="go">Number of mitochondrial genes found: 0</span>
+<span class="go">Number of ERCC spikes found: 92</span>
+<span class="go">Normalization method: &lt;not performed yet&gt;</span>
+<span class="go">Has HVG discovery been performed? No</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="detection-of-highly-variable-genes">
+<h3>Detection of highly variable genes<a class="headerlink" href="#detection-of-highly-variable-genes" title="Permalink to this headline">¶</a></h3>
+<p>Most algorithms used in scRNA-seq analysis performs better when performed only on a subset of measured genes <a class="reference internal" href="#yip2018" id="id7">[7]</a>; this subset is for the most time selected as highly variable genes (HVG). adobo currently implements the following strategies for HVG discovery:</p>
+<dl class="simple">
+<dt><strong>seurat</strong></dt><dd><p>The function bins the genes according to average expression, then calculates dispersion for each bin as variance to mean ratio. Within each bin, Z-scores are calculated and returned. Z-scores are ranked and the top 1000 are selected. Input data should be normalized first. This strategy was introduced in Seruat <a class="reference internal" href="#stuart2018" id="id8">[5]</a>, it is simple yet highly effective in identifying HVG.</p>
+</dd>
+<dt><strong>brennecke</strong></dt><dd><p>Implements the method described in <a class="reference internal" href="#brennecke2013" id="id9">[8]</a>. <code class="docutils literal notranslate"><span class="pre">brennecke</span></code> estimates and fits technical noise using ERCC spikes (technical genes) by fitting a generalized linear model with a gamma function and identity link and the parameterization w=a_1+u+a0. It then uses the chi2 distribution to test the null hypothesis that the squared coefficient of variation does not exceed a certain minimum. False discovery rate (FDR)&lt;0.10 is considered significant.</p>
+</dd>
+</dl>
 <div class="toctree-wrapper compound">
 </div>
 </div>
@@ -277,11 +300,17 @@
 <dt class="label" id="cole2018"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
 <dd><p>Michael B. Cole, Davide Risso, Allon Wagner, David DeTomaso, John Ngai, Elizabeth Purdom, Sandrine Dudoit, and Nir Yosef. Performance assessment and selection of normalization procedures for single-cell rna-seq. <em>bioRxiv</em>, 2018. <a class="reference external" href="https://doi.org/10.1101/235382">doi:10.1101/235382</a>.</p>
 </dd>
-<dt class="label" id="stuart2018"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
+<dt class="label" id="stuart2018"><span class="brackets">5</span><span class="fn-backref">(<a href="#id5">1</a>,<a href="#id8">2</a>)</span></dt>
 <dd><p>Tim Stuart, Andrew Butler, Paul Hoffman, Christoph Hafemeister, Efthymia Papalexi, William M Mauck III, Marlon Stoeckius, Peter Smibert, and Rahul Satija. Comprehensive integration of single cell data. <em>bioRxiv</em>, 2018. <a class="reference external" href="https://doi.org/10.1101/460147">doi:10.1101/460147</a>.</p>
 </dd>
 <dt class="label" id="hafemeister2019"><span class="brackets"><a class="fn-backref" href="#id6">6</a></span></dt>
 <dd><p>Christoph Hafemeister and Rahul Satija. Normalization and variance stabilization of single-cell rna-seq data using regularized negative binomial regression. <em>bioRxiv</em>, 2019. <a class="reference external" href="https://doi.org/10.1101/576827">doi:10.1101/576827</a>.</p>
+</dd>
+<dt class="label" id="yip2018"><span class="brackets"><a class="fn-backref" href="#id7">7</a></span></dt>
+<dd><p>Shun H Yip, Pak Chung Sham, and Junwen Wang. Evaluation of tools for highly variable gene discovery from single-cell RNA-seq data. <em>Briefings in Bioinformatics</em>, 02 2018. <a class="reference external" href="https://doi.org/10.1093/bib/bby011">doi:10.1093/bib/bby011</a>.</p>
+</dd>
+<dt class="label" id="brennecke2013"><span class="brackets"><a class="fn-backref" href="#id9">8</a></span></dt>
+<dd><p>Philip Brennecke, Simon Anders, Jong Kyoung Kim, Aleksandra A Kołodziejczyk, Xiuwei Zhang, Valentina Proserpio, Bianka Baying, Vladimir Benes, Sarah A Teichmann, John C Marioni, and Marcus G Heisler. Accounting for technical noise in single-cell RNA-seq experiments. <em>Nature Methods</em>, 10:1093, September 2013. URL: <a class="reference external" href="https://doi.org/10.1038/nmeth.2645">https://doi.org/10.1038/nmeth.2645</a>.</p>
 </dd>
 </dl>
 </p>
