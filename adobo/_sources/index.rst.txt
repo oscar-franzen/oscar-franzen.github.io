@@ -216,7 +216,7 @@ Has HVG discovery been performed? No
 
 Detection of highly variable genes
 ==================================
-Most algorithms used in scRNA-seq analysis performs better when performed only on a subset of measured genes :cite:`Yip2018`; this subset is for the most time selected as highly variable genes (HVG). adobo currently implements the following strategies for HVG discovery:
+Most algorithms used in scRNA-seq analysis performs better when performed on only a subset of measured genes :cite:`Yip2018`; the goal of the feature selection step is usually to extract a set highly variable genes (HVG). adobo currently implements the following strategies for HVG discovery:
 
 **seurat** 
     The function bins the genes according to average expression, then calculates dispersion for each bin as variance to mean ratio. Within each bin, Z-scores are calculated and returned. Z-scores are ranked and the top 1000 are selected. Input data should be normalized first. This strategy was introduced in Seruat :cite:`Stuart2018`, it is simple yet highly effective in identifying HVG.
@@ -231,7 +231,35 @@ Most algorithms used in scRNA-seq analysis performs better when performed only o
     This method uses linear regression, subsampling, polynomial fitting and gaussian maximum likelihood estimates to derive a set of HVG :cite:`Chen2016`.
 
 **mm**
-    Selection onf HVG by modeling dropout rates using modified Michaelis-Menten kinetics :cite:`Andrews2018`. This method calculates dropout rates and mean expression for every gene, then models these with the Michaelis-Menten equation (parameters are estimated with maximum likelihood optimization). The basis for using MM is because most dropouts are caused by failure of the enzyme reverse transcriptase, thus the dropout rate can be modelled with theory developed for enzyme reactions. This implementation works best for libraries sequenced to saturation (i.e. not Drop-seq).
+    Selection of HVG by modeling dropout rates using modified Michaelis-Menten kinetics :cite:`Andrews2018`. This method calculates dropout rates and mean expression for every gene, then models these with the Michaelis-Menten equation (parameters are estimated with maximum likelihood optimization). The basis for using MM is because most dropouts are caused by failure of the enzyme reverse transcriptase, thus the dropout rate can be modelled with theory developed for enzyme reactions. This implementation works best for libraries sequenced to saturation (i.e. not Drop-seq).
+
+.. code-block:: python3
+
+   ad.hvg.find_hvg(exp, method='seurat')
+
+The results are stored in :py:attr:`adobo.data.dataset.hvg`.
+
+Dimensional reduction
+=====================
+These are techniques to reduce the number of dimensions under consideration.
+
+Principal Component analysis (PCA)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PCA can be performed using two methods, and it should not matter much which one is used:
+
+**irlb**
+    Computed via truncated singular value decomposition by implicitly restarted Lanczos bidiagonalization :cite:`Baglama2005`.
+
+**svd**
+    Computed via singular value decomposition.
+
+Perform PCA computation by invoking :py:func:`adobo.dr.run_PCA()`:
+
+.. code-block:: python3
+
+   ad.dr.run_PCA(exp)
+
+Results are stored in the dict :py:attr:`adobo.data.dataset.dr`.
 
 .. toctree::
    :maxdepth: 2

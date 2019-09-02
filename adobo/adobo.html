@@ -44,25 +44,29 @@
 <li><a class="reference internal" href="#id1">Summary</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-adobo.hvg">adobo.hvg module</a><ul>
+<li><a class="reference internal" href="#module-adobo.dr">adobo.dr module</a><ul>
 <li><a class="reference internal" href="#id2">Summary</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-adobo.hvg">adobo.hvg module</a><ul>
+<li><a class="reference internal" href="#id3">Summary</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-adobo.log">adobo.log module</a></li>
 <li><a class="reference internal" href="#module-adobo.normalize">adobo.normalize module</a><ul>
-<li><a class="reference internal" href="#id3">Summary</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-adobo.plotting">adobo.plotting module</a><ul>
 <li><a class="reference internal" href="#id4">Summary</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-adobo.preproc">adobo.preproc module</a><ul>
+<li><a class="reference internal" href="#module-adobo.plotting">adobo.plotting module</a><ul>
 <li><a class="reference internal" href="#id5">Summary</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-adobo.stats">adobo.stats module</a><ul>
+<li><a class="reference internal" href="#module-adobo.preproc">adobo.preproc module</a><ul>
 <li><a class="reference internal" href="#id6">Summary</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-adobo.stats">adobo.stats module</a><ul>
+<li><a class="reference internal" href="#id7">Summary</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-adobo">Module contents</a></li>
@@ -109,6 +113,12 @@
 <li class="toctree-l2"><a class="reference internal" href="adobo.glm.html#module-adobo.glm.simulation">adobo.glm.simulation module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="adobo.glm.html#module-adobo.glm.utils">adobo.glm.utils module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="adobo.glm.html#module-adobo.glm">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="adobo.irlbpy.html">adobo.irlbpy package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="adobo.irlbpy.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adobo.irlbpy.html#module-adobo.irlbpy.irlb">adobo.irlbpy.irlb module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adobo.irlbpy.html#module-adobo.irlbpy">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -227,6 +237,28 @@ arguments are passed into <code class="xref py py-func docutils literal notransl
 </dd></dl>
 
 <dl class="attribute">
+<dt id="adobo.data.dataset.norm_log2">
+<code class="sig-name descname">norm_log2</code><a class="headerlink" href="#adobo.data.dataset.norm_log2" title="Permalink to this definition">¶</a></dt>
+<dd><p>True if log2 transform was performed on the normalized data, otherwise False.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><cite>bool</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adobo.data.dataset.norm_method">
+<code class="sig-name descname">norm_method</code><a class="headerlink" href="#adobo.data.dataset.norm_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>Containing the method used for normalization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><cite>str</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="adobo.data.dataset.norm">
 <code class="sig-name descname">norm</code><a class="headerlink" href="#adobo.data.dataset.norm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Normalized gene expression data.</p>
@@ -284,10 +316,100 @@ it.</p>
 
 </div>
 </div>
-<div class="section" id="module-adobo.hvg">
-<span id="adobo-hvg-module"></span><h2>adobo.hvg module<a class="headerlink" href="#module-adobo.hvg" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-adobo.dr">
+<span id="adobo-dr-module"></span><h2>adobo.dr module<a class="headerlink" href="#module-adobo.dr" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id2">
 <h3>Summary<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Functions for dimensional reduction.</p>
+<dl class="function">
+<dt id="adobo.dr.irlb">
+<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">irlb</code><span class="sig-paren">(</span><em class="sig-param">data_norm</em>, <em class="sig-param">ncomp=75</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.irlb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Truncated SVD by implicitly restarted Lanczos bidiagonalization</p>
+<p class="rubric">Notes</p>
+<p>The augmented implicitly restarted Lanczos bidiagonalization algorithm (IRLBA) finds
+a few approximate largest singular values and corresponding singular vectors using a
+method of Baglama and Reichel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_norm</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame containing normalized gene expression data.</p></li>
+<li><p><strong>ncomp</strong> (<cite>int</cite>) – Number of components to return.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>Baglama et al (2005) Augmented Implicitly Restarted Lanczos Bidiagonalization Methods
+SIAM Journal on Scientific Computing</p>
+<p><a class="reference external" href="https://github.com/bwlewis/irlbpy">https://github.com/bwlewis/irlbpy</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A py:class:<cite>pandas.DataFrame</cite> containing the components (columns).</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><cite>pd.DataFrame</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="adobo.dr.run_PCA">
+<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">run_PCA</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">method='irlb'</em>, <em class="sig-param">ncomp=75</em>, <em class="sig-param">allgenes=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.run_PCA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Principal Component Analysis</p>
+<p class="rubric">Notes</p>
+<p>A wrapper function around the individual normalization functions, which can also be
+called directly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A dataset class object.</p></li>
+<li><p><strong>method</strong> (<cite>{‘irlb’, ‘svd’}</cite>) – Method to use for PCA. This does not matter much. Default: irlb</p></li>
+<li><p><strong>ncomp</strong> (<cite>int</cite>) – Number of components to return. Default: 75</p></li>
+<li><p><strong>allgenes</strong> (<cite>bool</cite>) – Use all genes instead of only HVG.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Principal_component_analysis">https://en.wikipedia.org/wiki/Principal_component_analysis</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Nothing. Modifies the passed object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="adobo.dr.svd">
+<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">svd</code><span class="sig-paren">(</span><em class="sig-param">data_norm</em>, <em class="sig-param">ncomp=75</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.svd" title="Permalink to this definition">¶</a></dt>
+<dd><p>PCA via SVD</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_norm</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame containing normalized gene expression data.</p></li>
+<li><p><strong>ncomp</strong> (<cite>int</cite>) – Number of components to return.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p><a class="reference external" href="https://stats.stackexchange.com/questions/79043/why-pca-of-data-by-means-of-svd-of-the-data">https://stats.stackexchange.com/questions/79043/why-pca-of-data-by-means-of-svd-of-the-data</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A py:class:<cite>pandas.DataFrame</cite> containing the components (columns).</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><cite>pd.DataFrame</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-adobo.hvg">
+<span id="adobo-hvg-module"></span><h2>adobo.hvg module<a class="headerlink" href="#module-adobo.hvg" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3>Summary<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>Functions for detection of highly variable genes.</p>
 <dl class="function">
 <dt id="adobo.hvg.brennecke">
@@ -491,8 +613,8 @@ should be normalized first.</p>
 </div>
 <div class="section" id="module-adobo.normalize">
 <span id="adobo-normalize-module"></span><h2>adobo.normalize module<a class="headerlink" href="#module-adobo.normalize" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id3">
-<h3>Summary<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h3>Summary<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>This module contains functions to normalize raw read counts.</p>
 <dl class="function">
 <dt id="adobo.normalize.clr">
@@ -700,8 +822,8 @@ model with regularized parameters</p>
 </div>
 <div class="section" id="module-adobo.plotting">
 <span id="adobo-plotting-module"></span><h2>adobo.plotting module<a class="headerlink" href="#module-adobo.plotting" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id4">
-<h3>Summary<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h3>Summary<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>Functions for plotting scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.plotting.barplot_genes_per_cell">
@@ -751,8 +873,8 @@ model with regularized parameters</p>
 </div>
 <div class="section" id="module-adobo.preproc">
 <span id="adobo-preproc-module"></span><h2>adobo.preproc module<a class="headerlink" href="#module-adobo.preproc" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id5">
-<h3>Summary<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h3>Summary<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>Functions for pre-processing scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.preproc.detect_ERCC_spikes">
@@ -886,8 +1008,8 @@ the gene (default: 0.001).</p></li>
 </div>
 <div class="section" id="module-adobo.stats">
 <span id="adobo-stats-module"></span><h2>adobo.stats module<a class="headerlink" href="#module-adobo.stats" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id6">
-<h3>Summary<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id7">
+<h3>Summary<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>Statistical helper functions.</p>
 <dl class="function">
 <dt id="adobo.stats.bw_nrd">

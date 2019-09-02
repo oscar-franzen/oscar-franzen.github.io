@@ -50,6 +50,10 @@
 <li><a class="reference internal" href="#normalization">Normalization</a></li>
 <li><a class="reference internal" href="#examining-analysis-history">Examining analysis history</a></li>
 <li><a class="reference internal" href="#detection-of-highly-variable-genes">Detection of highly variable genes</a></li>
+<li><a class="reference internal" href="#dimensional-reduction">Dimensional reduction</a><ul>
+<li><a class="reference internal" href="#principal-component-analysis-pca">Principal Component analysis (PCA)</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 <li><a class="reference internal" href="#references">References</a></li>
 </ul>
@@ -268,7 +272,7 @@
 </div>
 <div class="section" id="detection-of-highly-variable-genes">
 <h3>Detection of highly variable genes<a class="headerlink" href="#detection-of-highly-variable-genes" title="Permalink to this headline">¶</a></h3>
-<p>Most algorithms used in scRNA-seq analysis performs better when performed only on a subset of measured genes <a class="reference internal" href="#yip2018" id="id7">[7]</a>; this subset is for the most time selected as highly variable genes (HVG). adobo currently implements the following strategies for HVG discovery:</p>
+<p>Most algorithms used in scRNA-seq analysis performs better when performed on only a subset of measured genes <a class="reference internal" href="#yip2018" id="id7">[7]</a>; the goal of the feature selection step is usually to extract a set highly variable genes (HVG). adobo currently implements the following strategies for HVG discovery:</p>
 <dl class="simple">
 <dt><strong>seurat</strong></dt><dd><p>The function bins the genes according to average expression, then calculates dispersion for each bin as variance to mean ratio. Within each bin, Z-scores are calculated and returned. Z-scores are ranked and the top 1000 are selected. Input data should be normalized first. This strategy was introduced in Seruat <a class="reference internal" href="#stuart2018" id="id8">[5]</a>, it is simple yet highly effective in identifying HVG.</p>
 </dd>
@@ -278,10 +282,33 @@
 </dd>
 <dt><strong>chen2016</strong></dt><dd><p>This method uses linear regression, subsampling, polynomial fitting and gaussian maximum likelihood estimates to derive a set of HVG <a class="reference internal" href="#chen2016" id="id11">[10]</a>.</p>
 </dd>
-<dt><strong>mm</strong></dt><dd><p>Selection onf HVG by modeling dropout rates using modified Michaelis-Menten kinetics <a class="reference internal" href="#andrews2018" id="id12">[11]</a>. This method calculates dropout rates and mean expression for every gene, then models these with the Michaelis-Menten equation (parameters are estimated with maximum likelihood optimization). The basis for using MM is because most dropouts are caused by failure of the enzyme reverse transcriptase, thus the dropout rate can be modelled with theory developed for enzyme reactions. This implementation works best for libraries sequenced to saturation (i.e. not Drop-seq).</p>
+<dt><strong>mm</strong></dt><dd><p>Selection of HVG by modeling dropout rates using modified Michaelis-Menten kinetics <a class="reference internal" href="#andrews2018" id="id12">[11]</a>. This method calculates dropout rates and mean expression for every gene, then models these with the Michaelis-Menten equation (parameters are estimated with maximum likelihood optimization). The basis for using MM is because most dropouts are caused by failure of the enzyme reverse transcriptase, thus the dropout rate can be modelled with theory developed for enzyme reactions. This implementation works best for libraries sequenced to saturation (i.e. not Drop-seq).</p>
 </dd>
 </dl>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">hvg</span><span class="o">.</span><span class="n">find_hvg</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;seurat&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The results are stored in <a class="reference internal" href="adobo.html#adobo.data.dataset.hvg" title="adobo.data.dataset.hvg"><code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset.hvg</span></code></a>.</p>
+</div>
+<div class="section" id="dimensional-reduction">
+<h3>Dimensional reduction<a class="headerlink" href="#dimensional-reduction" title="Permalink to this headline">¶</a></h3>
+<p>These are techniques to reduce the number of dimensions under consideration.</p>
+<div class="section" id="principal-component-analysis-pca">
+<h4>Principal Component analysis (PCA)<a class="headerlink" href="#principal-component-analysis-pca" title="Permalink to this headline">¶</a></h4>
+<p>PCA can be performed using two methods, and it should not matter much which one is used:</p>
+<dl class="simple">
+<dt><strong>irlb</strong></dt><dd><p>Computed via truncated singular value decomposition by implicitly restarted Lanczos bidiagonalization <a class="reference internal" href="#baglama2005" id="id13">[12]</a>.</p>
+</dd>
+<dt><strong>svd</strong></dt><dd><p>Computed via singular value decomposition.</p>
+</dd>
+</dl>
+<p>Perform PCA computation by invoking <a class="reference internal" href="adobo.html#adobo.dr.run_PCA" title="adobo.dr.run_PCA"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.dr.run_PCA()</span></code></a>:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">dr</span><span class="o">.</span><span class="n">run_PCA</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Results are stored in the dict <code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset.dr</span></code>.</p>
 <div class="toctree-wrapper compound">
+</div>
 </div>
 </div>
 <div class="section" id="indices-and-tables">
@@ -326,6 +353,9 @@
 </dd>
 <dt class="label" id="andrews2018"><span class="brackets"><a class="fn-backref" href="#id12">11</a></span></dt>
 <dd><p>Tallulah S Andrews and Martin Hemberg. M3Drop: dropout-based feature selection for scRNASeq. <em>Bioinformatics</em>, 35(16):2865–2867, 12 2018. <a class="reference external" href="https://doi.org/10.1093/bioinformatics/bty1044">doi:10.1093/bioinformatics/bty1044</a>.</p>
+</dd>
+<dt class="label" id="baglama2005"><span class="brackets"><a class="fn-backref" href="#id13">12</a></span></dt>
+<dd><p>James Baglama and Lothar Reichel. Augmented implicitly restarted lanczos bidiagonalization methods. <em>SIAM J. Sci. Comput.</em>, 27(1):19–42, July 2005. <a class="reference external" href="https://doi.org/10.1137/04060593X">doi:10.1137/04060593X</a>.</p>
 </dd>
 </dl>
 </p>

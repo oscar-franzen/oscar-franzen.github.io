@@ -7,6 +7,7 @@ Subpackages
 .. toctree::
 
    adobo.glm
+   adobo.irlbpy
 
 Submodules
 ----------
@@ -39,6 +40,14 @@ adobo.data module
 -----------------
 
 .. automodule:: adobo.data
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+adobo.dr module
+---------------
+
+.. automodule:: adobo.dr
    :members:
    :undoc-members:
    :show-inheritance:
