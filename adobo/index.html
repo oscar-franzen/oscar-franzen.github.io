@@ -114,21 +114,21 @@
 </div>
 <div class="section" id="loading-your-data-from-a-text-file">
 <h4>Loading your data from a text file<a class="headerlink" href="#loading-your-data-from-a-text-file" title="Permalink to this headline">¶</a></h4>
-<p>First we need to create a new adobo object, which is an instance of the class <a class="reference internal" href="adobo.html#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>. This will be a new object containing your single cell data. The input file should be a gene expression matrix (rows as genes and cells as columns). Fields can be separated by any character (default is tab) and it can be changed with the <cite>sep</cite> argument. The data matrix file can have a header or not (<code class="docutils literal notranslate"><span class="pre">header=0</span></code> indicates a header is present, otherwise use <code class="docutils literal notranslate"><span class="pre">header=None</span></code>). If the header of your gene expression matrix contains a label for gene symbols, set <code class="docutils literal notranslate"><span class="pre">column_id=True</span></code>. The function <a class="reference internal" href="adobo.html#adobo.IO.load_from_file" title="adobo.IO.load_from_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.IO.load_from_file()</span></code></a> is used to load data from a raw read count matrix:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;GSE95315.tab&#39;</span><span class="p">,</span> <span class="n">column_id</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<p>First we need to create a new adobo object, which is an instance of the class <a class="reference internal" href="adobo.html#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>. This will be a new object containing your single cell data. The input file should be a gene expression matrix (rows as genes and cells as columns) in plain text format. Fields can be separated by any character (default is tab) and it can be changed with the <code class="docutils literal notranslate"><span class="pre">sep</span></code> argument. The data matrix file can have a header or not (<code class="docutils literal notranslate"><span class="pre">header=0</span></code> indicates a header is present, otherwise use <code class="docutils literal notranslate"><span class="pre">header=None</span></code>). If the header of your gene expression matrix contains a label for gene symbols, set <code class="docutils literal notranslate"><span class="pre">column_id='yes'</span></code> or simply <code class="docutils literal notranslate"><span class="pre">column_id='auto'</span></code> to autodetect this. <a class="reference internal" href="adobo.html#adobo.IO.load_from_file" title="adobo.IO.load_from_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.IO.load_from_file()</span></code></a> calls <code class="xref py py-func docutils literal notranslate"><span class="pre">pandas.DataFrame.read_csv()</span></code> and any additional arguments are passed into this function. The function <a class="reference internal" href="adobo.html#adobo.IO.load_from_file" title="adobo.IO.load_from_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.IO.load_from_file()</span></code></a> is used to load data from a raw read count matrix and the returned object is an instance of <a class="reference internal" href="adobo.html#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;GSE95315.tab&#39;</span><span class="p">,</span> <span class="n">column_id</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>The loaded data must not be normalized, i.e. it should be raw read counts.</p>
+<p>The loaded data must <strong>not</strong> be normalized, i.e. it should be raw read counts.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>All downstream operations and analyses are performed and stored in an adobo object, i.e. functions are applied on this object.</p>
+<p>All downstream operations and analyses are performed and stored in the adobo object, i.e. functions are applied on this object.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Most adobo functions also have a <code class="docutils literal notranslate"><span class="pre">verbose</span></code> argument, which when <code class="docutils literal notranslate"><span class="pre">True</span></code> makes the function more noisy.</p>
+<p>Most adobo functions also have a <code class="docutils literal notranslate"><span class="pre">verbose</span></code> argument, which when <code class="docutils literal notranslate"><span class="pre">True</span></code> makes the function more informative.</p>
 </div>
 </div>
 <div class="section" id="getting-detailed-help">
@@ -142,7 +142,7 @@
 <div class="section" id="loading-compressed-data">
 <h4>Loading compressed data<a class="headerlink" href="#loading-compressed-data" title="Permalink to this headline">¶</a></h4>
 <p>scRNA-seq is zero inflated, and therefore compress strongly. We can load the compressed data directly without having to uncompress it first; the compression format is detected automatically (gzip, bz2, zip and xz are supported). For example:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;GSE95315.tab.gz&#39;</span><span class="p">,</span> <span class="n">column_id</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;GSE95315.tab.gz&#39;</span><span class="p">,</span> <span class="n">column_id</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Your gene expression data is stored in the attribute <code class="docutils literal notranslate"><span class="pre">data.exp_mat</span></code>, and after loading it is good to examine that the data were loaded properly:</p>
@@ -234,19 +234,23 @@
 <dl class="simple">
 <dt><strong>standard</strong></dt><dd><p>Performs a standard normalization by scaling with the total read depth per cell and then multiplying with a scaling factor.</p>
 </dd>
-<dt><strong>rpkm</strong></dt><dd><p>Normalize expression values as Reads per kilo base per million mapped reads (RPKM) <a class="reference internal" href="#conesa2016" id="id2">[2]</a>. This method should be used if you need to adjust for gene length, such as in a SMART-Seq2 protocol. To use this procedure you must first prepare a file containing combined exon lengths for genes; the file should contain two columns, without a header, and columns separated by one space. The following columns must be present: (1) gene symbols and (2) the sum of exon lengths.</p>
+<dt><strong>rpkm</strong></dt><dd><p>Normalizes read counts as Reads per kilo base per million mapped reads (RPKM) <a class="reference internal" href="#conesa2016" id="id2">[2]</a>. This method should be used if you need to adjust for gene length, such as in a SMART-Seq2 protocol. To use this procedure you must first prepare a file containing combined exon lengths for genes; the file should contain two columns, <strong>without a header</strong>, and columns separated by one space. The following columns must be present: (1) gene symbols and (2) the sum of exon lengths.</p>
 </dd>
 <dt><strong>fqn</strong></dt><dd><p>Performs full quantile normalization <a class="reference internal" href="#bolstad2003" id="id3">[3]</a>. FQN was a popular normalization scheme for microarray data. It is not very common in single cell analysis despite having been shown to perform well <a class="reference internal" href="#cole2018" id="id4">[4]</a>. The present implementation does not handle ties well.</p>
 </dd>
-<dt><strong>clr</strong></dt><dd><p>Centered log ratio normalization. This normalization scheme was introduced in Seurat version 3.0 <a class="reference internal" href="#stuart2018" id="id5">[5]</a>. A simple normalization scheme and might be an alternative to <code class="docutils literal notranslate"><span class="pre">standard</span></code>.</p>
+<dt><strong>clr</strong></dt><dd><p>Centered log ratio normalization. This normalization scheme was introduced in Seurat version 3.0 <a class="reference internal" href="#stuart2018" id="id5">[5]</a>. It is a simple normalization scheme and is an alternative to <code class="docutils literal notranslate"><span class="pre">standard</span></code>.</p>
 </dd>
-<dt><strong>vsn</strong></dt><dd><p>Variance stabilizing normaliztion based on a negative binomial regression model with regularized parameters. Introduced by <a class="reference internal" href="#hafemeister2019" id="id6">[6]</a> and represents the most complex scheme of the above; appears to improve resolution somewhat.</p>
+<dt><strong>vsn</strong></dt><dd><p>Variance stabilizing normaliztion based on a negative binomial regression model with regularized parameters. Introduced by <a class="reference internal" href="#hafemeister2019" id="id6">[6]</a> and represents the most complex scheme of the above; appears to marginally improve resolution.</p>
 </dd>
 </dl>
 <p>All normalization schemes, except <code class="docutils literal notranslate"><span class="pre">vsn</span></code>, can be followed by log (base 2) transformation (set by the <code class="docutils literal notranslate"><span class="pre">log2=True</span></code> flag, which is enabled by default).</p>
-<p>To perform a <code class="docutils literal notranslate"><span class="pre">standard</span></code> normalization run:</p>
+<p>To perform a <code class="docutils literal notranslate"><span class="pre">standard</span></code> normalization followed by <code class="docutils literal notranslate"><span class="pre">log2</span></code> transformation, run:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">normalize</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;standard&#39;</span><span class="p">)</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you have previously executed <a class="reference internal" href="adobo.html#adobo.preproc.detect_ERCC_spikes" title="adobo.preproc.detect_ERCC_spikes"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.preproc.detect_ERCC_spikes()</span></code></a>, ERCC spikes will be normalized too, and these can be found in <code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset.norm_ERCC</span></code>.</p>
 </div>
 <div class="toctree-wrapper compound">
 </div>
