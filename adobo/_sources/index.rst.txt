@@ -248,7 +248,7 @@ Principal Component analysis (PCA)
 PCA can be performed using two methods, and it should not matter much which one is used:
 
 **irlb**
-    Computed via truncated singular value decomposition by implicitly restarted Lanczos bidiagonalization :cite:`Baglama2005`.
+    Computed via truncated singular value decomposition by implicitly restarted Lanczos bidiagonalization :cite:`Baglama2005`. `irlb` may be better at handling very large single cell datasets (``svd`` may raise ``MemoryError`` ncells >> 10000).
 
 **svd**
     Computed via singular value decomposition.

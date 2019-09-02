@@ -297,7 +297,7 @@
 <h4>Principal Component analysis (PCA)<a class="headerlink" href="#principal-component-analysis-pca" title="Permalink to this headline">¶</a></h4>
 <p>PCA can be performed using two methods, and it should not matter much which one is used:</p>
 <dl class="simple">
-<dt><strong>irlb</strong></dt><dd><p>Computed via truncated singular value decomposition by implicitly restarted Lanczos bidiagonalization <a class="reference internal" href="#baglama2005" id="id13">[12]</a>.</p>
+<dt><strong>irlb</strong></dt><dd><p>Computed via truncated singular value decomposition by implicitly restarted Lanczos bidiagonalization <a class="reference internal" href="#baglama2005" id="id13">[12]</a>. <cite>irlb</cite> may be better at handling very large single cell datasets (<code class="docutils literal notranslate"><span class="pre">svd</span></code> may raise <code class="docutils literal notranslate"><span class="pre">MemoryError</span></code> ncells &gt;&gt; 10000).</p>
 </dd>
 <dt><strong>svd</strong></dt><dd><p>Computed via singular value decomposition.</p>
 </dd>
