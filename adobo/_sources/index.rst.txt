@@ -7,7 +7,7 @@ adobo is an analysis framework for single cell RNA sequencing data (scRNA-seq) a
 
 .. note::
 
-   adobo is developed and tested on Python version 3.5.3 - older versions may work but are untested.
+   adobo is developed and tested on Python version 3.6.8; older versions may work but are untested.
 
 Installation
 ============
