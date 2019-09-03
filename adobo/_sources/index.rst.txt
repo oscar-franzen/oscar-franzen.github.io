@@ -3,7 +3,7 @@ Welcome to adobo's documentation!
 
 What adobo is
 *************
-adobo is an analysis framework consisting of a set of Python modules to enable exploratory analysis of single cell RNA-seq data (`scRNA-seq`_). adobo can be used to compose scripts, used in interactive workflows and much more. adobo is developed by Oscar Franzén (limited support is available over e-mail: p.oscar.franzen@gmail.com).
+adobo is an analysis framework for single cell RNA sequencing data (scRNA-seq) and enables exploratory analysis through a set of Python modules. adobo can be used to compose scripts, used in interactive workflows and much more. adobo is developed by Oscar Franzén (limited support is available over e-mail: p.oscar.franzen@gmail.com).
 
 .. note::
 
@@ -18,6 +18,38 @@ The easiest way to install adobo is to clone the GitHub repository:
    $ git clone https://github.com/oscar-franzen/adobo.git
 
 Support for ``pip3`` installation is on the TODO list.
+
+Package organization
+====================
+adobo is organized into several modules containing related functions. All function names are lowercase to make them easier to remember.
+
+.. list-table::
+   :header-rows: 1
+   
+   * - Module name
+     - Function content
+   * - ``preproc``
+     - data preprocessing
+   * - ``data``
+     - the data container class
+   * - ``dr``
+     - dimensional reduction
+   * - ``hvg``
+     - highly varianble gene discovery
+   * - ``normalize``
+     - normalization of raw read counts
+   * - ``IO``
+     - reading and writing data (input/output)
+   * - ``cluster``
+     - clustering data
+   * - ``plotting``
+     - data visualization
+   * - ``stats``
+     - miscellaneous or general statistical functions that don't fit anywhere else
+   * - ``log``
+     - internal utilities
+   * - ``constants``
+     - internal constants
 
 Getting started
 ===============
@@ -113,11 +145,11 @@ ERCC are known amounts of synthetic constructs added to RNA-seq libraries for qu
 
    The ``ERCC_pattern`` argument can be used to set a regular expression for detecting these "genes".
 
-The :py:func:`adobo.preproc.detect_ERCC_spikes` is used to filter out the ERCC (stored in :py:attr:`adobo.data.dataset._exp_ERCC`):
+The :py:func:`adobo.preproc.detect_ercc_spikes` is used to filter out the ERCC (stored in :py:attr:`adobo.data.dataset.exp_ercc`):
 
 .. code-block:: python3
 
-   ad.preproc.detect_ERCC_spikes(exp)
+   ad.preproc.detect_ercc_spikes(exp)
 
 Detecting mitochondrial genes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -175,13 +207,13 @@ Like all adobo functions, ``find_low_quality_cells`` modifies the passed object.
 
 Normalization
 =============
-Normalization removes technical and sometimes experimental biases and is always necessary prior to analysis. Because a single normalization scheme for scRNA-seq data is not available, adobo supports several different procedures:
+Normalization removes technical and sometimes experimental biases and is always necessary prior to analysis. Because a single normalization scheme for scRNA-seq data is not available, adobo supports several different procedures. The function :py:func:`adobo.normalize.norm` can be used to perform the following normalization methods:
 
 **standard**
    Performs a standard normalization by scaling with the total read depth per cell and then multiplying with a scaling factor.
 
 **rpkm**
-   Normalizes read counts as Reads per kilo base per million mapped reads (RPKM) :cite:`Conesa2016`. This method should be used if you need to adjust for gene length, such as in a SMART-Seq2 protocol. To use this procedure you must first prepare a file containing combined exon lengths for genes; the file should contain two columns, **without a header**, and columns separated by one space. The following columns must be present: (1) gene symbols and (2) the sum of exon lengths.
+   Normalizes read counts as Reads per kilo base per million mapped reads (RPKM) :cite:`Conesa2016`. This method should be used if you need to adjust for gene length, such as in a SMART-Seq2 protocol. To use this procedure you must first prepare a file containing combined exon lengths for genes; the file should contain two columns, **without a header**, and columns separated by one space. The following columns must be present: (1) gene symbols and (2) the sum of exon lengths. The filename is set with the ``gene_lengths`` parameter, which can also take a vector.
 
 **fqn**
    Performs full quantile normalization :cite:`Bolstad2003`. FQN was a popular normalization scheme for microarray data. It is not very common in single cell analysis despite having been shown to perform well :cite:`Cole2018`. The present implementation does not handle ties well.
@@ -202,7 +234,7 @@ To perform a ``standard`` normalization followed by ``log2`` transformation, run
 
 .. note::
 
-   If you have previously executed :py:func:`adobo.preproc.detect_ERCC_spikes`, ERCC spikes will be normalized too, and these can be found in :py:attr:`adobo.data.dataset.norm_ERCC`.
+   If you have previously executed :py:func:`adobo.preproc.detect_ercc_spikes`, ERCC spikes will be normalized too, and these can be found in :py:attr:`adobo.data.dataset.norm_ercc`.
 
 Examining analysis history
 ==========================
@@ -241,25 +273,27 @@ The results are stored in :py:attr:`adobo.data.dataset.hvg`.
 
 Dimensional reduction
 =====================
-These are techniques to reduce the number of dimensions under consideration.
+These are techniques to reduce the number of dimensions under consideration. After running these functions, results are stored in the ``dict`` :py:attr:`adobo.data.dataset.dr`.
 
 Principal Component analysis (PCA)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-PCA can be performed using two methods, and it should not matter much which one is used:
+PCA :cite:`Abdi2010` can be performed using two methods, and it should not matter much which one is used:
 
 **irlb**
-    Computed via truncated singular value decomposition by implicitly restarted Lanczos bidiagonalization :cite:`Baglama2005`. `irlb` may be better at handling very large single cell datasets (``svd`` may raise ``MemoryError`` ncells >> 10000).
+    Computed via truncated singular value decomposition by implicitly restarted Lanczos bidiagonalization :cite:`Baglama2005`. `irlb` may be better at handling very large single cell datasets and it is the default.
 
 **svd**
-    Computed via singular value decomposition.
+    Computed via singular value decomposition. (More likely to raise ``MemoryError``.)
 
-Perform PCA computation by invoking :py:func:`adobo.dr.run_PCA()`:
+Perform PCA computation by invoking :py:func:`adobo.dr.pca()`:
 
 .. code-block:: python3
 
-   ad.dr.run_PCA(exp)
+   ad.dr.pca(exp)
 
-Results are stored in the dict :py:attr:`adobo.data.dataset.dr`.
+t-Distributed Stochastic Neighbor Embedding (t-SNE)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+t-SNE :cite:`vanDerMaaten2008` is a common dimensional reduction technique used to visualize scRNA-seq data.
 
 .. toctree::
    :maxdepth: 2

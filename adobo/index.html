@@ -34,6 +34,7 @@
 <li><a class="reference internal" href="#">Welcome to adobo’s documentation!</a><ul>
 <li><a class="reference internal" href="#what-adobo-is">What adobo is</a><ul>
 <li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#package-organization">Package organization</a></li>
 <li><a class="reference internal" href="#getting-started">Getting started</a><ul>
 <li><a class="reference internal" href="#loading-the-package">Loading the package</a></li>
 <li><a class="reference internal" href="#loading-your-data-from-a-text-file">Loading your data from a text file</a></li>
@@ -52,6 +53,7 @@
 <li><a class="reference internal" href="#detection-of-highly-variable-genes">Detection of highly variable genes</a></li>
 <li><a class="reference internal" href="#dimensional-reduction">Dimensional reduction</a><ul>
 <li><a class="reference internal" href="#principal-component-analysis-pca">Principal Component analysis (PCA)</a></li>
+<li><a class="reference internal" href="#t-distributed-stochastic-neighbor-embedding-t-sne">t-Distributed Stochastic Neighbor Embedding (t-SNE)</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
@@ -91,7 +93,7 @@
 <h1>Welcome to adobo’s documentation!<a class="headerlink" href="#welcome-to-adobo-s-documentation" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="what-adobo-is">
 <h2>What adobo is<a class="headerlink" href="#what-adobo-is" title="Permalink to this headline">¶</a></h2>
-<p>adobo is an analysis framework consisting of a set of Python modules to enable exploratory analysis of single cell RNA-seq data (<a class="reference external" href="https://en.wikipedia.org/wiki/Single_cell_sequencing">scRNA-seq</a>). adobo can be used to compose scripts, used in interactive workflows and much more. adobo is developed by Oscar Franzén (limited support is available over e-mail: <a class="reference external" href="mailto:p&#46;oscar&#46;franzen&#37;&#52;&#48;gmail&#46;com">p<span>&#46;</span>oscar<span>&#46;</span>franzen<span>&#64;</span>gmail<span>&#46;</span>com</a>).</p>
+<p>adobo is an analysis framework for single cell RNA sequencing data (scRNA-seq) and enables exploratory analysis through a set of Python modules. adobo can be used to compose scripts, used in interactive workflows and much more. adobo is developed by Oscar Franzén (limited support is available over e-mail: <a class="reference external" href="mailto:p&#46;oscar&#46;franzen&#37;&#52;&#48;gmail&#46;com">p<span>&#46;</span>oscar<span>&#46;</span>franzen<span>&#64;</span>gmail<span>&#46;</span>com</a>).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>adobo is developed and tested on Python version 3.5.3 - older versions may work but are untested.</p>
@@ -103,6 +105,56 @@
 </pre></div>
 </div>
 <p>Support for <code class="docutils literal notranslate"><span class="pre">pip3</span></code> installation is on the TODO list.</p>
+</div>
+<div class="section" id="package-organization">
+<h3>Package organization<a class="headerlink" href="#package-organization" title="Permalink to this headline">¶</a></h3>
+<p>adobo is organized into several modules containing related functions. All function names are lowercase to make them easier to remember.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Module name</p></th>
+<th class="head"><p>Function content</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">preproc</span></code></p></td>
+<td><p>data preprocessing</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">data</span></code></p></td>
+<td><p>the data container class</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">dr</span></code></p></td>
+<td><p>dimensional reduction</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hvg</span></code></p></td>
+<td><p>highly varianble gene discovery</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">normalize</span></code></p></td>
+<td><p>normalization of raw read counts</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">IO</span></code></p></td>
+<td><p>reading and writing data (input/output)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cluster</span></code></p></td>
+<td><p>clustering data</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">plotting</span></code></p></td>
+<td><p>data visualization</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">stats</span></code></p></td>
+<td><p>miscellaneous or general statistical functions that don’t fit anywhere else</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">log</span></code></p></td>
+<td><p>internal utilities</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">constants</span></code></p></td>
+<td><p>internal constants</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="getting-started">
 <h3>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h3>
@@ -185,8 +237,8 @@
 <p class="admonition-title">Note</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">ERCC_pattern</span></code> argument can be used to set a regular expression for detecting these “genes”.</p>
 </div>
-<p>The <a class="reference internal" href="adobo.html#adobo.preproc.detect_ERCC_spikes" title="adobo.preproc.detect_ERCC_spikes"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.preproc.detect_ERCC_spikes()</span></code></a> is used to filter out the ERCC (stored in <a class="reference internal" href="adobo.html#adobo.data.dataset._exp_ERCC" title="adobo.data.dataset._exp_ERCC"><code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset._exp_ERCC</span></code></a>):</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">detect_ERCC_spikes</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+<p>The <a class="reference internal" href="adobo.html#adobo.preproc.detect_ercc_spikes" title="adobo.preproc.detect_ercc_spikes"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.preproc.detect_ercc_spikes()</span></code></a> is used to filter out the ERCC (stored in <a class="reference internal" href="adobo.html#adobo.data.dataset.exp_ercc" title="adobo.data.dataset.exp_ercc"><code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset.exp_ercc</span></code></a>):</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">detect_ercc_spikes</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -236,11 +288,11 @@
 </div>
 <div class="section" id="normalization">
 <h3>Normalization<a class="headerlink" href="#normalization" title="Permalink to this headline">¶</a></h3>
-<p>Normalization removes technical and sometimes experimental biases and is always necessary prior to analysis. Because a single normalization scheme for scRNA-seq data is not available, adobo supports several different procedures:</p>
+<p>Normalization removes technical and sometimes experimental biases and is always necessary prior to analysis. Because a single normalization scheme for scRNA-seq data is not available, adobo supports several different procedures. The function <a class="reference internal" href="adobo.html#adobo.normalize.norm" title="adobo.normalize.norm"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.normalize.norm()</span></code></a> can be used to perform the following normalization methods:</p>
 <dl class="simple">
 <dt><strong>standard</strong></dt><dd><p>Performs a standard normalization by scaling with the total read depth per cell and then multiplying with a scaling factor.</p>
 </dd>
-<dt><strong>rpkm</strong></dt><dd><p>Normalizes read counts as Reads per kilo base per million mapped reads (RPKM) <a class="reference internal" href="#conesa2016" id="id2">[2]</a>. This method should be used if you need to adjust for gene length, such as in a SMART-Seq2 protocol. To use this procedure you must first prepare a file containing combined exon lengths for genes; the file should contain two columns, <strong>without a header</strong>, and columns separated by one space. The following columns must be present: (1) gene symbols and (2) the sum of exon lengths.</p>
+<dt><strong>rpkm</strong></dt><dd><p>Normalizes read counts as Reads per kilo base per million mapped reads (RPKM) <a class="reference internal" href="#conesa2016" id="id2">[2]</a>. This method should be used if you need to adjust for gene length, such as in a SMART-Seq2 protocol. To use this procedure you must first prepare a file containing combined exon lengths for genes; the file should contain two columns, <strong>without a header</strong>, and columns separated by one space. The following columns must be present: (1) gene symbols and (2) the sum of exon lengths. The filename is set with the <code class="docutils literal notranslate"><span class="pre">gene_lengths</span></code> parameter, which can also take a vector.</p>
 </dd>
 <dt><strong>fqn</strong></dt><dd><p>Performs full quantile normalization <a class="reference internal" href="#bolstad2003" id="id3">[3]</a>. FQN was a popular normalization scheme for microarray data. It is not very common in single cell analysis despite having been shown to perform well <a class="reference internal" href="#cole2018" id="id4">[4]</a>. The present implementation does not handle ties well.</p>
 </dd>
@@ -256,7 +308,7 @@
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If you have previously executed <a class="reference internal" href="adobo.html#adobo.preproc.detect_ERCC_spikes" title="adobo.preproc.detect_ERCC_spikes"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.preproc.detect_ERCC_spikes()</span></code></a>, ERCC spikes will be normalized too, and these can be found in <code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset.norm_ERCC</span></code>.</p>
+<p>If you have previously executed <a class="reference internal" href="adobo.html#adobo.preproc.detect_ercc_spikes" title="adobo.preproc.detect_ercc_spikes"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.preproc.detect_ercc_spikes()</span></code></a>, ERCC spikes will be normalized too, and these can be found in <code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset.norm_ercc</span></code>.</p>
 </div>
 </div>
 <div class="section" id="examining-analysis-history">
@@ -292,21 +344,24 @@
 </div>
 <div class="section" id="dimensional-reduction">
 <h3>Dimensional reduction<a class="headerlink" href="#dimensional-reduction" title="Permalink to this headline">¶</a></h3>
-<p>These are techniques to reduce the number of dimensions under consideration.</p>
+<p>These are techniques to reduce the number of dimensions under consideration. After running these functions, results are stored in the <code class="docutils literal notranslate"><span class="pre">dict</span></code> <a class="reference internal" href="adobo.html#adobo.data.dataset.dr" title="adobo.data.dataset.dr"><code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset.dr</span></code></a>.</p>
 <div class="section" id="principal-component-analysis-pca">
 <h4>Principal Component analysis (PCA)<a class="headerlink" href="#principal-component-analysis-pca" title="Permalink to this headline">¶</a></h4>
-<p>PCA can be performed using two methods, and it should not matter much which one is used:</p>
+<p>PCA <a class="reference internal" href="#abdi2010" id="id13">[12]</a> can be performed using two methods, and it should not matter much which one is used:</p>
 <dl class="simple">
-<dt><strong>irlb</strong></dt><dd><p>Computed via truncated singular value decomposition by implicitly restarted Lanczos bidiagonalization <a class="reference internal" href="#baglama2005" id="id13">[12]</a>. <cite>irlb</cite> may be better at handling very large single cell datasets (<code class="docutils literal notranslate"><span class="pre">svd</span></code> may raise <code class="docutils literal notranslate"><span class="pre">MemoryError</span></code> ncells &gt;&gt; 10000).</p>
+<dt><strong>irlb</strong></dt><dd><p>Computed via truncated singular value decomposition by implicitly restarted Lanczos bidiagonalization <a class="reference internal" href="#baglama2005" id="id14">[13]</a>. <cite>irlb</cite> may be better at handling very large single cell datasets and it is the default.</p>
 </dd>
-<dt><strong>svd</strong></dt><dd><p>Computed via singular value decomposition.</p>
+<dt><strong>svd</strong></dt><dd><p>Computed via singular value decomposition. (More likely to raise <code class="docutils literal notranslate"><span class="pre">MemoryError</span></code>.)</p>
 </dd>
 </dl>
-<p>Perform PCA computation by invoking <a class="reference internal" href="adobo.html#adobo.dr.run_PCA" title="adobo.dr.run_PCA"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.dr.run_PCA()</span></code></a>:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">dr</span><span class="o">.</span><span class="n">run_PCA</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+<p>Perform PCA computation by invoking <a class="reference internal" href="adobo.html#adobo.dr.pca" title="adobo.dr.pca"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.dr.pca()</span></code></a>:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">dr</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Results are stored in the dict <code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset.dr</span></code>.</p>
+</div>
+<div class="section" id="t-distributed-stochastic-neighbor-embedding-t-sne">
+<h4>t-Distributed Stochastic Neighbor Embedding (t-SNE)<a class="headerlink" href="#t-distributed-stochastic-neighbor-embedding-t-sne" title="Permalink to this headline">¶</a></h4>
+<p>t-SNE <a class="reference internal" href="#vandermaaten2008" id="id15">[14]</a> is a common dimensional reduction technique used to visualize scRNA-seq data.</p>
 <div class="toctree-wrapper compound">
 </div>
 </div>
@@ -354,8 +409,14 @@
 <dt class="label" id="andrews2018"><span class="brackets"><a class="fn-backref" href="#id12">11</a></span></dt>
 <dd><p>Tallulah S Andrews and Martin Hemberg. M3Drop: dropout-based feature selection for scRNASeq. <em>Bioinformatics</em>, 35(16):2865–2867, 12 2018. <a class="reference external" href="https://doi.org/10.1093/bioinformatics/bty1044">doi:10.1093/bioinformatics/bty1044</a>.</p>
 </dd>
-<dt class="label" id="baglama2005"><span class="brackets"><a class="fn-backref" href="#id13">12</a></span></dt>
+<dt class="label" id="abdi2010"><span class="brackets"><a class="fn-backref" href="#id13">12</a></span></dt>
+<dd><p>Hervé Abdi and Lynne J. Williams. Principal component analysis. <em>Wiley Interdisciplinary Reviews: Computational Statistics</em>, 2(4):433–459, 2010. <a class="reference external" href="https://doi.org/10.1002/wics.101">doi:10.1002/wics.101</a>.</p>
+</dd>
+<dt class="label" id="baglama2005"><span class="brackets"><a class="fn-backref" href="#id14">13</a></span></dt>
 <dd><p>James Baglama and Lothar Reichel. Augmented implicitly restarted lanczos bidiagonalization methods. <em>SIAM J. Sci. Comput.</em>, 27(1):19–42, July 2005. <a class="reference external" href="https://doi.org/10.1137/04060593X">doi:10.1137/04060593X</a>.</p>
+</dd>
+<dt class="label" id="vandermaaten2008"><span class="brackets"><a class="fn-backref" href="#id15">14</a></span></dt>
+<dd><p>Laurens van der Maaten and Geoffrey Hinton. Visualizing data using t-SNE. <em>Journal of Machine Learning Research</em>, 9:2579–2605, 2008.</p>
 </dd>
 </dl>
 </p>
