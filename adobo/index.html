@@ -54,6 +54,7 @@
 <li><a class="reference internal" href="#dimensional-reduction">Dimensional reduction</a><ul>
 <li><a class="reference internal" href="#principal-component-analysis-pca">Principal Component analysis (PCA)</a></li>
 <li><a class="reference internal" href="#t-distributed-stochastic-neighbor-embedding-t-sne">t-Distributed Stochastic Neighbor Embedding (t-SNE)</a></li>
+<li><a class="reference internal" href="#uniform-manifold-approximation-and-projection-umap">Uniform Manifold Approximation and Projection (UMAP)</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
@@ -173,9 +174,11 @@
 <div class="section" id="loading-your-data-from-a-text-file">
 <h4>Loading your data from a text file<a class="headerlink" href="#loading-your-data-from-a-text-file" title="Permalink to this headline">¶</a></h4>
 <p>First we need to create a new adobo object, which is an instance of the class <a class="reference internal" href="adobo.html#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>. This will be a new object containing your single cell data. The input file should be a gene expression matrix (rows as genes and cells as columns) in plain text format. Fields can be separated by any character (default is tab) and it can be changed with the <code class="docutils literal notranslate"><span class="pre">sep</span></code> argument. The data matrix file can have a header or not (<code class="docutils literal notranslate"><span class="pre">header=0</span></code> indicates a header is present, otherwise use <code class="docutils literal notranslate"><span class="pre">header=None</span></code>). If the header of your gene expression matrix contains a label for gene symbols, set <code class="docutils literal notranslate"><span class="pre">column_id='yes'</span></code> or simply <code class="docutils literal notranslate"><span class="pre">column_id='auto'</span></code> to autodetect this. <a class="reference internal" href="adobo.html#adobo.IO.load_from_file" title="adobo.IO.load_from_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.IO.load_from_file()</span></code></a> calls <code class="xref py py-func docutils literal notranslate"><span class="pre">pandas.DataFrame.read_csv()</span></code> and any additional arguments are passed into this function. The function <a class="reference internal" href="adobo.html#adobo.IO.load_from_file" title="adobo.IO.load_from_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.IO.load_from_file()</span></code></a> is used to load data from a raw read count matrix and the returned object is an instance of <a class="reference internal" href="adobo.html#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">exp</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;GSE95315.tab&#39;</span><span class="p">,</span> <span class="n">column_id</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+<p>Here we use data from <a class="reference external" href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE95315">GEO95315</a>, which can be <a class="reference external" href="https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE95315&amp;format=file&amp;file=GSE95315%5F10X%5Fexpression%5Fdata%2Etab%2Egz">downloaded here</a>.</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">exp</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;GSE95315.tab&#39;</span><span class="p">,</span> <span class="n">column_id</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;mouse brain data&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+<p><code class="docutils literal notranslate"><span class="pre">desc</span></code> can be used to specify a string describing the data, but it can also be left empty.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>The loaded data must <strong>not</strong> be normalized, i.e. it should be raw read counts.</p>
@@ -337,6 +340,7 @@
 <dt><strong>mm</strong></dt><dd><p>Selection of HVG by modeling dropout rates using modified Michaelis-Menten kinetics <a class="reference internal" href="#andrews2018" id="id12">[11]</a>. This method calculates dropout rates and mean expression for every gene, then models these with the Michaelis-Menten equation (parameters are estimated with maximum likelihood optimization). The basis for using MM is because most dropouts are caused by failure of the enzyme reverse transcriptase, thus the dropout rate can be modelled with theory developed for enzyme reactions. This implementation works best for libraries sequenced to saturation (i.e. not Drop-seq).</p>
 </dd>
 </dl>
+<p>Example:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">hvg</span><span class="o">.</span><span class="n">find_hvg</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;seurat&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -361,7 +365,21 @@
 </div>
 <div class="section" id="t-distributed-stochastic-neighbor-embedding-t-sne">
 <h4>t-Distributed Stochastic Neighbor Embedding (t-SNE)<a class="headerlink" href="#t-distributed-stochastic-neighbor-embedding-t-sne" title="Permalink to this headline">¶</a></h4>
-<p>t-SNE <a class="reference internal" href="#vandermaaten2008" id="id15">[14]</a> is a common dimensional reduction technique used to visualize scRNA-seq data.</p>
+<p>t-SNE <a class="reference internal" href="#vandermaaten2008" id="id15">[14]</a> is the <em>de facto</em> dimensional reduction technique used to visualize scRNA-seq data <a class="reference internal" href="#kobak2019" id="id16">[15]</a>. adobo uses the scikit-learn implementation <a class="reference internal" href="#pedregosa2011" id="id17">[16]</a>. Any additional parameters will be passed into <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.manifold.TSNE</span></code>. By default adobo runs t-SNE on the PCA decomposition:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">dr</span><span class="o">.</span><span class="n">tsne</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">perplexity</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Run it on your entire normalized expression matrix (not recommended):</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">dr</span><span class="o">.</span><span class="n">tsne</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;norm&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uniform-manifold-approximation-and-projection-umap">
+<h4>Uniform Manifold Approximation and Projection (UMAP)<a class="headerlink" href="#uniform-manifold-approximation-and-projection-umap" title="Permalink to this headline">¶</a></h4>
+<p>UMAP <a class="reference internal" href="#mcinnes2018" id="id18">[17]</a> is also used frequently to visualize scRNA-seq data, and it may be better at preserving the global structure of the data:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">dr</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+</pre></div>
+</div>
 <div class="toctree-wrapper compound">
 </div>
 </div>
@@ -417,6 +435,15 @@
 </dd>
 <dt class="label" id="vandermaaten2008"><span class="brackets"><a class="fn-backref" href="#id15">14</a></span></dt>
 <dd><p>Laurens van der Maaten and Geoffrey Hinton. Visualizing data using t-SNE. <em>Journal of Machine Learning Research</em>, 9:2579–2605, 2008.</p>
+</dd>
+<dt class="label" id="kobak2019"><span class="brackets"><a class="fn-backref" href="#id16">15</a></span></dt>
+<dd><p>Dmitry Kobak and Philipp Berens. The art of using t-sne for single-cell transcriptomics. <em>bioRxiv</em>, 2019. <a class="reference external" href="https://doi.org/10.1101/453449">doi:10.1101/453449</a>.</p>
+</dd>
+<dt class="label" id="pedregosa2011"><span class="brackets"><a class="fn-backref" href="#id17">16</a></span></dt>
+<dd><p>F. Pedregosa, G. Varoquaux, A. Gramfort, V. Michel, B. Thirion, O. Grisel, M. Blondel, P. Prettenhofer, R. Weiss, V. Dubourg, J. Vanderplas, A. Passos, D. Cournapeau, M. Brucher, M. Perrot, and E. Duchesnay. Scikit-learn: machine learning in Python. <em>Journal of Machine Learning Research</em>, 12:2825–2830, 2011.</p>
+</dd>
+<dt class="label" id="mcinnes2018"><span class="brackets"><a class="fn-backref" href="#id18">17</a></span></dt>
+<dd><p>Leland McInnes, John Healy, and James Melville. UMAP: Uniform Manifold Approximation and Projection for Dimension Reduction. <em>arXiv e-prints</em>, pages arXiv:1802.03426, Feb 2018. <a class="reference external" href="https://arxiv.org/abs/1802.03426">arXiv:1802.03426</a>.</p>
 </dd>
 </dl>
 </p>

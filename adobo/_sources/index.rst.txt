@@ -70,9 +70,13 @@ Loading your data from a text file
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 First we need to create a new adobo object, which is an instance of the class :class:`adobo.data.dataset`. This will be a new object containing your single cell data. The input file should be a gene expression matrix (rows as genes and cells as columns) in plain text format. Fields can be separated by any character (default is tab) and it can be changed with the ``sep`` argument. The data matrix file can have a header or not (``header=0`` indicates a header is present, otherwise use ``header=None``). If the header of your gene expression matrix contains a label for gene symbols, set ``column_id='yes'`` or simply ``column_id='auto'`` to autodetect this. :py:func:`adobo.IO.load_from_file` calls :py:func:`pandas.DataFrame.read_csv` and any additional arguments are passed into this function. The function :py:func:`adobo.IO.load_from_file` is used to load data from a raw read count matrix and the returned object is an instance of :class:`adobo.data.dataset`:
 
+Here we use data from `GEO95315 <https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE95315>`_, which can be `downloaded here <https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE95315&format=file&file=GSE95315%5F10X%5Fexpression%5Fdata%2Etab%2Egz>`_.
+
 .. code-block:: python3
 
-   exp = ad.IO.load_from_file('GSE95315.tab', column_id='auto')
+   exp = ad.IO.load_from_file('GSE95315.tab', column_id='auto', desc='mouse brain data')
+
+``desc`` can be used to specify a string describing the data, but it can also be left empty.
 
 .. important::
 
@@ -265,6 +269,8 @@ Most algorithms used in scRNA-seq analysis performs better when performed on onl
 **mm**
     Selection of HVG by modeling dropout rates using modified Michaelis-Menten kinetics :cite:`Andrews2018`. This method calculates dropout rates and mean expression for every gene, then models these with the Michaelis-Menten equation (parameters are estimated with maximum likelihood optimization). The basis for using MM is because most dropouts are caused by failure of the enzyme reverse transcriptase, thus the dropout rate can be modelled with theory developed for enzyme reactions. This implementation works best for libraries sequenced to saturation (i.e. not Drop-seq).
 
+Example:
+
 .. code-block:: python3
 
    ad.hvg.find_hvg(exp, method='seurat')
@@ -293,7 +299,25 @@ Perform PCA computation by invoking :py:func:`adobo.dr.pca()`:
 
 t-Distributed Stochastic Neighbor Embedding (t-SNE)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-t-SNE :cite:`vanDerMaaten2008` is a common dimensional reduction technique used to visualize scRNA-seq data.
+t-SNE :cite:`vanDerMaaten2008` is the *de facto* dimensional reduction technique used to visualize scRNA-seq data :cite:`Kobak2019`. adobo uses the scikit-learn implementation :cite:`Pedregosa2011`. Any additional parameters will be passed into :py:class:`sklearn.manifold.TSNE`. By default adobo runs t-SNE on the PCA decomposition:
+
+.. code-block:: python3
+
+   ad.dr.tsne(exp, perplexity=10)
+
+Run it on your entire normalized expression matrix (not recommended):
+
+.. code-block:: python3
+
+   ad.dr.tsne(exp, target='norm', verbose=True)
+
+Uniform Manifold Approximation and Projection (UMAP)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UMAP :cite:`McInnes2018` is also used frequently to visualize scRNA-seq data, and it may be better at preserving the global structure of the data:
+
+.. code-block:: python3
+
+   ad.dr.umap(exp)
 
 .. toctree::
    :maxdepth: 2

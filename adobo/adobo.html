@@ -134,7 +134,7 @@
 <p>Functions for reading and writing scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.IO.load_from_file">
-<code class="sig-prename descclassname">adobo.IO.</code><code class="sig-name descname">load_from_file</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">sep='\t'</em>, <em class="sig-param">header=0</em>, <em class="sig-param">column_id='auto'</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.IO.load_from_file" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.IO.</code><code class="sig-name descname">load_from_file</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">sep='\t'</em>, <em class="sig-param">header=0</em>, <em class="sig-param">column_id='auto'</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">desc='no desc set'</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.IO.load_from_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a gene expression matrix consisting of raw read counts</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -145,6 +145,7 @@ columns are cells and rows are genes.</p></li>
 <li><p><strong>header</strong> (<cite>str</cite>, optional) – If the data file has a header. 0 means yes otherwise None (default: <cite>0</cite>).</p></li>
 <li><p><strong>column_id</strong> (<em>{'auto'</em><em>, </em><em>'yes'</em><em>, </em><em>'no'}</em><em>, </em><em>optional</em>) – Whether the header (first line) of the file contains a column ID for the genes. If
 this is the case, set this to auto or yes, otherwise no (default: auto).</p></li>
+<li><p><strong>desc</strong> (<cite>str</cite>) – A description of the data, optional</p></li>
 <li><p><strong>verbose</strong> (<cite>bool</cite>, optional) – To be verbose or not (default: False).</p></li>
 </ul>
 </dd>
@@ -178,7 +179,7 @@ arguments are passed into <code class="xref py py-func docutils literal notransl
 <p>This module contains a data storage class.</p>
 <dl class="class">
 <dt id="adobo.data.dataset">
-<em class="property">class </em><code class="sig-prename descclassname">adobo.data.</code><code class="sig-name descname">dataset</code><span class="sig-paren">(</span><em class="sig-param">raw_mat</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.dataset" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">adobo.data.</code><code class="sig-name descname">dataset</code><span class="sig-paren">(</span><em class="sig-param">raw_mat</em>, <em class="sig-param">desc='no desc set'</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.dataset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Storage container for raw data and analysis results.</p>
 <dl class="attribute">
@@ -292,6 +293,17 @@ reduction.</p>
 </dl>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="adobo.data.dataset.desc">
+<code class="sig-name descname">desc</code><a class="headerlink" href="#adobo.data.dataset.desc" title="Permalink to this definition">¶</a></dt>
+<dd><p>A string describing the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><cite>str</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="method">
 <dt id="adobo.data.dataset.assays">
 <code class="sig-name descname">assays</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.dataset.assays" title="Permalink to this definition">¶</a></dt>
@@ -345,8 +357,8 @@ method of Baglama and Reichel.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data_norm</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame containing normalized gene expression data.</p></li>
-<li><p><strong>ncomp</strong> (<cite>int</cite>) – Number of components to return.</p></li>
-<li><p><strong>seed</strong> (<cite>int</cite>) – For reproducibility.</p></li>
+<li><p><strong>ncomp</strong> (<cite>int</cite>) – Number of components to return, optional.</p></li>
+<li><p><strong>seed</strong> (<cite>int</cite>) – For reproducibility, optional.</p></li>
 </ul>
 </dd>
 </dl>
@@ -376,10 +388,10 @@ called directly.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A dataset class object.</p></li>
 <li><p><strong>method</strong> (<cite>{‘irlb’, ‘svd’}</cite>) – Method to use for PCA. This does not matter much. Default: irlb</p></li>
-<li><p><strong>ncomp</strong> (<cite>int</cite>) – Number of components to return. Default: 75</p></li>
-<li><p><strong>allgenes</strong> (<cite>bool</cite>) – Use all genes instead of only HVG.</p></li>
-<li><p><strong>verbose</strong> (<cite>bool</cite>) – Be noisy or not.</p></li>
-<li><p><strong>seed</strong> (<cite>int</cite>) – For reproducibility (only irlb).</p></li>
+<li><p><strong>ncomp</strong> (<cite>int</cite>) – Number of components to return, optional</p></li>
+<li><p><strong>allgenes</strong> (<cite>bool</cite>) – Use all genes instead of only HVG, optional</p></li>
+<li><p><strong>verbose</strong> (<cite>bool</cite>) – Be noisy or not. optional</p></li>
+<li><p><strong>seed</strong> (<cite>int</cite>) – For reproducibility (only irlb), optional</p></li>
 </ul>
 </dd>
 </dl>
@@ -403,7 +415,7 @@ called directly.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data_norm</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame containing normalized gene expression data.</p></li>
-<li><p><strong>ncomp</strong> (<cite>int</cite>) – Number of components to return.</p></li>
+<li><p><strong>ncomp</strong> (<cite>int</cite>) – Number of components to return, optional.</p></li>
 </ul>
 </dd>
 </dl>
@@ -421,7 +433,7 @@ called directly.</p>
 
 <dl class="function">
 <dt id="adobo.dr.tsne">
-<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">tsne</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">target='irlb'</em>, <em class="sig-param">perplexity=30</em>, <em class="sig-param">n_iter=2000</em>, <em class="sig-param">seed=42</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.tsne" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">tsne</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">target='irlb'</em>, <em class="sig-param">perplexity=30</em>, <em class="sig-param">n_iter=2000</em>, <em class="sig-param">seed=42</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.tsne" title="Permalink to this definition">¶</a></dt>
 <dd><p>Projects data to a two dimensional space using the tSNE algorithm.</p>
 <p class="rubric">Notes</p>
 <p>Calls <code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.manifold.TSNE()</span></code>.</p>
@@ -436,6 +448,7 @@ a larger perplexity. Consider selecting a value between 5 and 50. Different
 values can result in significanlty different results.</p></li>
 <li><p><strong>n_iter</strong> (<cite>int</cite>) – Number of iterations.</p></li>
 <li><p><strong>seed</strong> (<cite>int</cite>) – For reproducibility.</p></li>
+<li><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose.</p></li>
 </ul>
 </dd>
 </dl>
@@ -443,6 +456,35 @@ values can result in significanlty different results.</p></li>
 <p>[0] van der Maaten, L.J.P.; Hinton, G.E. Visualizing High-Dimensional Data
 Using t-SNE. Journal of Machine Learning Research 9:2579-2605, 2008.</p>
 <p>[1] <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html">https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Nothing. Modifies the passed object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="adobo.dr.umap">
+<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">umap</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">target='irlb'</em>, <em class="sig-param">seed=42</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.umap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Projects data to a two dimensional space using the UMAP algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A dataset class object.</p></li>
+<li><p><strong>target</strong> (<cite>{‘irlb’, ‘svd’, ‘norm’}</cite>) – What to run tSNE on.</p></li>
+<li><p><strong>seed</strong> (<cite>int</cite>) – For reproducibility.</p></li>
+<li><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>McInnes L, Healy J, Melville J, arxiv, 2018</p>
+<p><a class="reference external" href="https://arxiv.org/abs/1802.03426">https://arxiv.org/abs/1802.03426</a>
+<a class="reference external" href="https://github.com/lmcinnes/umap">https://github.com/lmcinnes/umap</a>
+<a class="reference external" href="https://umap-learn.readthedocs.io/en/latest/">https://umap-learn.readthedocs.io/en/latest/</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p></p>
@@ -927,7 +969,7 @@ model with regularized parameters</p>
 <p>Functions for pre-processing scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.preproc.detect_ercc_spikes">
-<code class="sig-prename descclassname">adobo.preproc.</code><code class="sig-name descname">detect_ercc_spikes</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">ercc_pattern='^ercc[_-]\\S+$'</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.preproc.detect_ercc_spikes" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.preproc.</code><code class="sig-name descname">detect_ercc_spikes</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">ercc_pattern='^ERCC[_-]\\S+$'</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.preproc.detect_ercc_spikes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Moves ercc (if present) to a separate container</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
