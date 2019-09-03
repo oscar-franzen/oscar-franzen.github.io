@@ -378,20 +378,23 @@ SIAM Journal on Scientific Computing</p>
 
 <dl class="function">
 <dt id="adobo.dr.pca">
-<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">pca</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">method='irlb'</em>, <em class="sig-param">ncomp=75</em>, <em class="sig-param">allgenes=False</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">seed=42</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.pca" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">pca</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">method='irlb'</em>, <em class="sig-param">ncomp=75</em>, <em class="sig-param">allgenes=False</em>, <em class="sig-param">scale=True</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">seed=42</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.pca" title="Permalink to this definition">¶</a></dt>
 <dd><p>Principal Component Analysis</p>
 <p class="rubric">Notes</p>
 <p>A wrapper function around the individual normalization functions, which can also be
-called directly.</p>
+called directly. Scaling of the data is achieved by setting scale=True (default),
+which will center (subtract the column mean) and scale columns (divide by their
+standard deviation).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A dataset class object.</p></li>
 <li><p><strong>method</strong> (<cite>{‘irlb’, ‘svd’}</cite>) – Method to use for PCA. This does not matter much. Default: irlb</p></li>
-<li><p><strong>ncomp</strong> (<cite>int</cite>) – Number of components to return, optional</p></li>
-<li><p><strong>allgenes</strong> (<cite>bool</cite>) – Use all genes instead of only HVG, optional</p></li>
-<li><p><strong>verbose</strong> (<cite>bool</cite>) – Be noisy or not. optional</p></li>
-<li><p><strong>seed</strong> (<cite>int</cite>) – For reproducibility (only irlb), optional</p></li>
+<li><p><strong>ncomp</strong> (<cite>int</cite>) – Number of components to return. Default: 75</p></li>
+<li><p><strong>allgenes</strong> (<cite>bool</cite>) – Use all genes instead of only HVG. Default: False</p></li>
+<li><p><strong>scale</strong> (<cite>bool</cite>) – Scales input data prior to PCA. Default: True</p></li>
+<li><p><strong>verbose</strong> (<cite>bool</cite>) – Be noisy or not. Default: False</p></li>
+<li><p><strong>seed</strong> (<cite>int</cite>) – For reproducibility (only irlb). Default: 42</p></li>
 </ul>
 </dd>
 </dl>
