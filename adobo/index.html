@@ -35,13 +35,14 @@
 <li><a class="reference internal" href="#what-adobo-is">What adobo is</a><ul>
 <li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#package-organization">Package organization</a></li>
-<li><a class="reference internal" href="#getting-started">Getting started</a><ul>
+<li><a class="reference internal" href="#getting-started-and-pre-processing-your-data">Getting started and pre-processing your data</a><ul>
 <li><a class="reference internal" href="#loading-the-package">Loading the package</a></li>
 <li><a class="reference internal" href="#loading-your-data-from-a-text-file">Loading your data from a text file</a></li>
+<li><a class="reference internal" href="#accessing-meta-data-for-cells-and-genes">Accessing meta data for cells and genes</a></li>
+<li><a class="reference internal" href="#adding-meta-data">Adding meta data</a></li>
 <li><a class="reference internal" href="#getting-detailed-help">Getting detailed help</a></li>
 <li><a class="reference internal" href="#loading-compressed-data">Loading compressed data</a></li>
 <li><a class="reference internal" href="#data-examination">Data examination</a></li>
-<li><a class="reference internal" href="#cleaning-your-data">Cleaning your data</a></li>
 <li><a class="reference internal" href="#detecting-ercc-spikes">Detecting ERCC spikes</a></li>
 <li><a class="reference internal" href="#detecting-mitochondrial-genes">Detecting mitochondrial genes</a></li>
 <li><a class="reference internal" href="#applying-simple-filters">Applying simple filters</a></li>
@@ -145,20 +146,23 @@
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">plotting</span></code></p></td>
 <td><p>data visualization</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">stats</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">bio</span></code></p></td>
+<td><p>functions related to biology, for example cell cycle prediction</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">stats</span></code></p></td>
 <td><p>miscellaneous or general statistical functions that don’t fit anywhere else</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">log</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">log</span></code></p></td>
 <td><p>internal utilities</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">constants</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">constants</span></code></p></td>
 <td><p>internal constants</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="getting-started">
-<h3>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="getting-started-and-pre-processing-your-data">
+<h3>Getting started and pre-processing your data<a class="headerlink" href="#getting-started-and-pre-processing-your-data" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="loading-the-package">
 <h4>Loading the package<a class="headerlink" href="#loading-the-package" title="Permalink to this headline">¶</a></h4>
 <p>The first step is to load the adobo package by importing it:</p>
@@ -173,7 +177,7 @@
 </div>
 <div class="section" id="loading-your-data-from-a-text-file">
 <h4>Loading your data from a text file<a class="headerlink" href="#loading-your-data-from-a-text-file" title="Permalink to this headline">¶</a></h4>
-<p>First we need to create a new adobo object, which is an instance of the class <a class="reference internal" href="adobo.html#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>. This will be a new object containing your single cell data. The input file should be a gene expression matrix (rows as genes and cells as columns) in plain text format. Fields can be separated by any character (default is tab) and it can be changed with the <code class="docutils literal notranslate"><span class="pre">sep</span></code> argument. The data matrix file can have a header or not (<code class="docutils literal notranslate"><span class="pre">header=0</span></code> indicates a header is present, otherwise use <code class="docutils literal notranslate"><span class="pre">header=None</span></code>). If the header of your gene expression matrix contains a label for gene symbols, set <code class="docutils literal notranslate"><span class="pre">column_id='yes'</span></code> or simply <code class="docutils literal notranslate"><span class="pre">column_id='auto'</span></code> to autodetect this. <a class="reference internal" href="adobo.html#adobo.IO.load_from_file" title="adobo.IO.load_from_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.IO.load_from_file()</span></code></a> calls <code class="xref py py-func docutils literal notranslate"><span class="pre">pandas.DataFrame.read_csv()</span></code> and any additional arguments are passed into this function. The function <a class="reference internal" href="adobo.html#adobo.IO.load_from_file" title="adobo.IO.load_from_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.IO.load_from_file()</span></code></a> is used to load data from a raw read count matrix and the returned object is an instance of <a class="reference internal" href="adobo.html#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>:</p>
+<p>First we need to create a new adobo object, which is an instance of the class <a class="reference internal" href="adobo.html#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>. This will be a new object containing your single cell data as well as meta data. The input file should be a gene expression matrix (rows as genes and cells as columns) in plain text format. Fields can be separated by any character (default is tab) and it can be changed with the <code class="docutils literal notranslate"><span class="pre">sep</span></code> argument. The data matrix file can have a header or not (<code class="docutils literal notranslate"><span class="pre">header=0</span></code> indicates a header is present, otherwise use <code class="docutils literal notranslate"><span class="pre">header=None</span></code>). If the header of your gene expression matrix contains a label for gene symbols, set <code class="docutils literal notranslate"><span class="pre">column_id='yes'</span></code> or simply <code class="docutils literal notranslate"><span class="pre">column_id='auto'</span></code> to autodetect this. <a class="reference internal" href="adobo.html#adobo.IO.load_from_file" title="adobo.IO.load_from_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.IO.load_from_file()</span></code></a> calls <code class="xref py py-func docutils literal notranslate"><span class="pre">pandas.DataFrame.read_csv()</span></code> and any additional arguments are passed into this function. The function <a class="reference internal" href="adobo.html#adobo.IO.load_from_file" title="adobo.IO.load_from_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.IO.load_from_file()</span></code></a> is used to load data from a raw read count matrix and the returned object is an instance of <a class="reference internal" href="adobo.html#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">exp</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;GSE95315.tab&#39;</span><span class="p">,</span> <span class="n">column_id</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;mouse brain data&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -191,6 +195,51 @@
 <p class="admonition-title">Note</p>
 <p>Most adobo functions also have a <code class="docutils literal notranslate"><span class="pre">verbose</span></code> argument, which when <code class="docutils literal notranslate"><span class="pre">True</span></code> makes the function more informative.</p>
 </div>
+</div>
+<div class="section" id="accessing-meta-data-for-cells-and-genes">
+<h4>Accessing meta data for cells and genes<a class="headerlink" href="#accessing-meta-data-for-cells-and-genes" title="Permalink to this headline">¶</a></h4>
+<p>Meta data are stored in the adobo object (an instance of <a class="reference internal" href="adobo.html#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>). Two data structures (instances of <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) hold meta data for cells and genes, respectively:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">exp</span><span class="o">.</span><span class="n">meta_cells</span>
+<span class="go">                      total_reads status  detected_genes   mito  ERCC  rRNA</span>
+<span class="go">EXP1_COL01_ROW01_S1          5935     OK             426   1455     2     0</span>
+<span class="go">EXP1_COL01_ROW02_S1          3036     OK             464   1583     0     0</span>
+<span class="go">EXP1_COL01_ROW03_S1         38477     OK            1961  20935     7     4</span>
+<span class="go">EXP1_COL01_ROW04_S1         63962     OK            3478   4463     7     0</span>
+<span class="go">EXP1_COL01_ROW05_S1          1885     OK             993    127     0     0</span>
+<span class="gp">... </span>                          <span class="o">...</span>    <span class="o">...</span>             <span class="o">...</span>    <span class="o">...</span>   <span class="o">...</span>   <span class="o">...</span>
+<span class="go">EXP1_COL20_ROW36_S20        43051     OK            3277   4975    29     0</span>
+<span class="go">EXP1_COL20_ROW37_S20       162617     OK            4224  54144    55     0</span>
+<span class="go">EXP1_COL20_ROW38_S20        56649     OK            3281   4223    31     0</span>
+<span class="go">EXP1_COL20_ROW39_S20         3367     OK             927   1352     0     0</span>
+<span class="go">EXP1_COL20_ROW40_S20          422     OK             294     75     0     0</span>
+<span class="go">[800 rows x 6 columns]</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">exp</span><span class="o">.</span><span class="n">meta_genes</span>
+<span class="go">                      expressed  expressed_perc status  mitochondrial   ERCC   rRNA</span>
+<span class="go">ENSMUSG00000102693.1          0         0.00000     OK          False  False  False</span>
+<span class="go">ENSMUSG00000064842.1          0         0.00000     OK          False  False  False</span>
+<span class="go">ENSMUSG00000051951.5          0         0.00000     OK          False  False  False</span>
+<span class="go">ENSMUSG00000102851.1          0         0.00000     OK          False  False  False</span>
+<span class="go">ENSMUSG00000103377.1          1         0.00125     OK          False  False  False</span>
+<span class="gp">... </span>                        <span class="o">...</span>             <span class="o">...</span>    <span class="o">...</span>            <span class="o">...</span>    <span class="o">...</span>    <span class="o">...</span>
+<span class="go">ERCC-00164                  145         0.18125     OK          False   True  False</span>
+<span class="go">ERCC-00165                   25         0.03125     OK          False   True  False</span>
+<span class="go">ERCC-00168                  123         0.15375     OK          False   True  False</span>
+<span class="go">ERCC-00170                   91         0.11375     OK          False   True  False</span>
+<span class="go">ERCC-00171                   32         0.04000     OK          False   True  False</span>
+<span class="go">[45884 rows x 6 columns]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="adding-meta-data">
+<h4>Adding meta data<a class="headerlink" href="#adding-meta-data" title="Permalink to this headline">¶</a></h4>
+<p>New meta data such as experimental factors can easily be added to your adobo object by calling <a class="reference internal" href="adobo.html#adobo.data.dataset.add_meta_data" title="adobo.data.dataset.add_meta_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.data.dataset.add_meta_data()</span></code></a>, which takes three parameters:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dimension</span></code> can be either ‘cells’ or ‘genes’</p></li>
+<li><p>the <code class="docutils literal notranslate"><span class="pre">key</span></code> is used as variable name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data</span></code> should be a <code class="docutils literal notranslate"><span class="pre">list</span></code> containing your data with the same length as your dimension</p></li>
+</ol>
 </div>
 <div class="section" id="getting-detailed-help">
 <h4>Getting detailed help<a class="headerlink" href="#getting-detailed-help" title="Permalink to this headline">¶</a></h4>
@@ -226,19 +275,12 @@
 </div>
 <img alt="_images/2019-08-30-131930_594x451_scrot.png" src="_images/2019-08-30-131930_594x451_scrot.png" />
 </div>
-<div class="section" id="cleaning-your-data">
-<h4>Cleaning your data<a class="headerlink" href="#cleaning-your-data" title="Permalink to this headline">¶</a></h4>
-<p>Before we proceed to normalization we should start with some data cleaning. A good first step is to look for empty cells and genes. Empty genes/cells do obviously not carry any information and can be removed:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">remove_empty</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
 <div class="section" id="detecting-ercc-spikes">
 <h4>Detecting ERCC spikes<a class="headerlink" href="#detecting-ercc-spikes" title="Permalink to this headline">¶</a></h4>
-<p>ERCC are known amounts of synthetic constructs added to RNA-seq libraries for quality control and normalization purposes <a class="reference internal" href="#jiang2011" id="id1">[1]</a>. Not all experiments use ERCC spikes, but many do. The ERCC “genes” are usually prefixed with <cite>ERCC-</cite> in the gene expression matrix. This function is used to put them aside so that they are not included in downstream analyses.</p>
+<p>ERCC are known amounts of synthetic constructs added to RNA-seq libraries for quality control and normalization purposes <a class="reference internal" href="#jiang2011" id="id1">[1]</a>. Not all experiments use ERCC spikes, but many do. The ERCC “genes” are usually prefixed with <cite>ERCC-</cite> in the gene expression matrix. This function is used to flag them so that they are not included in downstream analyses.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">ERCC_pattern</span></code> argument can be used to set a regular expression for detecting these “genes”.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ERCC_pattern</span></code> argument can be used to set a regular expression for identifying the ERCC features.</p>
 </div>
 <p>The <a class="reference internal" href="adobo.html#adobo.preproc.detect_ercc_spikes" title="adobo.preproc.detect_ercc_spikes"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.preproc.detect_ercc_spikes()</span></code></a> is used to filter out the ERCC (stored in <a class="reference internal" href="adobo.html#adobo.data.dataset.exp_ercc" title="adobo.data.dataset.exp_ercc"><code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset.exp_ercc</span></code></a>):</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">detect_ercc_spikes</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
@@ -248,11 +290,15 @@
 <div class="section" id="detecting-mitochondrial-genes">
 <h4>Detecting mitochondrial genes<a class="headerlink" href="#detecting-mitochondrial-genes" title="Permalink to this headline">¶</a></h4>
 <p>It’s often a good idea not to include the mitochondrial genes in the analysis and some downstream analyses require that adobo knows which genes are mitochondrial. Usually the mitochondrial genes in human and mouse genomes have gene symbols starting with the prefix <code class="docutils literal notranslate"><span class="pre">mt-</span></code>, but this might vary from species to species.</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">detect_mito</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">find_mitochondrial_genes</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Or specify a custom regular expression to identify them:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">detect_mito</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">mito_pattern</span><span class="o">=</span><span class="s1">&#39;^mito-&#39;</span><span class="p">)</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">find_mitochondrial_genes</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">mito_pattern</span><span class="o">=</span><span class="s1">&#39;^mito-&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Sometimes mitochondrial genes don’t start with a certain prefix and it is better to set these genes with a single function:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">set_mitochondrial_genes</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">genes</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;geneA&#39;</span><span class="p">,</span><span class="s1">&#39;geneB&#39;</span><span class="p">,</span><span class="s1">&#39;geneC&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>

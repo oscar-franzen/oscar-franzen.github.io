@@ -44,6 +44,8 @@ adobo is organized into several modules containing related functions. All functi
      - clustering data
    * - ``plotting``
      - data visualization
+   * - ``bio``
+     - functions related to biology, for example cell cycle prediction
    * - ``stats``
      - miscellaneous or general statistical functions that don't fit anywhere else
    * - ``log``
@@ -51,8 +53,8 @@ adobo is organized into several modules containing related functions. All functi
    * - ``constants``
      - internal constants
 
-Getting started
-===============
+Getting started and pre-processing your data
+============================================
 Loading the package
 ^^^^^^^^^^^^^^^^^^^
 The first step is to load the adobo package by importing it:
@@ -68,7 +70,7 @@ The first step is to load the adobo package by importing it:
 
 Loading your data from a text file
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-First we need to create a new adobo object, which is an instance of the class :class:`adobo.data.dataset`. This will be a new object containing your single cell data. The input file should be a gene expression matrix (rows as genes and cells as columns) in plain text format. Fields can be separated by any character (default is tab) and it can be changed with the ``sep`` argument. The data matrix file can have a header or not (``header=0`` indicates a header is present, otherwise use ``header=None``). If the header of your gene expression matrix contains a label for gene symbols, set ``column_id='yes'`` or simply ``column_id='auto'`` to autodetect this. :py:func:`adobo.IO.load_from_file` calls :py:func:`pandas.DataFrame.read_csv` and any additional arguments are passed into this function. The function :py:func:`adobo.IO.load_from_file` is used to load data from a raw read count matrix and the returned object is an instance of :class:`adobo.data.dataset`:
+First we need to create a new adobo object, which is an instance of the class :py:class:`adobo.data.dataset`. This will be a new object containing your single cell data as well as meta data. The input file should be a gene expression matrix (rows as genes and cells as columns) in plain text format. Fields can be separated by any character (default is tab) and it can be changed with the ``sep`` argument. The data matrix file can have a header or not (``header=0`` indicates a header is present, otherwise use ``header=None``). If the header of your gene expression matrix contains a label for gene symbols, set ``column_id='yes'`` or simply ``column_id='auto'`` to autodetect this. :py:func:`adobo.IO.load_from_file` calls :py:func:`pandas.DataFrame.read_csv` and any additional arguments are passed into this function. The function :py:func:`adobo.IO.load_from_file` is used to load data from a raw read count matrix and the returned object is an instance of :class:`adobo.data.dataset`:
 
 .. code-block:: python3
 
@@ -89,6 +91,48 @@ Here we use data from `GEO95315 <https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?
 .. note::
 
    Most adobo functions also have a ``verbose`` argument, which when ``True`` makes the function more informative.
+
+Accessing meta data for cells and genes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Meta data are stored in the adobo object (an instance of :py:class:`adobo.data.dataset`). Two data structures (instances of :class:`pandas.DataFrame`) hold meta data for cells and genes, respectively:
+
+>>> exp.meta_cells
+                      total_reads status  detected_genes   mito  ERCC  rRNA
+EXP1_COL01_ROW01_S1          5935     OK             426   1455     2     0
+EXP1_COL01_ROW02_S1          3036     OK             464   1583     0     0
+EXP1_COL01_ROW03_S1         38477     OK            1961  20935     7     4
+EXP1_COL01_ROW04_S1         63962     OK            3478   4463     7     0
+EXP1_COL01_ROW05_S1          1885     OK             993    127     0     0
+...                           ...    ...             ...    ...   ...   ...
+EXP1_COL20_ROW36_S20        43051     OK            3277   4975    29     0
+EXP1_COL20_ROW37_S20       162617     OK            4224  54144    55     0
+EXP1_COL20_ROW38_S20        56649     OK            3281   4223    31     0
+EXP1_COL20_ROW39_S20         3367     OK             927   1352     0     0
+EXP1_COL20_ROW40_S20          422     OK             294     75     0     0
+[800 rows x 6 columns]
+
+>>> exp.meta_genes
+                      expressed  expressed_perc status  mitochondrial   ERCC   rRNA
+ENSMUSG00000102693.1          0         0.00000     OK          False  False  False
+ENSMUSG00000064842.1          0         0.00000     OK          False  False  False
+ENSMUSG00000051951.5          0         0.00000     OK          False  False  False
+ENSMUSG00000102851.1          0         0.00000     OK          False  False  False
+ENSMUSG00000103377.1          1         0.00125     OK          False  False  False
+...                         ...             ...    ...            ...    ...    ...
+ERCC-00164                  145         0.18125     OK          False   True  False
+ERCC-00165                   25         0.03125     OK          False   True  False
+ERCC-00168                  123         0.15375     OK          False   True  False
+ERCC-00170                   91         0.11375     OK          False   True  False
+ERCC-00171                   32         0.04000     OK          False   True  False
+[45884 rows x 6 columns]
+
+Adding meta data
+^^^^^^^^^^^^^^^^
+New meta data such as experimental factors can easily be added to your adobo object by calling :py:func:`adobo.data.dataset.add_meta_data`, which takes three parameters:
+
+1. ``dimension`` can be either 'cells' or 'genes'
+2. the ``key`` is used as variable name
+3. ``data`` should be a ``list`` containing your data with the same length as your dimension
 
 Getting detailed help
 ^^^^^^^^^^^^^^^^^^^^^
@@ -133,21 +177,13 @@ It is also a good idea to examine number of expressed genes per cell:
 
 .. image:: 2019-08-30-131930_594x451_scrot.png
 
-Cleaning your data
-^^^^^^^^^^^^^^^^^^
-Before we proceed to normalization we should start with some data cleaning. A good first step is to look for empty cells and genes. Empty genes/cells do obviously not carry any information and can be removed:
-
-.. code-block:: python3
-
-   ad.preproc.remove_empty(exp)
-
 Detecting ERCC spikes
 ^^^^^^^^^^^^^^^^^^^^^
-ERCC are known amounts of synthetic constructs added to RNA-seq libraries for quality control and normalization purposes :cite:`Jiang2011`. Not all experiments use ERCC spikes, but many do. The ERCC "genes" are usually prefixed with `ERCC-` in the gene expression matrix. This function is used to put them aside so that they are not included in downstream analyses.
+ERCC are known amounts of synthetic constructs added to RNA-seq libraries for quality control and normalization purposes :cite:`Jiang2011`. Not all experiments use ERCC spikes, but many do. The ERCC "genes" are usually prefixed with `ERCC-` in the gene expression matrix. This function is used to flag them so that they are not included in downstream analyses.
 
 .. note::
 
-   The ``ERCC_pattern`` argument can be used to set a regular expression for detecting these "genes".
+   The ``ERCC_pattern`` argument can be used to set a regular expression for identifying the ERCC features.
 
 The :py:func:`adobo.preproc.detect_ercc_spikes` is used to filter out the ERCC (stored in :py:attr:`adobo.data.dataset.exp_ercc`):
 
@@ -161,13 +197,19 @@ It's often a good idea not to include the mitochondrial genes in the analysis an
 
 .. code-block:: python3
 
-   ad.preproc.detect_mito(exp)
+   ad.preproc.find_mitochondrial_genes(exp)
 
 Or specify a custom regular expression to identify them:
 
 .. code-block:: python3
 
-   ad.preproc.detect_mito(exp, mito_pattern='^mito-')
+   ad.preproc.find_mitochondrial_genes(exp, mito_pattern='^mito-')
+
+Sometimes mitochondrial genes don't start with a certain prefix and it is better to set these genes with a single function:
+
+.. code-block:: python3
+
+   ad.preproc.set_mitochondrial_genes(exp, genes=['geneA','geneB','geneC'])
 
 Applying simple filters
 ^^^^^^^^^^^^^^^^^^^^^^^

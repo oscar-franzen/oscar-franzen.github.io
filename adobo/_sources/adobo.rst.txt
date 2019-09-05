@@ -20,6 +20,14 @@ adobo.IO module
    :undoc-members:
    :show-inheritance:
 
+adobo.bio module
+----------------
+
+.. automodule:: adobo.bio
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 adobo.cluster module
 --------------------
 
