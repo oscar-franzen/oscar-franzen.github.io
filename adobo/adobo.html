@@ -212,7 +212,7 @@ graph with the Leiden algorithm</p>
 <li><p><strong>k</strong> (<cite>int</cite>) – Number of nearest neighbors. Default: 10</p></li>
 <li><p><strong>graph</strong> (<cite>{‘snn’}</cite>) – Type of graph to generate. Only shared nearest neighbor (snn) supported at the
 moment.</p></li>
-<li><p><strong>clust_alg</strong> (<cite>{‘leiden’, ‘walktrap’, ‘spinglass’}</cite>) – Clustering algorithm to be used.</p></li>
+<li><p><strong>clust_alg</strong> (<cite>{‘leiden’, ‘walktrap’, ‘spinglass’, ‘multilevel’, ‘infomap’, ‘label_prop’}</cite>) – Clustering algorithm to be used.</p></li>
 <li><p><strong>prune_snn</strong> (<cite>float</cite>) – Threshold for pruning the SNN graph, i.e. the edges  with lower value (Jaccard
 index) than this will be removed. Set to 0 to disable pruning. Increasing this
 value will result in fewer edges in the graph. Default: 0.067</p></li>
