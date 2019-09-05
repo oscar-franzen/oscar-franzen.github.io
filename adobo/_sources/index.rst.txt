@@ -3,7 +3,9 @@ Welcome to adobo's documentation!
 
 What adobo is
 *************
-adobo is an analysis framework for single cell RNA sequencing data (scRNA-seq) and enables exploratory analysis through a set of Python modules. adobo can be used to compose scripts, used in interactive workflows and much more. adobo is developed by Oscar Franzén (limited support is available over e-mail: p.oscar.franzen@gmail.com).
+adobo is an analysis framework for single cell RNA sequencing data (scRNA-seq) and enables exploratory analysis through a set of Python modules. adobo can be used to compose scripts, used in interactive workflows and much more. The goal of adobo is to consolidate single cell computational analysis methods in the Python programming language.
+
+adobo is developed by Oscar Franzén (limited support is available over e-mail: p.oscar.franzen@gmail.com).
 
 .. note::
 
@@ -51,6 +53,8 @@ adobo is organized into several modules containing related functions. All functi
 
 Internal modules
 ^^^^^^^^^^^^^^^^
+These do not need to be accessed but are listed here for documentation purposes.
+
 .. list-table::
    :header-rows: 1
 
@@ -140,7 +144,7 @@ Adding meta data
 ^^^^^^^^^^^^^^^^
 New meta data such as experimental factors can easily be added to your adobo object by calling :py:func:`adobo.data.dataset.add_meta_data`, which takes three parameters:
 
-1. ``dimension`` can be either 'cells' or 'genes'
+1. ``axis`` can be either 'cells' or 'genes'
 2. the ``key`` is used as variable name
 3. ``data`` should be a ``list`` containing your data with the same length as your dimension
 
@@ -381,6 +385,13 @@ UMAP :cite:`McInnes2018` is also used frequently to visualize scRNA-seq data, an
 
 Clustering
 ==========
+A crucial step in scRNA-seq analysis is to group cells into clusters. Complex datasets consisting of thousands of cells can often be reduced to a small number of clusters, which render the data easier to analyze. In adobo, clustering is easily achieved with a single line of code:
+
+.. code-block:: python3
+
+   ad.clustering.generate(exp)
+
+The clustering is stored in :py:attr:`adobo.data.dataset.clusters`, i.e. represented by a vector with the same length as the number of cells after pre-processing. adobo's default clustering algorithm first builds a Shared Nearest Neighbor graph :cite:`Ertoz2003` and then finds communities in this graph using the Leiden algorithm :cite:`Traag2019`. Various parameters of the employed algorithms can be changed as parameters in :py:func:`adobo.clustering.generate`.
 
 Indices and tables
 ==================
