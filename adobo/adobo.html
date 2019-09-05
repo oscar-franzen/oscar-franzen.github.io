@@ -47,27 +47,27 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#module-adobo.data">adobo.data module</a><ul>
-<li><a class="reference internal" href="#id3">Summary</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-adobo.dr">adobo.dr module</a><ul>
-<li><a class="reference internal" href="#id4">Summary</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-adobo.hvg">adobo.hvg module</a><ul>
 <li><a class="reference internal" href="#id5">Summary</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-adobo.normalize">adobo.normalize module</a><ul>
+<li><a class="reference internal" href="#module-adobo.dr">adobo.dr module</a><ul>
 <li><a class="reference internal" href="#id6">Summary</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-adobo.plotting">adobo.plotting module</a><ul>
+<li><a class="reference internal" href="#module-adobo.hvg">adobo.hvg module</a><ul>
 <li><a class="reference internal" href="#id7">Summary</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-adobo.preproc">adobo.preproc module</a><ul>
+<li><a class="reference internal" href="#module-adobo.normalize">adobo.normalize module</a><ul>
 <li><a class="reference internal" href="#id8">Summary</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-adobo.plotting">adobo.plotting module</a><ul>
+<li><a class="reference internal" href="#id9">Summary</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-adobo.preproc">adobo.preproc module</a><ul>
+<li><a class="reference internal" href="#id10">Summary</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-adobo">Module contents</a></li>
@@ -212,7 +212,8 @@ graph with the Leiden algorithm</p>
 <li><p><strong>k</strong> (<cite>int</cite>) – Number of nearest neighbors. Default: 10</p></li>
 <li><p><strong>graph</strong> (<cite>{‘snn’}</cite>) – Type of graph to generate. Only shared nearest neighbor (snn) supported at the
 moment.</p></li>
-<li><p><strong>clust_alg</strong> (<cite>{‘leiden’, ‘walktrap’, ‘spinglass’, ‘multilevel’, ‘infomap’, ‘label_prop’}</cite>) – Clustering algorithm to be used.</p></li>
+<li><p><strong>clust_alg</strong> (<a href="#id3"><span class="problematic" id="id4">`</span></a>{‘leiden’, ‘walktrap’, ‘spinglass’, ‘multilevel’, ‘infomap’,) – ‘label_prop’, ‘leading_eigenvector’}`
+Clustering algorithm to be used.</p></li>
 <li><p><strong>prune_snn</strong> (<cite>float</cite>) – Threshold for pruning the SNN graph, i.e. the edges  with lower value (Jaccard
 index) than this will be removed. Set to 0 to disable pruning. Increasing this
 value will result in fewer edges in the graph. Default: 0.067</p></li>
@@ -242,8 +243,8 @@ resolution. Default: 0.8</p></li>
 </div>
 <div class="section" id="module-adobo.data">
 <span id="adobo-data-module"></span><h2>adobo.data module<a class="headerlink" href="#module-adobo.data" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id3">
-<h3>Summary<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h3>Summary<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>This module contains a data storage class.</p>
 <dl class="class">
 <dt id="adobo.data.dataset">
@@ -468,8 +469,8 @@ it.</p>
 </div>
 <div class="section" id="module-adobo.dr">
 <span id="adobo-dr-module"></span><h2>adobo.dr module<a class="headerlink" href="#module-adobo.dr" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id4">
-<h3>Summary<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h3>Summary<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>Functions for dimensional reduction.</p>
 <dl class="function">
 <dt id="adobo.dr.irlb">
@@ -628,8 +629,8 @@ Using t-SNE. Journal of Machine Learning Research 9:2579-2605, 2008.</p>
 </div>
 <div class="section" id="module-adobo.hvg">
 <span id="adobo-hvg-module"></span><h2>adobo.hvg module<a class="headerlink" href="#module-adobo.hvg" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id5">
-<h3>Summary<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id7">
+<h3>Summary<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>Functions for detection of highly variable genes.</p>
 <dl class="function">
 <dt id="adobo.hvg.brennecke">
@@ -825,8 +826,8 @@ should be normalized first.</p>
 </div>
 <div class="section" id="module-adobo.normalize">
 <span id="adobo-normalize-module"></span><h2>adobo.normalize module<a class="headerlink" href="#module-adobo.normalize" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id6">
-<h3>Summary<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h3>Summary<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>This module contains functions to normalize raw read counts.</p>
 <dl class="function">
 <dt id="adobo.normalize.clr">
@@ -1029,8 +1030,8 @@ model with regularized parameters</p>
 </div>
 <div class="section" id="module-adobo.plotting">
 <span id="adobo-plotting-module"></span><h2>adobo.plotting module<a class="headerlink" href="#module-adobo.plotting" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id7">
-<h3>Summary<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id9">
+<h3>Summary<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>Functions for plotting scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.plotting.barplot_genes_per_cell">
@@ -1109,8 +1110,8 @@ exceed 50, then random colors will be used). Default: adobo</p></li>
 </div>
 <div class="section" id="module-adobo.preproc">
 <span id="adobo-preproc-module"></span><h2>adobo.preproc module<a class="headerlink" href="#module-adobo.preproc" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id8">
-<h3>Summary<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id10">
+<h3>Summary<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <p>Functions for pre-processing scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.preproc.detect_ercc_spikes">
