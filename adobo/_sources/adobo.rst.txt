@@ -28,18 +28,10 @@ adobo.bio module
    :undoc-members:
    :show-inheritance:
 
-adobo.cluster module
---------------------
+adobo.clustering module
+-----------------------
 
-.. automodule:: adobo.cluster
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-adobo.constants module
-----------------------
-
-.. automodule:: adobo.constants
+.. automodule:: adobo.clustering
    :members:
    :undoc-members:
    :show-inheritance:
@@ -68,14 +60,6 @@ adobo.hvg module
    :undoc-members:
    :show-inheritance:
 
-adobo.log module
-----------------
-
-.. automodule:: adobo.log
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 adobo.normalize module
 ----------------------
 
@@ -96,14 +80,6 @@ adobo.preproc module
 --------------------
 
 .. automodule:: adobo.preproc
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-adobo.stats module
-------------------
-
-.. automodule:: adobo.stats
    :members:
    :undoc-members:
    :show-inheritance:

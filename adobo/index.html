@@ -34,7 +34,10 @@
 <li><a class="reference internal" href="#">Welcome to adobo’s documentation!</a><ul>
 <li><a class="reference internal" href="#what-adobo-is">What adobo is</a><ul>
 <li><a class="reference internal" href="#installation">Installation</a></li>
-<li><a class="reference internal" href="#package-organization">Package organization</a></li>
+<li><a class="reference internal" href="#package-organization">Package organization</a><ul>
+<li><a class="reference internal" href="#internal-modules">Internal modules</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#getting-started-and-pre-processing-your-data">Getting started and pre-processing your data</a><ul>
 <li><a class="reference internal" href="#loading-the-package">Loading the package</a></li>
 <li><a class="reference internal" href="#loading-your-data-from-a-text-file">Loading your data from a text file</a></li>
@@ -58,6 +61,7 @@
 <li><a class="reference internal" href="#uniform-manifold-approximation-and-projection-umap">Uniform Manifold Approximation and Projection (UMAP)</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#clustering">Clustering</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 <li><a class="reference internal" href="#references">References</a></li>
 </ul>
@@ -140,8 +144,8 @@
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">IO</span></code></p></td>
 <td><p>reading and writing data (input/output)</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cluster</span></code></p></td>
-<td><p>clustering data</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">clustering</span></code></p></td>
+<td><p>functions related to data clustering operations</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">plotting</span></code></p></td>
 <td><p>data visualization</p></td>
@@ -152,14 +156,33 @@
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">stats</span></code></p></td>
 <td><p>miscellaneous or general statistical functions that don’t fit anywhere else</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">log</span></code></p></td>
+</tbody>
+</table>
+<div class="section" id="internal-modules">
+<h4>Internal modules<a class="headerlink" href="#internal-modules" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Module name</p></th>
+<th class="head"><p>Function content</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">_colors</span></code></p></td>
+<td><p>related to color generation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">_log</span></code></p></td>
 <td><p>internal utilities</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">constants</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">_constants</span></code></p></td>
 <td><p>internal constants</p></td>
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 <div class="section" id="getting-started-and-pre-processing-your-data">
 <h3>Getting started and pre-processing your data<a class="headerlink" href="#getting-started-and-pre-processing-your-data" title="Permalink to this headline">¶</a></h3>
@@ -193,7 +216,7 @@
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Most adobo functions also have a <code class="docutils literal notranslate"><span class="pre">verbose</span></code> argument, which when <code class="docutils literal notranslate"><span class="pre">True</span></code> makes the function more informative.</p>
+<p>Many adobo functions also have a <code class="docutils literal notranslate"><span class="pre">verbose</span></code> argument, which when <code class="docutils literal notranslate"><span class="pre">True</span></code> makes the function more informative.</p>
 </div>
 </div>
 <div class="section" id="accessing-meta-data-for-cells-and-genes">
@@ -355,6 +378,7 @@
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">normalize</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;standard&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>The normalized data are stored in the attribute <a class="reference internal" href="adobo.html#adobo.data.dataset.norm" title="adobo.data.dataset.norm"><code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset.norm</span></code></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you have previously executed <a class="reference internal" href="adobo.html#adobo.preproc.detect_ercc_spikes" title="adobo.preproc.detect_ercc_spikes"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.preproc.detect_ercc_spikes()</span></code></a>, ERCC spikes will be normalized too, and these can be found in <code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset.norm_ercc</span></code>.</p>
@@ -430,6 +454,9 @@
 <div class="toctree-wrapper compound">
 </div>
 </div>
+</div>
+<div class="section" id="clustering">
+<h3>Clustering<a class="headerlink" href="#clustering" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="indices-and-tables">
 <h3>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h3>

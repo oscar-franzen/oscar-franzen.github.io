@@ -42,34 +42,31 @@
 <li><a class="reference internal" href="#id1">Summary</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-adobo.cluster">adobo.cluster module</a></li>
-<li><a class="reference internal" href="#module-adobo.constants">adobo.constants module</a></li>
-<li><a class="reference internal" href="#module-adobo.data">adobo.data module</a><ul>
+<li><a class="reference internal" href="#module-adobo.clustering">adobo.clustering module</a><ul>
 <li><a class="reference internal" href="#id2">Summary</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-adobo.dr">adobo.dr module</a><ul>
+<li><a class="reference internal" href="#module-adobo.data">adobo.data module</a><ul>
 <li><a class="reference internal" href="#id3">Summary</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-adobo.hvg">adobo.hvg module</a><ul>
+<li><a class="reference internal" href="#module-adobo.dr">adobo.dr module</a><ul>
 <li><a class="reference internal" href="#id4">Summary</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-adobo.log">adobo.log module</a></li>
-<li><a class="reference internal" href="#module-adobo.normalize">adobo.normalize module</a><ul>
+<li><a class="reference internal" href="#module-adobo.hvg">adobo.hvg module</a><ul>
 <li><a class="reference internal" href="#id5">Summary</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-adobo.plotting">adobo.plotting module</a><ul>
+<li><a class="reference internal" href="#module-adobo.normalize">adobo.normalize module</a><ul>
 <li><a class="reference internal" href="#id6">Summary</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-adobo.preproc">adobo.preproc module</a><ul>
+<li><a class="reference internal" href="#module-adobo.plotting">adobo.plotting module</a><ul>
 <li><a class="reference internal" href="#id7">Summary</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-adobo.stats">adobo.stats module</a><ul>
+<li><a class="reference internal" href="#module-adobo.preproc">adobo.preproc module</a><ul>
 <li><a class="reference internal" href="#id8">Summary</a></li>
 </ul>
 </li>
@@ -198,16 +195,52 @@ arguments are passed into <code class="xref py py-func docutils literal notransl
 
 </div>
 </div>
-<div class="section" id="module-adobo.cluster">
-<span id="adobo-cluster-module"></span><h2>adobo.cluster module<a class="headerlink" href="#module-adobo.cluster" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-adobo.clustering">
+<span id="adobo-clustering-module"></span><h2>adobo.clustering module<a class="headerlink" href="#module-adobo.clustering" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>Summary<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>This module contains functions to cluster data.</p>
+<dl class="function">
+<dt id="adobo.clustering.generate">
+<code class="sig-prename descclassname">adobo.clustering.</code><code class="sig-name descname">generate</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">k=10</em>, <em class="sig-param">graph='snn'</em>, <em class="sig-param">clust_alg='leiden'</em>, <em class="sig-param">prune_snn=0.067</em>, <em class="sig-param">res=0.8</em>, <em class="sig-param">seed=42</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.clustering.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper function for generating single cell clusters from a shared nearest neighbor
+graph with the Leiden algorithm</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A dataset class object.</p></li>
+<li><p><strong>k</strong> (<cite>int</cite>) – Number of nearest neighbors. Default: 10</p></li>
+<li><p><strong>graph</strong> (<cite>{‘snn’}</cite>) – Type of graph to generate. Only shared nearest neighbor (snn) supported at the
+moment.</p></li>
+<li><p><strong>clust_alg</strong> (<cite>{‘leiden’}</cite>) – Clustering algorithm to be used. Only leiden supported at the moment.</p></li>
+<li><p><strong>prune_snn</strong> (<cite>float</cite>) – Threshold for pruning the SNN graph, i.e. the edges  with lower value (Jaccard
+index) than this will be removed. Set to 0 to disable pruning. Increasing this
+value will result in fewer edges in the graph. Default: 0.067</p></li>
+<li><p><strong>res</strong> (<cite>float</cite>) – Resolution parameter for the Leiden algorithm, change to modify cluster
+resolution. Default: 0.8</p></li>
+<li><p><strong>seed</strong> (<cite>int</cite>) – For reproducibility.</p></li>
+<li><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose or not.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Nothing. Modifies the passed object.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
-<div class="section" id="module-adobo.constants">
-<span id="adobo-constants-module"></span><h2>adobo.constants module<a class="headerlink" href="#module-adobo.constants" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-adobo.data">
 <span id="adobo-data-module"></span><h2>adobo.data module<a class="headerlink" href="#module-adobo.data" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id2">
-<h3>Summary<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3>Summary<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>This module contains a data storage class.</p>
 <dl class="class">
 <dt id="adobo.data.dataset">
@@ -326,12 +359,34 @@ reduction.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="adobo.data.dataset.meta_data">
-<code class="sig-name descname">meta_data</code><a class="headerlink" href="#adobo.data.dataset.meta_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>A data frame containing single cell meta data on a per-cell level.</p>
+<dt id="adobo.data.dataset.meta_cells">
+<code class="sig-name descname">meta_cells</code><a class="headerlink" href="#adobo.data.dataset.meta_cells" title="Permalink to this definition">¶</a></dt>
+<dd><p>A data frame containing meta data for cells.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p><cite>pandas.DataFrame</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adobo.data.dataset.meta_genes">
+<code class="sig-name descname">meta_genes</code><a class="headerlink" href="#adobo.data.dataset.meta_genes" title="Permalink to this definition">¶</a></dt>
+<dd><p>A data frame containing meta data for genes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><cite>pandas.DataFrame</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adobo.data.dataset.clusters">
+<code class="sig-name descname">clusters</code><a class="headerlink" href="#adobo.data.dataset.clusters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generated clusters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><cite>list</cite></p>
 </dd>
 </dl>
 </dd></dl>
@@ -410,8 +465,8 @@ it.</p>
 </div>
 <div class="section" id="module-adobo.dr">
 <span id="adobo-dr-module"></span><h2>adobo.dr module<a class="headerlink" href="#module-adobo.dr" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id3">
-<h3>Summary<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h3>Summary<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>Functions for dimensional reduction.</p>
 <dl class="function">
 <dt id="adobo.dr.irlb">
@@ -570,8 +625,8 @@ Using t-SNE. Journal of Machine Learning Research 9:2579-2605, 2008.</p>
 </div>
 <div class="section" id="module-adobo.hvg">
 <span id="adobo-hvg-module"></span><h2>adobo.hvg module<a class="headerlink" href="#module-adobo.hvg" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id4">
-<h3>Summary<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h3>Summary<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>Functions for detection of highly variable genes.</p>
 <dl class="function">
 <dt id="adobo.hvg.brennecke">
@@ -765,18 +820,10 @@ should be normalized first.</p>
 
 </div>
 </div>
-<div class="section" id="module-adobo.log">
-<span id="adobo-log-module"></span><h2>adobo.log module<a class="headerlink" href="#module-adobo.log" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="adobo.log.warning">
-<code class="sig-prename descclassname">adobo.log.</code><code class="sig-name descname">warning</code><span class="sig-paren">(</span><em class="sig-param">msg</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.log.warning" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
 <div class="section" id="module-adobo.normalize">
 <span id="adobo-normalize-module"></span><h2>adobo.normalize module<a class="headerlink" href="#module-adobo.normalize" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id5">
-<h3>Summary<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h3>Summary<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>This module contains functions to normalize raw read counts.</p>
 <dl class="function">
 <dt id="adobo.normalize.clr">
@@ -979,8 +1026,8 @@ model with regularized parameters</p>
 </div>
 <div class="section" id="module-adobo.plotting">
 <span id="adobo-plotting-module"></span><h2>adobo.plotting module<a class="headerlink" href="#module-adobo.plotting" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id6">
-<h3>Summary<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id7">
+<h3>Summary<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>Functions for plotting scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.plotting.barplot_genes_per_cell">
@@ -1028,15 +1075,21 @@ model with regularized parameters</p>
 
 <dl class="function">
 <dt id="adobo.plotting.cell_plot">
-<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">cell_plot</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">target='tsne'</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.cell_plot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">cell_plot</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">target='tsne'</em>, <em class="sig-param">marker_size=0.8</em>, <em class="sig-param">cluster_colors='adobo'</em>, <em class="sig-param">title=''</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.cell_plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a 2d scatter plot from an embedding</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object</p></li>
-<li><p><strong>target</strong> (<cite>{‘irlb’, ‘svd’, ‘norm’}</cite>) – What to run tSNE on.</p></li>
+<li><p><strong>target</strong> (<cite>{‘tsne’, ‘umap’, ‘irlb’, ‘svd’}</cite>) – The embedding or dimensional reduction to use. Default: tsne</p></li>
+<li><p><strong>marker_size</strong> (<cite>float</cite>) – The size of the markers.</p></li>
+<li><p><strong>cluster_colors</strong> (<cite>{‘default’, ‘random’}</cite> or <cite>list</cite>) – Can be: (i) a string “adobo” or “random”; (ii) a list of colors with the same
+length as the number of cells (same order as cells occur in the normalized
+matrix). If cluster_colors is set to “adobo”, then colors are retrieved from
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo._constants.CLUSTER_COLORS_DEFAULT</span></code> (but if the number of clusters
+exceed 50, then random colors will be used). Default: adobo</p></li>
+<li><p><strong>title</strong> (<cite>str</cite>) – Title of the plot.</p></li>
 <li><p><strong>filename</strong> (<cite>str</cite>, optional) – Write plot to file.</p></li>
-<li><p><strong>title</strong> (<cite>str</cite>, optional) – Title of the plot (default: “sequencing reads”).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1052,8 +1105,8 @@ model with regularized parameters</p>
 </div>
 <div class="section" id="module-adobo.preproc">
 <span id="adobo-preproc-module"></span><h2>adobo.preproc module<a class="headerlink" href="#module-adobo.preproc" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id7">
-<h3>Summary<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h3>Summary<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>Functions for pre-processing scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.preproc.detect_ercc_spikes">
@@ -1178,94 +1231,6 @@ the gene. Default: 0.001</p></li>
 <li><p><em>int</em> – Number of genes removed.</p></li>
 </ul>
 </p>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
-</div>
-<div class="section" id="module-adobo.stats">
-<span id="adobo-stats-module"></span><h2>adobo.stats module<a class="headerlink" href="#module-adobo.stats" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id8">
-<h3>Summary<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
-<p>Statistical helper functions.</p>
-<dl class="function">
-<dt id="adobo.stats.bw_nrd">
-<code class="sig-prename descclassname">adobo.stats.</code><code class="sig-name descname">bw_nrd</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.stats.bw_nrd" title="Permalink to this definition">¶</a></dt>
-<dd><p>Selects bandwidth for gaussian kernels</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>x</strong> (<cite>list</cite>) – An input list of data points.</p>
-</dd>
-</dl>
-<p class="rubric">References</p>
-<p>Scott, D. W. (1992) _Multivariate Density Estimation: Theory,
-Practice, and Visualization._ New York: Wiley.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>KDE bandwidth.</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="adobo.stats.is_outlier">
-<code class="sig-prename descclassname">adobo.stats.</code><code class="sig-name descname">is_outlier</code><span class="sig-paren">(</span><em class="sig-param">y</em>, <em class="sig-param">x</em>, <em class="sig-param">thres=10</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.stats.is_outlier" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="adobo.stats.p_adjust_bh">
-<code class="sig-prename descclassname">adobo.stats.</code><code class="sig-name descname">p_adjust_bh</code><span class="sig-paren">(</span><em class="sig-param">p</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.stats.p_adjust_bh" title="Permalink to this definition">¶</a></dt>
-<dd><p>Benjamini-Hochberg p-value correction for multiple hypothesis testing.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="adobo.stats.row_geometric_mean">
-<code class="sig-prename descclassname">adobo.stats.</code><code class="sig-name descname">row_geometric_mean</code><span class="sig-paren">(</span><em class="sig-param">mat</em>, <em class="sig-param">eps=1</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.stats.row_geometric_mean" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the geometric mean for every row in a data frame</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>mat</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame object containing raw read counts (rows=genes,
-columns=cells).</p></li>
-<li><p><strong>eps</strong> (<em>float</em>) – A small constant to avoid log(0)=-inf (default: 1).</p></li>
-</ul>
-</dd>
-</dl>
-<p class="rubric">References</p>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Geometric_mean">https://en.wikipedia.org/wiki/Geometric_mean</a></p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Computed values.</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="adobo.stats.theta_ml">
-<code class="sig-prename descclassname">adobo.stats.</code><code class="sig-name descname">theta_ml</code><span class="sig-paren">(</span><em class="sig-param">y</em>, <em class="sig-param">mu</em>, <em class="sig-param">limit=10</em>, <em class="sig-param">eps=2.220446049250313e-16</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.stats.theta_ml" title="Permalink to this definition">¶</a></dt>
-<dd><p>Estimates theta of the Negative Binomial Distribution using maximum likelihood</p>
-<p class="rubric">Notes</p>
-<p>Adapted from the theta.ml function of the R package MASS.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>y</strong> (<cite>list</cite>) – List of observed values from the negative binomial.</p></li>
-<li><p><strong>mu</strong> (<cite>list</cite>) – Estimated mean vector.</p></li>
-<li><p><strong>limit</strong> (<cite>int</cite>) – Maximum number of iterations (default: 10).</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Estimated theta.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 </dd></dl>

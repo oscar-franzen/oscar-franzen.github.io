@@ -40,17 +40,27 @@ adobo is organized into several modules containing related functions. All functi
      - normalization of raw read counts
    * - ``IO``
      - reading and writing data (input/output)
-   * - ``cluster``
-     - clustering data
+   * - ``clustering``
+     - functions related to data clustering operations
    * - ``plotting``
      - data visualization
    * - ``bio``
      - functions related to biology, for example cell cycle prediction
    * - ``stats``
      - miscellaneous or general statistical functions that don't fit anywhere else
-   * - ``log``
+
+Internal modules
+^^^^^^^^^^^^^^^^
+.. list-table::
+   :header-rows: 1
+
+   * - Module name
+     - Function content
+   * - ``_colors``
+     - related to color generation.
+   * - ``_log``
      - internal utilities
-   * - ``constants``
+   * - ``_constants``
      - internal constants
 
 Getting started and pre-processing your data
@@ -90,7 +100,7 @@ Here we use data from `GEO95315 <https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?
 
 .. note::
 
-   Most adobo functions also have a ``verbose`` argument, which when ``True`` makes the function more informative.
+   Many adobo functions also have a ``verbose`` argument, which when ``True`` makes the function more informative.
 
 Accessing meta data for cells and genes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -278,6 +288,8 @@ To perform a ``standard`` normalization followed by ``log2`` transformation, run
 
    ad.normalize.norm(exp, method='standard')
 
+The normalized data are stored in the attribute :py:attr:`adobo.data.dataset.norm`.
+
 .. note::
 
    If you have previously executed :py:func:`adobo.preproc.detect_ercc_spikes`, ERCC spikes will be normalized too, and these can be found in :py:attr:`adobo.data.dataset.norm_ercc`.
@@ -366,6 +378,9 @@ UMAP :cite:`McInnes2018` is also used frequently to visualize scRNA-seq data, an
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+
+Clustering
+==========
 
 Indices and tables
 ==================
