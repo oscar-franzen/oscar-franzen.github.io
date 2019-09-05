@@ -212,11 +212,11 @@ graph with the Leiden algorithm</p>
 <li><p><strong>k</strong> (<cite>int</cite>) – Number of nearest neighbors. Default: 10</p></li>
 <li><p><strong>graph</strong> (<cite>{‘snn’}</cite>) – Type of graph to generate. Only shared nearest neighbor (snn) supported at the
 moment.</p></li>
-<li><p><strong>clust_alg</strong> (<cite>{‘leiden’}</cite>) – Clustering algorithm to be used. Only leiden supported at the moment.</p></li>
+<li><p><strong>clust_alg</strong> (<cite>{‘leiden’, ‘walktrap’, ‘spinglass’}</cite>) – Clustering algorithm to be used.</p></li>
 <li><p><strong>prune_snn</strong> (<cite>float</cite>) – Threshold for pruning the SNN graph, i.e. the edges  with lower value (Jaccard
 index) than this will be removed. Set to 0 to disable pruning. Increasing this
 value will result in fewer edges in the graph. Default: 0.067</p></li>
-<li><p><strong>res</strong> (<cite>float</cite>) – Resolution parameter for the Leiden algorithm, change to modify cluster
+<li><p><strong>res</strong> (<cite>float</cite>) – Resolution parameter for the Leiden algorithm _only_; change to modify cluster
 resolution. Default: 0.8</p></li>
 <li><p><strong>seed</strong> (<cite>int</cite>) – For reproducibility.</p></li>
 <li><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose or not.</p></li>
@@ -224,7 +224,10 @@ resolution. Default: 0.8</p></li>
 </dd>
 </dl>
 <p class="rubric">References</p>
-<p>None.</p>
+<dl class="simple">
+<dt>Yang et al. (2016) A Comparative Analysis of Community Detection Algorithms on</dt><dd><p>Artificial Networks. Scientific Reports</p>
+</dd>
+</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p></p>

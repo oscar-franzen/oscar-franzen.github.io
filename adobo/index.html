@@ -459,11 +459,15 @@
 </div>
 <div class="section" id="clustering">
 <h3>Clustering<a class="headerlink" href="#clustering" title="Permalink to this headline">¶</a></h3>
-<p>A crucial step in scRNA-seq analysis is to group cells into clusters. Complex datasets consisting of thousands of cells can often be reduced to a small number of clusters, which render the data easier to analyze. In adobo, clustering is easily achieved with a single line of code:</p>
+<p>A crucial step in scRNA-seq analysis is to group cells into clusters. Complex datasets consisting of thousands of cells can be reduced to a small number of clusters, which tend to be easier to analyze and interpret. In adobo, clustering can be performed with a single line of code:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">clustering</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The clustering is stored in <a class="reference internal" href="adobo.html#adobo.data.dataset.clusters" title="adobo.data.dataset.clusters"><code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset.clusters</span></code></a>, i.e. represented by a vector with the same length as the number of cells after pre-processing. adobo’s default clustering algorithm first builds a Shared Nearest Neighbor graph <a class="reference internal" href="#ertoz2003" id="id19">[18]</a> and then finds communities in this graph using the Leiden algorithm <a class="reference internal" href="#traag2019" id="id20">[19]</a>. Various parameters of the employed algorithms can be changed as parameters in <a class="reference internal" href="adobo.html#adobo.clustering.generate" title="adobo.clustering.generate"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.clustering.generate()</span></code></a>.</p>
+<p>The clustering is stored in <a class="reference internal" href="adobo.html#adobo.data.dataset.clusters" title="adobo.data.dataset.clusters"><code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset.clusters</span></code></a>, i.e. represented by a vector with the same length as the number of cells after pre-processing. adobo’s default clustering algorithm first builds a Shared Nearest Neighbor graph <a class="reference internal" href="#ertoz2003" id="id19">[18]</a> and then finds communities in this graph using the Leiden algorithm <a class="reference internal" href="#traag2019" id="id20">[19]</a> (default). However, other community detection algorithms are also supported: <code class="docutils literal notranslate"><span class="pre">walktrap</span></code> <a class="reference internal" href="#pons2006" id="id21">[20]</a>; <code class="docutils literal notranslate"><span class="pre">spinglass</span></code> <a class="reference internal" href="#reichardt2006" id="id22">[21]</a>. Various parameters of the employed algorithms can be changed in <a class="reference internal" href="adobo.html#adobo.clustering.generate" title="adobo.clustering.generate"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.clustering.generate()</span></code></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">spinglass</span></code> does not scale well on large datasets <a class="reference internal" href="#yang2016" id="id23">[22]</a>.</p>
+</div>
 </div>
 <div class="section" id="indices-and-tables">
 <h3>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h3>
@@ -531,6 +535,15 @@
 </dd>
 <dt class="label" id="traag2019"><span class="brackets"><a class="fn-backref" href="#id20">19</a></span></dt>
 <dd><p>V. A. Traag, L. Waltman, and N. J. van Eck. From Louvain to Leiden: guaranteeing well-connected communities. <em>Scientific Reports</em>, 9(1):5233, March 2019. <a class="reference external" href="https://doi.org/10.1038/s41598-019-41695-z">doi:10.1038/s41598-019-41695-z</a>.</p>
+</dd>
+<dt class="label" id="pons2006"><span class="brackets"><a class="fn-backref" href="#id21">20</a></span></dt>
+<dd><p>Pascal Pons and Matthieu Latapy. Computing Communities in Large Networks Using Random Walks. <em>Journal of Graph Algorithms and Applications</em>, 2006.</p>
+</dd>
+<dt class="label" id="reichardt2006"><span class="brackets"><a class="fn-backref" href="#id22">21</a></span></dt>
+<dd><p>Joerg Reichardt and Stefan Bornholdt. Statistical mechanics of community detection. <em>Physical Review E</em>, 74:016110, 2006.</p>
+</dd>
+<dt class="label" id="yang2016"><span class="brackets"><a class="fn-backref" href="#id23">22</a></span></dt>
+<dd><p>Zhao Yang, René Algesheimer, and Claudio J. Tessone. A Comparative Analysis of Community Detection Algorithms on Artificial Networks. <em>Scientific Reports</em>, 6:30750, August 2016. URL: <a class="reference external" href="https://doi.org/10.1038/srep30750">https://doi.org/10.1038/srep30750</a>.</p>
 </dd>
 </dl>
 </p>
