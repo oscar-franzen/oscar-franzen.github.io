@@ -133,7 +133,7 @@ $ python3 setup.py install --user
 </div>
 <div class="section" id="package-organization">
 <h3>Package organization<a class="headerlink" href="#package-organization" title="Permalink to this headline">¶</a></h3>
-<p>adobo is organized into several modules containing related functions. All function names are lowercase to make them easier to remember.</p>
+<p>adobo is organized into several modules containing related functions. All module and function names are lowercase to make them easier to remember.</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 50%" />
@@ -192,7 +192,7 @@ $ python3 setup.py install --user
 </thead>
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">_colors</span></code></p></td>
-<td><p>related to color generation.</p></td>
+<td><p>related to color generation</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">_log</span></code></p></td>
 <td><p>internal utilities</p></td>
@@ -457,6 +457,7 @@ $ python3 setup.py install --user
 <p class="admonition-title">Note</p>
 <p>PCA components are stored in the dictionary <a class="reference internal" href="adobo.html#adobo.data.dataset.dr" title="adobo.data.dataset.dr"><code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset.dr</span></code></a> and variable contributions are stored in the dictionary <a class="reference internal" href="adobo.html#adobo.data.dataset.dr_gene_contr" title="adobo.data.dataset.dr_gene_contr"><code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset.dr_gene_contr</span></code></a>.</p>
 </div>
+<p>If we like we can examine the top contributing genes to each PCA component by producing a plot with <a class="reference internal" href="adobo.html#adobo.plotting.pca_contributors" title="adobo.plotting.pca_contributors"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.plotting.pca_contributors()</span></code></a>.</p>
 </div>
 <div class="section" id="t-distributed-stochastic-neighbor-embedding-t-sne">
 <h4>t-Distributed Stochastic Neighbor Embedding (t-SNE)<a class="headerlink" href="#t-distributed-stochastic-neighbor-embedding-t-sne" title="Permalink to this headline">¶</a></h4>

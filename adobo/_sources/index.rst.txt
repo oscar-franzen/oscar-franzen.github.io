@@ -44,7 +44,7 @@ adobo version 0.1. Documentation: https://oscar-franzen.github.io/adobo/
 
 Package organization
 ====================
-adobo is organized into several modules containing related functions. All function names are lowercase to make them easier to remember.
+adobo is organized into several modules containing related functions. All module and function names are lowercase to make them easier to remember.
 
 .. list-table::
    :header-rows: 1
@@ -82,7 +82,7 @@ These do not need to be accessed but are listed here for documentation purposes.
    * - Module name
      - Function content
    * - ``_colors``
-     - related to color generation.
+     - related to color generation
    * - ``_log``
      - internal utilities
    * - ``_constants``
@@ -380,6 +380,8 @@ Examples:
 .. note::
 
    PCA components are stored in the dictionary :py:attr:`adobo.data.dataset.dr` and variable contributions are stored in the dictionary :py:attr:`adobo.data.dataset.dr_gene_contr`.
+
+If we like we can examine the top contributing genes to each PCA component by producing a plot with :py:func:`adobo.plotting.pca_contributors`.
 
 t-Distributed Stochastic Neighbor Embedding (t-SNE)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
