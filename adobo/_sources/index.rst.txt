@@ -454,6 +454,23 @@ Various parameters of the these algorithms can be changed in :py:func:`adobo.clu
 
    ``spinglass`` does not scale well on large datasets :cite:`Yang2016`.
 
+Clustering visualization
+========================
+Visualization of cells in 2d space is performed with the function :py:func:`adobo.plotting.cell_viz`.
+
+Examples:
+
+.. code-block:: python3
+
+   # tsne
+   ad.plotting.cell_viz(exp, target='tsne')
+   
+   # umap
+   ad.plotting.cell_viz(exp, target='umap')
+   
+   # tsne and assign random colors to clusters
+   ad.plotting.cell_viz(exp, target='tsne', cluster_colors='random')
+
 Indices and tables
 ==================
 

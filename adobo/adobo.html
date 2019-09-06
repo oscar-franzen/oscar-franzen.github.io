@@ -585,19 +585,20 @@ variable genes.</p></li>
 <code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">tsne</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">target='irlb'</em>, <em class="sig-param">perplexity=30</em>, <em class="sig-param">n_iter=2000</em>, <em class="sig-param">seed=42</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.tsne" title="Permalink to this definition">¶</a></dt>
 <dd><p>Projects data to a two dimensional space using the tSNE algorithm.</p>
 <p class="rubric">Notes</p>
-<p>Calls <code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.manifold.TSNE()</span></code>.</p>
+<p>It is recommended to perform this function on data in PCA space. This function calls
+<code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.manifold.TSNE()</span></code>, and any additional parameters will be passed to it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A dataset class object.</p></li>
-<li><p><strong>target</strong> (<cite>{‘irlb’, ‘svd’, ‘norm’}</cite>) – What to run tSNE on.</p></li>
+<li><p><strong>target</strong> (<cite>{‘irlb’, ‘svd’, ‘norm’}</cite>) – What to run tSNE on. Default: ‘irlb’</p></li>
 <li><p><strong>perplexity</strong> (<cite>float</cite>) – From [1]: The perplexity is related to the number of nearest neighbors that
 is used in other manifold learning algorithms. Larger datasets usually require
 a larger perplexity. Consider selecting a value between 5 and 50. Different
-values can result in significanlty different results.</p></li>
-<li><p><strong>n_iter</strong> (<cite>int</cite>) – Number of iterations.</p></li>
-<li><p><strong>seed</strong> (<cite>int</cite>) – For reproducibility.</p></li>
-<li><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose.</p></li>
+values can result in significanlty different results. Default: 30</p></li>
+<li><p><strong>n_iter</strong> (<cite>int</cite>) – Number of iterations. Default: 2000</p></li>
+<li><p><strong>seed</strong> (<cite>int</cite>) – For reproducibility. Default: 42</p></li>
+<li><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose. Default: False</p></li>
 </ul>
 </dd>
 </dl>
@@ -1111,23 +1112,23 @@ model with regularized parameters</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="adobo.plotting.cell_plot">
-<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">cell_plot</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">target='tsne'</em>, <em class="sig-param">marker_size=0.8</em>, <em class="sig-param">cluster_colors='adobo'</em>, <em class="sig-param">title=''</em>, <em class="sig-param">verbose=True</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.cell_plot" title="Permalink to this definition">¶</a></dt>
+<dt id="adobo.plotting.cell_viz">
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">cell_viz</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">target='tsne'</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">marker_size=0.8</em>, <em class="sig-param">cluster_colors='adobo'</em>, <em class="sig-param">title=''</em>, <em class="sig-param">verbose=True</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.cell_viz" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a 2d scatter plot from an embedding</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object</p></li>
 <li><p><strong>target</strong> (<cite>{‘tsne’, ‘umap’, ‘irlb’, ‘svd’}</cite>) – The embedding or dimensional reduction to use. Default: tsne</p></li>
+<li><p><strong>filename</strong> (<cite>str</cite>, optional) – Name of an output file instead of showing on screen.</p></li>
 <li><p><strong>marker_size</strong> (<cite>float</cite>) – The size of the markers.</p></li>
-<li><p><strong>cluster_colors</strong> (<cite>{‘default’, ‘random’}</cite> or <cite>list</cite>) – Can be: (i) a string “adobo” or “random”; (ii) a list of colors with the same
+<li><p><strong>cluster_colors</strong> (<cite>{‘default’, ‘random’}</cite> or <cite>list</cite>) – Can be: (i) “adobo” or “random”; (ii) a list of colors with the same
 length as the number of cells (same order as cells occur in the normalized
 matrix). If cluster_colors is set to “adobo”, then colors are retrieved from
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo._constants.CLUSTER_COLORS_DEFAULT</span></code> (but if the number of clusters
 exceed 50, then random colors will be used). Default: adobo</p></li>
 <li><p><strong>title</strong> (<cite>str</cite>) – Title of the plot.</p></li>
 <li><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose or not. Default: True</p></li>
-<li><p><strong>filename</strong> (<cite>str</cite>, optional) – Write plot to file.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
