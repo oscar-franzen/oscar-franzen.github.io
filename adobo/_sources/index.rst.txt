@@ -425,13 +425,30 @@ UMAP :cite:`McInnes2018` is also used frequently to visualize scRNA-seq data, an
 
 Clustering
 ==========
-A crucial step in scRNA-seq analysis is to group cells into clusters. Complex datasets consisting of thousands of cells can be reduced to a small number of clusters, which tend to be easier to analyze and interpret. In adobo, clustering can be performed with a single line of code:
+A crucial step in scRNA-seq analysis is to group cells into clusters. Complex datasets consisting of thousands of cells can be reduced to a small number of clusters, which tend to be easier to analyze and interpret.
+
+.. important::
+
+   Clustering is performed in PCA space, therefore PCA components must have been calculated first using :py:func:`adobo.dr.pca`.
+
+In adobo, clustering can be performed with a single line of code:
 
 .. code-block:: python3
 
-   ad.clustering.generate(exp)
+   ad.clustering.generate(exp, res=0.8, method='leiden')
 
-The clustering is stored in :py:attr:`adobo.data.dataset.clusters`, i.e. represented by a vector with the same length as the number of cells after pre-processing. adobo's default clustering algorithm first builds a Shared Nearest Neighbor graph :cite:`Ertoz2003` and then finds communities in this graph using the Leiden algorithm :cite:`Traag2019` (default). However, other community detection algorithms are also supported via the `igraph <https://igraph.org/redirect.html>`_ package: ``walktrap`` :cite:`Pons2006`; ``spinglass`` :cite:`Reichardt2006`; ``multilevel`` :cite:`Blondel2008`; ``infomap`` :cite:`Rosvall2008`; ``label_prop`` (label propagation) :cite:`Raghavan2007`; and ``leading_eigenvector`` (Newman's leading eigenvector method) :cite:`Newman2006`. Various parameters of the employed algorithms can be changed in :py:func:`adobo.clustering.generate`.
+The above command will run the necessary steps to cluster your single cell dataset; the cluster membership vector is stored in :py:attr:`adobo.data.dataset.clusters`, i.e. represented by an array with the same length as the number of cells after pre-processing. adobo's default clustering algorithm first builds a Shared Nearest Neighbor graph :cite:`Ertoz2003` and then finds communities in this graph using the Leiden algorithm :cite:`Traag2019` (default). It may become necessary to change value of the ``res`` (resolution) parameter to find the optimal clustering outcome.
+
+Other community detection algorithms are also supported via the `igraph <https://igraph.org/redirect.html>`_ package:
+
+* ``walktrap`` :cite:`Pons2006`
+* ``spinglass`` :cite:`Reichardt2006`
+* ``multilevel`` :cite:`Blondel2008`
+* ``infomap`` :cite:`Rosvall2008`
+* ``label_prop`` (label propagation) :cite:`Raghavan2007`
+* ``leading_eigenvector`` (Newman's leading eigenvector method) :cite:`Newman2006`
+
+Various parameters of the these algorithms can be changed in :py:func:`adobo.clustering.generate`.
 
 .. note::
 
