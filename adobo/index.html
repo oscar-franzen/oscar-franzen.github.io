@@ -498,7 +498,11 @@ $ python3 setup.py install --user
 <p>Clustering is performed in PCA space, therefore PCA components must have been calculated first using <a class="reference internal" href="adobo.html#adobo.dr.pca" title="adobo.dr.pca"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.dr.pca()</span></code></a>.</p>
 </div>
 <p>In adobo, clustering can be performed with a single line of code:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">clustering</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;leiden&#39;</span><span class="p">)</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># to run leiden</span>
+<span class="n">ad</span><span class="o">.</span><span class="n">clustering</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;leiden&#39;</span><span class="p">)</span>
+
+<span class="c1"># to run walktrap</span>
+<span class="n">ad</span><span class="o">.</span><span class="n">clustering</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">clust_alg</span><span class="o">=</span><span class="s1">&#39;walktrap&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The above command will run the necessary steps to cluster your single cell dataset; the cluster membership vector is stored in <a class="reference internal" href="adobo.html#adobo.data.dataset.clusters" title="adobo.data.dataset.clusters"><code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset.clusters</span></code></a>, i.e. represented by an array with the same length as the number of cells after pre-processing. adobo’s default clustering algorithm first builds a Shared Nearest Neighbor graph <a class="reference internal" href="#ertoz2003" id="id19">[18]</a> and then finds communities in this graph using the Leiden algorithm <a class="reference internal" href="#traag2019" id="id20">[19]</a> (default). It may become necessary to change value of the <code class="docutils literal notranslate"><span class="pre">res</span></code> (resolution) parameter to find the optimal clustering outcome.</p>
@@ -522,13 +526,13 @@ $ python3 setup.py install --user
 <p>Visualization of cells in 2d space is performed with the function <a class="reference internal" href="adobo.html#adobo.plotting.cell_viz" title="adobo.plotting.cell_viz"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.plotting.cell_viz()</span></code></a>.</p>
 <p>Examples:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># tsne</span>
-<span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">cell_viz</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;tsne&#39;</span><span class="p">)</span>
+<span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">cell_viz</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">reduction</span><span class="o">=</span><span class="s1">&#39;tsne&#39;</span><span class="p">)</span>
 
 <span class="c1"># umap</span>
-<span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">cell_viz</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;umap&#39;</span><span class="p">)</span>
+<span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">cell_viz</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">reduction</span><span class="o">=</span><span class="s1">&#39;umap&#39;</span><span class="p">)</span>
 
 <span class="c1"># tsne and assign random colors to clusters</span>
-<span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">cell_viz</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;tsne&#39;</span><span class="p">,</span> <span class="n">cluster_colors</span><span class="o">=</span><span class="s1">&#39;random&#39;</span><span class="p">)</span>
+<span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">cell_viz</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">reduction</span><span class="o">=</span><span class="s1">&#39;tsne&#39;</span><span class="p">,</span> <span class="n">cluster_colors</span><span class="o">=</span><span class="s1">&#39;random&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
