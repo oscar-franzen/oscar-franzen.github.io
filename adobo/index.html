@@ -107,11 +107,29 @@
 </div>
 <div class="section" id="installation">
 <h3>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
-<p>The easiest way to install adobo is to clone the GitHub repository:</p>
+<p>The easiest way to install adobo is to first clone the GitHub repository from your terminal:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/oscar-franzen/adobo.git
+$ <span class="nb">cd</span> adobo
+$ python3 setup.py install --user
 </pre></div>
 </div>
+<p>If you want to install the package system wide, the last command can be replaced by:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sudo python3 setup.py install
+</pre></div>
+</div>
+<p>After installing it, you can now delete the cloned repository and test that everything works by firing up your Python 3 interpreter:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python3
+</pre></div>
+</div>
+<p>Try importing the library and it should greet you with the current version and the URL to the documentation (this page):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">adobo</span> <span class="k">as</span> <span class="nn">ad</span>
+<span class="go">adobo version 0.1. Documentation: https://oscar-franzen.github.io/adobo/</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>Support for <code class="docutils literal notranslate"><span class="pre">pip3</span></code> installation is on the TODO list.</p>
+</div>
 </div>
 <div class="section" id="package-organization">
 <h3>Package organization<a class="headerlink" href="#package-organization" title="Permalink to this headline">¶</a></h3>

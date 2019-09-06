@@ -13,13 +13,34 @@ adobo is developed by Oscar Franzén (limited support is available over e-mail: 
 
 Installation
 ============
-The easiest way to install adobo is to clone the GitHub repository:
+The easiest way to install adobo is to first clone the GitHub repository from your terminal:
 
 .. code-block:: bash
 
    $ git clone https://github.com/oscar-franzen/adobo.git
+   $ cd adobo
+   $ python3 setup.py install --user
 
-Support for ``pip3`` installation is on the TODO list.
+If you want to install the package system wide, the last command can be replaced by:
+
+.. code-block:: bash
+
+   $ sudo python3 setup.py install
+
+After installing it, you can now delete the cloned repository and test that everything works by firing up your Python 3 interpreter:
+
+.. code-block:: bash
+
+   $ python3
+
+Try importing the library and it should greet you with the current version and the URL to the documentation (this page):
+
+>>> import adobo as ad
+adobo version 0.1. Documentation: https://oscar-franzen.github.io/adobo/
+
+.. note::
+
+   Support for ``pip3`` installation is on the TODO list.
 
 Package organization
 ====================
