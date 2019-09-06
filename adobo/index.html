@@ -457,7 +457,16 @@ $ python3 setup.py install --user
 <p class="admonition-title">Note</p>
 <p>PCA components are stored in the dictionary <a class="reference internal" href="adobo.html#adobo.data.dataset.dr" title="adobo.data.dataset.dr"><code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset.dr</span></code></a> and variable contributions are stored in the dictionary <a class="reference internal" href="adobo.html#adobo.data.dataset.dr_gene_contr" title="adobo.data.dataset.dr_gene_contr"><code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset.dr_gene_contr</span></code></a>.</p>
 </div>
-<p>If we like we can examine the top contributing genes to each PCA component by producing a plot with <a class="reference internal" href="adobo.html#adobo.plotting.pca_contributors" title="adobo.plotting.pca_contributors"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.plotting.pca_contributors()</span></code></a>.</p>
+<p>We can now examine the top contributing genes to each PCA component by producing a plot with <a class="reference internal" href="adobo.html#adobo.plotting.pca_contributors" title="adobo.plotting.pca_contributors"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.plotting.pca_contributors()</span></code></a>.</p>
+<p>To plot the top 10 contributing genes to the first five components:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">pca_contributors</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="n">top</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/pca_contributors.png" src="_images/pca_contributors.png" />
+<p>We can also write the output to a file instead of showing it on the screen:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">pca_contributors</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="n">top</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;top_pca_genes.pdf&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="t-distributed-stochastic-neighbor-embedding-t-sne">
 <h4>t-Distributed Stochastic Neighbor Embedding (t-SNE)<a class="headerlink" href="#t-distributed-stochastic-neighbor-embedding-t-sne" title="Permalink to this headline">¶</a></h4>

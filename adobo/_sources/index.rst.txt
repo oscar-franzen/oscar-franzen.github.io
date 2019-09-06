@@ -381,7 +381,21 @@ Examples:
 
    PCA components are stored in the dictionary :py:attr:`adobo.data.dataset.dr` and variable contributions are stored in the dictionary :py:attr:`adobo.data.dataset.dr_gene_contr`.
 
-If we like we can examine the top contributing genes to each PCA component by producing a plot with :py:func:`adobo.plotting.pca_contributors`.
+We can now examine the top contributing genes to each PCA component by producing a plot with :py:func:`adobo.plotting.pca_contributors`.
+
+To plot the top 10 contributing genes to the first five components:
+
+.. code-block:: python3
+
+   ad.plotting.pca_contributors(exp, dim=range(0,5), top=10)
+
+.. image:: pca_contributors.png
+
+We can also write the output to a file instead of showing it on the screen:
+
+.. code-block:: python3
+
+   ad.plotting.pca_contributors(exp, dim=range(0,5), top=10, filename='top_pca_genes.pdf')
 
 t-Distributed Stochastic Neighbor Embedding (t-SNE)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
