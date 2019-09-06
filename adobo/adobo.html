@@ -353,8 +353,21 @@ resolution. Default: 0.8</p></li>
 <dl class="attribute">
 <dt id="adobo.data.dataset.dr">
 <code class="sig-name descname">dr</code><a class="headerlink" href="#adobo.data.dataset.dr" title="Permalink to this definition">¶</a></dt>
-<dd><p>A dict of <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> containing results of dimensionality
+<dd><p>A dict of <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> containing components from dimensionality
 reduction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><cite>dict</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adobo.data.dataset.dr_gene_contr">
+<code class="sig-name descname">dr_gene_contr</code><a class="headerlink" href="#adobo.data.dataset.dr_gene_contr" title="Permalink to this definition">¶</a></dt>
+<dd><p>A dict of <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> containing variable controbution to each
+component. Useful for understanding the contribution of each gene to the PCA
+components.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p><cite>dict</cite></p>
@@ -495,10 +508,11 @@ SIAM Journal on Scientific Computing</p>
 <p><a class="reference external" href="https://github.com/bwlewis/irlbpy">https://github.com/bwlewis/irlbpy</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A py:class:<cite>pandas.DataFrame</cite> containing the components (columns).</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><cite>pd.DataFrame</cite></p>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><cite>pd.DataFrame</cite> – A py:class:<cite>pandas.DataFrame</cite> containing the components (columns).</p></li>
+<li><p><cite>pd.DataFrame</cite> – A py:class:<cite>pandas.DataFrame</cite> containing the contributions of every gene (rows).</p></li>
+</ul>
+</p>
 </dd>
 </dl>
 </dd></dl>
@@ -529,10 +543,12 @@ standard deviation).</p>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Principal_component_analysis">https://en.wikipedia.org/wiki/Principal_component_analysis</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>Nothing. Modifies the passed object.</p>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><em>Nothing. Modifies the passed object. Results are stored in two dictonaries in the</em></p></li>
+<li><p><strong>passed object</strong> (<cite>dr</cite> (containing the components) and <cite>dr_gene_contr</cite> (containing)</p></li>
+<li><p><em>gene contributions to each component)</em></p></li>
+</ul>
+</p>
 </dd>
 </dl>
 </dd></dl>
@@ -540,23 +556,26 @@ standard deviation).</p>
 <dl class="function">
 <dt id="adobo.dr.svd">
 <code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">svd</code><span class="sig-paren">(</span><em class="sig-param">data_norm</em>, <em class="sig-param">ncomp=75</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.svd" title="Permalink to this definition">¶</a></dt>
-<dd><p>PCA via SVD</p>
+<dd><p>Principal component analysis via singular value decomposition</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data_norm</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame containing normalized gene expression data.</p></li>
+<li><p><strong>data_norm</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame containing normalized gene expression data. Preferrably this
+should be a subset of the normalized gene expression matrix containing highly
+variable genes.</p></li>
 <li><p><strong>ncomp</strong> (<cite>int</cite>) – Number of components to return, optional.</p></li>
 </ul>
 </dd>
 </dl>
 <p class="rubric">References</p>
-<p><a class="reference external" href="https://stats.stackexchange.com/questions/79043/why-pca-of-data-by-means-of-svd-of-the-data">https://stats.stackexchange.com/questions/79043/why-pca-of-data-by-means-of-svd-of-the-data</a></p>
+<p>(SE) <a class="reference external" href="https://tinyurl.com/yyt6df5x">https://tinyurl.com/yyt6df5x</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A py:class:<cite>pandas.DataFrame</cite> containing the components (columns).</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><cite>pd.DataFrame</cite></p>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><cite>pd.DataFrame</cite> – A py:class:<cite>pandas.DataFrame</cite> containing the components (columns).</p></li>
+<li><p><cite>pd.DataFrame</cite> – A py:class:<cite>pandas.DataFrame</cite> containing the contributions of every gene (rows).</p></li>
+</ul>
+</p>
 </dd>
 </dl>
 </dd></dl>
@@ -599,7 +618,21 @@ Using t-SNE. Journal of Machine Learning Research 9:2579-2605, 2008.</p>
 <dl class="function">
 <dt id="adobo.dr.umap">
 <code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">umap</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">target='irlb'</em>, <em class="sig-param">seed=42</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.umap" title="Permalink to this definition">¶</a></dt>
-<dd><p>Projects data to a two dimensional space using the UMAP algorithm.</p>
+<dd><p>Projects data to a two dimensional space using the UMAP algorithm, a non-linear
+data reduction algorithm.</p>
+<p class="rubric">Notes</p>
+<p>The UMAP output can be tweaked using these parameters (but there are also several
+other parameters that can influence the outcome, see <cite>help(umap.UMAP)</cite>:
+<cite>n_neighbors</cite>, Default: 15</p>
+<blockquote>
+<div><p>This parameter controls the balances between local versus global structure.</p>
+</div></blockquote>
+<dl class="simple">
+<dt><cite>min_dist</cite>, Default: 0.1</dt><dd><p>Controls how tightly points are packed together.</p>
+</dd>
+<dt><cite>metric</cite>, Default: ‘euclidean’</dt><dd><p>The metric to use to compute distances in high dimensional space.</p>
+</dd>
+</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">

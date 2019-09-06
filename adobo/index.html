@@ -423,17 +423,21 @@
 <p>These are techniques to reduce the number of dimensions under consideration. After running these functions, results are stored in the <code class="docutils literal notranslate"><span class="pre">dict</span></code> <a class="reference internal" href="adobo.html#adobo.data.dataset.dr" title="adobo.data.dataset.dr"><code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset.dr</span></code></a>.</p>
 <div class="section" id="principal-component-analysis-pca">
 <h4>Principal Component analysis (PCA)<a class="headerlink" href="#principal-component-analysis-pca" title="Permalink to this headline">¶</a></h4>
-<p>PCA <a class="reference internal" href="#abdi2010" id="id13">[12]</a> can be performed using two methods, and it should not matter much which one is used:</p>
+<p>PCA decomposition <a class="reference internal" href="#abdi2010" id="id13">[12]</a> of single cell data is for the most part necessary prior to clustering. The reason for this is because the graph construction benefits from a strong signal from each feature. PCA computation in adobo is performed by invoking <a class="reference internal" href="adobo.html#adobo.dr.pca" title="adobo.dr.pca"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.dr.pca()</span></code></a>. Scaling of the data should always be done before PCA, and this is done by default (although it can be turned off by setting <code class="docutils literal notranslate"><span class="pre">scale=False</span></code>). Two approaches are available for PCA decomposition, and it should not matter much which one is used:</p>
 <dl class="simple">
 <dt><strong>irlb</strong></dt><dd><p>Computed via truncated singular value decomposition by implicitly restarted Lanczos bidiagonalization <a class="reference internal" href="#baglama2005" id="id14">[13]</a>. <cite>irlb</cite> may be better at handling very large single cell datasets and it is the default.</p>
 </dd>
 <dt><strong>svd</strong></dt><dd><p>Computed via singular value decomposition. (More likely to raise <code class="docutils literal notranslate"><span class="pre">MemoryError</span></code>.)</p>
 </dd>
 </dl>
-<p>Scaling of the data should always be done before PCA, and this can be done by setting the parameter <code class="docutils literal notranslate"><span class="pre">scale=True</span></code> (<code class="docutils literal notranslate"><span class="pre">True</span></code> by default).</p>
-<p>Perform PCA computation by invoking <a class="reference internal" href="adobo.html#adobo.dr.pca" title="adobo.dr.pca"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.dr.pca()</span></code></a>:</p>
+<p>Examples:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">dr</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+<span class="n">ad</span><span class="o">.</span><span class="n">dr</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;svd&#39;</span><span class="p">)</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>PCA components are stored in the dictionary <a class="reference internal" href="adobo.html#adobo.data.dataset.dr" title="adobo.data.dataset.dr"><code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset.dr</span></code></a> and variable contributions are stored in the dictionary <a class="reference internal" href="adobo.html#adobo.data.dataset.dr_gene_contr" title="adobo.data.dataset.dr_gene_contr"><code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset.dr_gene_contr</span></code></a>.</p>
 </div>
 </div>
 <div class="section" id="t-distributed-stochastic-neighbor-embedding-t-sne">

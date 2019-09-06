@@ -341,7 +341,7 @@ These are techniques to reduce the number of dimensions under consideration. Aft
 
 Principal Component analysis (PCA)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-PCA :cite:`Abdi2010` can be performed using two methods, and it should not matter much which one is used:
+PCA decomposition :cite:`Abdi2010` of single cell data is for the most part necessary prior to clustering. The reason for this is because the graph construction benefits from a strong signal from each feature. PCA computation in adobo is performed by invoking :py:func:`adobo.dr.pca()`. Scaling of the data should always be done before PCA, and this is done by default (although it can be turned off by setting ``scale=False``). Two approaches are available for PCA decomposition, and it should not matter much which one is used:
 
 **irlb**
     Computed via truncated singular value decomposition by implicitly restarted Lanczos bidiagonalization :cite:`Baglama2005`. `irlb` may be better at handling very large single cell datasets and it is the default.
@@ -349,13 +349,16 @@ PCA :cite:`Abdi2010` can be performed using two methods, and it should not matte
 **svd**
     Computed via singular value decomposition. (More likely to raise ``MemoryError``.)
 
-Scaling of the data should always be done before PCA, and this can be done by setting the parameter ``scale=True`` (``True`` by default).
-
-Perform PCA computation by invoking :py:func:`adobo.dr.pca()`:
+Examples:
 
 .. code-block:: python3
 
    ad.dr.pca(exp)
+   ad.dr.pca(exp, method='svd')
+
+.. note::
+
+   PCA components are stored in the dictionary :py:attr:`adobo.data.dataset.dr` and variable contributions are stored in the dictionary :py:attr:`adobo.data.dataset.dr_gene_contr`.
 
 t-Distributed Stochastic Neighbor Embedding (t-SNE)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
