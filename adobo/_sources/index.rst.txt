@@ -121,6 +121,15 @@ Here we use data from `GEO95315 <https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?
 
    Many adobo functions also have a ``verbose`` argument, which when ``True`` makes the function more informative.
 
+Creating the data class object directly from a pandas data frame
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In many cases we already have our data in a pandas data frame, in those cases we can just create the container object directly:
+
+.. code-block:: python3
+ 
+   # where 'df' is the data frame, columns are cells and rows are genes
+   exp = adobo.dataset(df)
+
 Accessing meta data for cells and genes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Meta data are stored in the adobo object (an instance of :py:class:`adobo.data.dataset`). Two data structures (instances of :class:`pandas.DataFrame`) hold meta data for cells and genes, respectively:

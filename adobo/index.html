@@ -41,6 +41,7 @@
 <li><a class="reference internal" href="#getting-started-and-pre-processing-your-data">Getting started and pre-processing your data</a><ul>
 <li><a class="reference internal" href="#loading-the-package">Loading the package</a></li>
 <li><a class="reference internal" href="#loading-your-data-from-a-text-file">Loading your data from a text file</a></li>
+<li><a class="reference internal" href="#creating-the-data-class-object-directly-from-a-pandas-data-frame">Creating the data class object directly from a pandas data frame</a></li>
 <li><a class="reference internal" href="#accessing-meta-data-for-cells-and-genes">Accessing meta data for cells and genes</a></li>
 <li><a class="reference internal" href="#adding-meta-data">Adding meta data</a></li>
 <li><a class="reference internal" href="#getting-detailed-help">Getting detailed help</a></li>
@@ -234,6 +235,14 @@ $ pip3 install .
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Many adobo functions also have a <code class="docutils literal notranslate"><span class="pre">verbose</span></code> argument, which when <code class="docutils literal notranslate"><span class="pre">True</span></code> makes the function more informative.</p>
+</div>
+</div>
+<div class="section" id="creating-the-data-class-object-directly-from-a-pandas-data-frame">
+<h4>Creating the data class object directly from a pandas data frame<a class="headerlink" href="#creating-the-data-class-object-directly-from-a-pandas-data-frame" title="Permalink to this headline">¶</a></h4>
+<p>In many cases we already have our data in a pandas data frame, in those cases we can just create the container object directly:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># where &#39;df&#39; is the data frame, columns are cells and rows are genes</span>
+<span class="n">exp</span> <span class="o">=</span> <span class="n">adobo</span><span class="o">.</span><span class="n">dataset</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
 </div>
 </div>
 <div class="section" id="accessing-meta-data-for-cells-and-genes">
