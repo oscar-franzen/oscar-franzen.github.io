@@ -485,7 +485,7 @@ Various parameters of the these algorithms can be changed in :py:func:`adobo.clu
 
 Clustering visualization
 ========================
-Visualization of cells in 2d space is performed with the function :py:func:`adobo.plotting.cell_viz`.
+Visualization of cells in 2d space is performed with the function :py:func:`adobo.plotting.cell_viz`. Before running ``cell_viz``, the appropriate reduction functions must have been invoked first. The parameter ``what_to_color`` is used to control what will be colored. The default value is 'clusters', which colors by cluster; other options are: 'nothing' which colors all cells black; a third option is to specify a variable listed as meta data in :py:attr:`adobo.data.dataset.meta_cells` (added via :py:func:`adobo.data.dataset.add_meta_data`).
 
 Examples:
 
