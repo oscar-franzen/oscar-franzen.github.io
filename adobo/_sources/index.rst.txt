@@ -13,7 +13,7 @@ adobo is developed by Oscar Franzén (limited support is available over e-mail: 
 
 Installation
 ============
-The recommended way to install adobo is to first clone the GitHub repository and then use ``pip3`` from your terminal:
+The recommended way to install adobo is to first clone the GitHub repository and then use ``pip3`` from your terminal, which will also install the necessary dependencies:
 
 .. code-block:: bash
 
@@ -140,7 +140,7 @@ Saving an object is done via the standard ``joblib`` package:
    joblib.dump(exp, 'test.joblib')
    exp = joblib.load('test.joblib')
 
-Instead of writing three lines of code and always remembering the name of the output file, we can specify `save_filename` in :py:func:`adobo.IO.load_from_file` and then calling :py:func:`adobo.dataset.data.save()`.
+Instead of writing three lines of code and always remembering the name of the output file, we can specify `save_filename` in :py:func:`adobo.IO.load_from_file` and then calling :py:func:`adobo.data.dataset.save()`.
 
 Accessing meta data for cells and genes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -209,11 +209,11 @@ Your gene expression data is stored in the attribute ``exp.exp_mat``, and after 
 
 Data examination
 ^^^^^^^^^^^^^^^^
-It's can be useful to examine number of reads per cell in a barplot format:
+It's can be useful to examine number of reads per cell in a bar plot format:
 
 .. code-block:: python3
 
-   ad.plotting.barplot_reads_per_cell(exp)
+   ad.plotting.reads_per_cell(exp)
 
 Which will generate the plot:
 
@@ -223,7 +223,7 @@ It is also a good idea to examine number of expressed genes per cell:
 
 .. code-block:: python3
 
-   ad.plotting.barplot_genes_per_cell(exp)
+   ad.plotting.genes_per_cell(exp)
 
 .. image:: 2019-08-30-131930_594x451_scrot.png
 
@@ -273,6 +273,10 @@ Simple filters refers to applying a strict minimum cutoff on the number of expre
 
    If your protocol is applying full-length mRNA sequencing, e.g. SMART-seq2, then your ``minreads`` threshold should be higher, for example 10000.
 
+.. note::
+
+   :py:func:`adobo.preproc.simple_filter` also has a `maxreads` parameter, which can be used to remove cells with an upper read count limit (perhaps useful for limiting doublets). However, this parameter is not set by default.
+
 It is also desirable to remove genes with an expression signal in very few cells; such genes may contribute more noise than information. The ``minexpgenes`` argument can be used to control how genes are filtered out. If you wish to not remove any genes at all, simply set it to zero:
 
 .. code-block:: python3
@@ -280,6 +284,12 @@ It is also desirable to remove genes with an expression signal in very few cells
    ad.preproc.simple_filter(exp, minreads=1000, minexpgenes=0)
 
 Setting ``minexpgenes`` to a fraction indicates that at least that fraction of cells must express any gene. If ``minexpgenes`` is an integer it refers to the absolute number of cells that at minimum must express the gene for the gene not to be filtered out.
+
+To reset all simple filters to original:
+
+.. code-block:: python3
+
+   exp.reset_filters()
 
 Automatic detection of low quality cells
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

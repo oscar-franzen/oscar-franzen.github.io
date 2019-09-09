@@ -147,7 +147,7 @@ columns are cells and rows are genes.</p></li>
 <li><p><strong>column_id</strong> (<em>{'auto'</em><em>, </em><em>'yes'</em><em>, </em><em>'no'}</em>) – Whether the header (first line) of the file contains a column ID for the genes. If
 this is the case, set this to auto or yes, otherwise no. Default: ‘auto’</p></li>
 <li><p><strong>desc</strong> (<cite>str</cite>) – A description of the data</p></li>
-<li><p><strong>save_filename</strong> (<cite>str</cite>) – An output filename used when calling <code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.dataset.data.save()</span></code>.</p></li>
+<li><p><strong>save_filename</strong> (<cite>str</cite>) – An output filename used when calling <a class="reference internal" href="#adobo.data.dataset.save" title="adobo.data.dataset.save"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.data.dataset.save()</span></code></a>.</p></li>
 <li><p><strong>verbose</strong> (<cite>bool</cite>) – To be verbose or not. Default: False</p></li>
 </ul>
 </dd>
@@ -1056,50 +1056,6 @@ model with regularized parameters</p>
 <h3>Summary<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>Functions for plotting scRNA-seq data.</p>
 <dl class="function">
-<dt id="adobo.plotting.barplot_genes_per_cell">
-<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">barplot_genes_per_cell</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">barcolor='#E69F00'</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">title='expressed genes'</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.barplot_genes_per_cell" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generates a bar plot of number of expressed genes per cell</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object</p></li>
-<li><p><strong>barcolor</strong> (<cite>str</cite>, optional) – Color of the bars (default: “#E69F00”).</p></li>
-<li><p><strong>filename</strong> (<cite>str</cite>, optional) – Write plot to file.</p></li>
-<li><p><strong>title</strong> (<cite>str</cite>, optional) – Title of the plot (default: “sequencing reads”).</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="adobo.plotting.barplot_reads_per_cell">
-<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">barplot_reads_per_cell</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">barcolor='#E69F00'</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">title='sequencing reads'</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.barplot_reads_per_cell" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generates a bar plot of read counts per cell</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object.</p></li>
-<li><p><strong>barcolor</strong> (<cite>str</cite>, optional) – Color of the bars (default: “#E69F00”).</p></li>
-<li><p><strong>filename</strong> (<cite>str</cite>, optional) – Write plot to file.</p></li>
-<li><p><strong>title</strong> (<cite>str</cite>, optional) – Title of the plot (default: “sequencing reads”).</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
 <dt id="adobo.plotting.cell_viz">
 <code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">cell_viz</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">reduction='tsne'</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">marker_size=0.8</em>, <em class="sig-param">font_size=8</em>, <em class="sig-param">cluster_colors='adobo'</em>, <em class="sig-param">title=''</em>, <em class="sig-param">legend=True</em>, <em class="sig-param">verbose=True</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.cell_viz" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a 2d scatter plot from an embedding</p>
@@ -1131,6 +1087,28 @@ exceed 50, then random colors will be used). Default: adobo</p></li>
 </dd></dl>
 
 <dl class="function">
+<dt id="adobo.plotting.genes_per_cell">
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">genes_per_cell</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">barcolor='#E69F00'</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">title='expressed genes'</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.genes_per_cell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a bar plot of number of expressed genes per cell</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object</p></li>
+<li><p><strong>barcolor</strong> (<cite>str</cite>, optional) – Color of the bars (default: “#E69F00”).</p></li>
+<li><p><strong>filename</strong> (<cite>str</cite>, optional) – Write plot to file.</p></li>
+<li><p><strong>title</strong> (<cite>str</cite>, optional) – Title of the plot (default: “sequencing reads”).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
 <dt id="adobo.plotting.pca_contributors">
 <code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">pca_contributors</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">target='irlb'</em>, <em class="sig-param">dim=range(0</em>, <em class="sig-param">5)</em>, <em class="sig-param">top=10</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">fontsize=8</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.pca_contributors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Examine the top contributing genes for each PCA component</p>
@@ -1149,6 +1127,28 @@ exceed 50, then random colors will be used). Default: adobo</p></li>
 <li><p><strong>fontsize</strong> (<cite>int</cite>) – Specifies font size. Default: 8</p></li>
 <li><p><strong>color</strong> (<cite>str</cite>) – Color of the bars. As a string or hex code. Default: “#fcc603”</p></li>
 <li><p><strong>filename</strong> (<cite>str</cite>, optional) – Write to a file instead of showing the plot on screen.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="adobo.plotting.reads_per_cell">
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">reads_per_cell</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">barcolor='#E69F00'</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">title='sequencing reads'</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.reads_per_cell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a bar plot of read counts per cell</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object.</p></li>
+<li><p><strong>barcolor</strong> (<cite>str</cite>, optional) – Color of the bars (default: “#E69F00”).</p></li>
+<li><p><strong>filename</strong> (<cite>str</cite>, optional) – Write plot to file.</p></li>
+<li><p><strong>title</strong> (<cite>str</cite>, optional) – Title of the plot (default: “sequencing reads”).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1250,6 +1250,23 @@ object.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="adobo.preproc.reset_filters">
+<code class="sig-prename descclassname">adobo.preproc.</code><code class="sig-name descname">reset_filters</code><span class="sig-paren">(</span><em class="sig-param">obj</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.preproc.reset_filters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets cell and gene filters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Nothing. Modifies the passed object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
 <dt id="adobo.preproc.set_mitochondrial_genes">
 <code class="sig-prename descclassname">adobo.preproc.</code><code class="sig-name descname">set_mitochondrial_genes</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">genes</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.preproc.set_mitochondrial_genes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set mitochondrial genes</p>
@@ -1271,13 +1288,14 @@ object.</p>
 
 <dl class="function">
 <dt id="adobo.preproc.simple_filter">
-<code class="sig-prename descclassname">adobo.preproc.</code><code class="sig-name descname">simple_filter</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">minreads=1000</em>, <em class="sig-param">minexpgenes=0.001</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.preproc.simple_filter" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.preproc.</code><code class="sig-name descname">simple_filter</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">minreads=1000</em>, <em class="sig-param">maxreads=None</em>, <em class="sig-param">minexpgenes=0.001</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.preproc.simple_filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Removes cells with too few reads and genes with very low expression</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object.</p></li>
 <li><p><strong>minreads</strong> (<cite>int</cite>, optional) – Minimum number of reads per cell required to keep the cell. Default: 1000</p></li>
+<li><p><strong>maxreads</strong> (<cite>int</cite>, optional) – Set a maximum number of reads allowed. Useful for filtering out suspected doublets.</p></li>
 <li><p><strong>minexpgenes</strong> (<cite>str</cite>, optional) – If this value is a float, then at least that fraction of cells must express the
 gene. If integer, then it denotes the minimum that number of cells must express
 the gene. Default: 0.001</p></li>

@@ -110,7 +110,7 @@
 </div>
 <div class="section" id="installation">
 <h3>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
-<p>The recommended way to install adobo is to first clone the GitHub repository and then use <code class="docutils literal notranslate"><span class="pre">pip3</span></code> from your terminal:</p>
+<p>The recommended way to install adobo is to first clone the GitHub repository and then use <code class="docutils literal notranslate"><span class="pre">pip3</span></code> from your terminal, which will also install the necessary dependencies:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/oscar-franzen/adobo.git
 $ <span class="nb">cd</span> adobo
 $ pip3 install .
@@ -254,7 +254,7 @@ $ pip3 install .
 <span class="n">exp</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;test.joblib&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Instead of writing three lines of code and always remembering the name of the output file, we can specify <cite>save_filename</cite> in <a class="reference internal" href="adobo.html#adobo.IO.load_from_file" title="adobo.IO.load_from_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.IO.load_from_file()</span></code></a> and then calling <code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.dataset.data.save()</span></code>.</p>
+<p>Instead of writing three lines of code and always remembering the name of the output file, we can specify <cite>save_filename</cite> in <a class="reference internal" href="adobo.html#adobo.IO.load_from_file" title="adobo.IO.load_from_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.IO.load_from_file()</span></code></a> and then calling <a class="reference internal" href="adobo.html#adobo.data.dataset.save" title="adobo.data.dataset.save"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.data.dataset.save()</span></code></a>.</p>
 </div>
 <div class="section" id="accessing-meta-data-for-cells-and-genes">
 <h4>Accessing meta data for cells and genes<a class="headerlink" href="#accessing-meta-data-for-cells-and-genes" title="Permalink to this headline">¶</a></h4>
@@ -323,14 +323,14 @@ $ pip3 install .
 </div>
 <div class="section" id="data-examination">
 <h4>Data examination<a class="headerlink" href="#data-examination" title="Permalink to this headline">¶</a></h4>
-<p>It’s can be useful to examine number of reads per cell in a barplot format:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">barplot_reads_per_cell</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+<p>It’s can be useful to examine number of reads per cell in a bar plot format:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">reads_per_cell</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Which will generate the plot:</p>
 <img alt="_images/2019-08-30-131424_587x441_scrot.png" src="_images/2019-08-30-131424_587x441_scrot.png" />
 <p>It is also a good idea to examine number of expressed genes per cell:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">barplot_genes_per_cell</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">genes_per_cell</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
 </pre></div>
 </div>
 <img alt="_images/2019-08-30-131930_594x451_scrot.png" src="_images/2019-08-30-131930_594x451_scrot.png" />
@@ -372,11 +372,19 @@ $ pip3 install .
 <p class="admonition-title">Important</p>
 <p>If your protocol is applying full-length mRNA sequencing, e.g. SMART-seq2, then your <code class="docutils literal notranslate"><span class="pre">minreads</span></code> threshold should be higher, for example 10000.</p>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="adobo.html#adobo.preproc.simple_filter" title="adobo.preproc.simple_filter"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.preproc.simple_filter()</span></code></a> also has a <cite>maxreads</cite> parameter, which can be used to remove cells with an upper read count limit (perhaps useful for limiting doublets). However, this parameter is not set by default.</p>
+</div>
 <p>It is also desirable to remove genes with an expression signal in very few cells; such genes may contribute more noise than information. The <code class="docutils literal notranslate"><span class="pre">minexpgenes</span></code> argument can be used to control how genes are filtered out. If you wish to not remove any genes at all, simply set it to zero:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">simple_filter</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">minreads</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">minexpgenes</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Setting <code class="docutils literal notranslate"><span class="pre">minexpgenes</span></code> to a fraction indicates that at least that fraction of cells must express any gene. If <code class="docutils literal notranslate"><span class="pre">minexpgenes</span></code> is an integer it refers to the absolute number of cells that at minimum must express the gene for the gene not to be filtered out.</p>
+<p>To reset all simple filters to original:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">exp</span><span class="o">.</span><span class="n">reset_filters</span><span class="p">()</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="automatic-detection-of-low-quality-cells">
 <h4>Automatic detection of low quality cells<a class="headerlink" href="#automatic-detection-of-low-quality-cells" title="Permalink to this headline">¶</a></h4>
