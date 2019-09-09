@@ -135,7 +135,7 @@
 <p>Functions for reading and writing scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.IO.load_from_file">
-<code class="sig-prename descclassname">adobo.IO.</code><code class="sig-name descname">load_from_file</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">sep='\t'</em>, <em class="sig-param">header=0</em>, <em class="sig-param">column_id='auto'</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">desc='no desc set'</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.IO.load_from_file" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.IO.</code><code class="sig-name descname">load_from_file</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">sep='\t'</em>, <em class="sig-param">header=0</em>, <em class="sig-param">column_id='auto'</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">desc='no desc set'</em>, <em class="sig-param">save_filename=None</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.IO.load_from_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a gene expression matrix consisting of raw read counts</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -147,6 +147,7 @@ columns are cells and rows are genes.</p></li>
 <li><p><strong>column_id</strong> (<em>{'auto'</em><em>, </em><em>'yes'</em><em>, </em><em>'no'}</em>) – Whether the header (first line) of the file contains a column ID for the genes. If
 this is the case, set this to auto or yes, otherwise no. Default: ‘auto’</p></li>
 <li><p><strong>desc</strong> (<cite>str</cite>) – A description of the data</p></li>
+<li><p><strong>save_filename</strong> (<cite>str</cite>) – An output filename used when calling <code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.dataset.data.save()</span></code>.</p></li>
 <li><p><strong>verbose</strong> (<cite>bool</cite>) – To be verbose or not. Default: False</p></li>
 </ul>
 </dd>
@@ -248,7 +249,7 @@ resolution. Default: 0.8</p></li>
 <p>This module contains a data storage class.</p>
 <dl class="class">
 <dt id="adobo.data.dataset">
-<em class="property">class </em><code class="sig-prename descclassname">adobo.data.</code><code class="sig-name descname">dataset</code><span class="sig-paren">(</span><em class="sig-param">raw_mat</em>, <em class="sig-param">desc='no desc set'</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.dataset" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">adobo.data.</code><code class="sig-name descname">dataset</code><span class="sig-paren">(</span><em class="sig-param">raw_mat</em>, <em class="sig-param">desc='no desc set'</em>, <em class="sig-param">save_filename=None</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.dataset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Storage container for raw data and analysis results.</p>
 <dl class="attribute">
@@ -266,28 +267,6 @@ resolution. Default: 0.8</p></li>
 <dt id="adobo.data.dataset.exp_mat">
 <code class="sig-name descname">exp_mat</code><a class="headerlink" href="#adobo.data.dataset.exp_mat" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raw read count matrix.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="adobo.data.dataset._exp_mito">
-<code class="sig-name descname">_exp_mito</code><a class="headerlink" href="#adobo.data.dataset._exp_mito" title="Permalink to this definition">¶</a></dt>
-<dd><p>Raw read count matrix containing mitochondrial genes.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="adobo.data.dataset._exp_ercc">
-<code class="sig-name descname">_exp_ercc</code><a class="headerlink" href="#adobo.data.dataset._exp_ercc" title="Permalink to this definition">¶</a></dt>
-<dd><p>Raw read count matrix containing ERCC spikes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></p>
@@ -450,16 +429,6 @@ it.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="adobo.data.dataset.exp_ercc">
-<em class="property">property </em><code class="sig-name descname">exp_ercc</code><a class="headerlink" href="#adobo.data.dataset.exp_ercc" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="adobo.data.dataset.exp_mito">
-<em class="property">property </em><code class="sig-name descname">exp_mito</code><a class="headerlink" href="#adobo.data.dataset.exp_mito" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="adobo.data.dataset.get_assay">
 <code class="sig-name descname">get_assay</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">lang=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.dataset.get_assay" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get info if a function has been applied.</p>
@@ -469,6 +438,25 @@ it.</p>
 <dt id="adobo.data.dataset.low_quality_cells">
 <em class="property">property </em><code class="sig-name descname">low_quality_cells</code><a class="headerlink" href="#adobo.data.dataset.low_quality_cells" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.data.dataset.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param">compress=True</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.dataset.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serialize the object</p>
+<p class="rubric">Notes</p>
+<p>Load the object data with joblib.load</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>compress</strong> (<cite>bool</cite>) – Save with data compression or not. Default: True</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Nothing.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="method">
 <dt id="adobo.data.dataset.set_assay">

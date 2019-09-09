@@ -128,7 +128,19 @@ In many cases we already have our data in a pandas data frame, in those cases we
 .. code-block:: python3
  
    # where 'df' is the data frame, columns are cells and rows are genes
-   exp = adobo.dataset(df)
+   exp = ad.dataset(df)
+
+Saving object
+^^^^^^^^^^^^^
+Saving an object is done via the standard ``joblib`` package:
+
+.. code-block:: python3
+
+   import joblib
+   joblib.dump(exp, 'test.joblib')
+   exp = joblib.load('test.joblib')
+
+Instead of writing three lines of code and always remembering the name of the output file, we can specify `save_filename` in :py:func:`adobo.IO.load_from_file` and then calling :py:func:`adobo.dataset.data.save()`.
 
 Accessing meta data for cells and genes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
