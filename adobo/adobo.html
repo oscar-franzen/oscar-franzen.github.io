@@ -1113,7 +1113,7 @@ model with regularized parameters</p>
 
 <dl class="function">
 <dt id="adobo.plotting.cell_viz">
-<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">cell_viz</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">reduction='tsne'</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">marker_size=0.8</em>, <em class="sig-param">cluster_colors='adobo'</em>, <em class="sig-param">title=''</em>, <em class="sig-param">legend=True</em>, <em class="sig-param">verbose=True</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.cell_viz" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">cell_viz</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">reduction='tsne'</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">marker_size=0.8</em>, <em class="sig-param">font_size=8</em>, <em class="sig-param">cluster_colors='adobo'</em>, <em class="sig-param">title=''</em>, <em class="sig-param">legend=True</em>, <em class="sig-param">verbose=True</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.cell_viz" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a 2d scatter plot from an embedding</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1122,6 +1122,7 @@ model with regularized parameters</p>
 <li><p><strong>reduction</strong> (<cite>{‘tsne’, ‘umap’, ‘irlb’, ‘svd’}</cite>) – The dimensional reduction to use. Default: tsne</p></li>
 <li><p><strong>filename</strong> (<cite>str</cite>, optional) – Name of an output file instead of showing on screen.</p></li>
 <li><p><strong>marker_size</strong> (<cite>float</cite>) – The size of the markers.</p></li>
+<li><p><strong>font_size</strong> (<cite>float</cite>) – Font size. Default: 8</p></li>
 <li><p><strong>cluster_colors</strong> (<cite>{‘default’, ‘random’}</cite> or <cite>list</cite>) – Can be: (i) “adobo” or “random”; (ii) a list of colors with the same
 length as the number of cells (same order as cells occur in the normalized
 matrix). If cluster_colors is set to “adobo”, then colors are retrieved from
