@@ -115,7 +115,7 @@ Here we use data from `GEO95315 <https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?
 
 .. note::
 
-   All downstream operations and analyses are performed and stored in the adobo object, i.e. functions are applied on this object.
+   All downstream operations and analyses are performed and stored as attributes in the adobo object, i.e. functions are applied on this object.
 
 .. note::
 
@@ -498,7 +498,7 @@ Examples:
    ad.plotting.cell_viz(exp, reduction='umap')
    
    # tsne and assign random colors to clusters
-   ad.plotting.cell_viz(exp, reduction='tsne', cluster_colors='random')
+   ad.plotting.cell_viz(exp, reduction='tsne', colors='random')
 
 Indices and tables
 ==================
