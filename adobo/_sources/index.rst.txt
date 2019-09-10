@@ -104,7 +104,7 @@ The first step is to load the adobo package by importing it:
 
 Loading your data from a text file
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-First we need to create a new adobo object, which is an instance of the class :py:class:`adobo.data.dataset`. This will be a new object containing your single cell data as well as meta data. The input file should be a gene expression matrix (rows as genes and cells as columns) in plain text format. Fields can be separated by any character (default is tab) and it can be changed with the ``sep`` argument. The data matrix file can have a header or not (``header=0`` indicates a header is present, otherwise use ``header=None``). If the header of your gene expression matrix contains a label for gene symbols, set ``column_id='yes'`` or simply ``column_id='auto'`` to autodetect this. :py:func:`adobo.IO.load_from_file` calls :py:func:`pandas.DataFrame.read_csv` and any additional arguments are passed into this function. The function :py:func:`adobo.IO.load_from_file` is used to load data from a raw read count matrix and the returned object is an instance of :class:`adobo.data.dataset`:
+First we need to create a new adobo object, which is an instance of the class :py:class:`adobo.data.dataset`. This will be a new object containing your single cell data as well as meta data. The input file should be a gene expression matrix (rows as genes and cells as columns) in plain text format. Fields can be separated by any character (default is tab) and it can be changed with the ``sep`` parameter. ``sep`` can be a single character or a regular expression (default is the regular expression ``\s``). The data matrix file can have a header or not (``header=0`` indicates a header is present, otherwise use ``header=None``). If the header of your gene expression matrix contains a label for gene symbols, set ``column_id='yes'`` or simply ``column_id='auto'`` to autodetect this. :py:func:`adobo.IO.load_from_file` calls :py:func:`pandas.DataFrame.read_csv` and any additional parameters are passed into this function. The function :py:func:`adobo.IO.load_from_file` is used to load data from a raw read count matrix and the returned object is an instance of :class:`adobo.data.dataset`:
 
 .. code-block:: python3
 
@@ -124,7 +124,7 @@ Here we use data from `GEO95315 <https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?
 
 .. note::
 
-   Many adobo functions also have a ``verbose`` argument, which when ``True`` makes the function more informative.
+   Many adobo functions also have a ``verbose`` parameter, which when ``True`` makes the function more informative.
 
 Creating the data class object directly from a pandas data frame
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -238,7 +238,7 @@ ERCC are known amounts of synthetic constructs added to RNA-seq libraries for qu
 
 .. note::
 
-   The ``ERCC_pattern`` argument can be used to set a regular expression for identifying the ERCC features.
+   The ``ERCC_pattern`` parameter can be used to set a regular expression for identifying the ERCC features.
 
 The :py:func:`adobo.preproc.detect_ercc_spikes` is used to filter out the ERCC (stored in :py:attr:`adobo.data.dataset.exp_ercc`):
 
@@ -276,13 +276,13 @@ Simple filters refers to applying a strict minimum cutoff on the number of expre
 
 .. important::
 
-   If your protocol is applying full-length mRNA sequencing, e.g. SMART-seq2, then your ``minreads`` threshold should be higher, for example 10000.
+   If your protocol is applying full-length mRNA sequencing, e.g. SMART-seq2, then your ``minreads`` threshold should be higher, for example 50000.
 
 .. note::
 
    :py:func:`adobo.preproc.simple_filter` also has a `maxreads` parameter, which can be used to remove cells with an upper read count limit (perhaps useful for limiting doublets). However, this parameter is not set by default.
 
-It is also desirable to remove genes with an expression signal in very few cells; such genes may contribute more noise than information. The ``minexpgenes`` argument can be used to control how genes are filtered out. If you wish to not remove any genes at all, simply set it to zero:
+It is also desirable to remove genes with an expression signal in very few cells; such genes may contribute more noise than information. The ``minexpgenes`` parameter can be used to control how genes are filtered out. If you wish to not remove any genes at all, simply set it to zero:
 
 .. code-block:: python3
 
@@ -304,7 +304,7 @@ A more sophisticated approach to detection of low quality cells is to use the fu
 
    ``find_low_quality_cells`` requires that there are ERCC spikes in your data.
 
-The argument ``rRNA_genes`` should either be a string containing the full path to a file on disk contaiing genes that are rRNA genes (the file should have one gene per line). ``rRNA_genes`` can also be a :py:class:`pandas.Series` object with gene symbols.
+The parameter ``rRNA_genes`` should either be a string containing the full path to a file on disk contaiing genes that are rRNA genes (the file should have one gene per line). ``rRNA_genes`` can also be a :py:class:`pandas.Series` object with gene symbols.
 
 .. code-block:: python3
 
@@ -507,7 +507,13 @@ Examples:
    
 Cell cycle prediction
 =====================
-It is often useful to get an understanding of the cell cycle state in a new data set. adobo contains a classifier based on the sklearn implementation of `Stochastic Gradient Descent <https://en.wikipedia.org/wiki/Stochastic_gradient_descent>`_. The classifier is trained on mouse embryonic stem cells (n=288 cells) :cite:`Buettner2015`. The original data can be retrieved from `here <https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-2805/>`_. Cell cycle classification is performed by calling two functions:
+An extreme simplification of the cell cycle is shown below (figure from Wikipedia). It is often useful to get an understanding of cell cycle states in a new data set, and it boils down to predicting one of three cell cycle states for every cell: G1, S and G2M.
+
+.. image:: cell_cycle_wikipedia.png
+   :align: center
+   :alt: Source: Wikipedia
+
+adobo contains a machine learning classifier based on the sklearn implementation of `Stochastic Gradient Descent <https://en.wikipedia.org/wiki/Stochastic_gradient_descent>`_. The classifier is trained on mouse embryonic stem cells (n=288 cells) :cite:`Buettner2015`. The original data can be retrieved from `here <https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-2805/>`_. Cell cycle classification is performed by calling two functions:
 
 .. code-block:: python3
 
