@@ -135,7 +135,7 @@
 <p>Functions for reading and writing scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.IO.load_from_file">
-<code class="sig-prename descclassname">adobo.IO.</code><code class="sig-name descname">load_from_file</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">sep='\t'</em>, <em class="sig-param">header=0</em>, <em class="sig-param">column_id='auto'</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">desc='no desc set'</em>, <em class="sig-param">save_filename=None</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.IO.load_from_file" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.IO.</code><code class="sig-name descname">load_from_file</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">sep='\t'</em>, <em class="sig-param">header=0</em>, <em class="sig-param">column_id='auto'</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">desc='no desc set'</em>, <em class="sig-param">output_filename=None</em>, <em class="sig-param">input_filename=None</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.IO.load_from_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a gene expression matrix consisting of raw read counts</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -147,7 +147,7 @@ columns are cells and rows are genes.</p></li>
 <li><p><strong>column_id</strong> (<em>{'auto'</em><em>, </em><em>'yes'</em><em>, </em><em>'no'}</em>) – Whether the header (first line) of the file contains a column ID for the genes. If
 this is the case, set this to auto or yes, otherwise no. Default: ‘auto’</p></li>
 <li><p><strong>desc</strong> (<cite>str</cite>) – A description of the data</p></li>
-<li><p><strong>save_filename</strong> (<cite>str</cite>) – An output filename used when calling <a class="reference internal" href="#adobo.data.dataset.save" title="adobo.data.dataset.save"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.data.dataset.save()</span></code></a>.</p></li>
+<li><p><strong>output_filename</strong> (<cite>str</cite>) – An output filename used when calling <a class="reference internal" href="#adobo.data.dataset.save" title="adobo.data.dataset.save"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.data.dataset.save()</span></code></a>.</p></li>
 <li><p><strong>verbose</strong> (<cite>bool</cite>) – To be verbose or not. Default: False</p></li>
 </ul>
 </dd>
@@ -175,21 +175,55 @@ arguments are passed into <code class="xref py py-func docutils literal notransl
 <p>Functions related to biology.</p>
 <dl class="function">
 <dt id="adobo.bio.cell_cycle_predict">
-<code class="sig-prename descclassname">adobo.bio.</code><code class="sig-name descname">cell_cycle_predict</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">genes_s_phase</em>, <em class="sig-param">genes_g2m_phase</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.bio.cell_cycle_predict" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.bio.</code><code class="sig-name descname">cell_cycle_predict</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">clf</em>, <em class="sig-param">tr_features</em>, <em class="sig-param">retx=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.bio.cell_cycle_predict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Predicts cell cycle phase</p>
+<p class="rubric">Notes</p>
+<p>The classifier is trained on mouse data, so it should _only_ be used on mouse data
+unless it is trained on something else. Gene identifiers must use ensembl identifiers
+(prefixed with ‘ENSMUSG’); pure gene symbols are not enough. Results are returned as
+a column in the data frame <cite>meta_cells</cite> of the passed object. Does not return
+probability scores.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object.</p></li>
-<li><p><strong>genes_s_phase</strong> (<cite>list</cite>) – A list of S phase genes.</p></li>
-<li><p><strong>genes_g2m_phase</strong> (<cite>list</cite>) – A list of G2/M phase genes.</p></li>
+<li><p><strong>clf</strong> (<cite>sklearn.linear_model.SGDClassifier</cite>) – The classifier.</p></li>
+<li><p><strong>tr_features</strong> (<cite>list</cite>) – Training features.</p></li>
+<li><p><strong>retx</strong> (<cite>bool</cite>) – Returns list of results. Default: False</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p></p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None</p>
+<dd class="field-odd"><p>Modifies the passed object. If <cite>retx=True</cite> a list is returned with predictions.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="adobo.bio.cell_cycle_train">
+<code class="sig-prename descclassname">adobo.bio.</code><code class="sig-name descname">cell_cycle_train</code><span class="sig-paren">(</span><em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.bio.cell_cycle_train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trains a cell cycle classifier using Stochastic Gradient Descent with data from
+Buettner et al.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose or not. Default: False</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="simple">
+<dt>Buettner et al. (2015) Computational analysis of cell-to-cell heterogeneity in</dt><dd><p>single-cell RNA-sequencing data reveals hidden subpopulations of cells. Nat
+Biotech.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><cite>sklearn.linear_model.SGDClassifier</cite> – A trained classifier.</p></li>
+<li><p><cite>list</cite> – Containing training features.</p></li>
+</ul>
+</p>
 </dd>
 </dl>
 </dd></dl>
@@ -249,7 +283,7 @@ resolution. Default: 0.8</p></li>
 <p>This module contains a data storage class.</p>
 <dl class="class">
 <dt id="adobo.data.dataset">
-<em class="property">class </em><code class="sig-prename descclassname">adobo.data.</code><code class="sig-name descname">dataset</code><span class="sig-paren">(</span><em class="sig-param">raw_mat</em>, <em class="sig-param">desc='no desc set'</em>, <em class="sig-param">save_filename=None</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.dataset" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">adobo.data.</code><code class="sig-name descname">dataset</code><span class="sig-paren">(</span><em class="sig-param">raw_mat</em>, <em class="sig-param">desc='no desc set'</em>, <em class="sig-param">output_filename=None</em>, <em class="sig-param">input_filename=None</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.dataset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Storage container for raw data and analysis results.</p>
 <dl class="attribute">
@@ -394,6 +428,17 @@ components.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p><cite>str</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adobo.data.dataset.output_filename">
+<code class="sig-name descname">output_filename</code><a class="headerlink" href="#adobo.data.dataset.output_filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>A filename that will be used when calling save().</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><cite>str</cite>, optional</p>
 </dd>
 </dl>
 </dd></dl>
@@ -975,8 +1020,10 @@ a SMART-Seq2 protocol.</p>
 <li><p><strong>gene_lengths</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code> or <cite>str</cite>) – Should contain the gene lengths in base pairs and gene names set as index. The
 names must match the gene names used in <cite>data</cite>. Normally gene lengths should be
 the combined length of exons for every gene. If gene_lengths is a <cite>str</cite> then it is
-taken as a filename and loaded; first column is gene names and second column is
-the length, field separator is one space.</p></li>
+taken as a file path and loads it; first column is gene names and second column is
+the length, field separator is one space; an alternative format is a single column
+of combined exon lengths where the total number of rows matches the number of rows
+in the raw read counts matrix and with the same order.</p></li>
 </ul>
 </dd>
 </dl>

@@ -65,6 +65,7 @@
 </li>
 <li><a class="reference internal" href="#clustering">Clustering</a></li>
 <li><a class="reference internal" href="#clustering-visualization">Clustering visualization</a></li>
+<li><a class="reference internal" href="#cell-cycle-prediction">Cell cycle prediction</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 <li><a class="reference internal" href="#references">References</a></li>
 </ul>
@@ -112,8 +113,13 @@
 <h3>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
 <p>The recommended way to install adobo is to first clone the GitHub repository and then use <code class="docutils literal notranslate"><span class="pre">pip3</span></code> from your terminal, which will also install the necessary dependencies:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/oscar-franzen/adobo.git
+
 $ <span class="nb">cd</span> adobo
+
 $ pip3 install .
+
+$ <span class="c1"># below installs adobo without package dependencies (not recommended)</span>
+$ pip3 install --no-deps .
 </pre></div>
 </div>
 <p>After installing it, you can now delete the cloned repository and test that everything works by firing up your Python 3 interpreter:</p>
@@ -127,7 +133,7 @@ $ pip3 install .
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Support for <code class="docutils literal notranslate"><span class="pre">pip3</span></code> installation is on the TODO list.</p>
+<p>Support for <code class="docutils literal notranslate"><span class="pre">PyPI</span></code> is on the TODO list.</p>
 </div>
 </div>
 <div class="section" id="package-organization">
@@ -254,7 +260,7 @@ $ pip3 install .
 <span class="n">exp</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;test.joblib&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Instead of writing three lines of code and always remembering the name of the output file, we can specify <cite>save_filename</cite> in <a class="reference internal" href="adobo.html#adobo.IO.load_from_file" title="adobo.IO.load_from_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.IO.load_from_file()</span></code></a> and then calling <a class="reference internal" href="adobo.html#adobo.data.dataset.save" title="adobo.data.dataset.save"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.data.dataset.save()</span></code></a>.</p>
+<p>Instead of writing three lines of code and always remembering the name of the output file, we can specify <cite>output_filename</cite> in <a class="reference internal" href="adobo.html#adobo.IO.load_from_file" title="adobo.IO.load_from_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.IO.load_from_file()</span></code></a> and then calling <a class="reference internal" href="adobo.html#adobo.data.dataset.save" title="adobo.data.dataset.save"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.data.dataset.save()</span></code></a>.</p>
 </div>
 <div class="section" id="accessing-meta-data-for-cells-and-genes">
 <h4>Accessing meta data for cells and genes<a class="headerlink" href="#accessing-meta-data-for-cells-and-genes" title="Permalink to this headline">¶</a></h4>
@@ -560,6 +566,22 @@ $ pip3 install .
 </pre></div>
 </div>
 </div>
+<div class="section" id="cell-cycle-prediction">
+<h3>Cell cycle prediction<a class="headerlink" href="#cell-cycle-prediction" title="Permalink to this headline">¶</a></h3>
+<p>It is often useful to get an understanding of the cell cycle state in a new data set. adobo contains a classifier based on the sklearn implementation of <a class="reference external" href="https://en.wikipedia.org/wiki/Stochastic_gradient_descent">Stochastic Gradient Descent</a>. The classifier is trained on mouse embryonic stem cells (n=288 cells) <a class="reference internal" href="#buettner2015" id="id28">[27]</a>. The original data can be retrieved from <a class="reference external" href="https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-2805/">here</a>. Cell cycle classification is performed by calling two functions:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># trains the classifier</span>
+<span class="n">clf</span><span class="p">,</span> <span class="n">tr_features</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">bio</span><span class="o">.</span><span class="n">cell_cycle_train</span><span class="p">()</span>
+
+<span class="c1"># performs the actual classification of cells in your data</span>
+<span class="n">ad</span><span class="o">.</span><span class="n">bio</span><span class="o">.</span><span class="n">cell_cycle_predict</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">clf</span><span class="p">,</span> <span class="n">tr_features</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Classification is stored in <cite>obj.meta_cells[‘cell_cycle’]</cite>. The current design does not support prediction scores, although this can easily be changed by changing the <a class="reference external" href="https://scikit-learn.org/stable/modules/sgd.html">loss parameter</a>.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Prediction is only valid on mouse data since the classifier is trained on mouse data; gene identifiers will only match mouse. Make sure your gene expression contains Ensembl gene identifiers.</p>
+</div>
+</div>
 <div class="section" id="indices-and-tables">
 <h3>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
@@ -647,6 +669,9 @@ $ pip3 install .
 </dd>
 <dt class="label" id="yang2016"><span class="brackets"><a class="fn-backref" href="#id27">26</a></span></dt>
 <dd><p>Zhao Yang, René Algesheimer, and Claudio J. Tessone. A Comparative Analysis of Community Detection Algorithms on Artificial Networks. <em>Scientific Reports</em>, 6:30750, August 2016. URL: <a class="reference external" href="https://doi.org/10.1038/srep30750">https://doi.org/10.1038/srep30750</a>.</p>
+</dd>
+<dt class="label" id="buettner2015"><span class="brackets"><a class="fn-backref" href="#id28">27</a></span></dt>
+<dd><p>Florian Buettner, Kedar N Natarajan, F Paolo Casale, Valentina Proserpio, Antonio Scialdone, Fabian J Theis, Sarah A Teichmann, John C Marioni, and Oliver Stegle. Computational analysis of cell-to-cell heterogeneity in single-cell RNA-sequencing data reveals hidden subpopulations of cells. <em>Nature Biotechnology</em>, 33:155, January 2015.</p>
 </dd>
 </dl>
 </p>

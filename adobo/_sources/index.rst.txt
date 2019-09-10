@@ -18,8 +18,13 @@ The recommended way to install adobo is to first clone the GitHub repository and
 .. code-block:: bash
 
    $ git clone https://github.com/oscar-franzen/adobo.git
+   
    $ cd adobo
+   
    $ pip3 install .
+   
+   $ # below installs adobo without package dependencies (not recommended)
+   $ pip3 install --no-deps .
 
 After installing it, you can now delete the cloned repository and test that everything works by firing up your Python 3 interpreter:
 
@@ -34,7 +39,7 @@ adobo version 0.1. Documentation: https://oscar-franzen.github.io/adobo/
 
 .. note::
 
-   Support for ``pip3`` installation is on the TODO list.
+   Support for ``PyPI`` is on the TODO list.
 
 Package organization
 ====================
@@ -140,7 +145,7 @@ Saving an object is done via the standard ``joblib`` package:
    joblib.dump(exp, 'test.joblib')
    exp = joblib.load('test.joblib')
 
-Instead of writing three lines of code and always remembering the name of the output file, we can specify `save_filename` in :py:func:`adobo.IO.load_from_file` and then calling :py:func:`adobo.data.dataset.save()`.
+Instead of writing three lines of code and always remembering the name of the output file, we can specify `output_filename` in :py:func:`adobo.IO.load_from_file` and then calling :py:func:`adobo.data.dataset.save()`.
 
 Accessing meta data for cells and genes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -499,6 +504,24 @@ Examples:
    
    # tsne and assign random colors to clusters
    ad.plotting.cell_viz(exp, reduction='tsne', colors='random')
+   
+Cell cycle prediction
+=====================
+It is often useful to get an understanding of the cell cycle state in a new data set. adobo contains a classifier based on the sklearn implementation of `Stochastic Gradient Descent <https://en.wikipedia.org/wiki/Stochastic_gradient_descent>`_. The classifier is trained on mouse embryonic stem cells (n=288 cells) :cite:`Buettner2015`. The original data can be retrieved from `here <https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-2805/>`_. Cell cycle classification is performed by calling two functions:
+
+.. code-block:: python3
+
+   # trains the classifier
+   clf, tr_features = ad.bio.cell_cycle_train()
+   
+   # performs the actual classification of cells in your data
+   ad.bio.cell_cycle_predict(obj, clf, tr_features)
+
+Classification is stored in `obj.meta_cells['cell_cycle']`. The current design does not support prediction scores, although this can easily be changed by changing the `loss parameter <https://scikit-learn.org/stable/modules/sgd.html>`_.
+
+.. important::
+
+   Prediction is only valid on mouse data since the classifier is trained on mouse data; gene identifiers will only match mouse. Make sure your gene expression contains Ensembl gene identifiers.
 
 Indices and tables
 ==================
