@@ -576,7 +576,7 @@ $ pip3 install --no-deps .
 <span class="n">ad</span><span class="o">.</span><span class="n">bio</span><span class="o">.</span><span class="n">cell_cycle_predict</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">clf</span><span class="p">,</span> <span class="n">tr_features</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Classification is stored in <cite>obj.meta_cells[‘cell_cycle’]</cite>. The current design does not support prediction scores, although this can easily be changed by changing the <a class="reference external" href="https://scikit-learn.org/stable/modules/sgd.html">loss parameter</a>.</p>
+<p>Classification is stored in the attribute <a class="reference internal" href="adobo.html#adobo.data.dataset.meta_cells" title="adobo.data.dataset.meta_cells"><code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset.meta_cells</span></code></a> in a column <cite>cell_cycle</cite>. The current design does not support prediction scores, although this can easily be changed by changing the <a class="reference external" href="https://scikit-learn.org/stable/modules/sgd.html">loss parameter</a>.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Prediction is only valid on mouse data since the classifier is trained on mouse data; gene identifiers will only match mouse. Make sure your gene expression contains Ensembl gene identifiers.</p>

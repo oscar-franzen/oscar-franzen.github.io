@@ -517,7 +517,7 @@ It is often useful to get an understanding of the cell cycle state in a new data
    # performs the actual classification of cells in your data
    ad.bio.cell_cycle_predict(obj, clf, tr_features)
 
-Classification is stored in `obj.meta_cells['cell_cycle']`. The current design does not support prediction scores, although this can easily be changed by changing the `loss parameter <https://scikit-learn.org/stable/modules/sgd.html>`_.
+Classification is stored in the attribute :py:attr:`adobo.data.dataset.meta_cells` in a column `cell_cycle`. The current design does not support prediction scores, although this can easily be changed by changing the `loss parameter <https://scikit-learn.org/stable/modules/sgd.html>`_.
 
 .. important::
 
