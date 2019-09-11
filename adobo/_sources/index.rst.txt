@@ -475,6 +475,8 @@ In adobo, clustering can be performed with a single line of code:
 
 The above command will run the necessary steps to cluster your single cell dataset; the cluster membership vector is stored in :py:attr:`adobo.data.dataset.clusters`, i.e. represented by an array with the same length as the number of cells after pre-processing. adobo's default clustering algorithm first builds a Shared Nearest Neighbor graph :cite:`Ertoz2003` and then finds communities in this graph using the Leiden algorithm :cite:`Traag2019` (default). It may become necessary to change value of the ``res`` (resolution) parameter to find the optimal clustering outcome.
 
+By default :py:func:`adobo.clustering.generate` will return a ``dict`` containing cluster sizes (number of cells), use ``retx=False`` to disable this behavior.
+
 Other community detection algorithms are also supported via the `igraph <https://igraph.org/redirect.html>`_ package:
 
 * ``walktrap`` :cite:`Pons2006`
