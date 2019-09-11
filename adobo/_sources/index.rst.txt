@@ -249,23 +249,17 @@ The :py:func:`adobo.preproc.detect_ercc_spikes` is used to filter out the ERCC (
 
 Detecting mitochondrial genes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-It's often a good idea not to include the mitochondrial genes in the analysis and some downstream analyses require that adobo knows which genes are mitochondrial. Usually the mitochondrial genes in human and mouse genomes have gene symbols starting with the prefix ``mt-``, but this might vary from species to species.
+Mitochondrial gene expression signals serve do indirectly tell us how healthy cells are. Dying and low quality cells tend to exhibit unusually high signal from these genes. One convenient function identifies mitochondrial genes in your data and adds the percent of mitochondrial gene expression to the cellular meta data. Often mitochondrial genes in the human and mouse genomes have gene symbols starting with the prefix ``mt-``, but this might vary from species to species.
 
 .. code-block:: python3
 
-   ad.preproc.find_mitochondrial_genes(exp)
+   ad.preproc.find_mitochondrial_genes(exp, mito_pattern='^mt-')
 
-Or specify a custom regular expression to identify them:
-
-.. code-block:: python3
-
-   ad.preproc.find_mitochondrial_genes(exp, mito_pattern='^mito-')
-
-Sometimes mitochondrial genes don't start with a certain prefix and it is better to set these genes with a single function:
+Sometimes a regular expression is not possible and we can instead supply a list of gene IDs or symbols representing mitochondrial genes:
 
 .. code-block:: python3
 
-   ad.preproc.set_mitochondrial_genes(exp, genes=['geneA','geneB','geneC'])
+   ad.preproc.find_mitochondrial_genes(exp, genes=['geneA','geneB','geneC'])
 
 Applying simple filters
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -344,7 +338,10 @@ To perform a ``standard`` normalization followed by ``log2`` transformation, run
 
    ad.normalize.norm(exp, method='standard')
 
-The normalized data are stored in the attribute :py:attr:`adobo.data.dataset.norm`.
+The normalized data are stored in the attribute :py:attr:`adobo.data.dataset.norm`. We can always call ``is_normalized()`` to determine if a dataset has been normalized:
+
+>>> exp.is_normalized()
+True
 
 .. note::
 
@@ -509,6 +506,15 @@ Examples:
    
    # tsne and assign random colors to clusters
    ad.plotting.cell_viz(exp, reduction='tsne', colors='random')
+
+Plotting mitochondrial gene expression:
+
+.. code-block:: python3
+
+   ad.plotting.cell_viz(exp, reduction='tsne', what_to_color='mito_perc')
+
+.. image:: mito_perc_tsne.png
+   :align: center
    
 Cell cycle prediction
 =====================
@@ -529,6 +535,12 @@ adobo contains a machine learning classifier based on the sklearn implementation
    ad.bio.cell_cycle_predict(obj, clf, tr_features)
 
 Classification is stored in the attribute :py:attr:`adobo.data.dataset.meta_cells` in a column `cell_cycle`. The current design does not support prediction scores, although this can easily be changed by changing the `loss parameter <https://scikit-learn.org/stable/modules/sgd.html>`_.
+
+We can visualize the results:
+
+.. code-block:: python3
+
+   ad.plotting.cell_viz(obj, what_to_color='cell_cycle')
 
 .. important::
 

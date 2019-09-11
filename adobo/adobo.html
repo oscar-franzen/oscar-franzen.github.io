@@ -1164,15 +1164,15 @@ number of clusters exceed 50, then random colors will be used). Default: adobo</
 
 <dl class="function">
 <dt id="adobo.plotting.genes_per_cell">
-<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">genes_per_cell</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">barcolor='#E69F00'</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">title='expressed genes'</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.genes_per_cell" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">genes_per_cell</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">barcolor='#E69F00'</em>, <em class="sig-param">title='expressed genes'</em>, <em class="sig-param">filename=None</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.genes_per_cell" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a bar plot of number of expressed genes per cell</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object</p></li>
-<li><p><strong>barcolor</strong> (<cite>str</cite>, optional) – Color of the bars (default: “#E69F00”).</p></li>
-<li><p><strong>filename</strong> (<cite>str</cite>, optional) – Write plot to file.</p></li>
-<li><p><strong>title</strong> (<cite>str</cite>, optional) – Title of the plot (default: “sequencing reads”).</p></li>
+<li><p><strong>barcolor</strong> (<cite>str</cite>) – Color of the bars. Default: “#E69F00”</p></li>
+<li><p><strong>title</strong> (<cite>str</cite>) – Title of the plot. Default: “sequencing reads”</p></li>
+<li><p><strong>filename</strong> (<cite>str</cite>, optional) – Write plot to file instead of showing it on the screen.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1216,15 +1216,15 @@ number of clusters exceed 50, then random colors will be used). Default: adobo</
 
 <dl class="function">
 <dt id="adobo.plotting.reads_per_cell">
-<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">reads_per_cell</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">barcolor='#E69F00'</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">title='sequencing reads'</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.reads_per_cell" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">reads_per_cell</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">barcolor='#E69F00'</em>, <em class="sig-param">title='sequencing reads'</em>, <em class="sig-param">filename=None</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.reads_per_cell" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a bar plot of read counts per cell</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object.</p></li>
-<li><p><strong>barcolor</strong> (<cite>str</cite>, optional) – Color of the bars (default: “#E69F00”).</p></li>
-<li><p><strong>filename</strong> (<cite>str</cite>, optional) – Write plot to file.</p></li>
-<li><p><strong>title</strong> (<cite>str</cite>, optional) – Title of the plot (default: “sequencing reads”).</p></li>
+<li><p><strong>barcolor</strong> (<cite>str</cite>) – Color of the bars. Default: “#E69F00”</p></li>
+<li><p><strong>title</strong> (<cite>str</cite>) – Title of the plot. Default: “sequencing reads”</p></li>
+<li><p><strong>filename</strong> (<cite>str</cite>, optional) – Write plot to file instead of showing it on the screen.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1306,13 +1306,15 @@ object.</p>
 
 <dl class="function">
 <dt id="adobo.preproc.find_mitochondrial_genes">
-<code class="sig-prename descclassname">adobo.preproc.</code><code class="sig-name descname">find_mitochondrial_genes</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">mito_pattern='^mt-'</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.preproc.find_mitochondrial_genes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Find mitochondrial genes</p>
+<code class="sig-prename descclassname">adobo.preproc.</code><code class="sig-name descname">find_mitochondrial_genes</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">mito_pattern='^mt-'</em>, <em class="sig-param">genes=None</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.preproc.find_mitochondrial_genes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find mitochondrial genes and adds percent mitochondrial expression of total
+expression to the cellular meta data</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object.</p></li>
 <li><p><strong>mito_pattern</strong> (<cite>str</cite>) – A regular expression matching mitochondrial gene symbols. Default: “^mt-“</p></li>
+<li><p><strong>genes</strong> (<cite>list</cite>, optional) – Instead of using <cite>mito_pattern</cite>, specify a <cite>list</cite> of genes that are mitochondrial.</p></li>
 <li><p><strong>verbose</strong> (<em>boolean</em>) – Be verbose or not. Default: False</p></li>
 </ul>
 </dd>
@@ -1338,26 +1340,6 @@ object.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>Nothing. Modifies the passed object.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="adobo.preproc.set_mitochondrial_genes">
-<code class="sig-prename descclassname">adobo.preproc.</code><code class="sig-name descname">set_mitochondrial_genes</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">genes</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.preproc.set_mitochondrial_genes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set mitochondrial genes</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object.</p></li>
-<li><p><strong>genes</strong> (<cite>list</cite>) – A list of mitochondrial genes.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Number of genes found.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>int</p>
 </dd>
 </dl>
 </dd></dl>
