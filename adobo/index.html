@@ -122,6 +122,10 @@ $ <span class="c1"># below installs adobo without package dependencies (not reco
 $ pip3 install --no-deps .
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Support for <code class="docutils literal notranslate"><span class="pre">PyPI</span></code> is on the TODO list.</p>
+</div>
 <p>After installing it, you can now delete the cloned repository and test that everything works by firing up your Python 3 interpreter:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python3
 </pre></div>
@@ -130,10 +134,6 @@ $ pip3 install --no-deps .
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">adobo</span> <span class="k">as</span> <span class="nn">ad</span>
 <span class="go">adobo version 0.1. Documentation: https://oscar-franzen.github.io/adobo/</span>
 </pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Support for <code class="docutils literal notranslate"><span class="pre">PyPI</span></code> is on the TODO list.</p>
 </div>
 </div>
 <div class="section" id="package-organization">
@@ -229,7 +229,7 @@ $ pip3 install --no-deps .
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">exp</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;GSE95315.tab&#39;</span><span class="p">,</span> <span class="n">column_id</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;mouse brain data&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Here we use data from <a class="reference external" href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE95315">GEO95315</a>, which can be <a class="reference external" href="https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE95315&amp;format=file&amp;file=GSE95315%5F10X%5Fexpression%5Fdata%2Etab%2Egz">downloaded here</a>.</p>
+<p>The raw read count matrix is stored in an the attribute <code class="docutils literal notranslate"><span class="pre">exp_mat</span></code> inside the dataset object (<a class="reference internal" href="adobo.html#adobo.data.dataset.exp_mat" title="adobo.data.dataset.exp_mat"><code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset.exp_mat</span></code></a>). Here we use data from <a class="reference external" href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE95315">GEO95315</a>, which can be <a class="reference external" href="https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE95315&amp;format=file&amp;file=GSE95315%5F10X%5Fexpression%5Fdata%2Etab%2Egz">downloaded here</a>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">desc</span></code> can be used to specify a string describing the data, but it can also be left empty.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -300,11 +300,12 @@ $ pip3 install --no-deps .
 </div>
 <div class="section" id="adding-meta-data">
 <h4>Adding meta data<a class="headerlink" href="#adding-meta-data" title="Permalink to this headline">¶</a></h4>
-<p>New meta data such as experimental factors can easily be added to your adobo object by calling <a class="reference internal" href="adobo.html#adobo.data.dataset.add_meta_data" title="adobo.data.dataset.add_meta_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.data.dataset.add_meta_data()</span></code></a>, which takes three parameters:</p>
+<p>Meta data such as experimental categories (e.g. tissue, time points, batches, etc) can easily be added to your adobo object by calling <a class="reference internal" href="adobo.html#adobo.data.dataset.add_meta_data" title="adobo.data.dataset.add_meta_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.data.dataset.add_meta_data()</span></code></a>, which takes four parameters:</p>
 <ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">axis</span></code> can be either ‘cells’ or ‘genes’</p></li>
-<li><p>the <code class="docutils literal notranslate"><span class="pre">key</span></code> is used as variable name</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">data</span></code> should be a <code class="docutils literal notranslate"><span class="pre">list</span></code> containing your data with the same length as your dimension</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">axis</span></code> can be either ‘cells’ or ‘genes’ depending on whether your added data represent data for cells or genes.</p></li>
+<li><p>the <code class="docutils literal notranslate"><span class="pre">key</span></code> is used as variable name, choose something that makes sense, such as “tissue” for different tissues.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data</span></code> should be a <code class="docutils literal notranslate"><span class="pre">list</span></code> or a numpy array containing your data with the same length as your <code class="docutils literal notranslate"><span class="pre">axis</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">type_</span></code> (note, this one has a trailing underscore) indicates if the data are categorical or continuous (defaults to categorical).</p></li>
 </ol>
 </div>
 <div class="section" id="getting-detailed-help">
@@ -329,7 +330,7 @@ $ pip3 install --no-deps .
 </div>
 <div class="section" id="data-examination">
 <h4>Data examination<a class="headerlink" href="#data-examination" title="Permalink to this headline">¶</a></h4>
-<p>It’s can be useful to examine number of reads per cell in a bar plot format:</p>
+<p>It’s can be useful to examine number of reads per cell in a bar plot because it helps to identify extreme outliers that may represent artifacts (unusually low number of reads per cell or unusually high number of reads per cell):</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">reads_per_cell</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -501,7 +502,7 @@ $ pip3 install --no-deps .
 </div>
 <div class="section" id="t-distributed-stochastic-neighbor-embedding-t-sne">
 <h4>t-Distributed Stochastic Neighbor Embedding (t-SNE)<a class="headerlink" href="#t-distributed-stochastic-neighbor-embedding-t-sne" title="Permalink to this headline">¶</a></h4>
-<p>t-SNE <a class="reference internal" href="#vandermaaten2008" id="id15">[14]</a> is the <em>de facto</em> dimensional reduction technique used to visualize scRNA-seq data <a class="reference internal" href="#kobak2019" id="id16">[15]</a>. adobo uses the scikit-learn implementation <a class="reference internal" href="#pedregosa2011" id="id17">[16]</a>. Any additional parameters will be passed into <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.manifold.TSNE</span></code>. By default adobo runs t-SNE on the PCA decomposition:</p>
+<p>t-SNE <a class="reference internal" href="#vandermaaten2008" id="id15">[14]</a> is a non-linear dimensional reduction technique that optimizes for local distance. It is the <em>de facto</em> dimensional reduction technique used to visualize scRNA-seq data <a class="reference internal" href="#kobak2019" id="id16">[15]</a>. adobo uses the scikit-learn implementation <a class="reference internal" href="#pedregosa2011" id="id17">[16]</a>. Any additional parameters will be passed into <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.manifold.TSNE</span></code>. By default adobo runs t-SNE on the PCA decomposition:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">dr</span><span class="o">.</span><span class="n">tsne</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">perplexity</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>

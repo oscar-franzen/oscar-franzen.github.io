@@ -26,6 +26,10 @@ The recommended way to install adobo is to first clone the GitHub repository and
    $ # below installs adobo without package dependencies (not recommended)
    $ pip3 install --no-deps .
 
+.. note::
+
+   Support for ``PyPI`` is on the TODO list.
+
 After installing it, you can now delete the cloned repository and test that everything works by firing up your Python 3 interpreter:
 
 .. code-block:: bash
@@ -36,10 +40,6 @@ Try importing the library and it should greet you with the current version and t
 
 >>> import adobo as ad
 adobo version 0.1. Documentation: https://oscar-franzen.github.io/adobo/
-
-.. note::
-
-   Support for ``PyPI`` is on the TODO list.
 
 Package organization
 ====================
@@ -110,7 +110,7 @@ First we need to create a new adobo object, which is an instance of the class :p
 
    exp = ad.IO.load_from_file('GSE95315.tab', column_id='auto', desc='mouse brain data')
 
-Here we use data from `GEO95315 <https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE95315>`_, which can be `downloaded here <https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE95315&format=file&file=GSE95315%5F10X%5Fexpression%5Fdata%2Etab%2Egz>`_.
+The raw read count matrix is stored in an the attribute ``exp_mat`` inside the dataset object (:py:attr:`adobo.data.dataset.exp_mat`). Here we use data from `GEO95315 <https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE95315>`_, which can be `downloaded here <https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE95315&format=file&file=GSE95315%5F10X%5Fexpression%5Fdata%2Etab%2Egz>`_.
 
 ``desc`` can be used to specify a string describing the data, but it can also be left empty.
 
@@ -183,11 +183,12 @@ ERCC-00171                   32         0.04000     OK          False   True  Fa
 
 Adding meta data
 ^^^^^^^^^^^^^^^^
-New meta data such as experimental factors can easily be added to your adobo object by calling :py:func:`adobo.data.dataset.add_meta_data`, which takes three parameters:
+Meta data such as experimental categories (e.g. tissue, time points, batches, etc) can easily be added to your adobo object by calling :py:func:`adobo.data.dataset.add_meta_data`, which takes four parameters:
 
-1. ``axis`` can be either 'cells' or 'genes'
-2. the ``key`` is used as variable name
-3. ``data`` should be a ``list`` containing your data with the same length as your dimension
+1. ``axis`` can be either 'cells' or 'genes' depending on whether your added data represent data for cells or genes.
+2. the ``key`` is used as variable name, choose something that makes sense, such as "tissue" for different tissues.
+3. ``data`` should be a ``list`` or a numpy array containing your data with the same length as your ``axis``.
+4. ``type_`` (note, this one has a trailing underscore) indicates if the data are categorical or continuous (defaults to categorical).
 
 Getting detailed help
 ^^^^^^^^^^^^^^^^^^^^^
@@ -214,7 +215,7 @@ Your gene expression data is stored in the attribute ``exp.exp_mat``, and after 
 
 Data examination
 ^^^^^^^^^^^^^^^^
-It's can be useful to examine number of reads per cell in a bar plot format:
+It's can be useful to examine number of reads per cell in a bar plot because it helps to identify extreme outliers that may represent artifacts (unusually low number of reads per cell or unusually high number of reads per cell):
 
 .. code-block:: python3
 
@@ -429,7 +430,7 @@ We can also write the output to a file instead of showing it on the screen:
 
 t-Distributed Stochastic Neighbor Embedding (t-SNE)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-t-SNE :cite:`vanDerMaaten2008` is the *de facto* dimensional reduction technique used to visualize scRNA-seq data :cite:`Kobak2019`. adobo uses the scikit-learn implementation :cite:`Pedregosa2011`. Any additional parameters will be passed into :py:class:`sklearn.manifold.TSNE`. By default adobo runs t-SNE on the PCA decomposition:
+t-SNE :cite:`vanDerMaaten2008` is a non-linear dimensional reduction technique that optimizes for local distance. It is the *de facto* dimensional reduction technique used to visualize scRNA-seq data :cite:`Kobak2019`. adobo uses the scikit-learn implementation :cite:`Pedregosa2011`. Any additional parameters will be passed into :py:class:`sklearn.manifold.TSNE`. By default adobo runs t-SNE on the PCA decomposition:
 
 .. code-block:: python3
 

@@ -448,17 +448,21 @@ components.</p>
 
 <dl class="method">
 <dt id="adobo.data.dataset.add_meta_data">
-<code class="sig-name descname">add_meta_data</code><span class="sig-paren">(</span><em class="sig-param">axis</em>, <em class="sig-param">key</em>, <em class="sig-param">data</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.dataset.add_meta_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_meta_data</code><span class="sig-paren">(</span><em class="sig-param">axis</em>, <em class="sig-param">key</em>, <em class="sig-param">data</em>, <em class="sig-param">type_='cat'</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.dataset.add_meta_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add meta data to the adobo object</p>
 <p class="rubric">Notes</p>
 <p>Meta data can be added to cells or genes.</p>
+<p>The parameter name ‘<a href="#id11"><span class="problematic" id="id12">type_</span></a>’ has an underscore to avoid conflict with Python’s
+internal type keyword.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>axis</strong> (<cite>{‘cells’, ‘genes’}</cite>) – Should the data be added to cells or genes?</p></li>
+<li><p><strong>axis</strong> (<cite>{‘cells’, ‘genes’}</cite>) – Are the data for cells or genes?</p></li>
 <li><p><strong>key</strong> (<cite>str</cite>) – The variable name for your data. No whitespaces and special characters.</p></li>
-<li><p><strong>data</strong> (<cite>list</cite>) – A list of data to add. The length must match the length of cells or genes.
-Data can be continuous or categorical.</p></li>
+<li><p><strong>data</strong> (<cite>numpy.ndarray</cite> or <cite>list</cite>) – Data to add. The length must match the length of cells or genes. Data can be
+continuous or categorical and this must be specified with <cite>type_</cite>.</p></li>
+<li><p><strong>type_</strong> (<cite>{‘cat’, ‘cont’}</cite>) – Specify if data are categorical or continuous. <cite>cat</cite> means categorical data
+and <cite>cont</cite> means continuous data. Default: ‘cat’</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1110,7 +1114,7 @@ model with regularized parameters</p>
 <p>Functions for plotting scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.plotting.cell_viz">
-<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">cell_viz</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">reduction='tsne'</em>, <em class="sig-param">what_to_color='clusters'</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">marker_size=0.8</em>, <em class="sig-param">font_size=8</em>, <em class="sig-param">colors='adobo'</em>, <em class="sig-param">title=''</em>, <em class="sig-param">legend=True</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.cell_viz" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">cell_viz</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">reduction='tsne'</em>, <em class="sig-param">what_to_color='clusters'</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">marker_size=0.8</em>, <em class="sig-param">font_size=8</em>, <em class="sig-param">colors='adobo'</em>, <em class="sig-param">title=None</em>, <em class="sig-param">legend=True</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.cell_viz" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a 2d scatter plot from an embedding</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1126,7 +1130,7 @@ colored. ‘nothing’ indicates not to color anything. Default: ‘clusters’<
 length as the number of factors. If colors is set to “adobo”, then colors are
 retrieved from <code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo._constants.CLUSTER_COLORS_DEFAULT</span></code> (but if the
 number of clusters exceed 50, then random colors will be used). Default: adobo</p></li>
-<li><p><strong>title</strong> (<cite>str</cite>) – Title of the plot.</p></li>
+<li><p><strong>title</strong> (<cite>str</cite>) – Title of the plot. By default the title is set to the reduction technique.</p></li>
 <li><p><strong>legend</strong> (<cite>bool</cite>) – Add legend or not. Default: True</p></li>
 <li><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose or not. Default: True</p></li>
 </ul>
