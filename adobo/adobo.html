@@ -209,6 +209,7 @@ probability scores.</p>
 Buettner et al.</p>
 <p class="rubric">Notes</p>
 <p>Genes are selected from <a class="reference external" href="GO:0007049">GO:0007049</a></p>
+<p>Does only need to be trained once; the second time it is serialized from disk.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose or not. Default: False</p>
@@ -459,7 +460,10 @@ internal type keyword.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>axis</strong> (<cite>{‘cells’, ‘genes’}</cite>) – Are the data for cells or genes?</p></li>
 <li><p><strong>key</strong> (<cite>str</cite>) – The variable name for your data. No whitespaces and special characters.</p></li>
-<li><p><strong>data</strong> (<cite>numpy.ndarray</cite> or <cite>list</cite>) – Data to add. The length must match the length of cells or genes. Data can be
+<li><p><strong>data</strong> (<cite>numpy.ndarray</cite>, <cite>list</cite> or <cite>pandas.Series</cite>) – Data to add. Can be a basic Python <cite>list</cite>, a numpy array or a Pandas Series
+with an index. If the data type is numpy array or list, then the length must
+match the length of cells or genes. If the data type is a Pandas series, then
+the length does not need to match as long as the index is there. Data can be
 continuous or categorical and this must be specified with <cite>type_</cite>.</p></li>
 <li><p><strong>type_</strong> (<cite>{‘cat’, ‘cont’}</cite>) – Specify if data are categorical or continuous. <cite>cat</cite> means categorical data
 and <cite>cont</cite> means continuous data. Default: ‘cat’</p></li>
@@ -485,6 +489,20 @@ it.</p>
 <dt id="adobo.data.dataset.get_assay">
 <code class="sig-name descname">get_assay</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">lang=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.dataset.get_assay" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get info if a function has been applied.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adobo.data.dataset.is_normalized">
+<code class="sig-name descname">is_normalized</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.dataset.is_normalized" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if normalized data can be found</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if it is normalized otherwise False.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><cite>bool</cite></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -530,7 +548,7 @@ filename was already specified when the object was created with the
 <p>Functions for dimensional reduction.</p>
 <dl class="function">
 <dt id="adobo.dr.irlb">
-<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">irlb</code><span class="sig-paren">(</span><em class="sig-param">data_norm</em>, <em class="sig-param">ncomp=75</em>, <em class="sig-param">seed=42</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.irlb" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">irlb</code><span class="sig-paren">(</span><em class="sig-param">data_norm</em>, <em class="sig-param">ncomp=75</em>, <em class="sig-param">seed=None</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.irlb" title="Permalink to this definition">¶</a></dt>
 <dd><p>Truncated SVD by implicitly restarted Lanczos bidiagonalization</p>
 <p class="rubric">Notes</p>
 <p>The augmented implicitly restarted Lanczos bidiagonalization algorithm (IRLBA) finds
@@ -540,8 +558,8 @@ method of Baglama and Reichel.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data_norm</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame containing normalized gene expression data.</p></li>
-<li><p><strong>ncomp</strong> (<cite>int</cite>) – Number of components to return, optional.</p></li>
-<li><p><strong>seed</strong> (<cite>int</cite>) – For reproducibility, optional.</p></li>
+<li><p><strong>ncomp</strong> (<cite>int</cite>) – Number of components to return. Default: 75</p></li>
+<li><p><strong>seed</strong> (<cite>int</cite>) – For reproducibility. Default: None</p></li>
 </ul>
 </dd>
 </dl>
@@ -562,7 +580,7 @@ SIAM Journal on Scientific Computing</p>
 
 <dl class="function">
 <dt id="adobo.dr.pca">
-<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">pca</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">method='irlb'</em>, <em class="sig-param">ncomp=75</em>, <em class="sig-param">allgenes=False</em>, <em class="sig-param">scale=True</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">seed=42</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.pca" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">pca</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">method='irlb'</em>, <em class="sig-param">ncomp=75</em>, <em class="sig-param">allgenes=False</em>, <em class="sig-param">scale=True</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">seed=None</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.pca" title="Permalink to this definition">¶</a></dt>
 <dd><p>Principal Component Analysis</p>
 <p class="rubric">Notes</p>
 <p>A wrapper function around the individual normalization functions, which can also be
@@ -578,7 +596,7 @@ standard deviation).</p>
 <li><p><strong>allgenes</strong> (<cite>bool</cite>) – Use all genes instead of only HVG. Default: False</p></li>
 <li><p><strong>scale</strong> (<cite>bool</cite>) – Scales input data prior to PCA. Default: True</p></li>
 <li><p><strong>verbose</strong> (<cite>bool</cite>) – Be noisy or not. Default: False</p></li>
-<li><p><strong>seed</strong> (<cite>int</cite>) – For reproducibility (only irlb). Default: 42</p></li>
+<li><p><strong>seed</strong> (<cite>int</cite>) – For reproducibility (only irlb). Default: None</p></li>
 </ul>
 </dd>
 </dl>
@@ -606,7 +624,7 @@ standard deviation).</p>
 <li><p><strong>data_norm</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame containing normalized gene expression data. Preferrably this
 should be a subset of the normalized gene expression matrix containing highly
 variable genes.</p></li>
-<li><p><strong>ncomp</strong> (<cite>int</cite>) – Number of components to return, optional.</p></li>
+<li><p><strong>ncomp</strong> (<cite>int</cite>) – Number of components to return. Default: 75</p></li>
 </ul>
 </dd>
 </dl>
@@ -625,7 +643,7 @@ variable genes.</p></li>
 
 <dl class="function">
 <dt id="adobo.dr.tsne">
-<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">tsne</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">target='irlb'</em>, <em class="sig-param">perplexity=30</em>, <em class="sig-param">n_iter=2000</em>, <em class="sig-param">seed=42</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.tsne" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">tsne</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">target='irlb'</em>, <em class="sig-param">perplexity=30</em>, <em class="sig-param">n_iter=2000</em>, <em class="sig-param">seed=None</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.tsne" title="Permalink to this definition">¶</a></dt>
 <dd><p>Projects data to a two dimensional space using the tSNE algorithm.</p>
 <p class="rubric">Notes</p>
 <p>It is recommended to perform this function on data in PCA space. This function calls
@@ -640,7 +658,7 @@ is used in other manifold learning algorithms. Larger datasets usually require
 a larger perplexity. Consider selecting a value between 5 and 50. Different
 values can result in significanlty different results. Default: 30</p></li>
 <li><p><strong>n_iter</strong> (<cite>int</cite>) – Number of iterations. Default: 2000</p></li>
-<li><p><strong>seed</strong> (<cite>int</cite>) – For reproducibility. Default: 42</p></li>
+<li><p><strong>seed</strong> (<cite>int</cite>) – For reproducibility. Default: None</p></li>
 <li><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose. Default: False</p></li>
 </ul>
 </dd>
@@ -661,7 +679,7 @@ Using t-SNE. Journal of Machine Learning Research 9:2579-2605, 2008.</p>
 
 <dl class="function">
 <dt id="adobo.dr.umap">
-<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">umap</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">target='irlb'</em>, <em class="sig-param">seed=42</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.umap" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">umap</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">target='irlb'</em>, <em class="sig-param">seed=None</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.umap" title="Permalink to this definition">¶</a></dt>
 <dd><p>Projects data to a two dimensional space using the UMAP algorithm, a non-linear
 data reduction algorithm.</p>
 <p class="rubric">Notes</p>
@@ -681,9 +699,9 @@ other parameters that can influence the outcome, see <cite>help(umap.UMAP)</cite
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A dataset class object.</p></li>
-<li><p><strong>target</strong> (<cite>{‘irlb’, ‘svd’, ‘norm’}</cite>) – What to run tSNE on.</p></li>
-<li><p><strong>seed</strong> (<cite>int</cite>) – For reproducibility.</p></li>
-<li><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose.</p></li>
+<li><p><strong>target</strong> (<cite>{‘irlb’, ‘svd’, ‘norm’}</cite>) – What to run tSNE on. Default: ‘irlb’</p></li>
+<li><p><strong>seed</strong> (<cite>int</cite>) – For reproducibility. Default: None</p></li>
+<li><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose. Default: False</p></li>
 </ul>
 </dd>
 </dl>

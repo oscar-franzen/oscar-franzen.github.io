@@ -137,7 +137,7 @@ In many cases we already have our data in a pandas data frame, in those cases we
 
 Saving object
 ^^^^^^^^^^^^^
-Saving an object is done via the standard ``joblib`` package:
+Saving an object can be done via the ``joblib`` package (`complete joblib docs <https://joblib.readthedocs.io/en/latest/>`_; ``pickle`` can also be used if that is preferred):
 
 .. code-block:: python3
 
@@ -145,7 +145,7 @@ Saving an object is done via the standard ``joblib`` package:
    joblib.dump(exp, 'test.joblib')
    exp = joblib.load('test.joblib')
 
-Instead of writing three lines of code and always remembering the name of the output file, we can specify `output_filename` in :py:func:`adobo.IO.load_from_file` and then calling :py:func:`adobo.data.dataset.save()`.
+Instead of writing three lines of code and always remembering the name of the output file, we can specify ``output_filename`` in :py:func:`adobo.IO.load_from_file` and then calling :py:func:`adobo.data.dataset.save()`.
 
 Accessing meta data for cells and genes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -187,7 +187,7 @@ Meta data such as experimental categories (e.g. tissue, time points, batches, et
 
 1. ``axis`` can be either 'cells' or 'genes' depending on whether your added data represent data for cells or genes.
 2. the ``key`` is used as variable name, choose something that makes sense, such as "tissue" for different tissues.
-3. ``data`` should be a ``list`` or a numpy array containing your data with the same length as your ``axis``.
+3. ``data`` should be a ``list``, a numpy array or a Pandas series, containing your data with the same length as your ``axis`` (although if ``data`` is of type :py:class:`pandas.Series` the length does not need to match as long as ``index`` is set in the Series).
 4. ``type_`` (note, this one has a trailing underscore) indicates if the data are categorical or continuous (defaults to categorical).
 
 Getting detailed help
@@ -430,17 +430,21 @@ We can also write the output to a file instead of showing it on the screen:
 
 t-Distributed Stochastic Neighbor Embedding (t-SNE)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-t-SNE :cite:`vanDerMaaten2008` is a non-linear dimensional reduction technique that optimizes for local distance. It is the *de facto* dimensional reduction technique used to visualize scRNA-seq data :cite:`Kobak2019`. adobo uses the scikit-learn implementation :cite:`Pedregosa2011`. Any additional parameters will be passed into :py:class:`sklearn.manifold.TSNE`. By default adobo runs t-SNE on the PCA decomposition:
+t-SNE :cite:`vanDerMaaten2008` is a non-linear dimensional reduction technique that optimizes for local distance. It is the *de facto* dimensional reduction technique used to visualize scRNA-seq data :cite:`Kobak2019`. adobo uses the scikit-learn implementation :cite:`Pedregosa2011`. The most important parameter is ``perplexity`` (related to number of nearest neighbors) and it can greatly influence how your plot looks like. Suggested values for ``perplexity`` lies between 5 and 50, and it is recommened to try higher values for datasets with more cells. Additional parameters (such as early_exaggeration, learning_rate, n_iter, and n_iter_without_progress) do not usually need to be specified but will be passed into :py:class:`sklearn.manifold.TSNE`. By default adobo runs t-SNE on the PCA decomposition:
 
 .. code-block:: python3
 
    ad.dr.tsne(exp, perplexity=10)
 
-Run it on your entire normalized expression matrix (not recommended):
+The recommended approach is to run t-SNE on PCA components, but it can sometimes be informative to run it on your entire normalized expression matrix (this will take significantly longer time):
 
 .. code-block:: python3
 
    ad.dr.tsne(exp, target='norm', verbose=True)
+
+.. note::
+
+   t-SNE is non-deterministic. Different runs can give different results. To get a more reproducible t-SNE plot consider setting the ``seed`` parameter to any random integer, which will generate reproducible random numbers.
 
 Uniform Manifold Approximation and Projection (UMAP)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -528,7 +532,7 @@ Classification is stored in the attribute :py:attr:`adobo.data.dataset.meta_cell
 
 .. important::
 
-   Prediction is only valid on mouse data since the classifier is trained on mouse data; gene identifiers will only match mouse. Make sure your gene expression contains Ensembl gene identifiers.
+   Prediction is only valid on mouse data since the classifier is trained on mouse data. Make sure your gene expression contains Ensembl gene identifiers in one of the following two formats: ENSEMBL; GENESYMBOL_ENSEMBL.
 
 Indices and tables
 ==================

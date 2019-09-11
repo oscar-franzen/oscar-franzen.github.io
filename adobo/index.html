@@ -254,13 +254,13 @@ $ pip3 install --no-deps .
 </div>
 <div class="section" id="saving-object">
 <h4>Saving object<a class="headerlink" href="#saving-object" title="Permalink to this headline">¶</a></h4>
-<p>Saving an object is done via the standard <code class="docutils literal notranslate"><span class="pre">joblib</span></code> package:</p>
+<p>Saving an object can be done via the <code class="docutils literal notranslate"><span class="pre">joblib</span></code> package (<a class="reference external" href="https://joblib.readthedocs.io/en/latest/">complete joblib docs</a>; <code class="docutils literal notranslate"><span class="pre">pickle</span></code> can also be used if that is preferred):</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">joblib</span>
 <span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="s1">&#39;test.joblib&#39;</span><span class="p">)</span>
 <span class="n">exp</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;test.joblib&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Instead of writing three lines of code and always remembering the name of the output file, we can specify <cite>output_filename</cite> in <a class="reference internal" href="adobo.html#adobo.IO.load_from_file" title="adobo.IO.load_from_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.IO.load_from_file()</span></code></a> and then calling <a class="reference internal" href="adobo.html#adobo.data.dataset.save" title="adobo.data.dataset.save"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.data.dataset.save()</span></code></a>.</p>
+<p>Instead of writing three lines of code and always remembering the name of the output file, we can specify <code class="docutils literal notranslate"><span class="pre">output_filename</span></code> in <a class="reference internal" href="adobo.html#adobo.IO.load_from_file" title="adobo.IO.load_from_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.IO.load_from_file()</span></code></a> and then calling <a class="reference internal" href="adobo.html#adobo.data.dataset.save" title="adobo.data.dataset.save"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.data.dataset.save()</span></code></a>.</p>
 </div>
 <div class="section" id="accessing-meta-data-for-cells-and-genes">
 <h4>Accessing meta data for cells and genes<a class="headerlink" href="#accessing-meta-data-for-cells-and-genes" title="Permalink to this headline">¶</a></h4>
@@ -304,7 +304,7 @@ $ pip3 install --no-deps .
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">axis</span></code> can be either ‘cells’ or ‘genes’ depending on whether your added data represent data for cells or genes.</p></li>
 <li><p>the <code class="docutils literal notranslate"><span class="pre">key</span></code> is used as variable name, choose something that makes sense, such as “tissue” for different tissues.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">data</span></code> should be a <code class="docutils literal notranslate"><span class="pre">list</span></code> or a numpy array containing your data with the same length as your <code class="docutils literal notranslate"><span class="pre">axis</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data</span></code> should be a <code class="docutils literal notranslate"><span class="pre">list</span></code>, a numpy array or a Pandas series, containing your data with the same length as your <code class="docutils literal notranslate"><span class="pre">axis</span></code> (although if <code class="docutils literal notranslate"><span class="pre">data</span></code> is of type <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code> the length does not need to match as long as <code class="docutils literal notranslate"><span class="pre">index</span></code> is set in the Series).</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">type_</span></code> (note, this one has a trailing underscore) indicates if the data are categorical or continuous (defaults to categorical).</p></li>
 </ol>
 </div>
@@ -502,13 +502,17 @@ $ pip3 install --no-deps .
 </div>
 <div class="section" id="t-distributed-stochastic-neighbor-embedding-t-sne">
 <h4>t-Distributed Stochastic Neighbor Embedding (t-SNE)<a class="headerlink" href="#t-distributed-stochastic-neighbor-embedding-t-sne" title="Permalink to this headline">¶</a></h4>
-<p>t-SNE <a class="reference internal" href="#vandermaaten2008" id="id15">[14]</a> is a non-linear dimensional reduction technique that optimizes for local distance. It is the <em>de facto</em> dimensional reduction technique used to visualize scRNA-seq data <a class="reference internal" href="#kobak2019" id="id16">[15]</a>. adobo uses the scikit-learn implementation <a class="reference internal" href="#pedregosa2011" id="id17">[16]</a>. Any additional parameters will be passed into <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.manifold.TSNE</span></code>. By default adobo runs t-SNE on the PCA decomposition:</p>
+<p>t-SNE <a class="reference internal" href="#vandermaaten2008" id="id15">[14]</a> is a non-linear dimensional reduction technique that optimizes for local distance. It is the <em>de facto</em> dimensional reduction technique used to visualize scRNA-seq data <a class="reference internal" href="#kobak2019" id="id16">[15]</a>. adobo uses the scikit-learn implementation <a class="reference internal" href="#pedregosa2011" id="id17">[16]</a>. The most important parameter is <code class="docutils literal notranslate"><span class="pre">perplexity</span></code> (related to number of nearest neighbors) and it can greatly influence how your plot looks like. Suggested values for <code class="docutils literal notranslate"><span class="pre">perplexity</span></code> lies between 5 and 50, and it is recommened to try higher values for datasets with more cells. Additional parameters (such as early_exaggeration, learning_rate, n_iter, and n_iter_without_progress) do not usually need to be specified but will be passed into <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.manifold.TSNE</span></code>. By default adobo runs t-SNE on the PCA decomposition:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">dr</span><span class="o">.</span><span class="n">tsne</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">perplexity</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Run it on your entire normalized expression matrix (not recommended):</p>
+<p>The recommended approach is to run t-SNE on PCA components, but it can sometimes be informative to run it on your entire normalized expression matrix (this will take significantly longer time):</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">dr</span><span class="o">.</span><span class="n">tsne</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;norm&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>t-SNE is non-deterministic. Different runs can give different results. To get a more reproducible t-SNE plot consider setting the <code class="docutils literal notranslate"><span class="pre">seed</span></code> parameter to any random integer, which will generate reproducible random numbers.</p>
 </div>
 </div>
 <div class="section" id="uniform-manifold-approximation-and-projection-umap">
@@ -582,7 +586,7 @@ $ pip3 install --no-deps .
 <p>Classification is stored in the attribute <a class="reference internal" href="adobo.html#adobo.data.dataset.meta_cells" title="adobo.data.dataset.meta_cells"><code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset.meta_cells</span></code></a> in a column <cite>cell_cycle</cite>. The current design does not support prediction scores, although this can easily be changed by changing the <a class="reference external" href="https://scikit-learn.org/stable/modules/sgd.html">loss parameter</a>.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>Prediction is only valid on mouse data since the classifier is trained on mouse data; gene identifiers will only match mouse. Make sure your gene expression contains Ensembl gene identifiers.</p>
+<p>Prediction is only valid on mouse data since the classifier is trained on mouse data. Make sure your gene expression contains Ensembl gene identifiers in one of the following two formats: ENSEMBL; GENESYMBOL_ENSEMBL.</p>
 </div>
 </div>
 <div class="section" id="indices-and-tables">
