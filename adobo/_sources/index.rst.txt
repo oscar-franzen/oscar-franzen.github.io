@@ -5,13 +5,13 @@ What adobo is
 *************
 adobo is an analysis framework for single cell RNA sequencing data (scRNA-seq) and enables exploratory analysis through a set of Python modules. adobo can be used to compose scripts, used in interactive workflows and much more. The goal of adobo is to consolidate single cell computational analysis methods in the Python programming language.
 
-Contact
-*******
-adobo is developed by Oscar Franzén. Limited support is available over e-mail: p.oscar.franzen@gmail.com or oscar.franzen@ki.se
+Contact developer and maintainer
+********************************
+adobo is developed by Oscar Franzén at Karolinska Institutet. Limited support is available over e-mail: p.oscar.franzen@gmail.com or oscar.franzen@ki.se
 
 Notes on this tutorial
 ======================
-Some basic knowledge of Python, `NumPy <https://en.wikipedia.org/wiki/NumPy>`_ and `pandas <https://en.wikipedia.org/wiki/Pandas_(software)>`_ and their commonly used data structures is assumed. Furthermore, most functions have parameters with sensible defaults so that many parameters don't need to be specified upon calling a specific function, but for clarity the most important parameters are shown in the examples below. In the below examples we refer to the adobo package as 'ad'.
+Some basic knowledge of Python, `NumPy <https://en.wikipedia.org/wiki/NumPy>`_ and `pandas <https://en.wikipedia.org/wiki/Pandas_(software)>`_ and their commonly used data structures is assumed. Furthermore, most of adobo's functions have parameters with sensible defaults so that many parameters don't need to be specified upon calling a specific function, but for clarity the most important parameters are shown in the examples below. In the below examples we refer to the adobo package as 'ad'.
 
 Installation
 ============
@@ -441,7 +441,7 @@ t-SNE :cite:`vanDerMaaten2008` is a non-linear dimensional reduction technique t
 
 .. code-block:: python3
 
-   ad.dr.tsne(exp, perplexity=10)
+   ad.dr.tsne(exp, perplexity=30)
 
 The recommended approach is to run t-SNE on PCA components, but it can sometimes be informative to run it on your entire normalized expression matrix (this will take significantly longer time):
 

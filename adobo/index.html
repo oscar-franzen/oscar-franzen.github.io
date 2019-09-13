@@ -33,7 +33,7 @@
   <ul>
 <li><a class="reference internal" href="#">Welcome to adobo’s documentation!</a><ul>
 <li><a class="reference internal" href="#what-adobo-is">What adobo is</a></li>
-<li><a class="reference internal" href="#contact">Contact</a><ul>
+<li><a class="reference internal" href="#contact-developer-and-maintainer">Contact developer and maintainer</a><ul>
 <li><a class="reference internal" href="#notes-on-this-tutorial">Notes on this tutorial</a></li>
 <li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#package-organization">Package organization</a><ul>
@@ -107,12 +107,12 @@
 <h2>What adobo is<a class="headerlink" href="#what-adobo-is" title="Permalink to this headline">¶</a></h2>
 <p>adobo is an analysis framework for single cell RNA sequencing data (scRNA-seq) and enables exploratory analysis through a set of Python modules. adobo can be used to compose scripts, used in interactive workflows and much more. The goal of adobo is to consolidate single cell computational analysis methods in the Python programming language.</p>
 </div>
-<div class="section" id="contact">
-<h2>Contact<a class="headerlink" href="#contact" title="Permalink to this headline">¶</a></h2>
-<p>adobo is developed by Oscar Franzén. Limited support is available over e-mail: <a class="reference external" href="mailto:p&#46;oscar&#46;franzen&#37;&#52;&#48;gmail&#46;com">p<span>&#46;</span>oscar<span>&#46;</span>franzen<span>&#64;</span>gmail<span>&#46;</span>com</a> or <a class="reference external" href="mailto:oscar&#46;franzen&#37;&#52;&#48;ki&#46;se">oscar<span>&#46;</span>franzen<span>&#64;</span>ki<span>&#46;</span>se</a></p>
+<div class="section" id="contact-developer-and-maintainer">
+<h2>Contact developer and maintainer<a class="headerlink" href="#contact-developer-and-maintainer" title="Permalink to this headline">¶</a></h2>
+<p>adobo is developed by Oscar Franzén at Karolinska Institutet. Limited support is available over e-mail: <a class="reference external" href="mailto:p&#46;oscar&#46;franzen&#37;&#52;&#48;gmail&#46;com">p<span>&#46;</span>oscar<span>&#46;</span>franzen<span>&#64;</span>gmail<span>&#46;</span>com</a> or <a class="reference external" href="mailto:oscar&#46;franzen&#37;&#52;&#48;ki&#46;se">oscar<span>&#46;</span>franzen<span>&#64;</span>ki<span>&#46;</span>se</a></p>
 <div class="section" id="notes-on-this-tutorial">
 <h3>Notes on this tutorial<a class="headerlink" href="#notes-on-this-tutorial" title="Permalink to this headline">¶</a></h3>
-<p>Some basic knowledge of Python, <a class="reference external" href="https://en.wikipedia.org/wiki/NumPy">NumPy</a> and <a class="reference external" href="https://en.wikipedia.org/wiki/Pandas_(software)">pandas</a> and their commonly used data structures is assumed. Furthermore, most functions have parameters with sensible defaults so that many parameters don’t need to be specified upon calling a specific function, but for clarity the most important parameters are shown in the examples below. In the below examples we refer to the adobo package as ‘ad’.</p>
+<p>Some basic knowledge of Python, <a class="reference external" href="https://en.wikipedia.org/wiki/NumPy">NumPy</a> and <a class="reference external" href="https://en.wikipedia.org/wiki/Pandas_(software)">pandas</a> and their commonly used data structures is assumed. Furthermore, most of adobo’s functions have parameters with sensible defaults so that many parameters don’t need to be specified upon calling a specific function, but for clarity the most important parameters are shown in the examples below. In the below examples we refer to the adobo package as ‘ad’.</p>
 </div>
 <div class="section" id="installation">
 <h3>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
@@ -517,7 +517,7 @@ $ pip3 install --no-deps .
 <div class="section" id="t-distributed-stochastic-neighbor-embedding-t-sne">
 <h4>t-Distributed Stochastic Neighbor Embedding (t-SNE)<a class="headerlink" href="#t-distributed-stochastic-neighbor-embedding-t-sne" title="Permalink to this headline">¶</a></h4>
 <p>t-SNE <a class="reference internal" href="#vandermaaten2008" id="id15">[14]</a> is a non-linear dimensional reduction technique that optimizes for local distance. It is the <em>de facto</em> dimensional reduction technique used to visualize scRNA-seq data <a class="reference internal" href="#kobak2019" id="id16">[15]</a>. adobo uses the scikit-learn implementation <a class="reference internal" href="#pedregosa2011" id="id17">[16]</a>. The most important parameter is <code class="docutils literal notranslate"><span class="pre">perplexity</span></code> (related to number of nearest neighbors) and it can greatly influence how your plot looks like. Suggested values for <code class="docutils literal notranslate"><span class="pre">perplexity</span></code> lies between 5 and 50, and it is recommened to try higher values for datasets with more cells. Additional parameters (such as early_exaggeration, learning_rate, n_iter, and n_iter_without_progress) do not usually need to be specified but will be passed into <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.manifold.TSNE</span></code>. By default adobo runs t-SNE on the PCA decomposition:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">dr</span><span class="o">.</span><span class="n">tsne</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">perplexity</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">dr</span><span class="o">.</span><span class="n">tsne</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">perplexity</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The recommended approach is to run t-SNE on PCA components, but it can sometimes be informative to run it on your entire normalized expression matrix (this will take significantly longer time):</p>
