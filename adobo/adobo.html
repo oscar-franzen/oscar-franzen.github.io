@@ -998,7 +998,7 @@ performs RPKM normalization and requires the <cite>gene_lengths</cite> parameter
 <cite>fqn</cite> performs a full-quantile normalization. <cite>clr</cite> performs centered log ratio
 normalization. <cite>vsn</cite> performs a variance stabilizing normalization.
 Default: standard</p></li>
-<li><p><strong>log2</strong> (<cite>bool</cite>) – Perform log2 transformation. Not applicable if method=’vsn’. Default: True</p></li>
+<li><p><strong>log2</strong> (<cite>bool</cite>) – Perform log2 transformation. Default: True</p></li>
 <li><p><strong>small_const</strong> (<cite>float</cite>) – A small constant to add to expression values to avoid log’ing genes with zero
 expression. Default: 1</p></li>
 <li><p><strong>remove_low_qual</strong> (<cite>bool</cite>) – Remove low quality cells and uninformative genes identified by prior steps.
@@ -1098,8 +1098,8 @@ then multiplying with a scaling factor.</p>
 
 <dl class="function">
 <dt id="adobo.normalize.vsn">
-<code class="sig-prename descclassname">adobo.normalize.</code><code class="sig-name descname">vsn</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">min_cells=10</em>, <em class="sig-param">gmean_eps=1</em>, <em class="sig-param">n_genes=2000</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.normalize.vsn" title="Permalink to this definition">¶</a></dt>
-<dd><p>Performs variance stabilizing normaliztion based on a negative binomial regression
+<code class="sig-prename descclassname">adobo.normalize.</code><code class="sig-name descname">vsn</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">min_cells=5</em>, <em class="sig-param">gmean_eps=1</em>, <em class="sig-param">n_genes=2000</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.normalize.vsn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs variance stabilizing normalization based on a negative binomial regression
 model with regularized parameters</p>
 <p class="rubric">Notes</p>
 <p>Adopts a subset of the functionality of <cite>vst</cite> in the R package sctransform [0].</p>
