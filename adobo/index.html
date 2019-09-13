@@ -461,7 +461,7 @@ $ pip3 install --no-deps .
 </div>
 <div class="section" id="detection-of-highly-variable-genes">
 <h3>Detection of highly variable genes<a class="headerlink" href="#detection-of-highly-variable-genes" title="Permalink to this headline">¶</a></h3>
-<p>Most algorithms used in scRNA-seq analysis performs better when performed on only a subset of measured genes <a class="reference internal" href="#yip2018" id="id7">[7]</a>; the goal of the feature selection step is usually to extract a set highly variable genes (HVG). adobo currently implements the following strategies for HVG discovery:</p>
+<p>Many algorithms used in scRNA-seq analysis perform better when used on a subset of measured genes <a class="reference internal" href="#yip2018" id="id7">[7]</a>; the goal of the feature selection step is usually to extract a set highly variable genes (HVG). adobo currently implements the following strategies for HVG discovery:</p>
 <dl class="simple">
 <dt><strong>seurat</strong></dt><dd><p>The function bins the genes according to average expression, then calculates dispersion for each bin as variance to mean ratio. Within each bin, Z-scores are calculated and returned. Z-scores are ranked and the top 1000 are selected. Input data should be normalized first. This strategy was introduced in Seruat <a class="reference internal" href="#stuart2018" id="id8">[5]</a>, it is simple yet highly effective in identifying HVG.</p>
 </dd>
@@ -485,16 +485,18 @@ $ pip3 install --no-deps .
 <p>These are techniques to reduce the number of dimensions under consideration. After running these functions, results are stored in the <code class="docutils literal notranslate"><span class="pre">dict</span></code> <a class="reference internal" href="adobo.html#adobo.data.dataset.dr" title="adobo.data.dataset.dr"><code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset.dr</span></code></a>.</p>
 <div class="section" id="principal-component-analysis-pca">
 <h4>Principal Component analysis (PCA)<a class="headerlink" href="#principal-component-analysis-pca" title="Permalink to this headline">¶</a></h4>
-<p>PCA decomposition <a class="reference internal" href="#abdi2010" id="id13">[12]</a> of single cell data is for the most part necessary prior to clustering. The reason for this is because the graph construction benefits from a strong signal from each feature. PCA computation in adobo is performed by invoking <a class="reference internal" href="adobo.html#adobo.dr.pca" title="adobo.dr.pca"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.dr.pca()</span></code></a>. Scaling of the data should always be done before PCA, and this is done by default (although it can be turned off by setting <code class="docutils literal notranslate"><span class="pre">scale=False</span></code>). Two approaches are available for PCA decomposition, and it should not matter much which one is used:</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Principal_component_analysis">PCA</a> decomposition <a class="reference internal" href="#abdi2010" id="id13">[12]</a> of single cell data is for the most part necessary prior to clustering. The reason for this is because the graph construction benefits from a strong signal from each feature. PCA computation in adobo is performed by invoking <a class="reference internal" href="adobo.html#adobo.dr.pca" title="adobo.dr.pca"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.dr.pca()</span></code></a>. Scaling of the data should always be performed before PCA, and this is done by default (although it can be turned off by setting <code class="docutils literal notranslate"><span class="pre">scale=False</span></code>). Two approaches are available for PCA decomposition, and it should not matter much which one is used:</p>
 <dl class="simple">
 <dt><strong>irlb</strong></dt><dd><p>Computed via truncated singular value decomposition by implicitly restarted Lanczos bidiagonalization <a class="reference internal" href="#baglama2005" id="id14">[13]</a>. <cite>irlb</cite> may be better at handling very large single cell datasets and it is the default.</p>
 </dd>
-<dt><strong>svd</strong></dt><dd><p>Computed via singular value decomposition. (More likely to raise <code class="docutils literal notranslate"><span class="pre">MemoryError</span></code>.)</p>
+<dt><strong>svd</strong></dt><dd><p>The standard approach to PCA. Computed via singular value decomposition (svd). (More likely to raise <code class="docutils literal notranslate"><span class="pre">MemoryError</span></code>.)</p>
 </dd>
 </dl>
 <p>Examples:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">dr</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
-<span class="n">ad</span><span class="o">.</span><span class="n">dr</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;svd&#39;</span><span class="p">)</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 75 components are returned by default, may need to be adjusted depending on your dataset</span>
+<span class="n">ad</span><span class="o">.</span><span class="n">dr</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;irlb&#39;</span><span class="p">,</span> <span class="n">ncomp</span><span class="o">=</span><span class="mi">75</span><span class="p">)</span>
+
+<span class="n">ad</span><span class="o">.</span><span class="n">dr</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;svd&#39;</span><span class="p">,</span> <span class="n">ncomp</span><span class="o">=</span><span class="mi">75</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition note">

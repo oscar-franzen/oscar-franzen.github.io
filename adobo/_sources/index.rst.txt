@@ -367,7 +367,7 @@ Has HVG discovery been performed? No
 
 Detection of highly variable genes
 ==================================
-Most algorithms used in scRNA-seq analysis performs better when performed on only a subset of measured genes :cite:`Yip2018`; the goal of the feature selection step is usually to extract a set highly variable genes (HVG). adobo currently implements the following strategies for HVG discovery:
+Many algorithms used in scRNA-seq analysis perform better when used on a subset of measured genes :cite:`Yip2018`; the goal of the feature selection step is usually to extract a set highly variable genes (HVG). adobo currently implements the following strategies for HVG discovery:
 
 **seurat** 
     The function bins the genes according to average expression, then calculates dispersion for each bin as variance to mean ratio. Within each bin, Z-scores are calculated and returned. Z-scores are ranked and the top 1000 are selected. Input data should be normalized first. This strategy was introduced in Seruat :cite:`Stuart2018`, it is simple yet highly effective in identifying HVG.
@@ -398,20 +398,22 @@ These are techniques to reduce the number of dimensions under consideration. Aft
 
 Principal Component analysis (PCA)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-PCA decomposition :cite:`Abdi2010` of single cell data is for the most part necessary prior to clustering. The reason for this is because the graph construction benefits from a strong signal from each feature. PCA computation in adobo is performed by invoking :py:func:`adobo.dr.pca()`. Scaling of the data should always be done before PCA, and this is done by default (although it can be turned off by setting ``scale=False``). Two approaches are available for PCA decomposition, and it should not matter much which one is used:
+`PCA <https://en.wikipedia.org/wiki/Principal_component_analysis>`_ decomposition :cite:`Abdi2010` of single cell data is for the most part necessary prior to clustering. The reason for this is because the graph construction benefits from a strong signal from each feature. PCA computation in adobo is performed by invoking :py:func:`adobo.dr.pca()`. Scaling of the data should always be performed before PCA, and this is done by default (although it can be turned off by setting ``scale=False``). Two approaches are available for PCA decomposition, and it should not matter much which one is used:
 
 **irlb**
     Computed via truncated singular value decomposition by implicitly restarted Lanczos bidiagonalization :cite:`Baglama2005`. `irlb` may be better at handling very large single cell datasets and it is the default.
 
 **svd**
-    Computed via singular value decomposition. (More likely to raise ``MemoryError``.)
+    The standard approach to PCA. Computed via singular value decomposition (svd). (More likely to raise ``MemoryError``.)
 
 Examples:
 
 .. code-block:: python3
 
-   ad.dr.pca(exp)
-   ad.dr.pca(exp, method='svd')
+   # 75 components are returned by default, may need to be adjusted depending on your dataset
+   ad.dr.pca(exp, method='irlb', ncomp=75)
+
+   ad.dr.pca(exp, method='svd', ncomp=75)
 
 .. note::
 
