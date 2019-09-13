@@ -5,15 +5,13 @@ What adobo is
 *************
 adobo is an analysis framework for single cell RNA sequencing data (scRNA-seq) and enables exploratory analysis through a set of Python modules. adobo can be used to compose scripts, used in interactive workflows and much more. The goal of adobo is to consolidate single cell computational analysis methods in the Python programming language.
 
-adobo is developed by Oscar Franzén (limited support is available over e-mail: p.oscar.franzen@gmail.com).
-
-.. note::
-
-   adobo is developed and tested on Python version 3.6.8; older versions may work but are untested.
+Contact
+*******
+adobo is developed by Oscar Franzén. Limited support is available over e-mail: p.oscar.franzen@gmail.com or oscar.franzen@ki.se
 
 Notes on this tutorial
 ======================
-Some basic knowledge of Python, `NumPy <https://en.wikipedia.org/wiki/NumPy>`_ and `pandas <https://en.wikipedia.org/wiki/Pandas_(software)>`_ and their commonly used data structures is assumed. Furthermore, most functions have parameters with sensible defaults so that many parameters don't need to be specified upon calling a specific function, but for clarity the most important parameters are shown in the examples below.
+Some basic knowledge of Python, `NumPy <https://en.wikipedia.org/wiki/NumPy>`_ and `pandas <https://en.wikipedia.org/wiki/Pandas_(software)>`_ and their commonly used data structures is assumed. Furthermore, most functions have parameters with sensible defaults so that many parameters don't need to be specified upon calling a specific function, but for clarity the most important parameters are shown in the examples below. In the below examples we refer to the adobo package as 'ad'.
 
 Installation
 ============
@@ -33,6 +31,10 @@ First step is to install adobo. The recommended way to install adobo is to first
 .. note::
 
    Support for ``PyPI`` is on the TODO list.
+
+.. note::
+
+   adobo is developed and tested on Python version 3.6.x; older versions may work but are untested.
 
 After installing it, you can now delete the cloned repository and test that everything works by firing up your Python 3 interpreter:
 
@@ -108,13 +110,13 @@ The first step is to load the adobo package by importing it:
 
 Loading your data from a text file
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-First we need to create a new adobo object, which is an instance of the class :py:class:`adobo.data.dataset`. This will be a new object containing your single cell data as well as meta data. The input file should be a gene expression matrix (rows as genes and cells as columns) in plain text format. Fields can be separated by any character (default is tab) and it can be changed with the ``sep`` parameter. ``sep`` can be a single character or a regular expression (default is the regular expression ``\s``). The data matrix file can have a header or not (``header=0`` indicates a header is present, otherwise use ``header=None``). If the header of your gene expression matrix contains a label for gene symbols, set ``column_id='yes'`` or simply ``column_id='auto'`` to autodetect this. :py:func:`adobo.IO.load_from_file` calls :py:func:`pandas.DataFrame.read_csv` and any additional parameters are passed into this function. The function :py:func:`adobo.IO.load_from_file` is used to load data from a raw read count matrix and the returned object is an instance of :class:`adobo.data.dataset`:
+First we need to create a new adobo object, which is an instance of the class :py:class:`adobo.data.dataset`. This will be a new object containing your single cell data, meta data and analysis results. The input file should be a gene expression matrix (rows as genes and cells as columns) in plain text format. Fields can be separated by any character and it can be changed with the ``sep`` parameter. ``sep`` can be a single character or a regular expression (default is the regular expression ``\s``). The data matrix file can have a header or not (``header=0`` indicates a header is present, otherwise use ``header=None``). If the header of your gene expression matrix contains a label for gene symbols, set ``column_id='yes'`` or simply ``column_id='auto'`` to autodetect this. :py:func:`adobo.IO.load_from_file` calls :py:func:`pandas.DataFrame.read_csv` and any additional parameters are passed on into this method. The function :py:func:`adobo.IO.load_from_file` is used to load data from a raw read counts matrix and the returned object is an instance of :class:`adobo.data.dataset`:
 
 .. code-block:: python3
 
    exp = ad.IO.load_from_file('GSE95315.tab', column_id='auto', desc='mouse brain data')
 
-The raw read count matrix is stored in an the attribute ``exp_mat`` inside the dataset object (:py:attr:`adobo.data.dataset.exp_mat`). Here we use data from `GEO95315 <https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE95315>`_, which can be `downloaded here <https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE95315&format=file&file=GSE95315%5F10X%5Fexpression%5Fdata%2Etab%2Egz>`_.
+The raw read counts matrix is stored in the attribute ``exp_mat`` inside the dataset object (:py:attr:`adobo.data.dataset.exp_mat`). Here we use data from `GEO95315 <https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE95315>`_, which can be `downloaded here <https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE95315&format=file&file=GSE95315%5F10X%5Fexpression%5Fdata%2Etab%2Egz>`_.
 
 ``desc`` can be used to specify a string describing the data, but it can also be left empty.
 
@@ -130,9 +132,22 @@ The raw read count matrix is stored in an the attribute ``exp_mat`` inside the d
 
    Many adobo functions also have a ``verbose`` parameter, which when ``True`` makes the function more informative.
 
+Loading compressed data
+^^^^^^^^^^^^^^^^^^^^^^^
+scRNA-seq is zero inflated, and therefore compress strongly. We can load the compressed data directly without having to uncompress it first; the compression format is detected automatically (gzip, bz2, zip and xz are supported). For example:
+
+.. code-block:: python3
+
+   exp = ad.IO.load_from_file('GSE95315.tab.gz', column_id='auto')
+
+Your gene expression data is stored in the attribute ``exp.exp_mat``, and after loading it is good practise to examine that the data were loaded properly:
+
+>>> exp
+53,889 genes and 384 cells were loaded
+
 Creating the data class object directly from a pandas data frame
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-In many cases we already have our data in a pandas data frame, in those cases we can just create the container object directly:
+In many cases we already have our data in a data frame, in those cases we can just create the container object directly:
 
 .. code-block:: python3
  
@@ -141,12 +156,15 @@ In many cases we already have our data in a pandas data frame, in those cases we
 
 Saving object
 ^^^^^^^^^^^^^
-Saving an object can be done via the ``joblib`` package (`complete joblib docs <https://joblib.readthedocs.io/en/latest/>`_; ``pickle`` can also be used if that is preferred):
+It is convenient not having to repeat analyses once they are finished. Saving an object to disk can be done via the ``joblib`` package (`complete joblib docs <https://joblib.readthedocs.io/en/latest/>`_; Python's standard `pickle <https://docs.python.org/3/library/pickle.html>`_ is another option):
 
 .. code-block:: python3
 
    import joblib
-   joblib.dump(exp, 'test.joblib')
+   
+   # compress=0 will turn off data compression
+   joblib.dump(exp, 'test.joblib', compress=3)
+   
    exp = joblib.load('test.joblib')
 
 Instead of writing three lines of code and always remembering the name of the output file, we can specify ``output_filename`` in :py:func:`adobo.IO.load_from_file` and then calling :py:func:`adobo.data.dataset.save()`.
@@ -191,35 +209,21 @@ Meta data such as experimental categories (e.g. tissue, time points, batches, et
 
 1. ``axis`` can be either 'cells' or 'genes' depending on whether your added data represent data for cells or genes.
 2. the ``key`` is used as variable name, choose something that makes sense, such as "tissue" for different tissues.
-3. ``data`` should be a ``list``, a numpy array or a Pandas series, containing your data with the same length as your ``axis`` (although if ``data`` is of type :py:class:`pandas.Series` the length does not need to match as long as ``index`` is set in the Series).
+3. ``data`` should be a ``list``, a numpy array or a Pandas Series, containing your data with the same length as your ``axis`` (although if ``data`` is of type :py:class:`pandas.Series` the length does not need to match as long as ``index`` is set in the Series).
 4. ``type_`` (note, this one has a trailing underscore) indicates if the data are categorical or continuous (defaults to categorical).
 
 Getting detailed help
 ^^^^^^^^^^^^^^^^^^^^^
-All functions in adobo have extensive documentation, which are accessible as docstrings on the Python interactive console as well as online:
+All functions in adobo have full documentation, which is accessible as `docstrings <https://www.python.org/dev/peps/pep-0257/>`_ on the Python interactive console as well as online:
 
 .. code-block:: python3
 
    help(ad)
    help(ad.IO.load_from_file)
 
-
-Loading compressed data
-^^^^^^^^^^^^^^^^^^^^^^^
-scRNA-seq is zero inflated, and therefore compress strongly. We can load the compressed data directly without having to uncompress it first; the compression format is detected automatically (gzip, bz2, zip and xz are supported). For example:
-
-.. code-block:: python3
-
-   exp = ad.IO.load_from_file('GSE95315.tab.gz', column_id='auto')
-
-Your gene expression data is stored in the attribute ``exp.exp_mat``, and after loading it is good practise to examine that the data were loaded properly:
-
->>> exp
-53,889 genes and 384 cells were loaded
-
 Data examination
 ^^^^^^^^^^^^^^^^
-It's can be useful to examine number of reads per cell in a bar plot because it helps to identify extreme outliers that may represent artifacts (unusually low number of reads per cell or unusually high number of reads per cell):
+After loading the data a first step is to examine number of reads per cell in a bar plot. It helps to identify extreme outliers that may represent artifacts (unusually low number of reads per cell or unusually high number of reads per cell):
 
 .. code-block:: python3
 
@@ -229,7 +233,7 @@ Which will generate the plot:
 
 .. image:: 2019-08-30-131424_587x441_scrot.png
 
-It is also a good idea to examine number of expressed genes per cell:
+It is also informative to examine number of expressed genes per cell:
 
 .. code-block:: python3
 
@@ -332,7 +336,7 @@ Normalization removes technical and sometimes experimental biases and is always 
    Centered log ratio normalization. This normalization scheme was introduced in Seurat version 3.0 :cite:`Stuart2018`. It is a simple normalization scheme and is an alternative to ``standard``.
 
 **vsn**
-   Variance stabilizing normaliztion based on a negative binomial regression model with regularized parameters. Introduced by :cite:`Hafemeister2019` and represents a more sophisticated normalization approach. Appears to marginally improve resolution.
+   Variance stabilizing normaliztion based on a negative binomial regression model with regularized parameters. Introduced by :cite:`Hafemeister2019` and represents a more sophisticated normalization approach. Appears to marginally improve resolution. Can be used if you have UMI counts.
 
 All normalization schemes can be followed by log-transformation by setting ``log2=True``, which is the default.
 

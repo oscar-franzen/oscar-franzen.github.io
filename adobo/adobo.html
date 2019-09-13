@@ -1102,7 +1102,8 @@ then multiplying with a scaling factor.</p>
 <dd><p>Performs variance stabilizing normalization based on a negative binomial regression
 model with regularized parameters</p>
 <p class="rubric">Notes</p>
-<p>Adopts a subset of the functionality of <cite>vst</cite> in the R package sctransform [0].</p>
+<p>Use only with UMI counts. Adopts a subset of the functionality of <cite>vst</cite> in the R
+package <cite>sctransform</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1114,11 +1115,11 @@ model with regularized parameters</p>
 </dd>
 </dl>
 <p class="rubric">References</p>
-<p>[0] <a class="reference external" href="https://cran.r-project.org/web/packages/sctransform/index.html">https://cran.r-project.org/web/packages/sctransform/index.html</a>
-[1] <a class="reference external" href="https://www.biorxiv.org/content/10.1101/576827v1">https://www.biorxiv.org/content/10.1101/576827v1</a></p>
+<p><a class="reference external" href="https://cran.r-project.org/web/packages/sctransform/index.html">https://cran.r-project.org/web/packages/sctransform/index.html</a>
+<a class="reference external" href="https://www.biorxiv.org/content/10.1101/576827v1">https://www.biorxiv.org/content/10.1101/576827v1</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A normalized data matrix with same dimensions as before.</p>
+<dd class="field-odd"><p>A data matrix with adjusted counts.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></p>

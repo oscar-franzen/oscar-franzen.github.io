@@ -32,7 +32,8 @@
   <h3><a href="#">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Welcome to adobo’s documentation!</a><ul>
-<li><a class="reference internal" href="#what-adobo-is">What adobo is</a><ul>
+<li><a class="reference internal" href="#what-adobo-is">What adobo is</a></li>
+<li><a class="reference internal" href="#contact">Contact</a><ul>
 <li><a class="reference internal" href="#notes-on-this-tutorial">Notes on this tutorial</a></li>
 <li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#package-organization">Package organization</a><ul>
@@ -42,12 +43,12 @@
 <li><a class="reference internal" href="#getting-started-and-pre-processing-your-data">Getting started and pre-processing your data</a><ul>
 <li><a class="reference internal" href="#loading-the-package">Loading the package</a></li>
 <li><a class="reference internal" href="#loading-your-data-from-a-text-file">Loading your data from a text file</a></li>
+<li><a class="reference internal" href="#loading-compressed-data">Loading compressed data</a></li>
 <li><a class="reference internal" href="#creating-the-data-class-object-directly-from-a-pandas-data-frame">Creating the data class object directly from a pandas data frame</a></li>
 <li><a class="reference internal" href="#saving-object">Saving object</a></li>
 <li><a class="reference internal" href="#accessing-meta-data-for-cells-and-genes">Accessing meta data for cells and genes</a></li>
 <li><a class="reference internal" href="#adding-meta-data">Adding meta data</a></li>
 <li><a class="reference internal" href="#getting-detailed-help">Getting detailed help</a></li>
-<li><a class="reference internal" href="#loading-compressed-data">Loading compressed data</a></li>
 <li><a class="reference internal" href="#data-examination">Data examination</a></li>
 <li><a class="reference internal" href="#detecting-ercc-spikes">Detecting ERCC spikes</a></li>
 <li><a class="reference internal" href="#detecting-mitochondrial-genes">Detecting mitochondrial genes</a></li>
@@ -105,14 +106,13 @@
 <div class="section" id="what-adobo-is">
 <h2>What adobo is<a class="headerlink" href="#what-adobo-is" title="Permalink to this headline">¶</a></h2>
 <p>adobo is an analysis framework for single cell RNA sequencing data (scRNA-seq) and enables exploratory analysis through a set of Python modules. adobo can be used to compose scripts, used in interactive workflows and much more. The goal of adobo is to consolidate single cell computational analysis methods in the Python programming language.</p>
-<p>adobo is developed by Oscar Franzén (limited support is available over e-mail: <a class="reference external" href="mailto:p&#46;oscar&#46;franzen&#37;&#52;&#48;gmail&#46;com">p<span>&#46;</span>oscar<span>&#46;</span>franzen<span>&#64;</span>gmail<span>&#46;</span>com</a>).</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>adobo is developed and tested on Python version 3.6.8; older versions may work but are untested.</p>
 </div>
+<div class="section" id="contact">
+<h2>Contact<a class="headerlink" href="#contact" title="Permalink to this headline">¶</a></h2>
+<p>adobo is developed by Oscar Franzén. Limited support is available over e-mail: <a class="reference external" href="mailto:p&#46;oscar&#46;franzen&#37;&#52;&#48;gmail&#46;com">p<span>&#46;</span>oscar<span>&#46;</span>franzen<span>&#64;</span>gmail<span>&#46;</span>com</a> or <a class="reference external" href="mailto:oscar&#46;franzen&#37;&#52;&#48;ki&#46;se">oscar<span>&#46;</span>franzen<span>&#64;</span>ki<span>&#46;</span>se</a></p>
 <div class="section" id="notes-on-this-tutorial">
 <h3>Notes on this tutorial<a class="headerlink" href="#notes-on-this-tutorial" title="Permalink to this headline">¶</a></h3>
-<p>Some basic knowledge of Python, <a class="reference external" href="https://en.wikipedia.org/wiki/NumPy">NumPy</a> and <a class="reference external" href="https://en.wikipedia.org/wiki/Pandas_(software)">pandas</a> and their commonly used data structures is assumed. Furthermore, most functions have parameters with sensible defaults so that many parameters don’t need to be specified upon calling a specific function, but for clarity the most important parameters are shown in the examples below.</p>
+<p>Some basic knowledge of Python, <a class="reference external" href="https://en.wikipedia.org/wiki/NumPy">NumPy</a> and <a class="reference external" href="https://en.wikipedia.org/wiki/Pandas_(software)">pandas</a> and their commonly used data structures is assumed. Furthermore, most functions have parameters with sensible defaults so that many parameters don’t need to be specified upon calling a specific function, but for clarity the most important parameters are shown in the examples below. In the below examples we refer to the adobo package as ‘ad’.</p>
 </div>
 <div class="section" id="installation">
 <h3>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
@@ -130,6 +130,10 @@ $ pip3 install --no-deps .
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Support for <code class="docutils literal notranslate"><span class="pre">PyPI</span></code> is on the TODO list.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>adobo is developed and tested on Python version 3.6.x; older versions may work but are untested.</p>
 </div>
 <p>After installing it, you can now delete the cloned repository and test that everything works by firing up your Python 3 interpreter:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python3
@@ -230,11 +234,11 @@ $ pip3 install --no-deps .
 </div>
 <div class="section" id="loading-your-data-from-a-text-file">
 <h4>Loading your data from a text file<a class="headerlink" href="#loading-your-data-from-a-text-file" title="Permalink to this headline">¶</a></h4>
-<p>First we need to create a new adobo object, which is an instance of the class <a class="reference internal" href="adobo.html#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>. This will be a new object containing your single cell data as well as meta data. The input file should be a gene expression matrix (rows as genes and cells as columns) in plain text format. Fields can be separated by any character (default is tab) and it can be changed with the <code class="docutils literal notranslate"><span class="pre">sep</span></code> parameter. <code class="docutils literal notranslate"><span class="pre">sep</span></code> can be a single character or a regular expression (default is the regular expression <code class="docutils literal notranslate"><span class="pre">\s</span></code>). The data matrix file can have a header or not (<code class="docutils literal notranslate"><span class="pre">header=0</span></code> indicates a header is present, otherwise use <code class="docutils literal notranslate"><span class="pre">header=None</span></code>). If the header of your gene expression matrix contains a label for gene symbols, set <code class="docutils literal notranslate"><span class="pre">column_id='yes'</span></code> or simply <code class="docutils literal notranslate"><span class="pre">column_id='auto'</span></code> to autodetect this. <a class="reference internal" href="adobo.html#adobo.IO.load_from_file" title="adobo.IO.load_from_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.IO.load_from_file()</span></code></a> calls <code class="xref py py-func docutils literal notranslate"><span class="pre">pandas.DataFrame.read_csv()</span></code> and any additional parameters are passed into this function. The function <a class="reference internal" href="adobo.html#adobo.IO.load_from_file" title="adobo.IO.load_from_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.IO.load_from_file()</span></code></a> is used to load data from a raw read count matrix and the returned object is an instance of <a class="reference internal" href="adobo.html#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>:</p>
+<p>First we need to create a new adobo object, which is an instance of the class <a class="reference internal" href="adobo.html#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>. This will be a new object containing your single cell data, meta data and analysis results. The input file should be a gene expression matrix (rows as genes and cells as columns) in plain text format. Fields can be separated by any character and it can be changed with the <code class="docutils literal notranslate"><span class="pre">sep</span></code> parameter. <code class="docutils literal notranslate"><span class="pre">sep</span></code> can be a single character or a regular expression (default is the regular expression <code class="docutils literal notranslate"><span class="pre">\s</span></code>). The data matrix file can have a header or not (<code class="docutils literal notranslate"><span class="pre">header=0</span></code> indicates a header is present, otherwise use <code class="docutils literal notranslate"><span class="pre">header=None</span></code>). If the header of your gene expression matrix contains a label for gene symbols, set <code class="docutils literal notranslate"><span class="pre">column_id='yes'</span></code> or simply <code class="docutils literal notranslate"><span class="pre">column_id='auto'</span></code> to autodetect this. <a class="reference internal" href="adobo.html#adobo.IO.load_from_file" title="adobo.IO.load_from_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.IO.load_from_file()</span></code></a> calls <code class="xref py py-func docutils literal notranslate"><span class="pre">pandas.DataFrame.read_csv()</span></code> and any additional parameters are passed on into this method. The function <a class="reference internal" href="adobo.html#adobo.IO.load_from_file" title="adobo.IO.load_from_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.IO.load_from_file()</span></code></a> is used to load data from a raw read counts matrix and the returned object is an instance of <a class="reference internal" href="adobo.html#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">exp</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;GSE95315.tab&#39;</span><span class="p">,</span> <span class="n">column_id</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;mouse brain data&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The raw read count matrix is stored in an the attribute <code class="docutils literal notranslate"><span class="pre">exp_mat</span></code> inside the dataset object (<a class="reference internal" href="adobo.html#adobo.data.dataset.exp_mat" title="adobo.data.dataset.exp_mat"><code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset.exp_mat</span></code></a>). Here we use data from <a class="reference external" href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE95315">GEO95315</a>, which can be <a class="reference external" href="https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE95315&amp;format=file&amp;file=GSE95315%5F10X%5Fexpression%5Fdata%2Etab%2Egz">downloaded here</a>.</p>
+<p>The raw read counts matrix is stored in the attribute <code class="docutils literal notranslate"><span class="pre">exp_mat</span></code> inside the dataset object (<a class="reference internal" href="adobo.html#adobo.data.dataset.exp_mat" title="adobo.data.dataset.exp_mat"><code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset.exp_mat</span></code></a>). Here we use data from <a class="reference external" href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE95315">GEO95315</a>, which can be <a class="reference external" href="https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE95315&amp;format=file&amp;file=GSE95315%5F10X%5Fexpression%5Fdata%2Etab%2Egz">downloaded here</a>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">desc</span></code> can be used to specify a string describing the data, but it can also be left empty.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -249,9 +253,21 @@ $ pip3 install --no-deps .
 <p>Many adobo functions also have a <code class="docutils literal notranslate"><span class="pre">verbose</span></code> parameter, which when <code class="docutils literal notranslate"><span class="pre">True</span></code> makes the function more informative.</p>
 </div>
 </div>
+<div class="section" id="loading-compressed-data">
+<h4>Loading compressed data<a class="headerlink" href="#loading-compressed-data" title="Permalink to this headline">¶</a></h4>
+<p>scRNA-seq is zero inflated, and therefore compress strongly. We can load the compressed data directly without having to uncompress it first; the compression format is detected automatically (gzip, bz2, zip and xz are supported). For example:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">exp</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;GSE95315.tab.gz&#39;</span><span class="p">,</span> <span class="n">column_id</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Your gene expression data is stored in the attribute <code class="docutils literal notranslate"><span class="pre">exp.exp_mat</span></code>, and after loading it is good practise to examine that the data were loaded properly:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">exp</span>
+<span class="go">53,889 genes and 384 cells were loaded</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="creating-the-data-class-object-directly-from-a-pandas-data-frame">
 <h4>Creating the data class object directly from a pandas data frame<a class="headerlink" href="#creating-the-data-class-object-directly-from-a-pandas-data-frame" title="Permalink to this headline">¶</a></h4>
-<p>In many cases we already have our data in a pandas data frame, in those cases we can just create the container object directly:</p>
+<p>In many cases we already have our data in a data frame, in those cases we can just create the container object directly:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># where &#39;df&#39; is the data frame, columns are cells and rows are genes</span>
 <span class="n">exp</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">dataset</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 </pre></div>
@@ -259,9 +275,12 @@ $ pip3 install --no-deps .
 </div>
 <div class="section" id="saving-object">
 <h4>Saving object<a class="headerlink" href="#saving-object" title="Permalink to this headline">¶</a></h4>
-<p>Saving an object can be done via the <code class="docutils literal notranslate"><span class="pre">joblib</span></code> package (<a class="reference external" href="https://joblib.readthedocs.io/en/latest/">complete joblib docs</a>; <code class="docutils literal notranslate"><span class="pre">pickle</span></code> can also be used if that is preferred):</p>
+<p>It is convenient not having to repeat analyses once they are finished. Saving an object to disk can be done via the <code class="docutils literal notranslate"><span class="pre">joblib</span></code> package (<a class="reference external" href="https://joblib.readthedocs.io/en/latest/">complete joblib docs</a>; Python’s standard <a class="reference external" href="https://docs.python.org/3/library/pickle.html">pickle</a> is another option):</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">joblib</span>
-<span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="s1">&#39;test.joblib&#39;</span><span class="p">)</span>
+
+<span class="c1"># compress=0 will turn off data compression</span>
+<span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="s1">&#39;test.joblib&#39;</span><span class="p">,</span> <span class="n">compress</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
 <span class="n">exp</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;test.joblib&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -309,39 +328,27 @@ $ pip3 install --no-deps .
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">axis</span></code> can be either ‘cells’ or ‘genes’ depending on whether your added data represent data for cells or genes.</p></li>
 <li><p>the <code class="docutils literal notranslate"><span class="pre">key</span></code> is used as variable name, choose something that makes sense, such as “tissue” for different tissues.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">data</span></code> should be a <code class="docutils literal notranslate"><span class="pre">list</span></code>, a numpy array or a Pandas series, containing your data with the same length as your <code class="docutils literal notranslate"><span class="pre">axis</span></code> (although if <code class="docutils literal notranslate"><span class="pre">data</span></code> is of type <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code> the length does not need to match as long as <code class="docutils literal notranslate"><span class="pre">index</span></code> is set in the Series).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data</span></code> should be a <code class="docutils literal notranslate"><span class="pre">list</span></code>, a numpy array or a Pandas Series, containing your data with the same length as your <code class="docutils literal notranslate"><span class="pre">axis</span></code> (although if <code class="docutils literal notranslate"><span class="pre">data</span></code> is of type <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code> the length does not need to match as long as <code class="docutils literal notranslate"><span class="pre">index</span></code> is set in the Series).</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">type_</span></code> (note, this one has a trailing underscore) indicates if the data are categorical or continuous (defaults to categorical).</p></li>
 </ol>
 </div>
 <div class="section" id="getting-detailed-help">
 <h4>Getting detailed help<a class="headerlink" href="#getting-detailed-help" title="Permalink to this headline">¶</a></h4>
-<p>All functions in adobo have extensive documentation, which are accessible as docstrings on the Python interactive console as well as online:</p>
+<p>All functions in adobo have full documentation, which is accessible as <a class="reference external" href="https://www.python.org/dev/peps/pep-0257/">docstrings</a> on the Python interactive console as well as online:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">ad</span><span class="p">)</span>
 <span class="n">help</span><span class="p">(</span><span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="loading-compressed-data">
-<h4>Loading compressed data<a class="headerlink" href="#loading-compressed-data" title="Permalink to this headline">¶</a></h4>
-<p>scRNA-seq is zero inflated, and therefore compress strongly. We can load the compressed data directly without having to uncompress it first; the compression format is detected automatically (gzip, bz2, zip and xz are supported). For example:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">exp</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;GSE95315.tab.gz&#39;</span><span class="p">,</span> <span class="n">column_id</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Your gene expression data is stored in the attribute <code class="docutils literal notranslate"><span class="pre">exp.exp_mat</span></code>, and after loading it is good practise to examine that the data were loaded properly:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">exp</span>
-<span class="go">53,889 genes and 384 cells were loaded</span>
-</pre></div>
-</div>
-</div>
 <div class="section" id="data-examination">
 <h4>Data examination<a class="headerlink" href="#data-examination" title="Permalink to this headline">¶</a></h4>
-<p>It’s can be useful to examine number of reads per cell in a bar plot because it helps to identify extreme outliers that may represent artifacts (unusually low number of reads per cell or unusually high number of reads per cell):</p>
+<p>After loading the data a first step is to examine number of reads per cell in a bar plot. It helps to identify extreme outliers that may represent artifacts (unusually low number of reads per cell or unusually high number of reads per cell):</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">reads_per_cell</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Which will generate the plot:</p>
 <img alt="_images/2019-08-30-131424_587x441_scrot.png" src="_images/2019-08-30-131424_587x441_scrot.png" />
-<p>It is also a good idea to examine number of expressed genes per cell:</p>
+<p>It is also informative to examine number of expressed genes per cell:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">genes_per_cell</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -423,7 +430,7 @@ $ pip3 install --no-deps .
 </dd>
 <dt><strong>clr</strong></dt><dd><p>Centered log ratio normalization. This normalization scheme was introduced in Seurat version 3.0 <a class="reference internal" href="#stuart2018" id="id5">[5]</a>. It is a simple normalization scheme and is an alternative to <code class="docutils literal notranslate"><span class="pre">standard</span></code>.</p>
 </dd>
-<dt><strong>vsn</strong></dt><dd><p>Variance stabilizing normaliztion based on a negative binomial regression model with regularized parameters. Introduced by <a class="reference internal" href="#hafemeister2019" id="id6">[6]</a> and represents a more sophisticated normalization approach. Appears to marginally improve resolution.</p>
+<dt><strong>vsn</strong></dt><dd><p>Variance stabilizing normaliztion based on a negative binomial regression model with regularized parameters. Introduced by <a class="reference internal" href="#hafemeister2019" id="id6">[6]</a> and represents a more sophisticated normalization approach. Appears to marginally improve resolution. Can be used if you have UMI counts.</p>
 </dd>
 </dl>
 <p>All normalization schemes can be followed by log-transformation by setting <code class="docutils literal notranslate"><span class="pre">log2=True</span></code>, which is the default.</p>
