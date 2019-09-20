@@ -241,7 +241,7 @@ Biotech.</p>
 <p>This module contains functions to cluster data.</p>
 <dl class="function">
 <dt id="adobo.clustering.generate">
-<code class="sig-prename descclassname">adobo.clustering.</code><code class="sig-name descname">generate</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">k=10</em>, <em class="sig-param">distance='euclidean'</em>, <em class="sig-param">target='irlb'</em>, <em class="sig-param">graph='snn'</em>, <em class="sig-param">clust_alg='leiden'</em>, <em class="sig-param">prune_snn=0.067</em>, <em class="sig-param">res=0.8</em>, <em class="sig-param">retx=True</em>, <em class="sig-param">seed=42</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.clustering.generate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.clustering.</code><code class="sig-name descname">generate</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">k=10</em>, <em class="sig-param">name=None</em>, <em class="sig-param">distance='euclidean'</em>, <em class="sig-param">graph='snn'</em>, <em class="sig-param">clust_alg='leiden'</em>, <em class="sig-param">prune_snn=0.067</em>, <em class="sig-param">res=0.8</em>, <em class="sig-param">retx=True</em>, <em class="sig-param">seed=42</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.clustering.generate" title="Permalink to this definition">¶</a></dt>
 <dd><p>A wrapper function for generating single cell clusters from a shared nearest neighbor
 graph with the Leiden algorithm</p>
 <dl class="field-list simple">
@@ -249,6 +249,8 @@ graph with the Leiden algorithm</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A dataset class object.</p></li>
 <li><p><strong>k</strong> (<cite>int</cite>) – Number of nearest neighbors. Default: 10</p></li>
+<li><p><strong>name</strong> (<cite>str</cite>) – The name of the normalization to operate on. If this is empty or None then the
+function will be applied on all normalizations available.</p></li>
 <li><p><strong>distance</strong> (<cite>str</cite>) – Distance metric to use. See here for valid choices: <a class="reference external" href="https://tinyurl.com/y4bckf7w">https://tinyurl.com/y4bckf7w</a></p></li>
 <li><p><strong>target</strong> (<cite>{‘irlb’, ‘svd’}</cite>) – The dimensionality reduction result to run on. Default: irlb</p></li>
 <li><p><strong>graph</strong> (<cite>{‘snn’}</cite>) – Type of graph to generate. Only shared nearest neighbor (snn) supported at the
@@ -281,6 +283,114 @@ resolution. Default: 0.8</p></li>
 </dl>
 </dd></dl>
 
+<dl class="function">
+<dt id="adobo.clustering.igraph">
+<code class="sig-prename descclassname">adobo.clustering.</code><code class="sig-name descname">igraph</code><span class="sig-paren">(</span><em class="sig-param">snn_graph</em>, <em class="sig-param">clust_alg</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.clustering.igraph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs clustering functions within igraph</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>snn_graph</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – Source and target nodes.</p></li>
+<li><p><strong>clust_alg</strong> (<cite>{‘walktrap’, ‘spinglass’, ‘multilevel’, ‘infomap’, ‘label_prop’, ‘leading_eigenvector’}</cite>) – Specifies the community detection algorithm.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="simple">
+<dt>Pons &amp; Latapy (2006) Computing Communities in Large NetworksUsing Random Walks,</dt><dd><p>Journal of Graph Algorithms and Applications</p>
+</dd>
+<dt>Reichardt &amp; Bornholdt (2006) Statistical mechanics of community detection,</dt><dd><p>Physical Review E</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Nothing. Modifies the passed object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="adobo.clustering.knn">
+<code class="sig-prename descclassname">adobo.clustering.</code><code class="sig-name descname">knn</code><span class="sig-paren">(</span><em class="sig-param">comp</em>, <em class="sig-param">k=10</em>, <em class="sig-param">distance='euclidean'</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.clustering.knn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Nearest Neighbour Search. Finds the k number of near neighbours for each cell.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>comp</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame containing PCA components.</p></li>
+<li><p><strong>k</strong> (<cite>int</cite>) – Number of nearest neighbors. Default: 10</p></li>
+<li><p><strong>target</strong> (<cite>{‘irlb’, ‘svd’}</cite>) – The dimensionality reduction result to run the NN search on. Default: irlb</p></li>
+<li><p><strong>distance</strong> (<cite>str</cite>) – Distance metric to use. See here for valid choices: <a class="reference external" href="https://tinyurl.com/y4bckf7w">https://tinyurl.com/y4bckf7w</a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array containing indices.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="adobo.clustering.leiden">
+<code class="sig-prename descclassname">adobo.clustering.</code><code class="sig-name descname">leiden</code><span class="sig-paren">(</span><em class="sig-param">snn_graph</em>, <em class="sig-param">res=0.8</em>, <em class="sig-param">seed=42</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.clustering.leiden" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the Leiden algorithm</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>snn_graph</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – Source and target nodes.</p></li>
+<li><p><strong>res</strong> (<cite>float</cite>) – Resolution parameter, change to modify cluster resolution. Default: 0.8</p></li>
+<li><p><strong>seed</strong> (<cite>int</cite>) – For reproducibility.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>[0] <a class="reference external" href="https://github.com/vtraag/leidenalg">https://github.com/vtraag/leidenalg</a>
+[1] Traag et al. (2018) <a class="reference external" href="https://arxiv.org/abs/1810.08473">https://arxiv.org/abs/1810.08473</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Nothing. Modifies the passed object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="adobo.clustering.snn">
+<code class="sig-prename descclassname">adobo.clustering.</code><code class="sig-name descname">snn</code><span class="sig-paren">(</span><em class="sig-param">nn_idx</em>, <em class="sig-param">k=10</em>, <em class="sig-param">prune_snn=0.067</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.clustering.snn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes a Shared Nearest Neighbor (SNN) graph</p>
+<p class="rubric">Notes</p>
+<p>Link weights are number of shared nearest neighbors. The sum of SNN similarities over
+all KNNs is retrieved with linear algebra.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nn_idx</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>) – Numpy array generated using knn()</p></li>
+<li><p><strong>k</strong> (<cite>int</cite>) – Number of nearest neighbors. Default: 10</p></li>
+<li><p><strong>prune_snn</strong> (<cite>float</cite>) – Threshold for pruning the SNN graph, i.e. the edges  with lower value (Jaccard
+index) than this will be removed. Set to 0 to disable pruning. Increasing this
+value will result in fewer edges in the graph. Default: 0.067</p></li>
+<li><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose or not.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p><a class="reference external" href="http://mlwiki.org/index.php/SNN_Clustering">http://mlwiki.org/index.php/SNN_Clustering</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Nothing. Modifies the passed object.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 </div>
 <div class="section" id="module-adobo.data">
@@ -290,7 +400,7 @@ resolution. Default: 0.8</p></li>
 <p>This module contains a data storage class.</p>
 <dl class="class">
 <dt id="adobo.data.dataset">
-<em class="property">class </em><code class="sig-prename descclassname">adobo.data.</code><code class="sig-name descname">dataset</code><span class="sig-paren">(</span><em class="sig-param">raw_mat</em>, <em class="sig-param">desc='no desc set'</em>, <em class="sig-param">output_filename=None</em>, <em class="sig-param">input_filename=None</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.dataset" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">adobo.data.</code><code class="sig-name descname">dataset</code><span class="sig-paren">(</span><em class="sig-param">raw_mat</em>, <em class="sig-param">desc='no desc set'</em>, <em class="sig-param">output_filename=None</em>, <em class="sig-param">input_filename=None</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.dataset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Storage container for raw data and analysis results.</p>
 <dl class="attribute">
@@ -305,8 +415,8 @@ resolution. Default: 0.8</p></li>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="adobo.data.dataset.exp_mat">
-<code class="sig-name descname">exp_mat</code><a class="headerlink" href="#adobo.data.dataset.exp_mat" title="Permalink to this definition">¶</a></dt>
+<dt id="adobo.data.dataset.count_data">
+<code class="sig-name descname">count_data</code><a class="headerlink" href="#adobo.data.dataset.count_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raw read count matrix.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -327,67 +437,9 @@ resolution. Default: 0.8</p></li>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="adobo.data.dataset.norm_log2">
-<code class="sig-name descname">norm_log2</code><a class="headerlink" href="#adobo.data.dataset.norm_log2" title="Permalink to this definition">¶</a></dt>
-<dd><p>True if log2 transform was performed on the normalized data, otherwise False.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><cite>bool</cite></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="adobo.data.dataset.norm_method">
-<code class="sig-name descname">norm_method</code><a class="headerlink" href="#adobo.data.dataset.norm_method" title="Permalink to this definition">¶</a></dt>
-<dd><p>Containing the method used for normalization.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><cite>str</cite></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="adobo.data.dataset.norm">
-<code class="sig-name descname">norm</code><a class="headerlink" href="#adobo.data.dataset.norm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Normalized gene expression data.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="adobo.data.dataset.hvg">
-<code class="sig-name descname">hvg</code><a class="headerlink" href="#adobo.data.dataset.hvg" title="Permalink to this definition">¶</a></dt>
-<dd><p>Containing highly variable genes.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><cite>list</cite></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="adobo.data.dataset.dr">
-<code class="sig-name descname">dr</code><a class="headerlink" href="#adobo.data.dataset.dr" title="Permalink to this definition">¶</a></dt>
-<dd><p>A dict of <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> containing components from dimensionality
-reduction.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><cite>dict</cite></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="adobo.data.dataset.dr_gene_contr">
-<code class="sig-name descname">dr_gene_contr</code><a class="headerlink" href="#adobo.data.dataset.dr_gene_contr" title="Permalink to this definition">¶</a></dt>
-<dd><p>A dict of <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> containing variable contributions to each
-component. Useful for understanding the contribution of each gene to PCA
-components.</p>
+<dt id="adobo.data.dataset.norm_data">
+<code class="sig-name descname">norm_data</code><a class="headerlink" href="#adobo.data.dataset.norm_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stores all analysis results. A nested dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p><cite>dict</cite></p>
@@ -413,17 +465,6 @@ components.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p><cite>pandas.DataFrame</cite></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="adobo.data.dataset.clusters">
-<code class="sig-name descname">clusters</code><a class="headerlink" href="#adobo.data.dataset.clusters" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generated clusters.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><cite>dict</cite></p>
 </dd>
 </dl>
 </dd></dl>
@@ -486,6 +527,23 @@ and <cite>cont</cite> means continuous data. Default: ‘cat’</p></li>
 <code class="sig-name descname">assays</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.dataset.assays" title="Permalink to this definition">¶</a></dt>
 <dd><p>Displays a basic summary of the dataset and what analyses have been performed on
 it.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adobo.data.dataset.df_mem_usage">
+<code class="sig-name descname">df_mem_usage</code><span class="sig-paren">(</span><em class="sig-param">var</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.dataset.df_mem_usage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Memory usage for a data frame in mega bytes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>var</strong> (<cite>str</cite>) – Variable name as a string.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Mega bytes used with two decimals.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>float</cite></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -567,8 +625,10 @@ method of Baglama and Reichel.</p>
 </dd>
 </dl>
 <p class="rubric">References</p>
-<p>Baglama et al (2005) Augmented Implicitly Restarted Lanczos Bidiagonalization Methods
-SIAM Journal on Scientific Computing</p>
+<dl class="simple">
+<dt>Baglama et al (2005) Augmented Implicitly Restarted Lanczos Bidiagonalization Methods</dt><dd><p>SIAM Journal on Scientific Computing</p>
+</dd>
+</dl>
 <p><a class="reference external" href="https://github.com/bwlewis/irlbpy">https://github.com/bwlewis/irlbpy</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -583,7 +643,7 @@ SIAM Journal on Scientific Computing</p>
 
 <dl class="function">
 <dt id="adobo.dr.pca">
-<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">pca</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">method='irlb'</em>, <em class="sig-param">ncomp=75</em>, <em class="sig-param">allgenes=False</em>, <em class="sig-param">scale=True</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">seed=None</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.pca" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">pca</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">method='irlb'</em>, <em class="sig-param">name=None</em>, <em class="sig-param">ncomp=75</em>, <em class="sig-param">allgenes=False</em>, <em class="sig-param">scale=True</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">seed=None</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.pca" title="Permalink to this definition">¶</a></dt>
 <dd><p>Principal Component Analysis</p>
 <p class="rubric">Notes</p>
 <p>A wrapper function around the individual normalization functions, which can also be
@@ -595,6 +655,8 @@ standard deviation).</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A dataset class object.</p></li>
 <li><p><strong>method</strong> (<cite>{‘irlb’, ‘svd’}</cite>) – Method to use for PCA. This does not matter much. Default: irlb</p></li>
+<li><p><strong>name</strong> (<cite>str</cite>) – The name of the normalization to operate on. If this is empty or None then the
+function will be applied on all normalizations available.</p></li>
 <li><p><strong>ncomp</strong> (<cite>int</cite>) – Number of components to return. Default: 75</p></li>
 <li><p><strong>allgenes</strong> (<cite>bool</cite>) – Use all genes instead of only HVG. Default: False</p></li>
 <li><p><strong>scale</strong> (<cite>bool</cite>) – Scales input data prior to PCA. Default: True</p></li>
@@ -646,7 +708,7 @@ variable genes.</p></li>
 
 <dl class="function">
 <dt id="adobo.dr.tsne">
-<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">tsne</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">target='irlb'</em>, <em class="sig-param">perplexity=30</em>, <em class="sig-param">n_iter=2000</em>, <em class="sig-param">seed=None</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.tsne" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">tsne</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">run_on_PCA=True</em>, <em class="sig-param">name=None</em>, <em class="sig-param">perplexity=30</em>, <em class="sig-param">n_iter=2000</em>, <em class="sig-param">seed=None</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.tsne" title="Permalink to this definition">¶</a></dt>
 <dd><p>Projects data to a two dimensional space using the tSNE algorithm.</p>
 <p class="rubric">Notes</p>
 <p>It is recommended to perform this function on data in PCA space. This function calls
@@ -655,7 +717,10 @@ variable genes.</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A dataset class object.</p></li>
-<li><p><strong>target</strong> (<cite>{‘irlb’, ‘svd’, ‘norm’}</cite>) – What to run tSNE on. Default: ‘irlb’</p></li>
+<li><p><strong>run_on_PCA</strong> (<cite>bool</cite>) – To run tSNE on PCA components or not. If False then runs on the entire normalized
+gene expression matrix. Default: True</p></li>
+<li><p><strong>name</strong> (<cite>str</cite>) – The name of the normalization to operate on. If this is empty or None then the
+function will be applied on all normalizations available.</p></li>
 <li><p><strong>perplexity</strong> (<cite>float</cite>) – From [1]: The perplexity is related to the number of nearest neighbors that
 is used in other manifold learning algorithms. Larger datasets usually require
 a larger perplexity. Consider selecting a value between 5 and 50. Different
@@ -667,9 +732,11 @@ values can result in significanlty different results. Default: 30</p></li>
 </dd>
 </dl>
 <p class="rubric">References</p>
-<p>[0] van der Maaten, L.J.P.; Hinton, G.E. Visualizing High-Dimensional Data
-Using t-SNE. Journal of Machine Learning Research 9:2579-2605, 2008.</p>
-<p>[1] <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html">https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html</a></p>
+<dl class="simple">
+<dt>van der Maaten, L.J.P.; Hinton, G.E. Visualizing High-Dimensional Data</dt><dd><p>Using t-SNE. Journal of Machine Learning Research 9:2579-2605, 2008.</p>
+</dd>
+</dl>
+<p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html">https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p></p>
@@ -682,7 +749,7 @@ Using t-SNE. Journal of Machine Learning Research 9:2579-2605, 2008.</p>
 
 <dl class="function">
 <dt id="adobo.dr.umap">
-<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">umap</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">target='irlb'</em>, <em class="sig-param">seed=None</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.umap" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">umap</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">run_on_PCA=True</em>, <em class="sig-param">name=None</em>, <em class="sig-param">seed=None</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.umap" title="Permalink to this definition">¶</a></dt>
 <dd><p>Projects data to a two dimensional space using the UMAP algorithm, a non-linear
 data reduction algorithm.</p>
 <p class="rubric">Notes</p>
@@ -702,16 +769,21 @@ other parameters that can influence the outcome, see <cite>help(umap.UMAP)</cite
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A dataset class object.</p></li>
-<li><p><strong>target</strong> (<cite>{‘irlb’, ‘svd’, ‘norm’}</cite>) – What to run tSNE on. Default: ‘irlb’</p></li>
+<li><p><strong>run_on_PCA</strong> (<cite>bool</cite>) – To run tSNE on PCA components or not. If False then runs on the entire normalized
+gene expression matrix. Default: True</p></li>
+<li><p><strong>name</strong> (<cite>str</cite>) – The name of the normalization to operate on. If this is empty or None then the
+function will be applied on all normalizations available.</p></li>
 <li><p><strong>seed</strong> (<cite>int</cite>) – For reproducibility. Default: None</p></li>
 <li><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose. Default: False</p></li>
 </ul>
 </dd>
 </dl>
 <p class="rubric">References</p>
-<p>McInnes L, Healy J, Melville J, arxiv, 2018</p>
-<p><a class="reference external" href="https://arxiv.org/abs/1802.03426">https://arxiv.org/abs/1802.03426</a>
-<a class="reference external" href="https://github.com/lmcinnes/umap">https://github.com/lmcinnes/umap</a>
+<dl class="simple">
+<dt>McInnes L, Healy J, Melville J (2018) UMAP: Uniform Manifold Approximation and</dt><dd><p>Projection for Dimension Reduction, <a class="reference external" href="https://arxiv.org/abs/1802.03426">https://arxiv.org/abs/1802.03426</a></p>
+</dd>
+</dl>
+<p><a class="reference external" href="https://github.com/lmcinnes/umap">https://github.com/lmcinnes/umap</a>
 <a class="reference external" href="https://umap-learn.readthedocs.io/en/latest/">https://umap-learn.readthedocs.io/en/latest/</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -794,7 +866,7 @@ genes.</p>
 
 <dl class="function">
 <dt id="adobo.hvg.find_hvg">
-<code class="sig-prename descclassname">adobo.hvg.</code><code class="sig-name descname">find_hvg</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">method='seurat'</em>, <em class="sig-param">ngenes=1000</em>, <em class="sig-param">fdr=0.1</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.hvg.find_hvg" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.hvg.</code><code class="sig-name descname">find_hvg</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">method='seurat'</em>, <em class="sig-param">name=None</em>, <em class="sig-param">ngenes=1000</em>, <em class="sig-param">fdr=0.1</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.hvg.find_hvg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Finding highly variable genes</p>
 <p class="rubric">Notes</p>
 <p>A wrapper function around the individual HVG functions, which can also be called
@@ -804,6 +876,8 @@ directly.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A dataset class object.</p></li>
 <li><p><strong>method</strong> (<cite>{‘seurat’, ‘brennecke’, ‘scran’, ‘chen2016’, ‘mm’}</cite>) – Specifies the method to be used.</p></li>
+<li><p><strong>name</strong> (<cite>str</cite>) – The name of the normalization to operate on. If this is empty or None then the
+function will be applied on all normalizations available.</p></li>
 <li><p><strong>ngenes</strong> (<cite>int</cite>) – Number of genes to return.</p></li>
 <li><p><strong>fdr</strong> (<cite>float</cite>) – False Discovery Rate threshold for significant genes applied to those methods
 that use it (brennecke, chen2016, mm). Note that the number of returned genes
@@ -834,7 +908,7 @@ might be fewer than specified by <cite>ngenes</cite> because of FDR consideratio
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame containing raw read counts.</p></li>
+<li><p><strong>data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame containing normalized counts.</p></li>
 <li><p><strong>fdr</strong> (<cite>float</cite>) – False Discovery Rate considered significant.</p></li>
 <li><p><strong>ngenes</strong> (<cite>int</cite>) – Number of top highly variable genes to return.</p></li>
 </ul>
@@ -983,7 +1057,7 @@ well.</p>
 
 <dl class="function">
 <dt id="adobo.normalize.norm">
-<code class="sig-prename descclassname">adobo.normalize.</code><code class="sig-name descname">norm</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">method='standard'</em>, <em class="sig-param">log2=True</em>, <em class="sig-param">small_const=1</em>, <em class="sig-param">remove_low_qual=True</em>, <em class="sig-param">gene_lengths=None</em>, <em class="sig-param">scaling_factor=10000</em>, <em class="sig-param">axis='genes'</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.normalize.norm" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.normalize.</code><code class="sig-name descname">norm</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">method='standard'</em>, <em class="sig-param">name=None</em>, <em class="sig-param">log2=True</em>, <em class="sig-param">small_const=1</em>, <em class="sig-param">remove_low_qual=True</em>, <em class="sig-param">gene_lengths=None</em>, <em class="sig-param">scaling_factor=10000</em>, <em class="sig-param">axis='genes'</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.normalize.norm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Normalizes gene expression data</p>
 <p class="rubric">Notes</p>
 <p>A wrapper function around the individual normalization functions, which can also be
@@ -998,6 +1072,9 @@ performs RPKM normalization and requires the <cite>gene_lengths</cite> parameter
 <cite>fqn</cite> performs a full-quantile normalization. <cite>clr</cite> performs centered log ratio
 normalization. <cite>vsn</cite> performs a variance stabilizing normalization.
 Default: standard</p></li>
+<li><p><strong>name</strong> (<cite>str</cite>) – A choosen name for the normalization. It is used for storing and retrieving this
+normalization for plotting later. If <cite>None</cite> or an empty string, then it is set to
+the value of <cite>method</cite>.</p></li>
 <li><p><strong>log2</strong> (<cite>bool</cite>) – Perform log2 transformation. Default: True</p></li>
 <li><p><strong>small_const</strong> (<cite>float</cite>) – A small constant to add to expression values to avoid log’ing genes with zero
 expression. Default: 1</p></li>
@@ -1195,8 +1272,8 @@ Only applicable if <cite>what_to_color</cite> is set to ‘clusters’. Default:
 
 <dl class="function">
 <dt id="adobo.plotting.pca_contributors">
-<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">pca_contributors</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">target='irlb'</em>, <em class="sig-param">dim=range(0</em>, <em class="sig-param">2)</em>, <em class="sig-param">top=10</em>, <em class="sig-param">color='#fcc603'</em>, <em class="sig-param">fontsize=6</em>, <em class="sig-param">fig_size=(10</em>, <em class="sig-param">5)</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.pca_contributors" title="Permalink to this definition">¶</a></dt>
-<dd><p>Examine the top contributing genes for each PCA component</p>
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">pca_contributors</code><span class="sig-paren">(</span><em class="sig-param">obj, name=None, dim=[0, 1, 2], top=10, color='#fcc603', fontsize=6, fig_size=(10, 5), filename=None, verbose=False, **args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.pca_contributors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Examine the top contributing genes to each PCA component</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Genes are ranked by their absolute value. Additional parameters are passed into
@@ -1206,20 +1283,22 @@ Only applicable if <cite>what_to_color</cite> is set to ‘clusters’. Default:
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object</p></li>
-<li><p><strong>target</strong> (<cite>{‘irlb’, ‘svd’}</cite>) – The dimensional reduction to use. Default: irlb</p></li>
-<li><p><strong>dim</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">range</span></code>) – Specifies the components to plot. For example: range(0,5) specifies the first five.</p></li>
+<li><p><strong>name</strong> (<cite>str</cite>) – The name of the normalization to operate on. If this is empty or None then the
+function will be applied on all normalizations available.</p></li>
+<li><p><strong>dim</strong> (<cite>list</cite>) – A list of indices specifying components to plot. First component has index zero.</p></li>
 <li><p><strong>top</strong> (<cite>int</cite>) – Specifies the number of top scoring genes to include. Default: 10</p></li>
 <li><p><strong>color</strong> (<cite>str</cite>) – Color of the bars. As a string or hex code. Default: “#fcc603”</p></li>
 <li><p><strong>fontsize</strong> (<cite>int</cite>) – Specifies font size. Default: 8</p></li>
 <li><p><strong>fig_size</strong> (<cite>tuple</cite>) – Figure size in inches. Default: (10, 10)</p></li>
 <li><p><strong>filename</strong> (<cite>str</cite>, optional) – Write to a file instead of showing the plot on screen.</p></li>
+<li><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose or not. Default: False</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p></p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None</p>
+<dd class="field-odd"><p>Nothing.</p>
 </dd>
 </dl>
 </dd></dl>

@@ -11,11 +11,11 @@ adobo is developed by Oscar Franzén at Karolinska Institutet. Limited support i
 
 Notes on this tutorial
 ======================
-Some basic knowledge of Python, `NumPy <https://en.wikipedia.org/wiki/NumPy>`_ and `pandas <https://en.wikipedia.org/wiki/Pandas_(software)>`_ and their commonly used data structures is assumed. Furthermore, most of adobo's functions have parameters with sensible defaults so that many parameters don't need to be specified upon calling a specific function, but for clarity the most important parameters are shown in the examples below. In the below examples we refer to the adobo package as 'ad'.
+Some basic knowledge of Python, `NumPy <https://en.wikipedia.org/wiki/NumPy>`_ and `pandas <https://en.wikipedia.org/wiki/Pandas_(software)>`_ and their commonly used data structures is assumed. Furthermore, most of adobo's functions have parameters with sensible defaults so that many parameters don't need to be specified upon calling a specific function, but for clarity the most important parameters are shown in the examples. We refer to the adobo package as 'ad'.
 
 Installation
 ============
-First step is to install adobo. The recommended way to install adobo is to first clone the GitHub repository and then use ``pip3`` from your terminal, which will also install the necessary dependencies (instead of using git one can also navigate to the `repository <https://github.com/oscar-franzen/adobo/>`_ and press the download button):
+First step is to install adobo. The recommended way to install adobo is to first clone the GitHub repository and then use ``pip3`` from your terminal, which will also install necessary dependencies (instead of using git one can also navigate to the `repository <https://github.com/oscar-franzen/adobo/>`_ and press the download button):
 
 .. code-block:: bash
 
@@ -110,15 +110,17 @@ The first step is to load the adobo package by importing it:
 
 Loading your data from a text file
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-First we need to create a new adobo object, which is an instance of the class :py:class:`adobo.data.dataset`. This will be a new object containing your single cell data, meta data and analysis results. The input file should be a gene expression matrix (rows as genes and cells as columns) in plain text format. Fields can be separated by any character and it can be changed with the ``sep`` parameter. ``sep`` can be a single character or a regular expression (default is the regular expression ``\s``). The data matrix file can have a header or not (``header=0`` indicates a header is present, otherwise use ``header=None``). If the header of your gene expression matrix contains a label for gene symbols, set ``column_id='yes'`` or simply ``column_id='auto'`` to autodetect this. :py:func:`adobo.IO.load_from_file` calls :py:func:`pandas.DataFrame.read_csv` and any additional parameters are passed on into this method. The function :py:func:`adobo.IO.load_from_file` is used to load data from a raw read counts matrix and the returned object is an instance of :class:`adobo.data.dataset`:
+First we need to create a new adobo object, which is an instance of the class :py:class:`adobo.data.dataset`. This will be a new object containing your single cell data, meta data and analysis results. The input file should be a gene expression matrix (rows as genes and cells as columns) in plain text format. Fields can be separated by any character and it can be changed with the ``sep`` parameter. ``sep`` can be a single character or a regular expression (default is the regular expression ``\s``). The data matrix file can have a header or not (``header=0`` indicates a header is present, otherwise use ``header=None``). If the header of your gene expression matrix contains a label for gene symbols, set ``column_id='yes'`` or simply ``column_id='auto'`` to autodetect this. :py:func:`adobo.IO.load_from_file` calls `pandas.DataFrame.read_csv <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html>`_ and any additional parameters are passed on into this method. The function :py:func:`adobo.IO.load_from_file` is used to load data from a raw read counts matrix and the returned object is an instance of :class:`adobo.data.dataset`:
 
 .. code-block:: python3
 
-   exp = ad.IO.load_from_file('GSE95315.tab', column_id='auto', desc='mouse brain data')
+   exp = ad.IO.load_from_file('GSE95315.tab',
+                              column_id='auto',
+                              desc='mouse brain data')
 
-The raw read counts matrix is stored in the attribute ``exp_mat`` inside the dataset object (:py:attr:`adobo.data.dataset.exp_mat`). Here we use data from `GEO95315 <https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE95315>`_, which can be `downloaded here <https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE95315&format=file&file=GSE95315%5F10X%5Fexpression%5Fdata%2Etab%2Egz>`_.
+The raw read counts matrix is stored in the attribute ``count_data`` inside the dataset object (:py:attr:`adobo.data.dataset.count_data`). Here we use data from `GEO95315 <https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE95315>`_, which can be `downloaded here <https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE95315&format=file&file=GSE95315%5F10X%5Fexpression%5Fdata%2Etab%2Egz>`_.
 
-``desc`` can be used to specify a string describing the data, but it can also be left empty.
+``desc`` can be used to specify an arbitrary string describing the data, but it can also be left empty.
 
 .. important::
 
@@ -134,13 +136,14 @@ The raw read counts matrix is stored in the attribute ``exp_mat`` inside the dat
 
 Loading compressed data
 ^^^^^^^^^^^^^^^^^^^^^^^
-scRNA-seq is zero inflated, and therefore compress strongly. We can load the compressed data directly without having to uncompress it first; the compression format is detected automatically (gzip, bz2, zip and xz are supported). For example:
+scRNA-seq is zero inflated, and therefore compress strongly. We can load the compressed data directly without having to uncompress it first; the compression format is detected automatically (``gzip``, ``bz2``, ``zip`` and ``xz`` are supported). For example:
 
 .. code-block:: python3
 
-   exp = ad.IO.load_from_file('GSE95315.tab.gz', column_id='auto')
+   exp = ad.IO.load_from_file('GSE95315.tab.gz',
+                              column_id='auto')
 
-Your gene expression data is stored in the attribute ``exp.exp_mat``, and after loading it is good practise to examine that the data were loaded properly:
+Your gene expression data is stored in the attribute ``exp.count_data``, and after loading it is good practise to examine that the data were loaded properly:
 
 >>> exp
 53,889 genes and 384 cells were loaded
@@ -209,7 +212,7 @@ Meta data such as experimental categories (e.g. tissue, time points, batches, et
 
 1. ``axis`` can be either 'cells' or 'genes' depending on whether your added data represent data for cells or genes.
 2. the ``key`` is used as variable name, choose something that makes sense, such as "tissue" for different tissues.
-3. ``data`` should be a ``list``, a numpy array or a Pandas Series, containing your data with the same length as your ``axis`` (although if ``data`` is of type :py:class:`pandas.Series` the length does not need to match as long as ``index`` is set in the Series).
+3. ``data`` should be a ``list``, a numpy array or a Pandas Series, containing your data with the same length as your ``axis`` (although if ``data`` is of type `pandas.Series <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html>`_ the length does not need to match as long as ``index`` is set in the Series).
 4. ``type_`` (note, this one has a trailing underscore) indicates if the data are categorical or continuous (defaults to categorical).
 
 Getting detailed help
@@ -243,17 +246,13 @@ It is also informative to examine number of expressed genes per cell:
 
 Detecting ERCC spikes
 ^^^^^^^^^^^^^^^^^^^^^
-ERCC are known amounts of synthetic constructs added to RNA-seq libraries for quality control and normalization purposes :cite:`Jiang2011`. Not all experiments use ERCC spikes, but many do. The ERCC "genes" are usually prefixed with `ERCC-` in the gene expression matrix. This function is used to flag them so that they are not included in downstream analyses.
+ERCC are known amounts of synthetic constructs added to RNA-seq libraries for quality control and normalization purposes :cite:`Jiang2011`. Not all experiments use ERCC spikes, but many do. The ERCC "genes" are usually prefixed with `ERCC-` in the gene expression matrix. This function is used to annotate them so that they are not included in downstream analyses.
 
-.. note::
-
-   The ``ERCC_pattern`` parameter can be used to set a regular expression for identifying the ERCC features.
-
-The :py:func:`adobo.preproc.detect_ercc_spikes` is used to filter out the ERCC (stored in :py:attr:`adobo.data.dataset.exp_ercc`):
+The :py:func:`adobo.preproc.find_ercc` is used to flag the ERCC spikes (stored in the ``ERCC`` column of :py:attr:`adobo.data.dataset.meta_genes`):
 
 .. code-block:: python3
 
-   ad.preproc.detect_ercc_spikes(exp)
+   ad.preproc.find_ercc(exp, ercc_pattern='^ERCC[_-]\\S+$')
 
 Detecting mitochondrial genes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -321,7 +320,7 @@ Like all adobo functions, ``find_low_quality_cells`` modifies the passed object.
 
 Normalization
 =============
-Normalization removes technical and sometimes experimental biases and is always necessary prior to analysis. Because a single normalization scheme for scRNA-seq data is not available, adobo supports several different procedures. The function :py:func:`adobo.normalize.norm` can be used to perform the following normalization methods:
+Normalization removes technical and sometimes experimental biases and is always necessary prior to analysis. Because a universal normalization scheme for scRNA-seq data is not available nor recommended, adobo supports several different procedures. The function :py:func:`adobo.normalize.norm` can be used to perform the following normalization methods:
 
 **standard**
    Performs a standard normalization by scaling with the total read depth per cell and then multiplying with a scaling factor.
@@ -338,22 +337,23 @@ Normalization removes technical and sometimes experimental biases and is always 
 **vsn**
    Variance stabilizing normaliztion based on a negative binomial regression model with regularized parameters. Introduced by :cite:`Hafemeister2019` and represents a more sophisticated normalization approach. Appears to marginally improve resolution. Can be used if you have UMI counts.
 
-All normalization schemes can be followed by log-transformation by setting ``log2=True``, which is the default.
+All normalization schemes can be followed by log2-transformation by setting ``log2=True``, which is the default.
 
 To perform a ``standard`` normalization followed by ``log``-transformation, run:
 
 .. code-block:: python3
 
    ad.normalize.norm(exp, method='standard')
+   ad.normalize.norm(exp, method='clr')
 
-The normalized data are stored in the attribute :py:attr:`adobo.data.dataset.norm`. We can always call ``is_normalized()`` to determine if a dataset has been normalized:
+The normalized data are stored in the attribute :py:attr:`adobo.data.dataset.norm_data`, which is a dictionary of dictionaries. If we run multiple normalizations they are all stored in the ``norm_data`` and we can use the name ``name`` parameter in :py:func:`adobo.normalize.norm` to give it a name (default name is the method). We can always call ``is_normalized()`` to determine if a dataset has been normalized:
 
 >>> exp.is_normalized()
 True
 
 .. note::
 
-   If you have previously executed :py:func:`adobo.preproc.detect_ercc_spikes`, ERCC spikes will be normalized too, and these can be found in :py:attr:`adobo.data.dataset.norm_ercc`.
+   If you have previously executed :py:func:`adobo.preproc.find_ercc`, ERCC spikes will be normalized too, and these can be found in :py:attr:`adobo.data.dataset.norm_ercc`.
 
 Examining analysis history
 ==========================
