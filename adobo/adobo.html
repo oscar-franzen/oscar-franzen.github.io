@@ -50,24 +50,28 @@
 <li><a class="reference internal" href="#id5">Summary</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-adobo.dr">adobo.dr module</a><ul>
+<li><a class="reference internal" href="#module-adobo.de">adobo.de module</a><ul>
 <li><a class="reference internal" href="#id6">Summary</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-adobo.hvg">adobo.hvg module</a><ul>
+<li><a class="reference internal" href="#module-adobo.dr">adobo.dr module</a><ul>
 <li><a class="reference internal" href="#id7">Summary</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-adobo.normalize">adobo.normalize module</a><ul>
+<li><a class="reference internal" href="#module-adobo.hvg">adobo.hvg module</a><ul>
 <li><a class="reference internal" href="#id8">Summary</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-adobo.plotting">adobo.plotting module</a><ul>
+<li><a class="reference internal" href="#module-adobo.normalize">adobo.normalize module</a><ul>
 <li><a class="reference internal" href="#id9">Summary</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-adobo.preproc">adobo.preproc module</a><ul>
+<li><a class="reference internal" href="#module-adobo.plotting">adobo.plotting module</a><ul>
 <li><a class="reference internal" href="#id10">Summary</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-adobo.preproc">adobo.preproc module</a><ul>
+<li><a class="reference internal" href="#id11">Summary</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-adobo">Module contents</a></li>
@@ -135,7 +139,7 @@
 <p>Functions for reading and writing scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.IO.load_from_file">
-<code class="sig-prename descclassname">adobo.IO.</code><code class="sig-name descname">load_from_file</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">sep='\\s'</em>, <em class="sig-param">header=0</em>, <em class="sig-param">column_id='auto'</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">desc='no desc set'</em>, <em class="sig-param">output_filename=None</em>, <em class="sig-param">input_filename=None</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.IO.load_from_file" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.IO.</code><code class="sig-name descname">load_from_file</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">sep='\\s'</em>, <em class="sig-param">header=0</em>, <em class="sig-param">column_id='auto'</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">desc='no desc set'</em>, <em class="sig-param">output_file=None</em>, <em class="sig-param">input_file=None</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.IO.load_from_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a gene expression matrix consisting of raw read counts</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -148,7 +152,7 @@ columns are cells and rows are genes.</p></li>
 <li><p><strong>column_id</strong> (<em>{'auto'</em><em>, </em><em>'yes'</em><em>, </em><em>'no'}</em>) – Whether the header (first line) of the file contains a column ID for the genes. If
 this is the case, set this to auto or yes, otherwise no. Default: ‘auto’</p></li>
 <li><p><strong>desc</strong> (<cite>str</cite>) – A description of the data</p></li>
-<li><p><strong>output_filename</strong> (<cite>str</cite>) – An output filename used when calling <a class="reference internal" href="#adobo.data.dataset.save" title="adobo.data.dataset.save"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.data.dataset.save()</span></code></a>.</p></li>
+<li><p><strong>output_file</strong> (<cite>str</cite>) – An output filename used when calling <a class="reference internal" href="#adobo.data.dataset.save" title="adobo.data.dataset.save"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.data.dataset.save()</span></code></a>.</p></li>
 <li><p><strong>verbose</strong> (<cite>bool</cite>) – To be verbose or not. Default: False</p></li>
 </ul>
 </dd>
@@ -241,7 +245,7 @@ Biotech.</p>
 <p>This module contains functions to cluster data.</p>
 <dl class="function">
 <dt id="adobo.clustering.generate">
-<code class="sig-prename descclassname">adobo.clustering.</code><code class="sig-name descname">generate</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">k=10</em>, <em class="sig-param">name=None</em>, <em class="sig-param">distance='euclidean'</em>, <em class="sig-param">graph='snn'</em>, <em class="sig-param">clust_alg='leiden'</em>, <em class="sig-param">prune_snn=0.067</em>, <em class="sig-param">res=0.8</em>, <em class="sig-param">retx=True</em>, <em class="sig-param">seed=42</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.clustering.generate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.clustering.</code><code class="sig-name descname">generate</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">k=10</em>, <em class="sig-param">name=None</em>, <em class="sig-param">distance='euclidean'</em>, <em class="sig-param">graph='snn'</em>, <em class="sig-param">clust_alg='leiden'</em>, <em class="sig-param">prune_snn=0.067</em>, <em class="sig-param">res=0.8</em>, <em class="sig-param">seed=42</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.clustering.generate" title="Permalink to this definition">¶</a></dt>
 <dd><p>A wrapper function for generating single cell clusters from a shared nearest neighbor
 graph with the Leiden algorithm</p>
 <dl class="field-list simple">
@@ -262,7 +266,6 @@ index) than this will be removed. Set to 0 to disable pruning. Increasing this
 value will result in fewer edges in the graph. Default: 0.067</p></li>
 <li><p><strong>res</strong> (<cite>float</cite>) – Resolution parameter for the Leiden algorithm _only_; change to modify cluster
 resolution. Default: 0.8</p></li>
-<li><p><strong>retx</strong> (<cite>bool</cite>) – Return cluster sizes.</p></li>
 <li><p><strong>seed</strong> (<cite>int</cite>) – For reproducibility.</p></li>
 <li><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose or not.</p></li>
 </ul>
@@ -400,7 +403,7 @@ value will result in fewer edges in the graph. Default: 0.067</p></li>
 <p>This module contains a data storage class.</p>
 <dl class="class">
 <dt id="adobo.data.dataset">
-<em class="property">class </em><code class="sig-prename descclassname">adobo.data.</code><code class="sig-name descname">dataset</code><span class="sig-paren">(</span><em class="sig-param">raw_mat</em>, <em class="sig-param">desc='no desc set'</em>, <em class="sig-param">output_filename=None</em>, <em class="sig-param">input_filename=None</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.dataset" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">adobo.data.</code><code class="sig-name descname">dataset</code><span class="sig-paren">(</span><em class="sig-param">raw_mat</em>, <em class="sig-param">desc='no desc set'</em>, <em class="sig-param">output_file=None</em>, <em class="sig-param">input_file=None</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.dataset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Storage container for raw data and analysis results.</p>
 <dl class="attribute">
@@ -481,8 +484,8 @@ value will result in fewer edges in the graph. Default: 0.067</p></li>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="adobo.data.dataset.output_filename">
-<code class="sig-name descname">output_filename</code><a class="headerlink" href="#adobo.data.dataset.output_filename" title="Permalink to this definition">¶</a></dt>
+<dt id="adobo.data.dataset.output_file">
+<code class="sig-name descname">output_file</code><a class="headerlink" href="#adobo.data.dataset.output_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>A filename that will be used when calling save().</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -497,7 +500,7 @@ value will result in fewer edges in the graph. Default: 0.067</p></li>
 <dd><p>Add meta data to the adobo object</p>
 <p class="rubric">Notes</p>
 <p>Meta data can be added to cells or genes.</p>
-<p>The parameter name ‘<a href="#id11"><span class="problematic" id="id12">type_</span></a>’ has an underscore to avoid conflict with Python’s
+<p>The parameter name ‘<a href="#id12"><span class="problematic" id="id13">type_</span></a>’ has an underscore to avoid conflict with Python’s
 internal type keyword.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -578,7 +581,7 @@ it.</p>
 <p class="rubric">Notes</p>
 <p>This is a method so that it is not needed to memorize the filename, instead the
 filename was already specified when the object was created with the
-<cite>output_filename</cite> parameter. Load the object data with <cite>joblib.load</cite>.</p>
+<cite>output_file</cite> parameter. Load the object data with <cite>joblib.load</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>compress</strong> (<cite>bool</cite>) – Save with data compression or not. Default: True</p>
@@ -602,10 +605,17 @@ filename was already specified when the object was created with the
 
 </div>
 </div>
-<div class="section" id="module-adobo.dr">
-<span id="adobo-dr-module"></span><h2>adobo.dr module<a class="headerlink" href="#module-adobo.dr" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-adobo.de">
+<span id="adobo-de-module"></span><h2>adobo.de module<a class="headerlink" href="#module-adobo.de" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id6">
 <h3>Summary<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>Functions for differential expression.</p>
+</div>
+</div>
+<div class="section" id="module-adobo.dr">
+<span id="adobo-dr-module"></span><h2>adobo.dr module<a class="headerlink" href="#module-adobo.dr" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h3>Summary<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>Functions for dimensional reduction.</p>
 <dl class="function">
 <dt id="adobo.dr.irlb">
@@ -681,7 +691,7 @@ function will be applied on all normalizations available.</p></li>
 
 <dl class="function">
 <dt id="adobo.dr.svd">
-<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">svd</code><span class="sig-paren">(</span><em class="sig-param">data_norm</em>, <em class="sig-param">ncomp=75</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.svd" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">svd</code><span class="sig-paren">(</span><em class="sig-param">data_norm</em>, <em class="sig-param">ncomp=75</em>, <em class="sig-param">only_sdev=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.svd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Principal component analysis via singular value decomposition</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -690,6 +700,7 @@ function will be applied on all normalizations available.</p></li>
 should be a subset of the normalized gene expression matrix containing highly
 variable genes.</p></li>
 <li><p><strong>ncomp</strong> (<cite>int</cite>) – Number of components to return. Default: 75</p></li>
+<li><p><strong>only_sdev</strong> (<cite>bool</cite>) – Only return the standard deviation of the components. Default: False</p></li>
 </ul>
 </dd>
 </dl>
@@ -698,8 +709,12 @@ variable genes.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p><ul class="simple">
-<li><p><cite>pd.DataFrame</cite> – A py:class:<cite>pandas.DataFrame</cite> containing the components (columns).</p></li>
-<li><p><cite>pd.DataFrame</cite> – A py:class:<cite>pandas.DataFrame</cite> containing the contributions of every gene (rows).</p></li>
+<li><p><cite>pd.DataFrame</cite> – A py:class:<cite>pandas.DataFrame</cite> containing the components (columns). Only if
+only_sdev=False.</p></li>
+<li><p><cite>pd.DataFrame</cite> – A py:class:<cite>pandas.DataFrame</cite> containing the contributions of every gene (rows).
+Only if only_sdev=False.</p></li>
+<li><p><cite>pd.DataFrame</cite> – A py:class:<cite>pandas.DataFrame</cite> containing standard deviations of components. Only
+if only_sdev is set to True.</p></li>
 </ul>
 </p>
 </dd>
@@ -749,22 +764,11 @@ values can result in significanlty different results. Default: 30</p></li>
 
 <dl class="function">
 <dt id="adobo.dr.umap">
-<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">umap</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">run_on_PCA=True</em>, <em class="sig-param">name=None</em>, <em class="sig-param">seed=None</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.umap" title="Permalink to this definition">¶</a></dt>
-<dd><p>Projects data to a two dimensional space using the UMAP algorithm, a non-linear
-data reduction algorithm.</p>
+<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">umap</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">run_on_PCA=True</em>, <em class="sig-param">name=None</em>, <em class="sig-param">n_neighbors=15</em>, <em class="sig-param">distance='euclidean'</em>, <em class="sig-param">n_epochs=None</em>, <em class="sig-param">learning_rate=1.0</em>, <em class="sig-param">min_dist=0.1</em>, <em class="sig-param">spread=1.0</em>, <em class="sig-param">seed=None</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.umap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Projects data to a low-dimensional space using the Uniform Manifold Approximation
+and Projection (UMAP) algorithm</p>
 <p class="rubric">Notes</p>
-<p>The UMAP output can be tweaked using these parameters (but there are also several
-other parameters that can influence the outcome, see <cite>help(umap.UMAP)</cite>:
-<cite>n_neighbors</cite>, Default: 15</p>
-<blockquote>
-<div><p>This parameter controls the balances between local versus global structure.</p>
-</div></blockquote>
-<dl class="simple">
-<dt><cite>min_dist</cite>, Default: 0.1</dt><dd><p>Controls how tightly points are packed together.</p>
-</dd>
-<dt><cite>metric</cite>, Default: ‘euclidean’</dt><dd><p>The metric to use to compute distances in high dimensional space.</p>
-</dd>
-</dl>
+<p>UMAP is a non-linear data reduction algorithm.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -773,6 +777,19 @@ other parameters that can influence the outcome, see <cite>help(umap.UMAP)</cite
 gene expression matrix. Default: True</p></li>
 <li><p><strong>name</strong> (<cite>str</cite>) – The name of the normalization to operate on. If this is empty or None then the
 function will be applied on all normalizations available.</p></li>
+<li><p><strong>n_neighbors</strong> (<cite>int</cite>) – The size of local neighborhood (in terms of number of neighboring sample points)
+used for manifold approximation. Larger values result in more global views of the
+manifold, while smaller values result in more local data being preserved.
+In general values should be in the range 2 to 100. Default: 15</p></li>
+<li><p><strong>distance</strong> (<cite>str</cite>) – The metric to use to compute distances in high dimensional space.
+Default: ‘euclidean’</p></li>
+<li><p><strong>n_epochs</strong> (<cite>int</cite>) – The number of training epochs to be used in optimizing the low dimensional
+embedding. Larger values result in more accurate embeddings. If None is specified
+a value will be selected based on the size of the input dataset (200 for large
+datasets, 500 for small). Default: None</p></li>
+<li><p><strong>learning_rate</strong> (<cite>float</cite>) – The initial learning rate for the embedding optimization. Default: 1.0</p></li>
+<li><p><strong>min_dist</strong> (<cite>float</cite>) – The effective minimum distance between embedded points. Default: 0.1</p></li>
+<li><p><strong>spread</strong> (<cite>float</cite>) – The effective scale of embedded points. Default: 1.0</p></li>
 <li><p><strong>seed</strong> (<cite>int</cite>) – For reproducibility. Default: None</p></li>
 <li><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose. Default: False</p></li>
 </ul>
@@ -799,8 +816,8 @@ function will be applied on all normalizations available.</p></li>
 </div>
 <div class="section" id="module-adobo.hvg">
 <span id="adobo-hvg-module"></span><h2>adobo.hvg module<a class="headerlink" href="#module-adobo.hvg" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id7">
-<h3>Summary<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h3>Summary<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>Functions for detection of highly variable genes.</p>
 <dl class="function">
 <dt id="adobo.hvg.brennecke">
@@ -998,8 +1015,8 @@ should be normalized first.</p>
 </div>
 <div class="section" id="module-adobo.normalize">
 <span id="adobo-normalize-module"></span><h2>adobo.normalize module<a class="headerlink" href="#module-adobo.normalize" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id8">
-<h3>Summary<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id9">
+<h3>Summary<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>This module contains functions to normalize raw read counts.</p>
 <dl class="function">
 <dt id="adobo.normalize.clr">
@@ -1208,22 +1225,23 @@ package <cite>sctransform</cite>.</p>
 </div>
 <div class="section" id="module-adobo.plotting">
 <span id="adobo-plotting-module"></span><h2>adobo.plotting module<a class="headerlink" href="#module-adobo.plotting" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id9">
-<h3>Summary<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id10">
+<h3>Summary<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <p>Functions for plotting scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.plotting.cell_viz">
-<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">cell_viz</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">reduction='tsne'</em>, <em class="sig-param">clustering=('leiden'</em>, <em class="sig-param">)</em>, <em class="sig-param">metadata=()</em>, <em class="sig-param">genes=()</em>, <em class="sig-param">ncols=2</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">marker_size=0.8</em>, <em class="sig-param">font_size=8</em>, <em class="sig-param">colors='adobo'</em>, <em class="sig-param">title=None</em>, <em class="sig-param">legend=True</em>, <em class="sig-param">min_cluster_size=0</em>, <em class="sig-param">fig_size=(10</em>, <em class="sig-param">10)</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.cell_viz" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">cell_viz</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">reduction='tsne'</em>, <em class="sig-param">name=()</em>, <em class="sig-param">clustering=()</em>, <em class="sig-param">metadata=()</em>, <em class="sig-param">genes=()</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">marker_size=0.8</em>, <em class="sig-param">font_size=8</em>, <em class="sig-param">colors='adobo'</em>, <em class="sig-param">title=None</em>, <em class="sig-param">legend=True</em>, <em class="sig-param">min_cluster_size=10</em>, <em class="sig-param">fig_size=(10</em>, <em class="sig-param">10)</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.cell_viz" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a 2d scatter plot from an embedding</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object</p></li>
 <li><p><strong>reduction</strong> (<cite>{‘tsne’, ‘umap’, ‘irlb’, ‘svd’}</cite>) – The dimensional reduction to use. Default: tsne</p></li>
+<li><p><strong>name</strong> (<cite>tuple</cite>) – A tuple of normalization to use. If it has the length zero, then all available
+normalizations will be used.</p></li>
 <li><p><strong>clustering</strong> (<cite>tuple</cite>, optional) – Specifies the clustering outcomes to plot.</p></li>
 <li><p><strong>metadata</strong> (<cite>tuple</cite>, optional) – Specifies the metadata variables to plot.</p></li>
 <li><p><strong>genes</strong> (<cite>tuple</cite>, optional) – Specifies genes to plot.</p></li>
-<li><p><strong>ncols</strong> (<cite>int</cite>) – Number of columns in the plotting grid. Default: 2</p></li>
 <li><p><strong>filename</strong> (<cite>str</cite>, optional) – Name of an output file instead of showing on screen.</p></li>
 <li><p><strong>marker_size</strong> (<cite>float</cite>) – The size of the markers.</p></li>
 <li><p><strong>font_size</strong> (<cite>float</cite>) – Font size. Default: 8</p></li>
@@ -1234,7 +1252,7 @@ number of clusters exceed 50, then random colors will be used). Default: adobo</
 <li><p><strong>title</strong> (<cite>str</cite>) – Title of the plot. By default the title is set to the reduction technique.</p></li>
 <li><p><strong>legend</strong> (<cite>bool</cite>) – Add legend or not. Default: True</p></li>
 <li><p><strong>min_cluster_size</strong> (<cite>int</cite>) – Can be used to prevent clusters below a certain number of cells to be plotted.
-Only applicable if <cite>what_to_color</cite> is set to ‘clusters’. Default: 0</p></li>
+Default: 10</p></li>
 <li><p><strong>fig_size</strong> (<cite>tuple</cite>) – Figure size in inches. Default: (10, 10)</p></li>
 <li><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose or not. Default: True</p></li>
 </ul>
@@ -1298,6 +1316,34 @@ function will be applied on all normalizations available.</p></li>
 <dd class="field-even"><p></p>
 </dd>
 <dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Nothing</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="adobo.plotting.pca_elbow">
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">pca_elbow</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">name=()</em>, <em class="sig-param">comp_max=100</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">font_size=8</em>, <em class="sig-param">fig_size=(10</em>, <em class="sig-param">10)</em>, <em class="sig-param">verbose=True</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.pca_elbow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a PCA elbow plot</p>
+<p class="rubric">Notes</p>
+<p>Can be used for determining the number of principal components to include.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object</p></li>
+<li><p><strong>name</strong> (<cite>tuple</cite>) – A tuple of normalization to use. If it has the length zero, then all available
+normalizations will be used.</p></li>
+<li><p><strong>comp_max</strong> (<cite>int</cite>) – Maximum number of components to include.</p></li>
+<li><p><strong>filename</strong> (<cite>str</cite>, optional) – Name of an output file instead of showing on screen.</p></li>
+<li><p><strong>font_size</strong> (<cite>float</cite>) – Font size. Default: 8</p></li>
+<li><p><strong>fig_size</strong> (<cite>tuple</cite>) – Figure size in inches. Default: (10, 10)</p></li>
+<li><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose or not. Default: True</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>Nothing.</p>
 </dd>
 </dl>
@@ -1329,12 +1375,12 @@ function will be applied on all normalizations available.</p></li>
 </div>
 <div class="section" id="module-adobo.preproc">
 <span id="adobo-preproc-module"></span><h2>adobo.preproc module<a class="headerlink" href="#module-adobo.preproc" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id10">
-<h3>Summary<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id11">
+<h3>Summary<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <p>Functions for pre-processing scRNA-seq data.</p>
 <dl class="function">
-<dt id="adobo.preproc.detect_ercc_spikes">
-<code class="sig-prename descclassname">adobo.preproc.</code><code class="sig-name descname">detect_ercc_spikes</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">ercc_pattern='^ERCC[_-]\\S+$'</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.preproc.detect_ercc_spikes" title="Permalink to this definition">¶</a></dt>
+<dt id="adobo.preproc.find_ercc">
+<code class="sig-prename descclassname">adobo.preproc.</code><code class="sig-name descname">find_ercc</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">ercc_pattern='^ERCC[_-]\\S+$'</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.preproc.find_ercc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Flag ERCC spikes</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

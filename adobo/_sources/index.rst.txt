@@ -70,6 +70,8 @@ adobo is organized into several modules containing related functions. All module
      - reading and writing data (input/output)
    * - ``clustering``
      - functions related to data clustering operations
+   * - ``de``
+     - differential expression between cell clusters
    * - ``plotting``
      - data visualization
    * - ``bio``
@@ -170,7 +172,7 @@ It is convenient not having to repeat analyses once they are finished. Saving an
    
    exp = joblib.load('test.joblib')
 
-Instead of writing three lines of code and always remembering the name of the output file, we can specify ``output_filename`` in :py:func:`adobo.IO.load_from_file` and then calling :py:func:`adobo.data.dataset.save()`.
+Instead of writing three lines of code and always remembering the name of the output file, we can specify ``output_file`` in :py:func:`adobo.IO.load_from_file` and then calling :py:func:`adobo.data.dataset.save()`.
 
 Accessing meta data for cells and genes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -256,7 +258,7 @@ The :py:func:`adobo.preproc.find_ercc` is used to flag the ERCC spikes (stored i
 
 Detecting mitochondrial genes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Mitochondrial gene expression signals serve do indirectly tell us how healthy cells are. Dying and low quality cells tend to exhibit unusually high signal from these genes. One convenient function identifies mitochondrial genes in your data and adds the percent of mitochondrial gene expression to the cellular meta data. Often mitochondrial genes in the human and mouse genomes have gene symbols starting with the prefix ``mt-``, but this might vary from species to species.
+Mitochondrial gene expression signals can serve to indirectly tell us how healthy the captured cells are. Dying and low quality cells tend to exhibit unusually high signal from these genes. One convenient function identifies mitochondrial genes in your data and adds the percent of mitochondrial gene expression to the cellular meta data. Often mitochondrial genes in the human and mouse genomes have gene symbols starting with the prefix ``mt-``, but this might vary from species to species.
 
 .. code-block:: python3
 
@@ -425,7 +427,7 @@ To plot the top 10 contributing genes to the first five components:
 
 .. code-block:: python3
 
-   ad.plotting.pca_contributors(exp, dim=range(0,5), top=10)
+   ad.plotting.pca_contributors(exp, dim=[0,1,2,3,4], top=10)
 
 .. image:: pca_contributors.png
 
@@ -433,7 +435,7 @@ We can also write the output to a file instead of showing it on the screen:
 
 .. code-block:: python3
 
-   ad.plotting.pca_contributors(exp, dim=range(0,5), top=10, filename='top_pca_genes.pdf')
+   ad.plotting.pca_contributors(exp, dim=[0,1,2,3,4], top=10, filename='top_pca_genes.pdf')
 
 t-Distributed Stochastic Neighbor Embedding (t-SNE)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
