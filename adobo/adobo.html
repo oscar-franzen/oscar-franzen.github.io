@@ -1463,6 +1463,44 @@ expression to the cellular meta data</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="adobo.preproc.impute">
+<code class="sig-prename descclassname">adobo.preproc.</code><code class="sig-name descname">impute</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">res=0.8</em>, <em class="sig-param">drop_thre=0.5</em>, <em class="sig-param">nworkers='auto'</em>, <em class="sig-param">verbose=True</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.preproc.impute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Impute dropouts using the method described in Li (2018) Nature Communications</p>
+<p class="rubric">Notes</p>
+<p>Dropouts are artifacts in scRNA-seq data. One method to alleviate the problem with
+dropouts is to perform imputation (i.e. replacing missing data points with predicted
+values).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object.</p></li>
+<li><p><strong>res</strong> (<cite>float</cite>) – Resolution parameter for the Leiden clustering, change to modify cluster
+resolution. Default: 0.8</p></li>
+<li><p><strong>drop_thre</strong> (<cite>float</cite>) – Drop threshold. Default: 0.5</p></li>
+<li><p><strong>nworkers</strong> (<cite>int</cite> or <cite>str</cite>) – If a string, then the only accepted value is ‘auto’, and the number of worker
+threads will be set to the total number of detected cores minus 1. If an integer
+then it specifies the number of worker threads. Default: ‘auto’</p></li>
+<li><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose or not. Default: True</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="simple">
+<dt>Li &amp; Li (2018) An accurate and robust imputation method scImpute for single-cell</dt><dd><p>RNA-seq data <a class="reference external" href="https://www.nature.com/articles/s41467-018-03405-7">https://www.nature.com/articles/s41467-018-03405-7</a>
+<a class="reference external" href="https://github.com/Vivianstats/scImpute">https://github.com/Vivianstats/scImpute</a></p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Modifies the passed object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
 <dt id="adobo.preproc.reset_filters">
 <code class="sig-prename descclassname">adobo.preproc.</code><code class="sig-name descname">reset_filters</code><span class="sig-paren">(</span><em class="sig-param">obj</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.preproc.reset_filters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resets cell and gene filters</p>

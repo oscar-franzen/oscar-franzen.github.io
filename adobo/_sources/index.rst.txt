@@ -23,7 +23,8 @@ First step is to install adobo. The recommended way to install adobo is to first
    
    $ cd adobo
    
-   $ pip3 install .
+   # local installation
+   $ pip3 install --user .
    
    $ # below installs adobo without package dependencies (not recommended)
    $ pip3 install --no-deps .
