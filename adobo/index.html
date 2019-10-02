@@ -54,6 +54,7 @@
 <li><a class="reference internal" href="#detecting-mitochondrial-genes">Detecting mitochondrial genes</a></li>
 <li><a class="reference internal" href="#applying-simple-filters">Applying simple filters</a></li>
 <li><a class="reference internal" href="#automatic-detection-of-low-quality-cells">Automatic detection of low quality cells</a></li>
+<li><a class="reference internal" href="#imputation-of-dropouts">Imputation of dropouts</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#normalization">Normalization</a></li>
@@ -420,6 +421,18 @@ $ pip3 install --user --no-deps .
 </pre></div>
 </div>
 </div>
+<div class="section" id="imputation-of-dropouts">
+<h4>Imputation of dropouts<a class="headerlink" href="#imputation-of-dropouts" title="Permalink to this headline">¶</a></h4>
+<p>“Dropouts” are artifacts caused by the low amounts of mRNA in single cells, causing expressed genes to become undetected in the expression data. Droplet-based protocols tend to have a greater number of dropouts than other methods. Statistical methods can be used to impute missing expression measurements. Several methods are available for performing imputation. adobo implement the method introduced by Li <em>et al</em> <a class="reference internal" href="#li2018" id="id2">[2]</a>, which can be executed using the command:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">impute</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">nworkers</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The parameter <code class="docutils literal notranslate"><span class="pre">nworkers</span></code> can be used to set the number of worker processes, which can be ‘auto’ to autodetect this (although due to Python’s <a class="reference external" href="https://www.dabeaz.com/python/UnderstandingGIL.pdf">Global Interpreter Lock</a> the number of workers should not be higher than the number of physical cores). Imputed data are stored in <a class="reference internal" href="adobo.html#adobo.data.dataset.imp_count_data" title="adobo.data.dataset.imp_count_data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset.imp_count_data</span></code></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Runtime can be several hours for large datasets (&gt;&gt;1000 cells).</p>
+</div>
+</div>
 </div>
 <div class="section" id="normalization">
 <h3>Normalization<a class="headerlink" href="#normalization" title="Permalink to this headline">¶</a></h3>
@@ -427,13 +440,13 @@ $ pip3 install --user --no-deps .
 <dl class="simple">
 <dt><strong>standard</strong></dt><dd><p>Performs a standard normalization by scaling with the total read depth per cell and then multiplying with a scaling factor.</p>
 </dd>
-<dt><strong>rpkm</strong></dt><dd><p>Normalizes read counts as Reads per kilo base per million mapped reads (RPKM) <a class="reference internal" href="#conesa2016" id="id2">[2]</a>. This method should be used if you need to adjust for gene length, such as in a SMART-Seq2 protocol. To use this procedure you must first prepare a file containing combined exon lengths for genes; the file should contain two columns, <strong>without a header</strong>, and columns separated by one space. The following columns must be present: (1) gene symbols and (2) the sum of exon lengths. The filename is set with the <code class="docutils literal notranslate"><span class="pre">gene_lengths</span></code> parameter, which can also take a vector.</p>
+<dt><strong>rpkm</strong></dt><dd><p>Normalizes read counts as Reads per kilo base per million mapped reads (RPKM) <a class="reference internal" href="#conesa2016" id="id3">[3]</a>. This method should be used if you need to adjust for gene length, such as in a SMART-Seq2 protocol. To use this procedure you must first prepare a file containing combined exon lengths for genes; the file should contain two columns, <strong>without a header</strong>, and columns separated by one space. The following columns must be present: (1) gene symbols and (2) the sum of exon lengths. The filename is set with the <code class="docutils literal notranslate"><span class="pre">gene_lengths</span></code> parameter, which can also take a vector.</p>
 </dd>
-<dt><strong>fqn</strong></dt><dd><p>Performs full quantile normalization <a class="reference internal" href="#bolstad2003" id="id3">[3]</a>. FQN was a popular normalization scheme for microarray data. It is not very common in single cell analysis despite having been shown to perform well <a class="reference internal" href="#cole2018" id="id4">[4]</a>. The present implementation does not handle ties well.</p>
+<dt><strong>fqn</strong></dt><dd><p>Performs full quantile normalization <a class="reference internal" href="#bolstad2003" id="id4">[4]</a>. FQN was a popular normalization scheme for microarray data. It is not very common in single cell analysis despite having been shown to perform well <a class="reference internal" href="#cole2018" id="id5">[5]</a>. The present implementation does not handle ties well.</p>
 </dd>
-<dt><strong>clr</strong></dt><dd><p>Centered log ratio normalization. This normalization scheme was introduced in Seurat version 3.0 <a class="reference internal" href="#stuart2018" id="id5">[5]</a>. It is a simple normalization scheme and is an alternative to <code class="docutils literal notranslate"><span class="pre">standard</span></code>.</p>
+<dt><strong>clr</strong></dt><dd><p>Centered log ratio normalization. This normalization scheme was introduced in Seurat version 3.0 <a class="reference internal" href="#stuart2018" id="id6">[6]</a>. It is a simple normalization scheme and is an alternative to <code class="docutils literal notranslate"><span class="pre">standard</span></code>.</p>
 </dd>
-<dt><strong>vsn</strong></dt><dd><p>Variance stabilizing normaliztion based on a negative binomial regression model with regularized parameters. Introduced by <a class="reference internal" href="#hafemeister2019" id="id6">[6]</a> and represents a more sophisticated normalization approach. Appears to marginally improve resolution. Can be used if you have UMI counts.</p>
+<dt><strong>vsn</strong></dt><dd><p>Variance stabilizing normaliztion based on a negative binomial regression model with regularized parameters. Introduced by <a class="reference internal" href="#hafemeister2019" id="id7">[7]</a> and represents a more sophisticated normalization approach. Appears to marginally improve resolution. Can be used if you have UMI counts.</p>
 </dd>
 </dl>
 <p>All normalization schemes can be followed by log2-transformation by setting <code class="docutils literal notranslate"><span class="pre">log2=True</span></code>, which is the default.</p>
@@ -465,17 +478,17 @@ $ pip3 install --user --no-deps .
 </div>
 <div class="section" id="detection-of-highly-variable-genes">
 <h3>Detection of highly variable genes<a class="headerlink" href="#detection-of-highly-variable-genes" title="Permalink to this headline">¶</a></h3>
-<p>Many algorithms used in scRNA-seq analysis perform better when used on a subset of measured genes <a class="reference internal" href="#yip2018" id="id7">[7]</a>; the goal of the feature selection step is usually to extract a set highly variable genes (HVG). adobo currently implements the following strategies for HVG discovery:</p>
+<p>Many algorithms used in scRNA-seq analysis perform better when used on a subset of measured genes <a class="reference internal" href="#yip2018" id="id8">[8]</a>; the goal of the feature selection step is usually to extract a set highly variable genes (HVG). adobo currently implements the following strategies for HVG discovery:</p>
 <dl class="simple">
-<dt><strong>seurat</strong></dt><dd><p>The function bins the genes according to average expression, then calculates dispersion for each bin as variance to mean ratio. Within each bin, Z-scores are calculated and returned. Z-scores are ranked and the top 1000 are selected. Input data should be normalized first. This strategy was introduced in Seruat <a class="reference internal" href="#stuart2018" id="id8">[5]</a>, it is simple yet highly effective in identifying HVG.</p>
+<dt><strong>seurat</strong></dt><dd><p>The function bins the genes according to average expression, then calculates dispersion for each bin as variance to mean ratio. Within each bin, Z-scores are calculated and returned. Z-scores are ranked and the top 1000 are selected. Input data should be normalized first. This strategy was introduced in Seruat <a class="reference internal" href="#stuart2018" id="id9">[6]</a>, it is simple yet highly effective in identifying HVG.</p>
 </dd>
-<dt><strong>brennecke</strong></dt><dd><p>Implements the method described in <a class="reference internal" href="#brennecke2013" id="id9">[8]</a>. <code class="docutils literal notranslate"><span class="pre">brennecke</span></code> estimates and fits technical noise using ERCC spikes (technical genes) by fitting a generalized linear model with a gamma function and identity link and the parameterization w=a_1+u+a0. It then uses the chi2 distribution to test the null hypothesis that the squared coefficient of variation does not exceed a certain minimum. False discovery rate (FDR)&lt;0.10 is considered significant.</p>
+<dt><strong>brennecke</strong></dt><dd><p>Implements the method described in <a class="reference internal" href="#brennecke2013" id="id10">[9]</a>. <code class="docutils literal notranslate"><span class="pre">brennecke</span></code> estimates and fits technical noise using ERCC spikes (technical genes) by fitting a generalized linear model with a gamma function and identity link and the parameterization w=a_1+u+a0. It then uses the chi2 distribution to test the null hypothesis that the squared coefficient of variation does not exceed a certain minimum. False discovery rate (FDR)&lt;0.10 is considered significant.</p>
 </dd>
-<dt><strong>scran</strong></dt><dd><p>scran fits a polynomial regression model to technical noise by modeling the variance versus mean gene expression relationship of ERCC spikes (the original method used local regression) <a class="reference internal" href="#lun2016" id="id10">[9]</a>. It then decomposes the variance of the biological gene by subtracting the technical variance component and returning the biological variance component.</p>
+<dt><strong>scran</strong></dt><dd><p>scran fits a polynomial regression model to technical noise by modeling the variance versus mean gene expression relationship of ERCC spikes (the original method used local regression) <a class="reference internal" href="#lun2016" id="id11">[10]</a>. It then decomposes the variance of the biological gene by subtracting the technical variance component and returning the biological variance component.</p>
 </dd>
-<dt><strong>chen2016</strong></dt><dd><p>This method uses linear regression, subsampling, polynomial fitting and gaussian maximum likelihood estimates to derive a set of HVG <a class="reference internal" href="#chen2016" id="id11">[10]</a>.</p>
+<dt><strong>chen2016</strong></dt><dd><p>This method uses linear regression, subsampling, polynomial fitting and gaussian maximum likelihood estimates to derive a set of HVG <a class="reference internal" href="#chen2016" id="id12">[11]</a>.</p>
 </dd>
-<dt><strong>mm</strong></dt><dd><p>Selection of HVG by modeling dropout rates using modified Michaelis-Menten kinetics <a class="reference internal" href="#andrews2018" id="id12">[11]</a>. This method calculates dropout rates and mean expression for every gene, then models these with the Michaelis-Menten equation (parameters are estimated with maximum likelihood optimization). The basis for using MM is because most dropouts are caused by failure of the enzyme reverse transcriptase, thus the dropout rate can be modelled with theory developed for enzyme reactions. This implementation works best for libraries sequenced to saturation (i.e. not Drop-seq).</p>
+<dt><strong>mm</strong></dt><dd><p>Selection of HVG by modeling dropout rates using modified Michaelis-Menten kinetics <a class="reference internal" href="#andrews2018" id="id13">[12]</a>. This method calculates dropout rates and mean expression for every gene, then models these with the Michaelis-Menten equation (parameters are estimated with maximum likelihood optimization). The basis for using MM is because most dropouts are caused by failure of the enzyme reverse transcriptase, thus the dropout rate can be modelled with theory developed for enzyme reactions. This implementation works best for libraries sequenced to saturation (i.e. not Drop-seq).</p>
 </dd>
 </dl>
 <p>Example:</p>
@@ -489,9 +502,9 @@ $ pip3 install --user --no-deps .
 <p>These are techniques to reduce the number of dimensions under consideration. After running these functions, results are stored in the <code class="docutils literal notranslate"><span class="pre">dict</span></code> <code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset.dr</span></code>.</p>
 <div class="section" id="principal-component-analysis-pca">
 <h4>Principal Component analysis (PCA)<a class="headerlink" href="#principal-component-analysis-pca" title="Permalink to this headline">¶</a></h4>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Principal_component_analysis">PCA</a> decomposition <a class="reference internal" href="#abdi2010" id="id13">[12]</a> of single cell data is for the most part necessary prior to clustering. The reason for this is because the graph construction benefits from a strong signal from each feature. PCA computation in adobo is performed by invoking <a class="reference internal" href="adobo.html#adobo.dr.pca" title="adobo.dr.pca"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.dr.pca()</span></code></a>. Scaling of the data should always be performed before PCA, and this is done by default (although it can be turned off by setting <code class="docutils literal notranslate"><span class="pre">scale=False</span></code>). Two approaches are available for PCA decomposition, and it should not matter much which one is used:</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Principal_component_analysis">PCA</a> decomposition <a class="reference internal" href="#abdi2010" id="id14">[13]</a> of single cell data is for the most part necessary prior to clustering. The reason for this is because the graph construction benefits from a strong signal from each feature. PCA computation in adobo is performed by invoking <a class="reference internal" href="adobo.html#adobo.dr.pca" title="adobo.dr.pca"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.dr.pca()</span></code></a>. Scaling of the data should always be performed before PCA, and this is done by default (although it can be turned off by setting <code class="docutils literal notranslate"><span class="pre">scale=False</span></code>). Two approaches are available for PCA decomposition, and it should not matter much which one is used:</p>
 <dl class="simple">
-<dt><strong>irlb</strong></dt><dd><p>Computed via truncated singular value decomposition by implicitly restarted Lanczos bidiagonalization <a class="reference internal" href="#baglama2005" id="id14">[13]</a>. <cite>irlb</cite> may be better at handling very large single cell datasets and it is the default.</p>
+<dt><strong>irlb</strong></dt><dd><p>Computed via truncated singular value decomposition by implicitly restarted Lanczos bidiagonalization <a class="reference internal" href="#baglama2005" id="id15">[14]</a>. <cite>irlb</cite> may be better at handling very large single cell datasets and it is the default.</p>
 </dd>
 <dt><strong>svd</strong></dt><dd><p>The standard approach to PCA. Computed via singular value decomposition (svd). (More likely to raise <code class="docutils literal notranslate"><span class="pre">MemoryError</span></code>.)</p>
 </dd>
@@ -520,7 +533,7 @@ $ pip3 install --user --no-deps .
 </div>
 <div class="section" id="t-distributed-stochastic-neighbor-embedding-t-sne">
 <h4>t-Distributed Stochastic Neighbor Embedding (t-SNE)<a class="headerlink" href="#t-distributed-stochastic-neighbor-embedding-t-sne" title="Permalink to this headline">¶</a></h4>
-<p>t-SNE <a class="reference internal" href="#vandermaaten2008" id="id15">[14]</a> is a non-linear dimensional reduction technique that optimizes for local distance. It is the <em>de facto</em> dimensional reduction technique used to visualize scRNA-seq data <a class="reference internal" href="#kobak2019" id="id16">[15]</a>. adobo uses the scikit-learn implementation <a class="reference internal" href="#pedregosa2011" id="id17">[16]</a>. The most important parameter is <code class="docutils literal notranslate"><span class="pre">perplexity</span></code> (related to number of nearest neighbors) and it can greatly influence how your plot looks like. Suggested values for <code class="docutils literal notranslate"><span class="pre">perplexity</span></code> lies between 5 and 50, and it is recommened to try higher values for datasets with more cells. Additional parameters (such as early_exaggeration, learning_rate, n_iter, and n_iter_without_progress) do not usually need to be specified but will be passed into <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.manifold.TSNE</span></code>. By default adobo runs t-SNE on the PCA decomposition:</p>
+<p>t-SNE <a class="reference internal" href="#vandermaaten2008" id="id16">[15]</a> is a non-linear dimensional reduction technique that optimizes for local distance. It is the <em>de facto</em> dimensional reduction technique used to visualize scRNA-seq data <a class="reference internal" href="#kobak2019" id="id17">[16]</a>. adobo uses the scikit-learn implementation <a class="reference internal" href="#pedregosa2011" id="id18">[17]</a>. The most important parameter is <code class="docutils literal notranslate"><span class="pre">perplexity</span></code> (related to number of nearest neighbors) and it can greatly influence how your plot looks like. Suggested values for <code class="docutils literal notranslate"><span class="pre">perplexity</span></code> lies between 5 and 50, and it is recommened to try higher values for datasets with more cells. Additional parameters (such as early_exaggeration, learning_rate, n_iter, and n_iter_without_progress) do not usually need to be specified but will be passed into <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.manifold.TSNE</span></code>. By default adobo runs t-SNE on the PCA decomposition:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">dr</span><span class="o">.</span><span class="n">tsne</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">perplexity</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -535,7 +548,7 @@ $ pip3 install --user --no-deps .
 </div>
 <div class="section" id="uniform-manifold-approximation-and-projection-umap">
 <h4>Uniform Manifold Approximation and Projection (UMAP)<a class="headerlink" href="#uniform-manifold-approximation-and-projection-umap" title="Permalink to this headline">¶</a></h4>
-<p>UMAP <a class="reference internal" href="#mcinnes2018" id="id18">[17]</a> is also used frequently to visualize scRNA-seq data, and it may be better at preserving the global structure of the data:</p>
+<p>UMAP <a class="reference internal" href="#mcinnes2018" id="id19">[18]</a> is also used frequently to visualize scRNA-seq data, and it may be better at preserving the global structure of the data:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">dr</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -558,21 +571,21 @@ $ pip3 install --user --no-deps .
 <span class="n">ad</span><span class="o">.</span><span class="n">clustering</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">distance</span><span class="o">=</span><span class="s1">&#39;euclidean&#39;</span><span class="p">,</span> <span class="n">clust_alg</span><span class="o">=</span><span class="s1">&#39;walktrap&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The above command will run the necessary steps to cluster your single cell dataset; the cluster membership vector is stored in <code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset.clusters</span></code>, i.e. represented by an array with the same length as the number of cells after pre-processing. adobo’s default clustering algorithm first builds a Shared Nearest Neighbor graph <a class="reference internal" href="#ertoz2003" id="id19">[18]</a> and then finds communities in this graph using the Leiden algorithm <a class="reference internal" href="#traag2019" id="id20">[19]</a> (default). It may become necessary to change value of the <code class="docutils literal notranslate"><span class="pre">res</span></code> (resolution) parameter to find the optimal clustering outcome.</p>
+<p>The above command will run the necessary steps to cluster your single cell dataset; the cluster membership vector is stored in <code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo.data.dataset.clusters</span></code>, i.e. represented by an array with the same length as the number of cells after pre-processing. adobo’s default clustering algorithm first builds a Shared Nearest Neighbor graph <a class="reference internal" href="#ertoz2003" id="id20">[19]</a> and then finds communities in this graph using the Leiden algorithm <a class="reference internal" href="#traag2019" id="id21">[20]</a> (default). It may become necessary to change value of the <code class="docutils literal notranslate"><span class="pre">res</span></code> (resolution) parameter to find the optimal clustering outcome.</p>
 <p>By default <a class="reference internal" href="adobo.html#adobo.clustering.generate" title="adobo.clustering.generate"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.clustering.generate()</span></code></a> will return a <code class="docutils literal notranslate"><span class="pre">dict</span></code> containing cluster sizes (number of cells), use <code class="docutils literal notranslate"><span class="pre">retx=False</span></code> to disable this behavior.</p>
 <p>Other community detection algorithms are also supported via the <a class="reference external" href="https://igraph.org/redirect.html">igraph</a> package:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">walktrap</span></code> <a class="reference internal" href="#pons2006" id="id21">[20]</a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">spinglass</span></code> <a class="reference internal" href="#reichardt2006" id="id22">[21]</a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">multilevel</span></code> <a class="reference internal" href="#blondel2008" id="id23">[22]</a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">infomap</span></code> <a class="reference internal" href="#rosvall2008" id="id24">[23]</a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">label_prop</span></code> (label propagation) <a class="reference internal" href="#raghavan2007" id="id25">[24]</a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">leading_eigenvector</span></code> (Newman’s leading eigenvector method) <a class="reference internal" href="#newman2006" id="id26">[25]</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">walktrap</span></code> <a class="reference internal" href="#pons2006" id="id22">[21]</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">spinglass</span></code> <a class="reference internal" href="#reichardt2006" id="id23">[22]</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">multilevel</span></code> <a class="reference internal" href="#blondel2008" id="id24">[23]</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">infomap</span></code> <a class="reference internal" href="#rosvall2008" id="id25">[24]</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">label_prop</span></code> (label propagation) <a class="reference internal" href="#raghavan2007" id="id26">[25]</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">leading_eigenvector</span></code> (Newman’s leading eigenvector method) <a class="reference internal" href="#newman2006" id="id27">[26]</a></p></li>
 </ul>
 <p>Various parameters of the these algorithms can be changed in <a class="reference internal" href="adobo.html#adobo.clustering.generate" title="adobo.clustering.generate"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.clustering.generate()</span></code></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><code class="docutils literal notranslate"><span class="pre">spinglass</span></code> does not scale well on large datasets <a class="reference internal" href="#yang2016" id="id27">[26]</a>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">spinglass</span></code> does not scale well on large datasets <a class="reference internal" href="#yang2016" id="id28">[27]</a>.</p>
 </div>
 </div>
 <div class="section" id="clustering-visualization">
@@ -605,7 +618,7 @@ $ pip3 install --user --no-deps .
 <h3>Cell cycle prediction<a class="headerlink" href="#cell-cycle-prediction" title="Permalink to this headline">¶</a></h3>
 <p>An extreme simplification of the cell cycle is shown below (figure from Wikipedia). It is often useful to get an understanding of cell cycle states in a new data set, and it boils down to predicting one of three cell cycle states for every cell: G1, S and G2M.</p>
 <img alt="Source: Wikipedia" class="align-center" src="_images/cell_cycle_wikipedia.png" />
-<p>adobo contains a machine learning classifier based on the sklearn implementation of <a class="reference external" href="https://en.wikipedia.org/wiki/Stochastic_gradient_descent">Stochastic Gradient Descent</a>. The classifier is trained on mouse embryonic stem cells (n=288 cells) <a class="reference internal" href="#buettner2015" id="id28">[27]</a>. The original data can be retrieved from <a class="reference external" href="https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-2805/">here</a>. Cell cycle classification is performed by calling two functions:</p>
+<p>adobo contains a machine learning classifier based on the sklearn implementation of <a class="reference external" href="https://en.wikipedia.org/wiki/Stochastic_gradient_descent">Stochastic Gradient Descent</a>. The classifier is trained on mouse embryonic stem cells (n=288 cells) <a class="reference internal" href="#buettner2015" id="id29">[28]</a>. The original data can be retrieved from <a class="reference external" href="https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-2805/">here</a>. Cell cycle classification is performed by calling two functions:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># trains the classifier</span>
 <span class="n">clf</span><span class="p">,</span> <span class="n">tr_features</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">bio</span><span class="o">.</span><span class="n">cell_cycle_train</span><span class="p">()</span>
 
@@ -636,82 +649,85 @@ $ pip3 install --user --no-deps .
 <dt class="label" id="jiang2011"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p>Lichun Jiang, Felix Schlesinger, Carrie A. Davis, Yu Zhang, Renhua Li, Marc Salit, Thomas R. Gingeras, and Brian Oliver. Synthetic spike-in standards for RNA-seq experiments. <em>Genome Research</em>, 21(9):1543–1551, September 2011. <a class="reference external" href="https://doi.org/10.1101/gr.121095.111">doi:10.1101/gr.121095.111</a>.</p>
 </dd>
-<dt class="label" id="conesa2016"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dt class="label" id="li2018"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Wei Vivian Li and Jingyi Jessica Li. An accurate and robust imputation method scImpute for single-cell RNA-seq data. <em>Nature Communications</em>, 9(1):997, March 2018. <a class="reference external" href="https://doi.org/10.1038/s41467-018-03405-7">doi:10.1038/s41467-018-03405-7</a>.</p>
+</dd>
+<dt class="label" id="conesa2016"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
 <dd><p>Ana Conesa, Pedro Madrigal, Sonia Tarazona, David Gomez-Cabrero, Alejandra Cervera, Andrew McPherson, Michał Wojciech Szcześniak, Daniel J. Gaffney, Laura L. Elo, Xuegong Zhang, and Ali Mortazavi. A survey of best practices for RNA-seq data analysis. <em>Genome Biology</em>, 17(1):13, January 2016. <a class="reference external" href="https://doi.org/10.1186/s13059-016-0881-8">doi:10.1186/s13059-016-0881-8</a>.</p>
 </dd>
-<dt class="label" id="bolstad2003"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dt class="label" id="bolstad2003"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
 <dd><p>B.M. Bolstad, R.A Irizarry, M. Åstrand, and T.P. Speed. A comparison of normalization methods for high density oligonucleotide array data based on variance and bias. <em>Bioinformatics</em>, 19(2):185–193, 01 2003. <a class="reference external" href="https://doi.org/10.1093/bioinformatics/19.2.185">doi:10.1093/bioinformatics/19.2.185</a>.</p>
 </dd>
-<dt class="label" id="cole2018"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dt class="label" id="cole2018"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
 <dd><p>Michael B. Cole, Davide Risso, Allon Wagner, David DeTomaso, John Ngai, Elizabeth Purdom, Sandrine Dudoit, and Nir Yosef. Performance assessment and selection of normalization procedures for single-cell rna-seq. <em>bioRxiv</em>, 2018. <a class="reference external" href="https://doi.org/10.1101/235382">doi:10.1101/235382</a>.</p>
 </dd>
-<dt class="label" id="stuart2018"><span class="brackets">5</span><span class="fn-backref">(<a href="#id5">1</a>,<a href="#id8">2</a>)</span></dt>
+<dt class="label" id="stuart2018"><span class="brackets">6</span><span class="fn-backref">(<a href="#id6">1</a>,<a href="#id9">2</a>)</span></dt>
 <dd><p>Tim Stuart, Andrew Butler, Paul Hoffman, Christoph Hafemeister, Efthymia Papalexi, William M Mauck III, Marlon Stoeckius, Peter Smibert, and Rahul Satija. Comprehensive integration of single cell data. <em>bioRxiv</em>, 2018. <a class="reference external" href="https://doi.org/10.1101/460147">doi:10.1101/460147</a>.</p>
 </dd>
-<dt class="label" id="hafemeister2019"><span class="brackets"><a class="fn-backref" href="#id6">6</a></span></dt>
+<dt class="label" id="hafemeister2019"><span class="brackets"><a class="fn-backref" href="#id7">7</a></span></dt>
 <dd><p>Christoph Hafemeister and Rahul Satija. Normalization and variance stabilization of single-cell rna-seq data using regularized negative binomial regression. <em>bioRxiv</em>, 2019. <a class="reference external" href="https://doi.org/10.1101/576827">doi:10.1101/576827</a>.</p>
 </dd>
-<dt class="label" id="yip2018"><span class="brackets"><a class="fn-backref" href="#id7">7</a></span></dt>
+<dt class="label" id="yip2018"><span class="brackets"><a class="fn-backref" href="#id8">8</a></span></dt>
 <dd><p>Shun H Yip, Pak Chung Sham, and Junwen Wang. Evaluation of tools for highly variable gene discovery from single-cell RNA-seq data. <em>Briefings in Bioinformatics</em>, 02 2018. <a class="reference external" href="https://doi.org/10.1093/bib/bby011">doi:10.1093/bib/bby011</a>.</p>
 </dd>
-<dt class="label" id="brennecke2013"><span class="brackets"><a class="fn-backref" href="#id9">8</a></span></dt>
+<dt class="label" id="brennecke2013"><span class="brackets"><a class="fn-backref" href="#id10">9</a></span></dt>
 <dd><p>Philip Brennecke, Simon Anders, Jong Kyoung Kim, Aleksandra A Kołodziejczyk, Xiuwei Zhang, Valentina Proserpio, Bianka Baying, Vladimir Benes, Sarah A Teichmann, John C Marioni, and Marcus G Heisler. Accounting for technical noise in single-cell RNA-seq experiments. <em>Nature Methods</em>, 10:1093, September 2013. URL: <a class="reference external" href="https://doi.org/10.1038/nmeth.2645">https://doi.org/10.1038/nmeth.2645</a>.</p>
 </dd>
-<dt class="label" id="lun2016"><span class="brackets"><a class="fn-backref" href="#id10">9</a></span></dt>
+<dt class="label" id="lun2016"><span class="brackets"><a class="fn-backref" href="#id11">10</a></span></dt>
 <dd><p>Aaron T. L. Lun, Davis J. McCarthy, and John C. Marioni. A step-by-step workflow for low-level analysis of single-cell RNA-seq data with Bioconductor. <em>F1000Research</em>, 5:2122, 2016. <a class="reference external" href="https://doi.org/10.12688/f1000research.9501.2">doi:10.12688/f1000research.9501.2</a>.</p>
 </dd>
-<dt class="label" id="chen2016"><span class="brackets"><a class="fn-backref" href="#id11">10</a></span></dt>
+<dt class="label" id="chen2016"><span class="brackets"><a class="fn-backref" href="#id12">11</a></span></dt>
 <dd><p>Hung-I Harry Chen, Yufang Jin, Yufei Huang, and Yidong Chen. Detection of high variability in gene expression from single-cell RNA-seq profiling. <em>BMC Genomics</em>, 17(7):508, August 2016. <a class="reference external" href="https://doi.org/10.1186/s12864-016-2897-6">doi:10.1186/s12864-016-2897-6</a>.</p>
 </dd>
-<dt class="label" id="andrews2018"><span class="brackets"><a class="fn-backref" href="#id12">11</a></span></dt>
+<dt class="label" id="andrews2018"><span class="brackets"><a class="fn-backref" href="#id13">12</a></span></dt>
 <dd><p>Tallulah S Andrews and Martin Hemberg. M3Drop: dropout-based feature selection for scRNASeq. <em>Bioinformatics</em>, 35(16):2865–2867, 12 2018. <a class="reference external" href="https://doi.org/10.1093/bioinformatics/bty1044">doi:10.1093/bioinformatics/bty1044</a>.</p>
 </dd>
-<dt class="label" id="abdi2010"><span class="brackets"><a class="fn-backref" href="#id13">12</a></span></dt>
+<dt class="label" id="abdi2010"><span class="brackets"><a class="fn-backref" href="#id14">13</a></span></dt>
 <dd><p>Hervé Abdi and Lynne J. Williams. Principal component analysis. <em>Wiley Interdisciplinary Reviews: Computational Statistics</em>, 2(4):433–459, 2010. <a class="reference external" href="https://doi.org/10.1002/wics.101">doi:10.1002/wics.101</a>.</p>
 </dd>
-<dt class="label" id="baglama2005"><span class="brackets"><a class="fn-backref" href="#id14">13</a></span></dt>
+<dt class="label" id="baglama2005"><span class="brackets"><a class="fn-backref" href="#id15">14</a></span></dt>
 <dd><p>James Baglama and Lothar Reichel. Augmented implicitly restarted lanczos bidiagonalization methods. <em>SIAM J. Sci. Comput.</em>, 27(1):19–42, July 2005. <a class="reference external" href="https://doi.org/10.1137/04060593X">doi:10.1137/04060593X</a>.</p>
 </dd>
-<dt class="label" id="vandermaaten2008"><span class="brackets"><a class="fn-backref" href="#id15">14</a></span></dt>
+<dt class="label" id="vandermaaten2008"><span class="brackets"><a class="fn-backref" href="#id16">15</a></span></dt>
 <dd><p>Laurens van der Maaten and Geoffrey Hinton. Visualizing data using t-SNE. <em>Journal of Machine Learning Research</em>, 9:2579–2605, 2008.</p>
 </dd>
-<dt class="label" id="kobak2019"><span class="brackets"><a class="fn-backref" href="#id16">15</a></span></dt>
+<dt class="label" id="kobak2019"><span class="brackets"><a class="fn-backref" href="#id17">16</a></span></dt>
 <dd><p>Dmitry Kobak and Philipp Berens. The art of using t-sne for single-cell transcriptomics. <em>bioRxiv</em>, 2019. <a class="reference external" href="https://doi.org/10.1101/453449">doi:10.1101/453449</a>.</p>
 </dd>
-<dt class="label" id="pedregosa2011"><span class="brackets"><a class="fn-backref" href="#id17">16</a></span></dt>
+<dt class="label" id="pedregosa2011"><span class="brackets"><a class="fn-backref" href="#id18">17</a></span></dt>
 <dd><p>F. Pedregosa, G. Varoquaux, A. Gramfort, V. Michel, B. Thirion, O. Grisel, M. Blondel, P. Prettenhofer, R. Weiss, V. Dubourg, J. Vanderplas, A. Passos, D. Cournapeau, M. Brucher, M. Perrot, and E. Duchesnay. Scikit-learn: machine learning in Python. <em>Journal of Machine Learning Research</em>, 12:2825–2830, 2011.</p>
 </dd>
-<dt class="label" id="mcinnes2018"><span class="brackets"><a class="fn-backref" href="#id18">17</a></span></dt>
+<dt class="label" id="mcinnes2018"><span class="brackets"><a class="fn-backref" href="#id19">18</a></span></dt>
 <dd><p>Leland McInnes, John Healy, and James Melville. UMAP: Uniform Manifold Approximation and Projection for Dimension Reduction. <em>arXiv e-prints</em>, pages arXiv:1802.03426, Feb 2018. <a class="reference external" href="https://arxiv.org/abs/1802.03426">arXiv:1802.03426</a>.</p>
 </dd>
-<dt class="label" id="ertoz2003"><span class="brackets"><a class="fn-backref" href="#id19">18</a></span></dt>
+<dt class="label" id="ertoz2003"><span class="brackets"><a class="fn-backref" href="#id20">19</a></span></dt>
 <dd><p>Levent Ertöz, Michael Steinbach, and Vipin Kumar. Finding clusters of different sizes, shapes, and densities in noisy, high dimensional data. In <em>in Proceedings of Second SIAM International Conference on Data Mining</em>. 2003.</p>
 </dd>
-<dt class="label" id="traag2019"><span class="brackets"><a class="fn-backref" href="#id20">19</a></span></dt>
+<dt class="label" id="traag2019"><span class="brackets"><a class="fn-backref" href="#id21">20</a></span></dt>
 <dd><p>V. A. Traag, L. Waltman, and N. J. van Eck. From Louvain to Leiden: guaranteeing well-connected communities. <em>Scientific Reports</em>, 9(1):5233, March 2019. <a class="reference external" href="https://doi.org/10.1038/s41598-019-41695-z">doi:10.1038/s41598-019-41695-z</a>.</p>
 </dd>
-<dt class="label" id="pons2006"><span class="brackets"><a class="fn-backref" href="#id21">20</a></span></dt>
+<dt class="label" id="pons2006"><span class="brackets"><a class="fn-backref" href="#id22">21</a></span></dt>
 <dd><p>Pascal Pons and Matthieu Latapy. Computing Communities in Large Networks Using Random Walks. <em>Journal of Graph Algorithms and Applications</em>, 2006.</p>
 </dd>
-<dt class="label" id="reichardt2006"><span class="brackets"><a class="fn-backref" href="#id22">21</a></span></dt>
+<dt class="label" id="reichardt2006"><span class="brackets"><a class="fn-backref" href="#id23">22</a></span></dt>
 <dd><p>Joerg Reichardt and Stefan Bornholdt. Statistical mechanics of community detection. <em>Physical Review E</em>, 74:016110, 2006.</p>
 </dd>
-<dt class="label" id="blondel2008"><span class="brackets"><a class="fn-backref" href="#id23">22</a></span></dt>
+<dt class="label" id="blondel2008"><span class="brackets"><a class="fn-backref" href="#id24">23</a></span></dt>
 <dd><p>Vincent D. Blondel, Jean-Loup Guillaume, Renaud Lambiotte, and Etienne Lefebvre. Fast unfolding of communities in large networks. <em>Journal of Statistical Mechanics: Theory and Experiment</em>, 2008(10):10008, Oct 2008. <a class="reference external" href="https://doi.org/10.1088/1742-5468/2008/10/P10008">doi:10.1088/1742-5468/2008/10/P10008</a>.</p>
 </dd>
-<dt class="label" id="rosvall2008"><span class="brackets"><a class="fn-backref" href="#id24">23</a></span></dt>
+<dt class="label" id="rosvall2008"><span class="brackets"><a class="fn-backref" href="#id25">24</a></span></dt>
 <dd><p>Martin Rosvall and Carl T. Bergstrom. Maps of random walks on complex networks reveal community structure. <em>Proceedings of the National Academy of Sciences</em>, 105(4):1118–1123, 2008. <a class="reference external" href="https://doi.org/10.1073/pnas.0706851105">doi:10.1073/pnas.0706851105</a>.</p>
 </dd>
-<dt class="label" id="raghavan2007"><span class="brackets"><a class="fn-backref" href="#id25">24</a></span></dt>
+<dt class="label" id="raghavan2007"><span class="brackets"><a class="fn-backref" href="#id26">25</a></span></dt>
 <dd><p>Usha Nandini Raghavan, Réka Albert, and Soundar Kumara. Near linear time algorithm to detect community structures in large-scale networks. <em>Phys. Rev. E</em>, 76:036106, Sep 2007. <a class="reference external" href="https://doi.org/10.1103/PhysRevE.76.036106">doi:10.1103/PhysRevE.76.036106</a>.</p>
 </dd>
-<dt class="label" id="newman2006"><span class="brackets"><a class="fn-backref" href="#id26">25</a></span></dt>
+<dt class="label" id="newman2006"><span class="brackets"><a class="fn-backref" href="#id27">26</a></span></dt>
 <dd><p>M. E. J. Newman. Finding community structure in networks using the eigenvectors of matrices. <em>Phys. Rev. E</em>, 74:036104, Sep 2006. <a class="reference external" href="https://doi.org/10.1103/PhysRevE.74.036104">doi:10.1103/PhysRevE.74.036104</a>.</p>
 </dd>
-<dt class="label" id="yang2016"><span class="brackets"><a class="fn-backref" href="#id27">26</a></span></dt>
+<dt class="label" id="yang2016"><span class="brackets"><a class="fn-backref" href="#id28">27</a></span></dt>
 <dd><p>Zhao Yang, René Algesheimer, and Claudio J. Tessone. A Comparative Analysis of Community Detection Algorithms on Artificial Networks. <em>Scientific Reports</em>, 6:30750, August 2016. URL: <a class="reference external" href="https://doi.org/10.1038/srep30750">https://doi.org/10.1038/srep30750</a>.</p>
 </dd>
-<dt class="label" id="buettner2015"><span class="brackets"><a class="fn-backref" href="#id28">27</a></span></dt>
+<dt class="label" id="buettner2015"><span class="brackets"><a class="fn-backref" href="#id29">28</a></span></dt>
 <dd><p>Florian Buettner, Kedar N Natarajan, F Paolo Casale, Valentina Proserpio, Antonio Scialdone, Fabian J Theis, Sarah A Teichmann, John C Marioni, and Oliver Stegle. Computational analysis of cell-to-cell heterogeneity in single-cell RNA-sequencing data reveals hidden subpopulations of cells. <em>Nature Biotechnology</em>, 33:155, January 2015.</p>
 </dd>
 </dl>

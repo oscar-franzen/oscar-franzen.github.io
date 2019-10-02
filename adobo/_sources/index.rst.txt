@@ -321,6 +321,20 @@ Like all adobo functions, ``find_low_quality_cells`` modifies the passed object.
 
    low_q_cells = ad.preproc.find_low_quality_cells(exp, rRNA_genes=rRNA)
 
+Imputation of dropouts
+^^^^^^^^^^^^^^^^^^^^^^
+"Dropouts" are artifacts caused by the low amounts of mRNA in single cells, causing expressed genes to become undetected in the expression data. Droplet-based protocols tend to have a greater number of dropouts than other methods. Statistical methods can be used to impute missing expression measurements. Several methods are available for performing imputation. adobo implement the method introduced by Li *et al* :cite:`Li2018`, which can be executed using the command:
+
+.. code-block:: python3
+
+    ad.preproc.impute(exp, nworkers='auto')
+
+The parameter ``nworkers`` can be used to set the number of worker processes, which can be 'auto' to autodetect this (although due to Python's `Global Interpreter Lock <https://www.dabeaz.com/python/UnderstandingGIL.pdf>`_ the number of workers should not be higher than the number of physical cores). Imputed data are stored in :py:attr:`adobo.data.dataset.imp_count_data`.
+
+.. note::
+
+   Runtime can be several hours for large datasets (>>1000 cells).
+
 Normalization
 =============
 Normalization removes technical and sometimes experimental biases and is always necessary prior to analysis. Because a universal normalization scheme for scRNA-seq data is not available nor recommended, adobo supports several different procedures. The function :py:func:`adobo.normalize.norm` can be used to perform the following normalization methods:
