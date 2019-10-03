@@ -323,17 +323,19 @@ Like all adobo functions, ``find_low_quality_cells`` modifies the passed object.
 
 Imputation of dropouts
 ^^^^^^^^^^^^^^^^^^^^^^
-"Dropouts" are artifacts caused by the low amounts of mRNA in single cells, causing expressed genes to become undetected in the expression data. Droplet-based protocols tend to have a greater number of dropouts than other methods. Statistical methods can be used to impute missing expression measurements. Several methods are available for performing imputation. adobo implement the method introduced by Li *et al* :cite:`Li2018`, which can be executed using the command:
+"Dropouts" are artifacts caused by the low amounts of mRNA in single cells, causing expressed genes to become undetected in the expression data. Droplet-based protocols tend to have a greater number of dropouts. Statistical procedures can be used to impute missing expression values. Several methods are available for performing imputation. adobo implement the method introduced by Li *et al* :cite:`Li2018`, since it has become widely used in the field. Imputation is performe by calling :py:func:`adobo.preproc.impute`:
 
 .. code-block:: python3
 
-    ad.preproc.impute(exp, nworkers='auto')
+    ad.preproc.impute(exp, res=0.8, nworkers='auto', verbose=True)
 
-The parameter ``nworkers`` can be used to set the number of worker processes, which can be 'auto' to autodetect this (although due to Python's `Global Interpreter Lock <https://www.dabeaz.com/python/UnderstandingGIL.pdf>`_ the number of workers should not be higher than the number of physical cores). Imputed data are stored in :py:attr:`adobo.data.dataset.imp_count_data`.
+The function is parallelized using Python's ``multiprocessing`` module. The parameter ``nworkers`` can be used to set the number of worker processes, which can be 'auto' to autodetect this (although due to Python's `Global Interpreter Lock <https://www.dabeaz.com/python/UnderstandingGIL.pdf>`_ the number of workers should not be higher than the number of physical cores). Imputed data are stored in :py:attr:`adobo.data.dataset.imp_count_data`.
+
+If you have a low number of cells (< 1000), then set the cluster resolution parameter to something lower, for example ``res=0.1``.
 
 .. note::
 
-   Runtime can be several hours for large datasets (>>1000 cells).
+   Runtime varies depending on number of physical cores and size of the dataset. Typical runtime for a dataset consisting of ~1000 cells using 10 cores is 15 min.
 
 Normalization
 =============
