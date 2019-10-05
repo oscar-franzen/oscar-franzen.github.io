@@ -323,7 +323,7 @@ Like all adobo functions, ``find_low_quality_cells`` modifies the passed object.
 
 Imputation of dropouts
 ^^^^^^^^^^^^^^^^^^^^^^
-"Dropouts" are artifacts caused by the low amounts of mRNA in single cells, causing expressed genes to become undetected in the expression data. Droplet-based protocols tend to have a greater number of dropouts. Statistical procedures can be used to impute missing expression values. Several methods are available for performing imputation. adobo implement the method introduced by Li *et al* :cite:`Li2018`, since it has become widely used in the field. Imputation is performe by calling :py:func:`adobo.preproc.impute`:
+"Dropouts" are artifacts caused by the low amounts of mRNA in single cells, causing expressed genes to become undetected in the expression data. Droplet-based protocols tend to have a greater number of dropouts. Several statistical procedures have been developed to impute missing expression values. adobo implements the method introduced by Li *et al* :cite:`Li2018`. The original paper describes the theory; briefly, model parameters are estimated using the Gamma distribution, then it uses Elastic net regularization to fit a linear model, which is used to predict expression values of genes with zero expression. adobo's imputation function is :py:func:`adobo.preproc.impute`:
 
 .. code-block:: python3
 
@@ -331,7 +331,7 @@ Imputation of dropouts
 
 The function is parallelized using Python's ``multiprocessing`` module. The parameter ``nworkers`` can be used to set the number of worker processes, which can be 'auto' to autodetect this (although due to Python's `Global Interpreter Lock <https://www.dabeaz.com/python/UnderstandingGIL.pdf>`_ the number of workers should not be higher than the number of physical cores). Imputed data are stored in :py:attr:`adobo.data.dataset.imp_count_data`.
 
-If you have a low number of cells (< 1000), then set the cluster resolution parameter to something lower, for example ``res=0.1``.
+If you have a low number of cells (<1000), set the cluster resolution parameter to something lower, for example ``res=0.1``.
 
 .. note::
 
