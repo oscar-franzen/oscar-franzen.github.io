@@ -1475,7 +1475,7 @@ expression to the cellular meta data</p>
 
 <dl class="function">
 <dt id="adobo.preproc.impute">
-<code class="sig-prename descclassname">adobo.preproc.</code><code class="sig-name descname">impute</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">res=0.8</em>, <em class="sig-param">drop_thre=0.5</em>, <em class="sig-param">nworkers='auto'</em>, <em class="sig-param">verbose=True</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.preproc.impute" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.preproc.</code><code class="sig-name descname">impute</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">filtered=True</em>, <em class="sig-param">res=0.8</em>, <em class="sig-param">drop_thre=0.5</em>, <em class="sig-param">nworkers='auto'</em>, <em class="sig-param">verbose=True</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.preproc.impute" title="Permalink to this definition">¶</a></dt>
 <dd><p>Impute dropouts using the method described in Li (2018) Nature Communications</p>
 <p class="rubric">Notes</p>
 <p>Dropouts are artifacts in scRNA-seq data. One method to alleviate the problem with
@@ -1487,6 +1487,9 @@ as compared with the original paper.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object.</p></li>
+<li><p><strong>filtered</strong> (<cite>bool</cite>) – If data have been filtered using <a class="reference internal" href="#adobo.preproc.simple_filter" title="adobo.preproc.simple_filter"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.preproc.simple_filter()</span></code></a>, run
+imputation on filtered data; otherwise runs on the entire raw read count matrix.
+Default: True</p></li>
 <li><p><strong>res</strong> (<cite>float</cite>) – Resolution parameter for the Leiden clustering, change to modify cluster
 resolution. Default: 0.8</p></li>
 <li><p><strong>drop_thre</strong> (<cite>float</cite>) – Drop threshold. Default: 0.5</p></li>

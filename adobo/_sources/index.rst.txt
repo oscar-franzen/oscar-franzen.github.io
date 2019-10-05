@@ -327,9 +327,9 @@ Imputation of dropouts
 
 .. code-block:: python3
 
-    ad.preproc.impute(exp, res=0.8, nworkers='auto', verbose=True)
+    ad.preproc.impute(exp, filtered=True, res=0.8, nworkers='auto', verbose=True)
 
-The function is parallelized using Python's ``multiprocessing`` module. The parameter ``nworkers`` can be used to set the number of worker processes, which can be 'auto' to autodetect this (although due to Python's `Global Interpreter Lock <https://www.dabeaz.com/python/UnderstandingGIL.pdf>`_ the number of workers should not be higher than the number of physical cores). Imputed data are stored in :py:attr:`adobo.data.dataset.imp_count_data`.
+The parameter ``filtered`` is used to indicate if imputation should run on the quality-filtered data or on the complete raw read count matrix (default is to run on the filtered). Parallelization is achieved using Python's ``multiprocessing`` module. The parameter ``nworkers`` can be used to set the number of worker processes, which can be 'auto' to autodetect this (although due to Python's `Global Interpreter Lock <https://www.dabeaz.com/python/UnderstandingGIL.pdf>`_ the number of workers should not be higher than the number of physical cores). Imputed data are stored in :py:attr:`adobo.data.dataset.imp_count_data`.
 
 If you have a low number of cells (<1000), set the cluster resolution parameter to something lower, for example ``res=0.1``.
 
