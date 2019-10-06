@@ -451,8 +451,8 @@ value will result in fewer edges in the graph. Default: 0.067</p></li>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="adobo.data.dataset.norm_data">
-<code class="sig-name descname">norm_data</code><a class="headerlink" href="#adobo.data.dataset.norm_data" title="Permalink to this definition">¶</a></dt>
+<dt id="adobo.data.dataset._norm_data">
+<code class="sig-name descname">_norm_data</code><a class="headerlink" href="#adobo.data.dataset._norm_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stores all analysis results. A nested dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -583,6 +583,11 @@ it.</p>
 <dl class="method">
 <dt id="adobo.data.dataset.low_quality_cells">
 <em class="property">property </em><code class="sig-name descname">low_quality_cells</code><a class="headerlink" href="#adobo.data.dataset.low_quality_cells" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adobo.data.dataset.norm_data">
+<em class="property">property </em><code class="sig-name descname">norm_data</code><a class="headerlink" href="#adobo.data.dataset.norm_data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1477,7 +1482,7 @@ expression to the cellular meta data</p>
 
 <dl class="function">
 <dt id="adobo.preproc.impute">
-<code class="sig-prename descclassname">adobo.preproc.</code><code class="sig-name descname">impute</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">filtered=True</em>, <em class="sig-param">res=0.8</em>, <em class="sig-param">drop_thre=0.5</em>, <em class="sig-param">nworkers='auto'</em>, <em class="sig-param">verbose=True</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.preproc.impute" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.preproc.</code><code class="sig-name descname">impute</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">filtered=True</em>, <em class="sig-param">res=0.5</em>, <em class="sig-param">drop_thre=0.5</em>, <em class="sig-param">nworkers='auto'</em>, <em class="sig-param">verbose=True</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.preproc.impute" title="Permalink to this definition">¶</a></dt>
 <dd><p>Impute dropouts using the method described in Li (2018) Nature Communications</p>
 <p class="rubric">Notes</p>
 <p>Dropouts are artifacts in scRNA-seq data. One method to alleviate the problem with
@@ -1493,9 +1498,9 @@ as compared with the original paper.</p>
 imputation on filtered data; otherwise runs on the entire raw read count matrix.
 Default: True</p></li>
 <li><p><strong>res</strong> (<cite>float</cite>) – Resolution parameter for the Leiden clustering, change to modify cluster
-resolution. Default: 0.8</p></li>
+resolution. Default: 0.5</p></li>
 <li><p><strong>drop_thre</strong> (<cite>float</cite>) – Drop threshold. Default: 0.5</p></li>
-<li><p><strong>nworkers</strong> (<cite>int</cite> or <cite>str</cite>) – If a string, then the only accepted value is ‘auto’, and the number of worker
+<li><p><strong>nworkers</strong> (<cite>int</cite> or <cite>{‘auto’}</cite>) – If a string, then the only accepted value is ‘auto’, and the number of worker
 processes will be the total number of detected physical cores. If an integer
 then it specifies the number of worker processes. Default: ‘auto’</p></li>
 <li><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose or not. Default: True</p></li>
