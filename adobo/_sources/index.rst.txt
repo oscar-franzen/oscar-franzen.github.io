@@ -595,6 +595,8 @@ Runs marker-based cell type prediction. The smallest predicted unit is a cell cl
 
    ad.bio.predict_cell_type(exp, min_cluster_size=10, verbose=True)
 
+The output is stored in the attribute :py:attr:`adobo.data.dataset.norm_data`.
+
 Indices and tables
 ==================
 
