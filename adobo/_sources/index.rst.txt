@@ -42,6 +42,7 @@ After installing it, you can now delete the cloned repository and test that ever
 .. code-block:: bash
 
    $ export OPENBLAS_NUM_THREADS=1
+   
    $ python3
 
 Try importing the library and it should greet you with the current version and the URL to the documentation (this page):
