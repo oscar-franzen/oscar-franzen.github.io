@@ -301,8 +301,8 @@ To reset all simple filters to original:
 
    exp.reset_filters()
 
-Automatic detection of low quality cells
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Dynamic detection of low quality cells
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 A more sophisticated approach to detection of low quality cells is to use the function :py:func:`adobo.preproc.find_low_quality_cells`, which uses `Mahalanobis distance`_ to identify bad cells from five quality metrics.
 
 .. important::
