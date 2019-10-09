@@ -137,8 +137,9 @@ $ pip3 install --user --no-deps .
 <p class="admonition-title">Note</p>
 <p>adobo is developed and tested on Python version 3.6.x; older versions may work but are untested.</p>
 </div>
-<p>After installing it, you can now delete the cloned repository and test that everything works by firing up your Python 3 interpreter:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python3
+<p>After installing it, you can now delete the cloned repository and test that everything works by firing up your Python 3 interpreter (the  <cite>OPENBLAS_NUM_THREADS</cite> environmental variable prevents unexpected low-level multithreading):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">export</span> <span class="nv">OPENBLAS_NUM_THREADS</span><span class="o">=</span><span class="m">1</span>
+$ python3
 </pre></div>
 </div>
 <p>Try importing the library and it should greet you with the current version and the URL to the documentation (this page):</p>

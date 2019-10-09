@@ -37,10 +37,11 @@ First step is to install adobo. The recommended way to install adobo is to first
 
    adobo is developed and tested on Python version 3.6.x; older versions may work but are untested.
 
-After installing it, you can now delete the cloned repository and test that everything works by firing up your Python 3 interpreter:
+After installing it, you can now delete the cloned repository and test that everything works by firing up your Python 3 interpreter (the  `OPENBLAS_NUM_THREADS` environmental variable prevents unexpected low-level multithreading):
 
 .. code-block:: bash
 
+   $ export OPENBLAS_NUM_THREADS=1
    $ python3
 
 Try importing the library and it should greet you with the current version and the URL to the documentation (this page):
