@@ -34,47 +34,38 @@
 <li><a class="reference internal" href="#">adobo package</a><ul>
 <li><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-adobo.IO">adobo.IO module</a><ul>
+<li><a class="reference internal" href="#adobo-io-module">adobo.IO module</a></li>
+<li><a class="reference internal" href="#adobo-bio-module">adobo.bio module</a></li>
+<li><a class="reference internal" href="#module-adobo.clustering">adobo.clustering module</a><ul>
 <li><a class="reference internal" href="#summary">Summary</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-adobo.bio">adobo.bio module</a><ul>
-<li><a class="reference internal" href="#id1">Summary</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-adobo.clustering">adobo.clustering module</a><ul>
-<li><a class="reference internal" href="#id2">Summary</a></li>
-</ul>
-</li>
 <li><a class="reference internal" href="#module-adobo.data">adobo.data module</a><ul>
-<li><a class="reference internal" href="#id5">Summary</a></li>
+<li><a class="reference internal" href="#id3">Summary</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-adobo.de">adobo.de module</a><ul>
-<li><a class="reference internal" href="#id6">Summary</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#adobo-de-module">adobo.de module</a></li>
 <li><a class="reference internal" href="#module-adobo.dr">adobo.dr module</a><ul>
-<li><a class="reference internal" href="#id7">Summary</a></li>
+<li><a class="reference internal" href="#id4">Summary</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-adobo.hvg">adobo.hvg module</a><ul>
-<li><a class="reference internal" href="#id8">Summary</a></li>
+<li><a class="reference internal" href="#id5">Summary</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-adobo.normalize">adobo.normalize module</a><ul>
-<li><a class="reference internal" href="#id9">Summary</a></li>
+<li><a class="reference internal" href="#id6">Summary</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-adobo.plotting">adobo.plotting module</a><ul>
-<li><a class="reference internal" href="#id10">Summary</a></li>
+<li><a class="reference internal" href="#id7">Summary</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-adobo.preproc">adobo.preproc module</a><ul>
-<li><a class="reference internal" href="#id11">Summary</a></li>
+<li><a class="reference internal" href="#id8">Summary</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-adobo">Module contents</a></li>
+<li><a class="reference internal" href="#module-contents">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -132,116 +123,16 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-adobo.IO">
-<span id="adobo-io-module"></span><h2>adobo.IO module<a class="headerlink" href="#module-adobo.IO" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="summary">
-<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h3>
-<p>Functions for reading and writing scRNA-seq data.</p>
-<dl class="function">
-<dt id="adobo.IO.load_from_file">
-<code class="sig-prename descclassname">adobo.IO.</code><code class="sig-name descname">load_from_file</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">sep='\\s'</em>, <em class="sig-param">header=0</em>, <em class="sig-param">column_id='auto'</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">desc='no desc set'</em>, <em class="sig-param">output_file=None</em>, <em class="sig-param">input_file=None</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.IO.load_from_file" title="Permalink to this definition">¶</a></dt>
-<dd><p>Load a gene expression matrix consisting of raw read counts</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>filename</strong> (<cite>str</cite>) – Path to the file containing input data. Should be a matrix where
-columns are cells and rows are genes.</p></li>
-<li><p><strong>sep</strong> (<cite>str</cite>) – A character or regular expression used to separate fields. Default: “\s”
-(i.e. any white space character)</p></li>
-<li><p><strong>header</strong> (<cite>str</cite>) – If the data file has a header. 0 means yes otherwise None. Default: 0</p></li>
-<li><p><strong>column_id</strong> (<em>{'auto'</em><em>, </em><em>'yes'</em><em>, </em><em>'no'}</em>) – Whether the header (first line) of the file contains a column ID for the genes. If
-this is the case, set this to auto or yes, otherwise no. Default: ‘auto’</p></li>
-<li><p><strong>desc</strong> (<cite>str</cite>) – A description of the data</p></li>
-<li><p><strong>output_file</strong> (<cite>str</cite>) – An output filename used when calling <a class="reference internal" href="#adobo.data.dataset.save" title="adobo.data.dataset.save"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.data.dataset.save()</span></code></a>.</p></li>
-<li><p><strong>verbose</strong> (<cite>bool</cite>) – To be verbose or not. Default: False</p></li>
-</ul>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<p>The loaded gene expression matrix should not have been normalized. This function calls
-<code class="xref py py-func docutils literal notranslate"><span class="pre">read_csv()</span></code> to read the data matrix file. Any additional
-arguments are passed into <code class="xref py py-func docutils literal notranslate"><span class="pre">read_csv()</span></code>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A dataset class object.</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
+<div class="section" id="adobo-io-module">
+<h2>adobo.IO module<a class="headerlink" href="#adobo-io-module" title="Permalink to this headline">¶</a></h2>
 </div>
-</div>
-<div class="section" id="module-adobo.bio">
-<span id="adobo-bio-module"></span><h2>adobo.bio module<a class="headerlink" href="#module-adobo.bio" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id1">
-<h3>Summary<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-<p>Functions related to biology.</p>
-<dl class="function">
-<dt id="adobo.bio.cell_cycle_predict">
-<code class="sig-prename descclassname">adobo.bio.</code><code class="sig-name descname">cell_cycle_predict</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">clf</em>, <em class="sig-param">tr_features</em>, <em class="sig-param">retx=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.bio.cell_cycle_predict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Predicts cell cycle phase</p>
-<p class="rubric">Notes</p>
-<p>The classifier is trained on mouse data, so it should _only_ be used on mouse data
-unless it is trained on something else. Gene identifiers must use ensembl identifiers
-(prefixed with ‘ENSMUSG’); pure gene symbols are not enough. Results are returned as
-a column in the data frame <cite>meta_cells</cite> of the passed object. Does not return
-probability scores.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object.</p></li>
-<li><p><strong>clf</strong> (<cite>sklearn.linear_model.SGDClassifier</cite>) – The classifier.</p></li>
-<li><p><strong>tr_features</strong> (<cite>list</cite>) – Training features.</p></li>
-<li><p><strong>retx</strong> (<cite>bool</cite>) – Returns list of results. Default: False</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Modifies the passed object. If <cite>retx=True</cite> a list is returned with predictions.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="adobo.bio.cell_cycle_train">
-<code class="sig-prename descclassname">adobo.bio.</code><code class="sig-name descname">cell_cycle_train</code><span class="sig-paren">(</span><em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.bio.cell_cycle_train" title="Permalink to this definition">¶</a></dt>
-<dd><p>Trains a cell cycle classifier using Stochastic Gradient Descent with data from
-Buettner et al.</p>
-<p class="rubric">Notes</p>
-<p>Genes are selected from <a class="reference external" href="GO:0007049">GO:0007049</a></p>
-<p>Does only need to be trained once; the second time it is serialized from disk.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose or not. Default: False</p>
-</dd>
-</dl>
-<p class="rubric">References</p>
-<dl class="simple">
-<dt>Buettner et al. (2015) Computational analysis of cell-to-cell heterogeneity in</dt><dd><p>single-cell RNA-sequencing data reveals hidden subpopulations of cells. Nat
-Biotech.</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><ul class="simple">
-<li><p><cite>sklearn.linear_model.SGDClassifier</cite> – A trained classifier.</p></li>
-<li><p><cite>list</cite> – Containing training features.</p></li>
-</ul>
-</p>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
+<div class="section" id="adobo-bio-module">
+<h2>adobo.bio module<a class="headerlink" href="#adobo-bio-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-adobo.clustering">
 <span id="adobo-clustering-module"></span><h2>adobo.clustering module<a class="headerlink" href="#module-adobo.clustering" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id2">
-<h3>Summary<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="summary">
+<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h3>
 <p>This module contains functions to cluster data.</p>
 <dl class="function">
 <dt id="adobo.clustering.generate">
@@ -259,7 +150,7 @@ function will be applied on all normalizations available.</p></li>
 <li><p><strong>target</strong> (<cite>{‘irlb’, ‘svd’}</cite>) – The dimensionality reduction result to run on. Default: irlb</p></li>
 <li><p><strong>graph</strong> (<cite>{‘snn’}</cite>) – Type of graph to generate. Only shared nearest neighbor (snn) supported at the
 moment.</p></li>
-<li><p><strong>clust_alg</strong> (<a href="#id3"><span class="problematic" id="id4">`</span></a>{‘leiden’, ‘walktrap’, ‘spinglass’, ‘multilevel’, ‘infomap’,) – ‘label_prop’, ‘leading_eigenvector’}`
+<li><p><strong>clust_alg</strong> (<a href="#id1"><span class="problematic" id="id2">`</span></a>{‘leiden’, ‘walktrap’, ‘spinglass’, ‘multilevel’, ‘infomap’,) – ‘label_prop’, ‘leading_eigenvector’}`
 Clustering algorithm to be used.</p></li>
 <li><p><strong>prune_snn</strong> (<cite>float</cite>) – Threshold for pruning the SNN graph, i.e. the edges  with lower value (Jaccard
 index) than this will be removed. Set to 0 to disable pruning. Increasing this
@@ -398,8 +289,8 @@ value will result in fewer edges in the graph. Default: 0.067</p></li>
 </div>
 <div class="section" id="module-adobo.data">
 <span id="adobo-data-module"></span><h2>adobo.data module<a class="headerlink" href="#module-adobo.data" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id5">
-<h3>Summary<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3>Summary<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>This module contains a data storage class.</p>
 <dl class="class">
 <dt id="adobo.data.dataset">
@@ -511,7 +402,7 @@ value will result in fewer edges in the graph. Default: 0.067</p></li>
 <dd><p>Add meta data to the adobo object</p>
 <p class="rubric">Notes</p>
 <p>Meta data can be added to cells or genes.</p>
-<p>The parameter name ‘<a href="#id12"><span class="problematic" id="id13">type_</span></a>’ has an underscore to avoid conflict with Python’s
+<p>The parameter name ‘<a href="#id9"><span class="problematic" id="id10">type_</span></a>’ has an underscore to avoid conflict with Python’s
 internal type keyword.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -621,17 +512,13 @@ filename was already specified when the object was created with the
 
 </div>
 </div>
-<div class="section" id="module-adobo.de">
-<span id="adobo-de-module"></span><h2>adobo.de module<a class="headerlink" href="#module-adobo.de" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id6">
-<h3>Summary<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
-<p>Functions for differential expression.</p>
-</div>
+<div class="section" id="adobo-de-module">
+<h2>adobo.de module<a class="headerlink" href="#adobo-de-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-adobo.dr">
 <span id="adobo-dr-module"></span><h2>adobo.dr module<a class="headerlink" href="#module-adobo.dr" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id7">
-<h3>Summary<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h3>Summary<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>Functions for dimensional reduction.</p>
 <dl class="function">
 <dt id="adobo.dr.irlb">
@@ -832,8 +719,8 @@ datasets, 500 for small). Default: None</p></li>
 </div>
 <div class="section" id="module-adobo.hvg">
 <span id="adobo-hvg-module"></span><h2>adobo.hvg module<a class="headerlink" href="#module-adobo.hvg" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id8">
-<h3>Summary<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h3>Summary<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>Functions for detection of highly variable genes.</p>
 <dl class="function">
 <dt id="adobo.hvg.brennecke">
@@ -1031,8 +918,8 @@ should be normalized first.</p>
 </div>
 <div class="section" id="module-adobo.normalize">
 <span id="adobo-normalize-module"></span><h2>adobo.normalize module<a class="headerlink" href="#module-adobo.normalize" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id9">
-<h3>Summary<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h3>Summary<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>This module contains functions to normalize raw read counts.</p>
 <dl class="function">
 <dt id="adobo.normalize.clr">
@@ -1243,8 +1130,8 @@ package <cite>sctransform</cite>.</p>
 </div>
 <div class="section" id="module-adobo.plotting">
 <span id="adobo-plotting-module"></span><h2>adobo.plotting module<a class="headerlink" href="#module-adobo.plotting" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id10">
-<h3>Summary<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id7">
+<h3>Summary<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>Functions for plotting scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.plotting.cell_viz">
@@ -1393,8 +1280,8 @@ normalizations will be used.</p></li>
 </div>
 <div class="section" id="module-adobo.preproc">
 <span id="adobo-preproc-module"></span><h2>adobo.preproc module<a class="headerlink" href="#module-adobo.preproc" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id11">
-<h3>Summary<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h3>Summary<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>Functions for pre-processing scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.preproc.find_ercc">
@@ -1568,13 +1455,8 @@ the gene. Default: 0.001</p></li>
 
 </div>
 </div>
-<div class="section" id="module-adobo">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-adobo" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="adobo.excepthook">
-<code class="sig-prename descclassname">adobo.</code><code class="sig-name descname">excepthook</code><span class="sig-paren">(</span><em class="sig-param">type</em>, <em class="sig-param">value</em>, <em class="sig-param">tb</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.excepthook" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<div class="section" id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 

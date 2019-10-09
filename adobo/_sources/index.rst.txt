@@ -587,6 +587,14 @@ We can visualize the results:
 
    Prediction is only valid on mouse data since the classifier is trained on mouse data. Make sure your gene expression contains Ensembl gene identifiers in one of the following two formats: ENSEMBL; GENESYMBOL_ENSEMBL.
 
+Cell type prediction
+====================
+Runs marker-based cell type prediction. The smallest predicted unit is a cell cluster. Cell type prediction works on mouse and human data. Gene symbols must be ued in your data. The ``min_cluster_size`` parameter specifies which clusters to ignore (i.e. clusters with fewer cells than this are ignored). Will run on all normalizations and clusterings as default (or specify which one with ``name`` and ``clustering``).
+
+.. code-block:: python3
+
+   ad.bio.predict_cell_type(exp, min_cluster_size=10, verbose=True)
+
 Indices and tables
 ==================
 
