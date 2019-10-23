@@ -139,7 +139,7 @@
 <p>Functions for reading and writing scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.IO.load_from_file">
-<code class="sig-prename descclassname">adobo.IO.</code><code class="sig-name descname">load_from_file</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">sep='\\s'</em>, <em class="sig-param">header=0</em>, <em class="sig-param">column_id='auto'</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">desc='no desc set'</em>, <em class="sig-param">output_file=None</em>, <em class="sig-param">input_file=None</em>, <em class="sig-param">sparse=True</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.IO.load_from_file" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.IO.</code><code class="sig-name descname">load_from_file</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">sep='\\s'</em>, <em class="sig-param">header=0</em>, <em class="sig-param">desc='no desc set'</em>, <em class="sig-param">output_file=None</em>, <em class="sig-param">sparse=True</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.IO.load_from_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a gene expression matrix consisting of raw read counts</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -149,8 +149,6 @@ columns are cells and rows are genes.</p></li>
 <li><p><strong>sep</strong> (<cite>str</cite>) – A character or regular expression used to separate fields. Default: “\s”
 (i.e. any white space character)</p></li>
 <li><p><strong>header</strong> (<cite>str</cite>) – If the data file has a header. 0 means yes otherwise None. Default: 0</p></li>
-<li><p><strong>column_id</strong> (<em>{'auto'</em><em>, </em><em>'yes'</em><em>, </em><em>'no'}</em>) – Whether the header (first line) of the file contains a column ID for the genes. If
-this is the case, set this to auto or yes, otherwise no. Default: ‘auto’</p></li>
 <li><p><strong>desc</strong> (<cite>str</cite>) – A description of the data</p></li>
 <li><p><strong>output_file</strong> (<cite>str</cite>) – An output filename used when calling <a class="reference internal" href="#adobo.data.dataset.save" title="adobo.data.dataset.save"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.data.dataset.save()</span></code></a>.</p></li>
 <li><p><strong>sparse</strong> (<cite>bool</cite>) – Represent the data in a sparse data structure. Will save memory at the expense
@@ -161,8 +159,8 @@ of time. Default: True</p></li>
 </dl>
 <p class="rubric">Notes</p>
 <p>The loaded gene expression matrix should not have been normalized. This function calls
-<code class="xref py py-func docutils literal notranslate"><span class="pre">read_csv()</span></code> to read the data matrix file. Any additional
-arguments are passed into <code class="xref py py-func docutils literal notranslate"><span class="pre">read_csv()</span></code>.</p>
+<code class="xref py py-func docutils literal notranslate"><span class="pre">fread()</span></code> to read the data matrix file. Any additional arguments are
+passed into it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A dataset class object.</p>

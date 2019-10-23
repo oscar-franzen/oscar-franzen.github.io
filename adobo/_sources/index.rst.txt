@@ -3,15 +3,19 @@ Welcome to adobo's documentation!
 
 What adobo is
 *************
-adobo is an analysis framework for single cell RNA sequencing data (scRNA-seq) and enables exploratory analysis through a set of Python modules. adobo can be used to compose scripts, used in interactive workflows and much more. The goal of adobo is to consolidate single cell computational analysis methods in the Python programming language.
+adobo is an analysis framework for single cell RNA sequencing data (scRNA-seq) and enables exploratory analysis through a set of Python modules. adobo can be used to compose scripts, used in interactive workflows and much more. The goal of adobo is to consolidate single cell computational analysis methods in the Python 3.x programming language. adobo can be used to construct new pipelines and workflows in order to facilitate biological interpretation of scRNA-seq data.
 
 Contact developer and maintainer
 ********************************
 adobo is developed by Oscar Franzén at Karolinska Institutet. Limited support is available over e-mail: p.oscar.franzen@gmail.com or oscar.franzen@ki.se
 
-Notes on this tutorial
+Notes on this document
 ======================
 Some basic knowledge of Python, `NumPy <https://en.wikipedia.org/wiki/NumPy>`_ and `pandas <https://en.wikipedia.org/wiki/Pandas_(software)>`_ and their commonly used data structures is assumed. Furthermore, most of adobo's functions have parameters with sensible defaults so that many parameters don't need to be specified upon calling a specific function, but for clarity the most important parameters are shown in the examples. We refer to the adobo package as 'ad'.
+
+Finding tutorials
+=================
+Jupyter notebooks can be found `here <https://github.com/oscar-franzen/adobo/tree/master/notebooks>`_.
 
 Installation
 ============
@@ -115,17 +119,27 @@ The first step is to load the adobo package by importing it:
 
 Loading your data from a text file
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-First we need to create a new adobo object, which is an instance of the class :py:class:`adobo.data.dataset`. This will be a new object containing your single cell data, meta data and analysis results. The input file should be a gene expression matrix (rows as genes and cells as columns) in plain text format. Fields can be separated by any character and it can be changed with the ``sep`` parameter. ``sep`` can be a single character or a regular expression (default is the regular expression ``\s``). The data matrix file can have a header or not (``header=0`` indicates a header is present, otherwise use ``header=None``). If the header of your gene expression matrix contains a label for gene symbols, set ``column_id='yes'`` or simply ``column_id='auto'`` to autodetect this. :py:func:`adobo.IO.load_from_file` calls `pandas.DataFrame.read_csv <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html>`_ and any additional parameters are passed on into this method. The function :py:func:`adobo.IO.load_from_file` is used to load data from a raw read counts matrix and the returned object is an instance of :class:`adobo.data.dataset`:
+First we need to create a new adobo object, which is an instance of the class :py:class:`adobo.data.dataset`. This will be a new object containing the single cell data, meta data and analysis results. The input file should be a gene expression matrix (rows as genes and cells as columns) in plain text format. Fields can be separated by any character and it can be changed with the ``sep`` parameter. ``sep`` can be a single character or a regular expression (default is the regular expression ``\s``). The data matrix file can have a header or not (``header=0`` indicates a header is present, otherwise use ``header=None``). :py:func:`adobo.IO.load_from_file` calls `datatable.fread <https://datatable.readthedocs.io/en/latest/>`_ and any additional parameters are passed on into this method. The function :py:func:`adobo.IO.load_from_file` is used to load data from a raw read counts matrix and the returned object is an instance of :class:`adobo.data.dataset`.
+
+We can load compressed data directly without having to uncompress it first; the compression format is detected automatically (``gzip``, ``bz2``, ``zip`` and ``xz`` are supported).
 
 .. code-block:: python3
 
+   # example 1
    exp = ad.IO.load_from_file('GSE95315.tab',
-                              column_id='auto',
                               desc='mouse brain data',
                               sparse=True,
                               verbose=True)
 
-The raw read counts matrix is stored in the attribute ``count_data`` inside the dataset object (:py:attr:`adobo.data.dataset.count_data`). Here we use data from `GEO95315 <https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE95315>`_, which can be `downloaded here <https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE95315&format=file&file=GSE95315%5F10X%5Fexpression%5Fdata%2Etab%2Egz>`_. By default the data are stored in a sparse data frame; sparsity can slow down the data loading step, but leaves a much smaller memory footprint.
+   # example 2
+   exp = ad.IO.load_from_file('GSE95315.tab.gz')
+
+The raw read counts matrix is stored in the attribute ``count_data`` inside the dataset object (:py:attr:`adobo.data.dataset.count_data`). Here we use data from `GEO95315 <https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE95315>`_, which can be `downloaded here <https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE95315&format=file&file=GSE95315%5F10X%5Fexpression%5Fdata%2Etab%2Egz>`_. By default the data are stored in a sparse data frame; sparsity can slow down the data loading step, but leaves a much smaller memory footprint. Sparsity can be turned off by setting ``sparse=False``.
+
+Your gene expression data is stored in the attribute ``exp.count_data``, and after loading it is good practise to examine that the data were loaded properly:
+
+>>> exp
+53,889 genes and 384 cells were loaded
 
 ``desc`` can be used to specify an arbitrary string describing the data, but it can also be left empty.
 
@@ -137,23 +151,7 @@ The raw read counts matrix is stored in the attribute ``count_data`` inside the 
 
    All downstream operations and analyses are performed and stored as attributes in the adobo object, i.e. functions are applied on this object.
 
-.. note::
-
-   Many adobo functions also have a ``verbose`` parameter, which when ``True`` makes the function more informative.
-
-Loading compressed data
-^^^^^^^^^^^^^^^^^^^^^^^
-scRNA-seq is zero inflated, and therefore compress strongly. We can load the compressed data directly without having to uncompress it first; the compression format is detected automatically (``gzip``, ``bz2``, ``zip`` and ``xz`` are supported). For example:
-
-.. code-block:: python3
-
-   exp = ad.IO.load_from_file('GSE95315.tab.gz',
-                              column_id='auto')
-
-Your gene expression data is stored in the attribute ``exp.count_data``, and after loading it is good practise to examine that the data were loaded properly:
-
->>> exp
-53,889 genes and 384 cells were loaded
+   Many adobo functions have a ``verbose`` parameter, which when ``True`` makes the function more verbose.
 
 Creating the data class object directly from a pandas data frame
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
