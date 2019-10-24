@@ -231,15 +231,26 @@ All functions in adobo have full documentation, which is accessible as `docstrin
 
 Data examination
 ^^^^^^^^^^^^^^^^
-After loading the data a first step is to examine number of reads per cell in a bar plot. It helps to identify extreme outliers that may represent artifacts (unusually low number of reads per cell or unusually high number of reads per cell):
+After loading the data a first step is to examine the number of reads per cell. It helps to identify extreme outliers, which may be artifacts (unusually low number of reads per cell or unusually high number of reads per cell):
 
 .. code-block:: python3
 
-   ad.plotting.reads_per_cell(exp)
+   ad.plotting.reads_per_cell(exp, how='barplot')
 
 Which will generate the plot:
 
 .. image:: 2019-08-30-131424_587x441_scrot.png
+
+.. code-block:: python3
+
+   # box plot
+   ad.plotting.reads_per_cell(exp, how='boxplot')
+   
+   # histogram
+   ad.plotting.reads_per_cell(exp, how='histogram', bin_size=100)
+   
+   # violin
+   ad.plotting.reads_per_cell(exp, how='violin')
 
 It is also informative to examine number of expressed genes per cell:
 

@@ -1406,15 +1406,17 @@ normalizations will be used.</p></li>
 
 <dl class="function">
 <dt id="adobo.plotting.reads_per_cell">
-<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">reads_per_cell</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">barcolor='#E69F00'</em>, <em class="sig-param">title='sequencing reads'</em>, <em class="sig-param">filename=None</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.reads_per_cell" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">reads_per_cell</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">color='#E69F00'</em>, <em class="sig-param">title='sequencing reads'</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">how='histogram'</em>, <em class="sig-param">bin_size=100</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.reads_per_cell" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a bar plot of read counts per cell</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object.</p></li>
-<li><p><strong>barcolor</strong> (<cite>str</cite>) – Color of the bars. Default: “#E69F00”</p></li>
+<li><p><strong>color</strong> (<cite>str</cite>) – Color of the plot. Default: “#E69F00”</p></li>
 <li><p><strong>title</strong> (<cite>str</cite>) – Title of the plot. Default: “sequencing reads”</p></li>
 <li><p><strong>filename</strong> (<cite>str</cite>, optional) – Write plot to file instead of showing it on the screen.</p></li>
+<li><p><strong>how</strong> (<cite>{‘histogram’, ‘boxplot’, ‘barplot’, ‘violin’}</cite>) – Type of plot to generate.</p></li>
+<li><p><strong>bin_size</strong> (<cite>int</cite>) – If <cite>how</cite> is a histogram, then this is the bin size. Default: 100</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
