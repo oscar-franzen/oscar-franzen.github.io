@@ -11,7 +11,9 @@ adobo is developed by Oscar Franzén at Karolinska Institutet. Limited support i
 
 Notes on this document
 ======================
-Some basic knowledge of Python, `NumPy <https://en.wikipedia.org/wiki/NumPy>`_ and `pandas <https://en.wikipedia.org/wiki/Pandas_(software)>`_ and their commonly used data structures is assumed. Furthermore, most of adobo's functions have parameters with sensible defaults so that many parameters don't need to be specified upon calling a specific function, but for clarity the most important parameters are shown in the examples. We refer to the adobo package as 'ad'.
+Some basic knowledge of Python, `NumPy <https://en.wikipedia.org/wiki/NumPy>`_ and `pandas <https://en.wikipedia.org/wiki/Pandas_(software)>`_ and their commonly used data structures is helpful but not necessary. Many of adobo's functions have parameters with sensible defaults so that all parameters don't need to be specified upon calling a specific function. For clarity, the most important parameters are shown in the examples below.
+
+We refer to the adobo package as 'ad'.
 
 Finding tutorials
 =================
