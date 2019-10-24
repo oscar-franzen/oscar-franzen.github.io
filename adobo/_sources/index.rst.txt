@@ -121,33 +121,36 @@ The first step is to load the adobo package by importing it:
 
 Loading your data from a text file
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-First we need to create a new adobo object, which is an instance of the class :py:class:`adobo.data.dataset`. This will be a new object containing the single cell data, meta data and analysis results. The input file should be a gene expression matrix (rows as genes and cells as columns) in plain text format. Fields can be separated by any character and it can be changed with the ``sep`` parameter. ``sep`` can be a single character or a regular expression (default is the regular expression ``\s``). The data matrix file can have a header or not (``header=0`` indicates a header is present, otherwise use ``header=None``). :py:func:`adobo.IO.load_from_file` calls `datatable.fread <https://datatable.readthedocs.io/en/latest/>`_ and any additional parameters are passed on into this method. The function :py:func:`adobo.IO.load_from_file` is used to load data from a raw read counts matrix and the returned object is an instance of :class:`adobo.data.dataset`.
+First we need to create a new adobo object, which is an instance of the class :py:class:`adobo.data.dataset`. This will be a new object containing the single cell data, meta data and analysis results. The input file should be a gene expression matrix (rows as genes and cells as columns) in plain text format. Fields can be separated by any character and it can be changed with the ``sep`` parameter. ``sep`` can be a single character or a regular expression (default is the regular expression ``\s``). The data matrix file can have a header or not (``header=True`` indicates a header is present, otherwise use ``header=False``). :py:func:`adobo.IO.load_from_file` calls `datatable.fread <https://datatable.readthedocs.io/en/latest/>`_ and any additional parameters are passed on into this method. The function :py:func:`adobo.IO.load_from_file` is used to load data from a raw read counts matrix and the returned object is an instance of :class:`adobo.data.dataset`.
 
 We can load compressed data directly without having to uncompress it first; the compression format is detected automatically (``gzip``, ``bz2``, ``zip`` and ``xz`` are supported).
+
+In the below example we set ``bundled=True``, which tells adobo to search its internal ``data`` directory for the file. For normal data, ``bundled`` should be ``False`` (default).
 
 .. code-block:: python3
 
    # example 1
-   exp = ad.IO.load_from_file('GSE95315.tab',
+   exp = ad.IO.load_from_file('GSE95315.tab.gz',
                               desc='mouse brain data',
                               sparse=True,
-                              verbose=True)
+                              verbose=True,
+                              bundled=True, # used to load "internal" data
+                              header=True,
+                              sep='\t')
 
    # example 2
    exp = ad.IO.load_from_file('GSE95315.tab.gz')
 
-The raw read counts matrix is stored in the attribute ``count_data`` inside the dataset object (:py:attr:`adobo.data.dataset.count_data`). Here we use data from `GEO95315 <https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE95315>`_, which can be `downloaded here <https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE95315&format=file&file=GSE95315%5F10X%5Fexpression%5Fdata%2Etab%2Egz>`_. By default the data are stored in a sparse data frame; sparsity can slow down the data loading step, but leaves a much smaller memory footprint. Sparsity can be turned off by setting ``sparse=False``.
+``desc`` can be used to specify an arbitrary string describing the data, but it can also be left empty. The raw read counts matrix is stored in the attribute ``count_data`` inside the dataset object (:py:attr:`adobo.data.dataset.count_data`). Here we use data from `GEO95315 <https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE95315>`_ and it ships with adobo. By default the data are stored in a sparse data frame; sparsity can slow down the data loading step, but leaves a much smaller memory footprint. Sparsity can be turned off by setting ``sparse=False`` in ``load_from_file``.
 
 Your gene expression data is stored in the attribute ``exp.count_data``, and after loading it is good practise to examine that the data were loaded properly:
 
 >>> exp
 53,889 genes and 384 cells were loaded
 
-``desc`` can be used to specify an arbitrary string describing the data, but it can also be left empty.
-
 .. important::
 
-   The loaded data must **not** be normalized, i.e. it should be raw read counts.
+   The loaded data must **not** be normalized, i.e. it should be raw read counts. Non-integer values will trigger a loading error.
 
 .. note::
 
@@ -467,6 +470,12 @@ We can also write the output to a file instead of showing it on the screen:
 .. code-block:: python3
 
    ad.plotting.pca_contributors(exp, dim=[0,1,2,3,4], top=10, filename='top_pca_genes.pdf')
+
+The default number of components, 75, is often sufficient. However, a more deterministic approach is to generate an elbow plot using :py:func:`adobo.plotting.pca_elbow`:
+
+.. code-block:: python3
+
+   ad.plotting.pca_elbow(exp)
 
 t-Distributed Stochastic Neighbor Embedding (t-SNE)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

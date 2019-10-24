@@ -139,7 +139,7 @@
 <p>Functions for reading and writing scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.IO.load_from_file">
-<code class="sig-prename descclassname">adobo.IO.</code><code class="sig-name descname">load_from_file</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">sep='\\s'</em>, <em class="sig-param">header=True</em>, <em class="sig-param">desc='no desc set'</em>, <em class="sig-param">output_file=None</em>, <em class="sig-param">sparse=True</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.IO.load_from_file" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.IO.</code><code class="sig-name descname">load_from_file</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">sep='\\s'</em>, <em class="sig-param">header=True</em>, <em class="sig-param">desc='no desc set'</em>, <em class="sig-param">output_file=None</em>, <em class="sig-param">sparse=True</em>, <em class="sig-param">bundled=False</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.IO.load_from_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a gene expression matrix consisting of raw read counts</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -153,6 +153,7 @@ columns are cells and rows are genes.</p></li>
 <li><p><strong>output_file</strong> (<cite>str</cite>) – An output filename used when calling <a class="reference internal" href="#adobo.data.dataset.save" title="adobo.data.dataset.save"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.data.dataset.save()</span></code></a>.</p></li>
 <li><p><strong>sparse</strong> (<cite>bool</cite>) – Represent the data in a sparse data structure. Will save memory at the expense
 of time. Default: True</p></li>
+<li><p><strong>bundled</strong> (<cite>bool</cite>) – Use data installed by adobo. Default: False</p></li>
 <li><p><strong>verbose</strong> (<cite>bool</cite>) – To be verbose or not. Default: False</p></li>
 </ul>
 </dd>
@@ -1409,10 +1410,11 @@ function will be applied on all normalizations available.</p></li>
 
 <dl class="function">
 <dt id="adobo.plotting.pca_elbow">
-<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">pca_elbow</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">name=()</em>, <em class="sig-param">comp_max=100</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">font_size=8</em>, <em class="sig-param">fig_size=(10</em>, <em class="sig-param">10)</em>, <em class="sig-param">verbose=True</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.pca_elbow" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">pca_elbow</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">name=()</em>, <em class="sig-param">comp_max=200</em>, <em class="sig-param">all_genes=False</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">font_size=8</em>, <em class="sig-param">fig_size=(10</em>, <em class="sig-param">10)</em>, <em class="sig-param">verbose=True</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.pca_elbow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a PCA elbow plot</p>
 <p class="rubric">Notes</p>
-<p>Can be used for determining the number of principal components to include.</p>
+<p>Can be used for determining the number of principal components to include. PCA is
+based on singular value decomposition.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1420,6 +1422,7 @@ function will be applied on all normalizations available.</p></li>
 <li><p><strong>name</strong> (<cite>tuple</cite>) – A tuple of normalization to use. If it has the length zero, then all available
 normalizations will be used.</p></li>
 <li><p><strong>comp_max</strong> (<cite>int</cite>) – Maximum number of components to include.</p></li>
+<li><p><strong>all_genes</strong> (<cite>bool</cite>) – Run on all genes, i.e. not only highly variable genes. Default: False</p></li>
 <li><p><strong>filename</strong> (<cite>str</cite>, optional) – Name of an output file instead of showing on screen.</p></li>
 <li><p><strong>font_size</strong> (<cite>float</cite>) – Font size. Default: 8</p></li>
 <li><p><strong>fig_size</strong> (<cite>tuple</cite>) – Figure size in inches. Default: (10, 10)</p></li>
