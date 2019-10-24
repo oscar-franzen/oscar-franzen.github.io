@@ -227,6 +227,7 @@ All functions in adobo have full documentation, which is accessible as `docstrin
 .. code-block:: python3
 
    help(ad)
+
    help(ad.IO.load_from_file)
 
 Data examination
