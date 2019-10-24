@@ -352,27 +352,15 @@ $ python3
 </div>
 <div class="section" id="data-examination">
 <h4>Data examination<a class="headerlink" href="#data-examination" title="Permalink to this headline">¶</a></h4>
-<p>After loading the data a first step is to examine the number of reads per cell. It helps to identify extreme outliers, which may be artifacts (unusually low number of reads per cell or unusually high number of reads per cell):</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">reads_per_cell</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;barplot&#39;</span><span class="p">)</span>
+<p>After loading the data a first step is to examine the number of reads per cell. Cells with an unusual high or low number of reads may be artifacts:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">overall</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="s1">&#39;reads&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;histogram&#39;</span><span class="p">)</span>
+
+<span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">overall</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="s1">&#39;genes&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;histogram&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>In addition, <code class="docutils literal notranslate"><span class="pre">how</span></code> can be one of: violin, boxplot and barplot.</p>
 <p>Which will generate the plot:</p>
-<img alt="_images/2019-08-30-131424_587x441_scrot.png" src="_images/2019-08-30-131424_587x441_scrot.png" />
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># box plot</span>
-<span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">reads_per_cell</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;boxplot&#39;</span><span class="p">)</span>
-
-<span class="c1"># histogram</span>
-<span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">reads_per_cell</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;histogram&#39;</span><span class="p">,</span> <span class="n">bin_size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-
-<span class="c1"># violin</span>
-<span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">reads_per_cell</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;violin&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>It is also informative to examine number of expressed genes per cell:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">genes_per_cell</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
-</pre></div>
-</div>
-<img alt="_images/2019-08-30-131930_594x451_scrot.png" src="_images/2019-08-30-131930_594x451_scrot.png" />
+<img alt="_images/2019-10-24-101818_487x480_scrot.png" src="_images/2019-10-24-101818_487x480_scrot.png" />
 </div>
 <div class="section" id="detecting-ercc-spikes">
 <h4>Detecting ERCC spikes<a class="headerlink" href="#detecting-ercc-spikes" title="Permalink to this headline">¶</a></h4>
