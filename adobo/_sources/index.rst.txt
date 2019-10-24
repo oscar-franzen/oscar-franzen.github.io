@@ -235,15 +235,26 @@ After loading the data a first step is to examine the number of reads per cell. 
 
 .. code-block:: python3
 
+   # These how's are supported: violin, boxplot and barplot.
    ad.plotting.overall(exp, what='reads', how='histogram')
-   
-   ad.plotting.overall(exp, what='genes', how='histogram')
-
-In addition, ``how`` can be one of: violin, boxplot and barplot.
 
 Which will generate the plot:
 
 .. image:: 2019-10-24-101818_487x480_scrot.png
+
+.. code-block:: python3
+
+   ad.plotting.overall(exp, what='genes', how='histogram')
+
+.. image:: 2019-10-24-102111_485x485_scrot.png
+
+It is also useful to relate the number of detected genes with the total read depth into a scatter plot:
+
+.. code-block:: python3
+
+   ad.plotting.overall_scatter(exp)
+
+.. image:: 2019-10-24-103655_496x404_scrot.png
 
 Detecting ERCC spikes
 ^^^^^^^^^^^^^^^^^^^^^

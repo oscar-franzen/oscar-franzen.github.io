@@ -353,14 +353,21 @@ $ python3
 <div class="section" id="data-examination">
 <h4>Data examination<a class="headerlink" href="#data-examination" title="Permalink to this headline">¶</a></h4>
 <p>After loading the data a first step is to examine the number of reads per cell. Cells with an unusual high or low number of reads may be artifacts:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">overall</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="s1">&#39;reads&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;histogram&#39;</span><span class="p">)</span>
-
-<span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">overall</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="s1">&#39;genes&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;histogram&#39;</span><span class="p">)</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># These how&#39;s are supported: violin, boxplot and barplot.</span>
+<span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">overall</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="s1">&#39;reads&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;histogram&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>In addition, <code class="docutils literal notranslate"><span class="pre">how</span></code> can be one of: violin, boxplot and barplot.</p>
 <p>Which will generate the plot:</p>
 <img alt="_images/2019-10-24-101818_487x480_scrot.png" src="_images/2019-10-24-101818_487x480_scrot.png" />
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">overall</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="s1">&#39;genes&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;histogram&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/2019-10-24-102111_485x485_scrot.png" src="_images/2019-10-24-102111_485x485_scrot.png" />
+<p>It is also useful to relate the number of detected genes with the total read depth into a scatter plot:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">overall_scatter</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/2019-10-24-103655_496x404_scrot.png" src="_images/2019-10-24-103655_496x404_scrot.png" />
 </div>
 <div class="section" id="detecting-ercc-spikes">
 <h4>Detecting ERCC spikes<a class="headerlink" href="#detecting-ercc-spikes" title="Permalink to this headline">¶</a></h4>
