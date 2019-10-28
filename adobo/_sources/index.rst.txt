@@ -35,6 +35,8 @@ The above command should return 19.3.1 or higher. If it does not, upgrade throug
 
    python3 -m pip install --upgrade pip --user
 
+We can now install adobo:
+
 .. code-block:: bash
 
    $ git clone https://github.com/oscar-franzen/adobo.git
