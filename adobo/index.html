@@ -124,15 +124,20 @@
 <div class="section" id="installation">
 <h3>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
 <p>First step is to install adobo. The recommended way to install adobo is to first clone the GitHub repository and then use <code class="docutils literal notranslate"><span class="pre">pip3</span></code> from your terminal, which will also install necessary dependencies (instead of using git one can also navigate to the <a class="reference external" href="https://github.com/oscar-franzen/adobo/">repository</a> and press the download button):</p>
+<p>First make sure you are using an updated <cite>pip</cite> version:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 -m pip --version
+</pre></div>
+</div>
+<p>The above command should return 19.3.1 or higher. If it does not, upgrade through this command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 -m pip install --upgrade pip --user
+</pre></div>
+</div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/oscar-franzen/adobo.git
 
 $ <span class="nb">cd</span> adobo
 
 <span class="c1"># local installation</span>
-$ pip3 install --user .
-
-<span class="c1"># below installs adobo without package dependencies (not recommended)</span>
-$ pip3 install --user --no-deps .
+$ python3 -m pip install . --user
 </pre></div>
 </div>
 <div class="admonition note">

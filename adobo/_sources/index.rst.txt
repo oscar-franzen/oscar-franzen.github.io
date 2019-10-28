@@ -23,6 +23,18 @@ Installation
 ============
 First step is to install adobo. The recommended way to install adobo is to first clone the GitHub repository and then use ``pip3`` from your terminal, which will also install necessary dependencies (instead of using git one can also navigate to the `repository <https://github.com/oscar-franzen/adobo/>`_ and press the download button):
 
+First make sure you are using an updated `pip` version:
+
+.. code-block:: bash
+
+   python3 -m pip --version
+
+The above command should return 19.3.1 or higher. If it does not, upgrade through this command:
+
+.. code-block:: bash
+
+   python3 -m pip install --upgrade pip --user
+
 .. code-block:: bash
 
    $ git clone https://github.com/oscar-franzen/adobo.git
@@ -30,10 +42,7 @@ First step is to install adobo. The recommended way to install adobo is to first
    $ cd adobo
    
    # local installation
-   $ pip3 install --user .
-   
-   # below installs adobo without package dependencies (not recommended)
-   $ pip3 install --user --no-deps .
+   $ python3 -m pip install . --user
 
 .. note::
 
