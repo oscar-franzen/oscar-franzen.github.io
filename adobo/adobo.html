@@ -138,9 +138,36 @@
 <h3>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h3>
 <p>Functions for reading and writing scRNA-seq data.</p>
 <dl class="function">
+<dt id="adobo.IO.export_data">
+<code class="sig-prename descclassname">adobo.IO.</code><code class="sig-name descname">export_data</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">filename</em>, <em class="sig-param">norm='standard'</em>, <em class="sig-param">clust='leiden'</em>, <em class="sig-param">what='normalized'</em>, <em class="sig-param">sep='\t'</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.IO.export_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exports data to a text file, convenient for loading into other programs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object.</p></li>
+<li><p><strong>filename</strong> (<cite>str</cite>) – Output filename or path.</p></li>
+<li><p><strong>name</strong> (<cite>str</cite>) – Name of the normalisation. For example ‘standard’.</p></li>
+<li><p><strong>what</strong> (<cite>{‘normalized’, ‘clusters’, ‘pca’, ‘tsne’, ‘umap’}</cite>) – What to export. Normalized data or PCA components.</p></li>
+<li><p><strong>sep</strong> (<cite>str</cite>) – A character or regular expression used to separate fields. Default: ”   “</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Nothing.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
 <dt id="adobo.IO.load_from_file">
 <code class="sig-prename descclassname">adobo.IO.</code><code class="sig-name descname">load_from_file</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">sep='\\s'</em>, <em class="sig-param">header=True</em>, <em class="sig-param">desc='no desc set'</em>, <em class="sig-param">output_file=None</em>, <em class="sig-param">sparse=True</em>, <em class="sig-param">bundled=False</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.IO.load_from_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a gene expression matrix consisting of raw read counts</p>
+<p class="rubric">Notes</p>
+<p>The loaded gene expression matrix should not have been normalized. This function calls
+<code class="xref py py-func docutils literal notranslate"><span class="pre">fread()</span></code> to read the data matrix file. Any additional arguments are
+passed into it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -157,17 +184,11 @@ of time. Default: True</p></li>
 <li><p><strong>verbose</strong> (<cite>bool</cite>) – To be verbose or not. Default: False</p></li>
 </ul>
 </dd>
-</dl>
-<p class="rubric">Notes</p>
-<p>The loaded gene expression matrix should not have been normalized. This function calls
-<code class="xref py py-func docutils literal notranslate"><span class="pre">fread()</span></code> to read the data matrix file. Any additional arguments are
-passed into it.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A dataset class object.</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A dataset class object.</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a></p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1290,7 +1311,7 @@ package <cite>sctransform</cite>.</p>
 <p>Functions for plotting scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.plotting.cell_viz">
-<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">cell_viz</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">reduction='tsne'</em>, <em class="sig-param">name=()</em>, <em class="sig-param">clustering=()</em>, <em class="sig-param">metadata=()</em>, <em class="sig-param">genes=()</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">marker_size=0.8</em>, <em class="sig-param">font_size=8</em>, <em class="sig-param">colors='adobo'</em>, <em class="sig-param">title=None</em>, <em class="sig-param">legend=True</em>, <em class="sig-param">min_cluster_size=10</em>, <em class="sig-param">fig_size=(10</em>, <em class="sig-param">10)</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.cell_viz" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">cell_viz</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">reduction='tsne'</em>, <em class="sig-param">name=()</em>, <em class="sig-param">clustering=()</em>, <em class="sig-param">metadata=()</em>, <em class="sig-param">genes=()</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">marker_size=0.8</em>, <em class="sig-param">font_size=8</em>, <em class="sig-param">colors='adobo'</em>, <em class="sig-param">title=None</em>, <em class="sig-param">legend=True</em>, <em class="sig-param">min_cluster_size=10</em>, <em class="sig-param">fig_size=(10</em>, <em class="sig-param">10)</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.cell_viz" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a 2d scatter plot from an embedding</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1410,7 +1431,7 @@ function will be applied on all normalizations available.</p></li>
 
 <dl class="function">
 <dt id="adobo.plotting.pca_elbow">
-<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">pca_elbow</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">name=()</em>, <em class="sig-param">comp_max=200</em>, <em class="sig-param">all_genes=False</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">font_size=8</em>, <em class="sig-param">fig_size=(10</em>, <em class="sig-param">10)</em>, <em class="sig-param">verbose=True</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.pca_elbow" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">pca_elbow</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">name=()</em>, <em class="sig-param">comp_max=200</em>, <em class="sig-param">all_genes=False</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">font_size=8</em>, <em class="sig-param">fig_size=(10</em>, <em class="sig-param">10)</em>, <em class="sig-param">verbose=True</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.pca_elbow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a PCA elbow plot</p>
 <p class="rubric">Notes</p>
 <p>Can be used for determining the number of principal components to include. PCA is

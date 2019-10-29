@@ -21,9 +21,9 @@ Jupyter notebooks can be found `here <https://github.com/oscar-franzen/adobo/tre
 
 Installation
 ============
-First step is to install adobo. The recommended way to install adobo is to first clone the GitHub repository and then use ``pip3`` from your terminal, which will also install necessary dependencies (instead of using git one can also navigate to the `repository <https://github.com/oscar-franzen/adobo/>`_ and press the download button):
+First step is to install adobo. The recommended way to install adobo is to use the Python package manager ``pip``, streamlining installation of package dependencies. The first step is to make sure a recent version of ``pip`` is installed, and when this is done the repository can be cloned and installed (instead of using git to clone, it is also possible to just navigate to the `repository <https://github.com/oscar-franzen/adobo/>`_ and press the download button):
 
-First make sure you are using an updated `pip` version:
+First make sure you are using an updated ``pip`` version:
 
 .. code-block:: bash
 
@@ -43,7 +43,6 @@ We can now install adobo:
    
    $ cd adobo
    
-   # local installation
    $ python3 -m pip install . --user
 
 .. note::
@@ -65,7 +64,7 @@ After installing it, you can now delete the cloned repository and test that ever
 Try importing the library and it should greet you with the current version and the URL to the documentation (this page):
 
 >>> import adobo as ad
-adobo version 0.1. Documentation: https://oscar-franzen.github.io/adobo/
+adobo version 0.2. Documentation: https://oscar-franzen.github.io/adobo/
 
 Package organization
 ====================

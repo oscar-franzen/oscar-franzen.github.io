@@ -123,8 +123,8 @@
 </div>
 <div class="section" id="installation">
 <h3>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
-<p>First step is to install adobo. The recommended way to install adobo is to first clone the GitHub repository and then use <code class="docutils literal notranslate"><span class="pre">pip3</span></code> from your terminal, which will also install necessary dependencies (instead of using git one can also navigate to the <a class="reference external" href="https://github.com/oscar-franzen/adobo/">repository</a> and press the download button):</p>
-<p>First make sure you are using an updated <cite>pip</cite> version:</p>
+<p>First step is to install adobo. The recommended way to install adobo is to use the Python package manager <code class="docutils literal notranslate"><span class="pre">pip</span></code>, streamlining installation of package dependencies. The first step is to make sure a recent version of <code class="docutils literal notranslate"><span class="pre">pip</span></code> is installed, and when this is done the repository can be cloned and installed (instead of using git to clone, it is also possible to just navigate to the <a class="reference external" href="https://github.com/oscar-franzen/adobo/">repository</a> and press the download button):</p>
+<p>First make sure you are using an updated <code class="docutils literal notranslate"><span class="pre">pip</span></code> version:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 -m pip --version
 </pre></div>
 </div>
@@ -137,7 +137,6 @@
 
 $ <span class="nb">cd</span> adobo
 
-<span class="c1"># local installation</span>
 $ python3 -m pip install . --user
 </pre></div>
 </div>
@@ -157,7 +156,7 @@ $ python3
 </div>
 <p>Try importing the library and it should greet you with the current version and the URL to the documentation (this page):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">adobo</span> <span class="k">as</span> <span class="nn">ad</span>
-<span class="go">adobo version 0.1. Documentation: https://oscar-franzen.github.io/adobo/</span>
+<span class="go">adobo version 0.2. Documentation: https://oscar-franzen.github.io/adobo/</span>
 </pre></div>
 </div>
 </div>
