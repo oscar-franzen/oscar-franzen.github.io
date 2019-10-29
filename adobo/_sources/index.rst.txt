@@ -95,6 +95,8 @@ adobo is organized into several modules containing related functions. All module
      - data visualization
    * - ``bio``
      - functions related to biology, for example cell cycle and cell type prediction
+   * - ``traj``
+     - trajectory analysis
    * - ``stats``
      - miscellaneous or general statistical functions that don't fit anywhere else
 
