@@ -1,3 +1,5 @@
+.. image:: adobo_logo.png
+
 Welcome to adobo's documentation!
 #################################
 
