@@ -425,7 +425,7 @@ Normalization removes technical and sometimes experimental biases and is always 
 **vsn**
    Variance stabilizing normaliztion based on a negative binomial regression model with regularized parameters. Introduced by :cite:`Hafemeister2019` and represents a more sophisticated normalization approach. Appears to marginally improve resolution. Can be used if you have UMI counts.
 
-All normalization schemes can be followed by log2-transformation by setting ``log2=True``, which is the default.
+All normalization schemes can be followed by log-transformation by setting ``log=True``, which is default behavior. The log function can be set with the ``log_func`` parameter (default is numpy's log2 ).
 
 To perform a ``standard`` normalization followed by ``log``-transformation, run:
 
@@ -664,7 +664,7 @@ Runs marker-based cell type prediction. The smallest predicted unit is a cell cl
 
 .. code-block:: python3
 
-   ad.bio.predict_cell_type(exp, min_cluster_size=10, verbose=True)
+   ad.bio.cell_type_predict(exp, min_cluster_size=10, verbose=True)
 
 The output is stored in the attribute :py:attr:`adobo.data.dataset.norm_data`.
 
