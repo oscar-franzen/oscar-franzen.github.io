@@ -7,23 +7,23 @@ What adobo is
 *************
 adobo is an analysis framework for single cell RNA sequencing data (scRNA-seq) and enables exploratory analysis through a set of Python modules. adobo can be used to compose scripts, used in interactive workflows and much more. The goal of adobo is to consolidate single cell computational analysis methods in the Python 3.x programming language. adobo can be used to construct new pipelines and workflows in order to facilitate biological interpretation of scRNA-seq data.
 
-Contact developer and maintainer
-********************************
+Contact
+*******
 adobo is developed by Oscar Franzén at Karolinska Institutet. Limited support is available over e-mail: p.oscar.franzen@gmail.com or oscar.franzen@ki.se
 
 Notes on this document
 ======================
 Some basic knowledge of Python, `NumPy <https://en.wikipedia.org/wiki/NumPy>`_ and `pandas <https://en.wikipedia.org/wiki/Pandas_(software)>`_ and their commonly used data structures is helpful but not necessary. Many of adobo's functions have parameters with sensible defaults so that all parameters don't need to be specified upon calling a specific function. For clarity, the most important parameters are shown in the examples below.
 
-We refer to the adobo package as 'ad'.
+In this documentation the adobo package is referred to as 'ad'.
 
 Finding tutorials
 =================
-Jupyter notebooks can be found `here <https://github.com/oscar-franzen/adobo/tree/master/notebooks>`_.
+Jupyter notebooks can be found `here <https://github.com/oscar-franzen/adobo/tree/master/notebooks>`_ (not complete yet).
 
 Installation
 ============
-First step is to install adobo. The recommended way to install adobo is to use the Python package manager ``pip``, streamlining installation of package dependencies. The first step is to make sure a recent version of ``pip`` is installed, and when this is done the repository can be cloned and installed (instead of using git to clone, it is also possible to just navigate to the `repository <https://github.com/oscar-franzen/adobo/>`_ and press the download button):
+To use adobo the first step is to install it. The recommended way to install adobo is to use the Python package manager ``pip``, streamlining installation of package dependencies. First, make sure a recent version of ``pip`` is installed, and when this is done the repository can be cloned and installed (instead of using git to clone, it is also possible to just navigate to the `repository <https://github.com/oscar-franzen/adobo/>`_ and press the download button):
 
 First make sure you are using an updated ``pip`` version:
 
@@ -37,15 +37,19 @@ The above command should return 19.3.1 or higher. If it does not, upgrade throug
 
    python3 -m pip install --upgrade pip --user
 
-We can now install adobo:
+We can now install adobo with the following commands:
 
 .. code-block:: bash
 
-   $ git clone https://github.com/oscar-franzen/adobo.git
+   git clone https://github.com/oscar-franzen/adobo.git
    
-   $ cd adobo
+   cd adobo
    
-   $ python3 -m pip install . --user
+   python3 -m pip install . --user
+   
+   # cleanup
+   cd ..
+   rm -rf adobo
 
 .. note::
 
@@ -53,20 +57,22 @@ We can now install adobo:
 
 .. note::
 
-   adobo is developed and tested on Python version 3.6.x; older versions may work but are untested.
+   adobo is developed and tested on Python version 3.6; older versions may work but are untested.
 
-After installing it, you can now delete the cloned repository and test that everything works by firing up your Python 3 interpreter (the  ``OPENBLAS_NUM_THREADS`` environmental variable prevents unexpected low-level multithreading):
+After installing it, you can now delete the cloned repository and test that everything works by firing up your Python 3 interpreter:
 
 .. code-block:: bash
 
-   $ export OPENBLAS_NUM_THREADS=1
+   # not necessary to set this environment variable,
+   # but setting it prevents unexpected multithreading
+   export OPENBLAS_NUM_THREADS=1
    
-   $ python3
+   python3
 
 Try importing the library and it should greet you with the current version and the URL to the documentation (this page):
 
 >>> import adobo as ad
-adobo version 0.2. Documentation: https://oscar-franzen.github.io/adobo/
+adobo version 0.2.34. Documentation: https://oscar-franzen.github.io/adobo/
 
 Package organization
 ====================
@@ -77,18 +83,18 @@ adobo is organized into several modules containing related functions. All module
    
    * - Module name
      - Meaning
-   * - ``preproc``
-     - data preprocessing
    * - ``data``
      - the dataset container class
-   * - ``dr``
-     - dimensional reduction techniques
-   * - ``hvg``
-     - highly variable gene discovery
-   * - ``normalize``
-     - normalization of raw read counts
+   * - ``preproc``
+     - data preprocessing such as filtering cells and genes
    * - ``IO``
      - reading and writing data (input/output)
+   * - ``normalize``
+     - normalization of raw read counts
+   * - ``hvg``
+     - highly variable gene discovery
+   * - ``dr``
+     - dimensional reduction techniques
    * - ``clustering``
      - functions related to data clustering operations
    * - ``de``
@@ -148,33 +154,40 @@ In the below example we set ``bundled=True``, which tells adobo to search its in
                               desc='mouse brain data',
                               sparse=True,
                               verbose=True,
-                              bundled=True, # used to load "internal" data
+                              bundled=True, # used to load example data
                               header=True,
                               sep='\t')
 
    # example 2
    exp = ad.IO.load_from_file('GSE95315.tab.gz')
 
-``desc`` can be used to specify an arbitrary string describing the data, but it can also be left empty. The raw read counts matrix is stored in the attribute ``count_data`` inside the dataset object (:py:attr:`adobo.data.dataset.count_data`). Here we use data from `GEO95315 <https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE95315>`_ and it ships with adobo. By default the data are stored in a sparse data frame; sparsity can slow down the data loading step, but leaves a much smaller memory footprint. Sparsity can be turned off by setting ``sparse=False`` in ``load_from_file``.
+``desc`` can be used to specify an arbitrary string describing the data, but it can also be left empty. The raw read counts matrix is stored in the attribute ``count_data`` inside the dataset object (:py:attr:`adobo.data.dataset.count_data`). Here we use data from `GEO95315 <https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE95315>`_ and it ships with adobo. By default, raw read counts are stored in a sparse data frame; sparsity can slow down the data loading step, but leaves a smaller memory footprint. Sparsity can be turned off by setting ``sparse=False`` in ``load_from_file``. Currently, the normalized data are not stored in a sparse matrix, because not all numpy vector operations can be applied on sparse matrices.
 
-Your gene expression data is stored in the attribute ``exp.count_data``, and after loading it is good practise to examine that the data were loaded properly:
+Your loaded data are stored in the attribute ``exp.count_data``, and after loading it is good practise to examine that the data were loaded properly:
 
 >>> exp
-53,889 genes and 384 cells were loaded
+Filename (input): /home/sinigang/adobo/data/GSE95315.tab.gz
+Description: mouse brain data
+Raw count matrix: 14,545 genes and 5,454 cells (filtered: 14,545x5,454)
+Commands executed:
+Normalizations available:
+norm_data structure:
+
+"Commands executed:" lists the commands which have been executed on the loaded data (it is empty right now since nothing has been applied yet). "Normalizations available:" lists normalization schemes applied on the data. "norm_data" structure shows the nested structure of the ``norm_data`` dict.
 
 .. important::
 
-   The loaded data must **not** be normalized, i.e. it should be raw read counts. Non-integer values will trigger a loading error.
+   When loading data, this data should not previously have been normalized; i.e. it should be raw read counts. Non-integer values will trigger an error.
 
 .. note::
 
    All downstream operations and analyses are performed and stored as attributes in the adobo object, i.e. functions are applied on this object.
 
-   Many adobo functions have a ``verbose`` parameter, which when ``True`` makes the function more verbose.
+   Many adobo functions have a ``verbose`` parameter, which when ``True`` makes the function more verbose. Furthermore, many functions have a ``retx`` parameter, which can be set to ``True`` to return the generated data in addition to storing it in the data object.
 
-Creating the data class object directly from a pandas data frame
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-In many cases we already have our data in a data frame, in those cases we can just create the container object directly:
+Creating the data class object directly from a data frame
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In many cases we already have the data in a data frame, in those cases we can just create the container object directly:
 
 .. code-block:: python3
  
@@ -183,56 +196,75 @@ In many cases we already have our data in a data frame, in those cases we can ju
 
 Saving object
 ^^^^^^^^^^^^^
-It is convenient not having to repeat analyses once they are finished. Saving an object to disk can be done via the ``joblib`` package (`complete joblib docs <https://joblib.readthedocs.io/en/latest/>`_; Python's standard `pickle <https://docs.python.org/3/library/pickle.html>`_ is another option):
+It is convenient not having to repeat analyses once they are finished. Saving an object can be done via the ``joblib`` package (`complete joblib docs <https://joblib.readthedocs.io/en/latest/>`_; `pickle <https://docs.python.org/3/library/pickle.html>`_ is another option):
 
 .. code-block:: python3
 
    import joblib
    
-   # compress=0 will turn off data compression
+   # save objext (compress=0 will turn off data compression)
    joblib.dump(exp, 'test.joblib', compress=3)
    
+   # load object
    exp = joblib.load('test.joblib')
 
-Instead of writing three lines of code and always remembering the name of the output file, we can specify ``output_file`` in :py:func:`adobo.IO.load_from_file` and then calling :py:func:`adobo.data.dataset.save()`.
+Instead of writing three lines of code and always remembering the name of the output file, we can specify ``output_file`` in :py:func:`adobo.IO.load_from_file` and then calling :py:func:`adobo.data.dataset.save()`:
+
+.. code-block:: python3
+
+   exp = ad.IO.load_from_file('GSE95315.tab.gz',
+                              desc='mouse brain data',
+                              sparse=True,
+                              verbose=True,
+                              bundled=True, # used to load example data
+                              header=True,
+                              sep='\t',
+                              output_file='test.adobo')
+   
+   # do something
+   ...
+   
+   # save
+   exp.save()
 
 Accessing meta data for cells and genes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Meta data are stored in the adobo object (an instance of :py:class:`adobo.data.dataset`). Two data structures (instances of :class:`pandas.DataFrame`) hold meta data for cells and genes, respectively:
+Meta data can exist at the cell and gene levels. Custom meta data can easily be loaded into your data object. Meta data are stored in the adobo object (an instance of :py:class:`adobo.data.dataset`). Two data structures (instances of :class:`pandas.DataFrame`) hold meta data for cells and genes, respectively:
 
 >>> exp.meta_cells
-                      total_reads status  detected_genes   mito  ERCC  rRNA
-EXP1_COL01_ROW01_S1          5935     OK             426   1455     2     0
-EXP1_COL01_ROW02_S1          3036     OK             464   1583     0     0
-EXP1_COL01_ROW03_S1         38477     OK            1961  20935     7     4
-EXP1_COL01_ROW04_S1         63962     OK            3478   4463     7     0
-EXP1_COL01_ROW05_S1          1885     OK             993    127     0     0
-...                           ...    ...             ...    ...   ...   ...
-EXP1_COL20_ROW36_S20        43051     OK            3277   4975    29     0
-EXP1_COL20_ROW37_S20       162617     OK            4224  54144    55     0
-EXP1_COL20_ROW38_S20        56649     OK            3281   4223    31     0
-EXP1_COL20_ROW39_S20         3367     OK             927   1352     0     0
-EXP1_COL20_ROW40_S20          422     OK             294     75     0     0
-[800 rows x 6 columns]
+       total_reads status  detected_genes
+C1            2746     OK            1513
+C2            3655     OK            1236
+C3            1245     OK             816
+C4            1374     OK             761
+C5            3063     OK            1124
+...            ...    ...             ...
+C5450         2402     OK            1375
+C5451         1779     OK             989
+C5452         2022     OK            1150
+C5453         1868     OK            1200
+C5454         1361     OK             884
+[5454 rows x 3 columns]
 
 >>> exp.meta_genes
-                      expressed  expressed_perc status  mitochondrial   ERCC   rRNA
-ENSMUSG00000102693.1          0         0.00000     OK          False  False  False
-ENSMUSG00000064842.1          0         0.00000     OK          False  False  False
-ENSMUSG00000051951.5          0         0.00000     OK          False  False  False
-ENSMUSG00000102851.1          0         0.00000     OK          False  False  False
-ENSMUSG00000103377.1          1         0.00125     OK          False  False  False
-...                         ...             ...    ...            ...    ...    ...
-ERCC-00164                  145         0.18125     OK          False   True  False
-ERCC-00165                   25         0.03125     OK          False   True  False
-ERCC-00168                  123         0.15375     OK          False   True  False
-ERCC-00170                   91         0.11375     OK          False   True  False
-ERCC-00171                   32         0.04000     OK          False   True  False
-[45884 rows x 6 columns]
+               expressed  expressed_perc status mitochondrial  ERCC
+C0                                                                 
+0610007P14Rik       1897       34.781812     OK          None  None
+0610009B22Rik       1219       22.350568     OK          None  None
+0610009L18Rik        701       12.852952     OK          None  None
+0610009O20Rik        341        6.252292     OK          None  None
+0610010F05Rik        458        8.397506     OK          None  None
+...                  ...             ...    ...           ...   ...
+mt-Nd1              5399       98.991566     OK          None  None
+mt-Nd2              4616       84.635130     OK          None  None
+mt-Nd4              5284       96.883022     OK          None  None
+mt-Nd5              2206       40.447378     OK          None  None
+mt-Nd6               228        4.180418     OK          None  None
+[14545 rows x 5 columns]
 
 Adding meta data
 ^^^^^^^^^^^^^^^^
-Meta data such as experimental categories (e.g. tissue, time points, batches, etc) can easily be added to your adobo object by calling :py:func:`adobo.data.dataset.add_meta_data`, which takes four parameters:
+Meta data such as experimental categories (e.g. tissues, time points, batches, etc) can easily be added to your adobo object either by modifying the meta data structures directly or by calling :py:func:`adobo.data.dataset.add_meta_data`, which takes four parameters:
 
 1. ``axis`` can be either 'cells' or 'genes' depending on whether your added data represent data for cells or genes.
 2. the ``key`` is used as variable name, choose something that makes sense, such as "tissue" for different tissues.
@@ -249,38 +281,46 @@ All functions in adobo have full documentation, which is accessible as `docstrin
 
    help(ad.IO.load_from_file)
 
-Data examination
-^^^^^^^^^^^^^^^^
-After loading the data a first step is to examine the number of reads per cell. Cells with an unusual high or low number of reads may be artifacts:
+Starting to explore your data
+=============================
+Finally it's time to start exploring the loaded data. A usual first step is to examine the number of reads per cell. Cells with an unusual high or low number of reads may be artifacts and can be filtered out. We can generate a histogram of the total number of reads of cells with the command:
 
 .. code-block:: python3
 
    # These how's are supported: violin, boxplot and barplot.
-   ad.plotting.overall(exp, what='reads', how='histogram')
+   ad.plotting.overall(exp, what='reads', how='histogram', bin_size=100)
 
 Which will generate the plot:
 
-.. image:: 2019-10-24-101818_487x480_scrot.png
+.. image:: reads_per_cell_histo.png
+
+A vertical line can be included at any arbitrary threshold, for example to draw a red line at x=12,000 total reads by including the ``cut_off`` parameter:
 
 .. code-block:: python3
 
-   ad.plotting.overall(exp, what='genes', how='histogram')
+   ad.plotting.overall(exp, how='histogram', cut_off=12000)
 
-.. image:: 2019-10-24-102111_485x485_scrot.png
+.. image:: hist_depth_cutoff_line.png
 
-It is also useful to relate the number of detected genes with the total read depth into a scatter plot:
+It can also be useful to examine the number of expressed genes per cell in order to detect any outliers:
+
+.. code-block:: python3
+
+   ad.plotting.overall(exp, what='genes', how='histogram', bin_size=100)
+
+.. image:: genes_exp_per_cell_hist.png
+
+A third informative plot is to relate the number of detected genes with the total read depth into a scatter plot:
 
 .. code-block:: python3
 
    ad.plotting.overall_scatter(exp)
 
-.. image:: 2019-10-24-103655_496x404_scrot.png
+.. image:: overall_scatter.png
 
 Detecting ERCC spikes
 ^^^^^^^^^^^^^^^^^^^^^
-ERCC are known amounts of synthetic constructs added to RNA-seq libraries for quality control and normalization purposes :cite:`Jiang2011`. Not all experiments use ERCC spikes, but many do. The ERCC "genes" are usually prefixed with `ERCC-` in the gene expression matrix. This function is used to annotate them so that they are not included in downstream analyses.
-
-The :py:func:`adobo.preproc.find_ercc` is used to flag the ERCC spikes (stored in the ``ERCC`` column of :py:attr:`adobo.data.dataset.meta_genes`):
+ERCC are known amounts of synthetic constructs added to RNA-seq libraries for quality control and normalization purposes :cite:`Jiang2011`. Not all experiments use ERCC spikes, but many do. The ERCC "genes" are usually prefixed with `ERCC-` in the gene expression matrix. If ERCCs are present, then we need to let adobo know about them so that these spikes are not included in downstream analyses. :py:func:`adobo.preproc.find_ercc` is used to flag the ERCC spikes (stored in the ``ERCC`` column of :py:attr:`adobo.data.dataset.meta_genes`):
 
 .. code-block:: python3
 
@@ -300,6 +340,8 @@ Sometimes a regular expression is not possible and we can instead supply a list 
 
    ad.preproc.find_mitochondrial_genes(exp, genes=['geneA','geneB','geneC'])
 
+Data filtering
+==============
 Applying simple filters
 ^^^^^^^^^^^^^^^^^^^^^^^
 Simple filters refers to applying a strict minimum cutoff on the number of expressed genes per cell and the total read depth per cell. Simple filters are usually effective in removing low quality cells and uninformative genes. If your data come from Drop-seq, 10X, etc, requiring at least 1000 uniquely mapped reads per cell is often sufficient:
@@ -358,11 +400,7 @@ Imputation of dropouts
 
     ad.preproc.impute(exp, filtered=True, res=0.5, nworkers='auto', verbose=True)
 
-The parameter ``filtered`` is used to indicate if imputation should run on the quality-filtered data or on the complete raw read count matrix (default is to run on the filtered). Parallelization is achieved using Python's ``multiprocessing`` module. The parameter ``nworkers`` can be used to set the number of worker processes, which can be 'auto' to autodetect this (although due to Python's `Global Interpreter Lock <https://www.dabeaz.com/python/UnderstandingGIL.pdf>`_ the number of workers should not be higher than the number of physical cores). Imputed data are stored in :py:attr:`adobo.data.dataset.imp_count_data`. If you have a low number of cells (<1000), set the cluster resolution parameter to something low, for example ``res=0.1``. Finally, to use the imputed data, it must first be normalized:
-
-.. code-block:: python3
-
-   ad.normalize.norm(exp, use_imputed=True, method='standard')
+The parameter ``filtered`` is used to indicate if imputation should run on the quality-filtered data or on the complete raw read count matrix (default is to run on the filtered). Parallelization is achieved using Python's ``multiprocessing`` module. The parameter ``nworkers`` can be used to set the number of worker processes, which can be 'auto' to autodetect this (although due to Python's `Global Interpreter Lock <https://www.dabeaz.com/python/UnderstandingGIL.pdf>`_ the number of workers should not be higher than the number of physical cores). Imputed data are stored in :py:attr:`adobo.data.dataset.imp_count_data`. If you have a low number of cells (<1000), set the cluster resolution parameter to something low, for example ``res=0.1``.
 
 .. note::
 
@@ -376,7 +414,7 @@ Normalization removes technical and sometimes experimental biases and is always 
    Performs a standard normalization by scaling with the total read depth per cell and then multiplying with a scaling factor.
 
 **rpkm**
-   Normalizes read counts as Reads per kilo base per million mapped reads (RPKM) :cite:`Conesa2016`. This method should be used if you need to adjust for gene length, such as in a SMART-Seq2 protocol. To use this procedure you must first prepare a file containing combined exon lengths for genes; the file should contain two columns, **without a header**, and columns separated by one space. The following columns must be present: (1) gene symbols and (2) the sum of exon lengths. The filename is set with the ``gene_lengths`` parameter, which can also take a vector.
+   Normalizes read counts as Reads per kilo base per million mapped reads (RPKM) :cite:`Conesa2016`. This method should be used if you want to adjust for gene length, such as in a full-length mRNA protocol. To use this procedure you must first prepare a file containing combined exon lengths for genes; the file should contain two columns, **without a header**, and columns separated by one space. The following columns must be present: (1) gene symbols and (2) the sum of exon lengths. The filename is set with the ``gene_lengths`` parameter, which can also take a vector.
 
 **fqn**
    Performs full quantile normalization :cite:`Bolstad2003`. FQN was a popular normalization scheme for microarray data. It is not very common in single cell analysis despite having been shown to perform well :cite:`Cole2018`. The present implementation does not handle ties well.
@@ -405,6 +443,12 @@ True
 
    If you have previously executed :py:func:`adobo.preproc.find_ercc`, ERCC spikes will be normalized too, and these can be found in :py:attr:`adobo.data.dataset.norm_ercc`.
 
+If you want to normalize using imputed data, then set the ``use_imputed`` to ``True``:
+
+.. code-block:: python3
+
+   ad.normalize.norm(exp, use_imputed=True, method='standard')
+
 Examining analysis history
 ==========================
 Downstream analyses are performed on the data object. At any time it's possible to examine what functions have been applied on data object by calling :py:func:`adobo.data.dataset.assays`:
@@ -415,9 +459,11 @@ Number of ERCC spikes found: 92
 Normalization method: <not performed yet> 
 Has HVG discovery been performed? No
 
+When we run a function, it often generates results, which are stored in your data object. Specifically, results are stored in the ``norm_data`` dictionary. ``norm_data`` is where all analysis results are stored and it has a nested structure that can be displayed interactively by giving the name of the data object.
+
 Detection of highly variable genes
 ==================================
-Many algorithms used in scRNA-seq analysis perform better when used on a subset of measured genes :cite:`Yip2018`; the goal of the feature selection step is usually to extract a set highly variable genes (HVG). adobo currently implements the following strategies for HVG discovery:
+Many algorithms used in scRNA-seq analysis perform better when used on a subset of measured genes :cite:`Yip2018`; the goal of the feature selection step is usually to extract a set of highly variable genes (HVG). adobo currently implements the following strategies for HVG discovery:
 
 **seurat** 
     The function bins the genes according to average expression, then calculates dispersion for each bin as variance to mean ratio. Within each bin, Z-scores are calculated and returned. Z-scores are ranked and the top 1000 are selected. Input data should be normalized first. This strategy was introduced in Seruat :cite:`Stuart2018`, it is simple yet highly effective in identifying HVG.
@@ -440,11 +486,9 @@ Example:
 
    ad.hvg.find_hvg(exp, method='seurat', ngenes=1000)
 
-The results are stored in :py:attr:`adobo.data.dataset.hvg`.
-
 Dimensional reduction
 =====================
-These are techniques to reduce the number of dimensions under consideration. After running these functions, results are stored in the ``dict`` :py:attr:`adobo.data.dataset.dr`.
+These are techniques to reduce the number of dimensions under consideration.
 
 Principal Component analysis (PCA)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -462,12 +506,10 @@ Examples:
 
    # 75 components are returned by default, may need to be adjusted depending on your dataset
    ad.dr.pca(exp, method='irlb', ncomp=75)
+   
+   # or...
 
    ad.dr.pca(exp, method='svd', ncomp=75)
-
-.. note::
-
-   PCA components are stored in the dictionary :py:attr:`adobo.data.dataset.dr` and variable contributions are stored in the dictionary :py:attr:`adobo.data.dataset.dr_gene_contr`.
 
 We can now examine the top contributing genes to each PCA component by producing a plot with :py:func:`adobo.plotting.pca_contributors`.
 
@@ -477,7 +519,7 @@ To plot the top 10 contributing genes to the first five components:
 
    ad.plotting.pca_contributors(exp, dim=[0,1,2,3,4], top=10)
 
-.. image:: pca_contributors.png
+.. image:: pca_cont.png
 
 We can also write the output to a file instead of showing it on the screen:
 
@@ -491,19 +533,17 @@ The default number of components, 75, is often sufficient. However, a more deter
 
    ad.plotting.pca_elbow(exp)
 
+.. image:: pca_elbow.png
+
 t-Distributed Stochastic Neighbor Embedding (t-SNE)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 t-SNE :cite:`vanDerMaaten2008` is a non-linear dimensional reduction technique that optimizes for local distance. It is the *de facto* dimensional reduction technique used to visualize scRNA-seq data :cite:`Kobak2019`. adobo uses the scikit-learn implementation :cite:`Pedregosa2011`. The most important parameter is ``perplexity`` (related to number of nearest neighbors) and it can greatly influence how your plot looks like. Suggested values for ``perplexity`` lies between 5 and 50, and it is recommened to try higher values for datasets with more cells. Additional parameters (such as early_exaggeration, learning_rate, n_iter, and n_iter_without_progress) do not usually need to be specified but will be passed into :py:class:`sklearn.manifold.TSNE`. By default adobo runs t-SNE on the PCA decomposition:
 
 .. code-block:: python3
 
-   ad.dr.tsne(exp, perplexity=30)
+   ad.dr.tsne(exp, perplexity=30, run_on_PCA=True, verbose=True)
 
 The recommended approach is to run t-SNE on PCA components, but it can sometimes be informative to run it on your entire normalized expression matrix (this will take significantly longer time):
-
-.. code-block:: python3
-
-   ad.dr.tsne(exp, target='norm', verbose=True)
 
 .. note::
 
@@ -517,9 +557,7 @@ UMAP :cite:`McInnes2018` is also used frequently to visualize scRNA-seq data, an
 
    ad.dr.umap(exp)
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+UMAP has a number of tunable parameters, for example ``n_epochs`` (try values between 100 to 2000).
 
 Clustering
 ==========
@@ -629,6 +667,20 @@ Runs marker-based cell type prediction. The smallest predicted unit is a cell cl
    ad.bio.predict_cell_type(exp, min_cluster_size=10, verbose=True)
 
 The output is stored in the attribute :py:attr:`adobo.data.dataset.norm_data`.
+
+Differential expression (DE)
+============================
+DE analysis between clusters is usually a key goal in the analysis workflow. adobo implements linear models for this task similar to the limma R package. Significance is calculated from coefficients using t statistics. To execute a LM-driven DE analysis only one command is needed:
+
+.. code-block:: python3
+
+   ad.de.linear_model(exp)
+
+The above command runs pairwise comparisons between all clusters. After running pairwise tests, a next typical goal is to join p-values so that each cluster receives a single list of marker genes. P-value merging can be achieved with Simes' procedure:
+
+.. code-block:: python3
+
+   ad.de.combine_tests(exp)
 
 Indices and tables
 ==================

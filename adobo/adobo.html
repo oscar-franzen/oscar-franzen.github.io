@@ -266,9 +266,11 @@ Biotech.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="adobo.bio.predict_cell_type">
-<code class="sig-prename descclassname">adobo.bio.</code><code class="sig-name descname">predict_cell_type</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">name=()</em>, <em class="sig-param">clustering=()</em>, <em class="sig-param">min_cluster_size=10</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.bio.predict_cell_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>Predicts cell types</p>
+<dt id="adobo.bio.cell_type_predict">
+<code class="sig-prename descclassname">adobo.bio.</code><code class="sig-name descname">cell_type_predict</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">name=()</em>, <em class="sig-param">clustering=()</em>, <em class="sig-param">min_cluster_size=10</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.bio.cell_type_predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predicts cell types using the expression of marker genes</p>
+<p class="rubric">Notes</p>
+<p>Gene identifiers should be in symbol form, not ensembl identifiers, etc.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -713,6 +715,80 @@ filename was already specified when the object was created with the
 <div class="section" id="id6">
 <h3>Summary<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>Functions for differential expression.</p>
+<dl class="function">
+<dt id="adobo.de.combine_tests">
+<code class="sig-prename descclassname">adobo.de.</code><code class="sig-name descname">combine_tests</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">normalization=()</em>, <em class="sig-param">clustering=()</em>, <em class="sig-param">method='simes'</em>, <em class="sig-param">min_cluster_size=10</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.de.combine_tests" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uses Simes’ method for combining p-values</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A dataset class object.</p></li>
+<li><p><strong>normalization</strong> (<cite>tuple</cite>) – A tuple of normalization to use. If it has the length zero, then all available
+normalizations will be used.</p></li>
+<li><p><strong>clustering</strong> (<cite>tuple</cite>, optional) – Specifies the clustering outcomes to work on.</p></li>
+<li><p><strong>method</strong> (<cite>{‘simes’}</cite>) – Method for combining p-values. Only Simes’ is implemented.</p></li>
+<li><p><strong>min_cluster_size</strong> (<cite>int</cite>) – Minimum number of cells per cluster (clusters smaller than this are ignored).
+Default: 10</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="simple">
+<dt>Simes, R. J. (1986). An improved Bonferroni procedure for multiple tests of</dt><dd><p>significance. Biometrika, 73(3):751-754.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Nothing. Modifies the passed object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="adobo.de.linear_model">
+<code class="sig-prename descclassname">adobo.de.</code><code class="sig-name descname">linear_model</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">normalization=()</em>, <em class="sig-param">clustering=()</em>, <em class="sig-param">direction='up'</em>, <em class="sig-param">min_cluster_size=10</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.de.linear_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs differential expression analysis between clusters using a linear model
+and t-statistics</p>
+<p class="rubric">Notes</p>
+<p>Finds differentially expressed (DE) genes between clusters by fitting a linear model
+(LM) to gene expression (response variables) and clusters (explanatory variables) and
+performs pairwise t-tests for significance. Model coefficients are estimated via the
+ordinary least squares method and p-values are calculated using t-statistics. One
+benefit of using LM for DE is that computations are vectorized and therefore very fast.</p>
+<p>The ideas behind using LM to explore DE have been extensively covered in the
+limma R package.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A dataset class object.</p></li>
+<li><p><strong>normalization</strong> (<cite>tuple</cite>) – A tuple of normalization to use. If it has the length zero, then all available
+normalizations will be used.</p></li>
+<li><p><strong>clustering</strong> (<cite>tuple</cite>, optional) – Specifies the clustering outcomes to work on.</p></li>
+<li><p><strong>direction</strong> (<cite>{‘up’, ‘down’, ‘any’}</cite>) – Can be ‘any’ for any direction ‘up’ for up-regulated and ‘down’ for
+down-regulated. Normally we want to find genes being upregulated in cluster A
+compared with cluster B. Default: up</p></li>
+<li><p><strong>min_cluster_size</strong> (<cite>int</cite>) – Minimum number of cells per cluster (clusters smaller than this are ignored).
+Default: 10</p></li>
+<li><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose or not. Default: False</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p><a class="reference external" href="https://www.bioconductor.org/packages/release/bioc/vignettes/limma/inst/doc/usersguide.pdf">https://www.bioconductor.org/packages/release/bioc/vignettes/limma/inst/doc/usersguide.pdf</a>
+<a class="reference external" href="https://newonlinecourses.science.psu.edu/stat555/node/12/">https://newonlinecourses.science.psu.edu/stat555/node/12/</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Nothing. Modifies the passed object.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 </div>
 <div class="section" id="module-adobo.dr">
@@ -1017,17 +1093,18 @@ genes.</p>
 
 <dl class="function">
 <dt id="adobo.hvg.find_hvg">
-<code class="sig-prename descclassname">adobo.hvg.</code><code class="sig-name descname">find_hvg</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">method='seurat'</em>, <em class="sig-param">name=None</em>, <em class="sig-param">ngenes=1000</em>, <em class="sig-param">fdr=0.1</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.hvg.find_hvg" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.hvg.</code><code class="sig-name descname">find_hvg</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">method='seurat'</em>, <em class="sig-param">normalization=None</em>, <em class="sig-param">ngenes=1000</em>, <em class="sig-param">fdr=0.1</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.hvg.find_hvg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Finding highly variable genes</p>
 <p class="rubric">Notes</p>
 <p>A wrapper function around the individual HVG functions, which can also be called
 directly.</p>
+<p>The method ‘brennecke’ should not be applied on ‘fqn’ normalized data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A dataset class object.</p></li>
 <li><p><strong>method</strong> (<cite>{‘seurat’, ‘brennecke’, ‘scran’, ‘chen2016’, ‘mm’}</cite>) – Specifies the method to be used.</p></li>
-<li><p><strong>name</strong> (<cite>str</cite>) – The name of the normalization to operate on. If this is empty or None then the
+<li><p><strong>normalization</strong> (<cite>str</cite>) – The name of the normalization to operate on. If this is empty or None then the
 function will be applied on all normalizations available.</p></li>
 <li><p><strong>ngenes</strong> (<cite>int</cite>) – Number of genes to return.</p></li>
 <li><p><strong>fdr</strong> (<cite>float</cite>) – False Discovery Rate threshold for significant genes applied to those methods
@@ -1208,7 +1285,7 @@ well.</p>
 
 <dl class="function">
 <dt id="adobo.normalize.norm">
-<code class="sig-prename descclassname">adobo.normalize.</code><code class="sig-name descname">norm</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">method='standard'</em>, <em class="sig-param">name=None</em>, <em class="sig-param">use_imputed=False</em>, <em class="sig-param">log=True</em>, <em class="sig-param">log_func=&lt;ufunc 'log2'&gt;</em>, <em class="sig-param">small_const=1</em>, <em class="sig-param">remove_low_qual=True</em>, <em class="sig-param">gene_lengths=None</em>, <em class="sig-param">scaling_factor=10000</em>, <em class="sig-param">axis='genes'</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.normalize.norm" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.normalize.</code><code class="sig-name descname">norm</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">method='standard'</em>, <em class="sig-param">name=None</em>, <em class="sig-param">use_imputed=False</em>, <em class="sig-param">log=True</em>, <em class="sig-param">log_func=&lt;ufunc 'log2'&gt;</em>, <em class="sig-param">small_const=1</em>, <em class="sig-param">remove_low_qual=True</em>, <em class="sig-param">gene_lengths=None</em>, <em class="sig-param">scaling_factor=10000</em>, <em class="sig-param">axis='genes'</em>, <em class="sig-param">retx=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.normalize.norm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Normalizes gene expression data</p>
 <p class="rubric">Notes</p>
 <p>A wrapper function around the individual normalization functions, which can also be
@@ -1246,6 +1323,7 @@ gene names and second column is the length, field separator is one space.
 <cite>method=”depth”</cite>. Default: 10000</p></li>
 <li><p><strong>axis</strong> (<em>{'genes'</em><em>, </em><em>'cells'}</em>) – Only applicable when <cite>method=”clr”</cite>, defines the axis to normalize across.
 Default: ‘genes’</p></li>
+<li><p><strong>retx</strong> (<cite>bool</cite>) – Return the normalized data as well. Default: False</p></li>
 </ul>
 </dd>
 </dl>
@@ -1368,19 +1446,21 @@ package <cite>sctransform</cite>.</p>
 <p>Functions for plotting scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.plotting.cell_viz">
-<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">cell_viz</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">reduction='tsne'</em>, <em class="sig-param">name=()</em>, <em class="sig-param">clustering=()</em>, <em class="sig-param">metadata=()</em>, <em class="sig-param">genes=()</em>, <em class="sig-param">edges=False</em>, <em class="sig-param">trajectory=None</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">marker_size=0.8</em>, <em class="sig-param">font_size=8</em>, <em class="sig-param">colors='adobo'</em>, <em class="sig-param">title=None</em>, <em class="sig-param">legend=True</em>, <em class="sig-param">min_cluster_size=10</em>, <em class="sig-param">fig_size=(10</em>, <em class="sig-param">10)</em>, <em class="sig-param">margins=None</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.cell_viz" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">cell_viz</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">reduction='tsne'</em>, <em class="sig-param">normalization=()</em>, <em class="sig-param">clustering=()</em>, <em class="sig-param">metadata=()</em>, <em class="sig-param">genes=()</em>, <em class="sig-param">edges=False</em>, <em class="sig-param">cell_types=False</em>, <em class="sig-param">trajectory=None</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">marker_size=0.8</em>, <em class="sig-param">font_size=8</em>, <em class="sig-param">colors='adobo'</em>, <em class="sig-param">title=None</em>, <em class="sig-param">legend=True</em>, <em class="sig-param">legend_marker_scale=10</em>, <em class="sig-param">min_cluster_size=10</em>, <em class="sig-param">fig_size=(10</em>, <em class="sig-param">10)</em>, <em class="sig-param">margins=None</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.cell_viz" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a 2d scatter plot from an embedding</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object</p></li>
 <li><p><strong>reduction</strong> (<cite>{‘tsne’, ‘umap’, ‘pca’, ‘force_graph’}</cite>) – The dimensional reduction to use. Default: tsne</p></li>
-<li><p><strong>name</strong> (<cite>tuple</cite>) – A tuple of normalization to use. If it has the length zero, then all
+<li><p><strong>normalization</strong> (<cite>tuple</cite>) – A tuple of normalization to use. If it has the length zero, then all
 available normalizations will be used.</p></li>
 <li><p><strong>clustering</strong> (<cite>tuple</cite>, optional) – Specifies the clustering outcomes to plot.</p></li>
 <li><p><strong>metadata</strong> (<cite>tuple</cite>, optional) – Specifies the metadata variables to plot.</p></li>
 <li><p><strong>genes</strong> (<cite>tuple</cite>, optional) – Specifies genes to plot.</p></li>
 <li><p><strong>edges</strong> (<cite>bool</cite>) – Draw edges (only applicable if reduction=’force_graph’). Default: False</p></li>
+<li><p><strong>cell_types</strong> (<cite>bool</cite>) – Print cell type predictions, applicable if <a class="reference internal" href="#adobo.bio.cell_type_predict" title="adobo.bio.cell_type_predict"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.bio.cell_type_predict()</span></code></a>
+has been run. Default: False</p></li>
 <li><p><strong>trajectory</strong> (<cite>str</cite>, optional) – The trajectory to plot. For example ‘slingshot’. Default: None</p></li>
 <li><p><strong>filename</strong> (<cite>str</cite>, optional) – Name of an output file instead of showing on screen.</p></li>
 <li><p><strong>marker_size</strong> (<cite>float</cite>) – The size of the markers.</p></li>
@@ -1392,6 +1472,7 @@ colors are retrieved from <code class="xref py py-attr docutils literal notransl
 used). Default: adobo</p></li>
 <li><p><strong>title</strong> (<cite>str</cite>) – Title of the plot. By default the title is set to the reduction technique.</p></li>
 <li><p><strong>legend</strong> (<cite>bool</cite>) – Add legend or not. Default: True</p></li>
+<li><p><strong>legend_marker_scale</strong> (<cite>int</cite>) – Scale the markers in the legend. Default: 10</p></li>
 <li><p><strong>min_cluster_size</strong> (<cite>int</cite>) – Can be used to prevent clusters below a certain number of cells to be
 plotted. Default: 10</p></li>
 <li><p><strong>fig_size</strong> (<cite>tuple</cite>) – Figure size in inches. Default: (10, 10)</p></li>
@@ -1412,7 +1493,7 @@ verbose=True to figure out the present values. Default: None</p></li>
 
 <dl class="function">
 <dt id="adobo.plotting.overall">
-<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">overall</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">what='reads'</em>, <em class="sig-param">how='histogram'</em>, <em class="sig-param">bin_size=100</em>, <em class="sig-param">color='#E69F00'</em>, <em class="sig-param">title=None</em>, <em class="sig-param">filename=None</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.overall" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">overall</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">what='reads'</em>, <em class="sig-param">how='histogram'</em>, <em class="sig-param">bin_size=100</em>, <em class="sig-param">cut_off=None</em>, <em class="sig-param">color='#E69F00'</em>, <em class="sig-param">title=None</em>, <em class="sig-param">filename=None</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.overall" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a plot of read counts per cell or expressed genes per cell</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1422,6 +1503,9 @@ verbose=True to figure out the present values. Default: None</p></li>
 plots the number of expressed genes per cell. Default: ‘reads’</p></li>
 <li><p><strong>how</strong> (<cite>{‘histogram’, ‘boxplot’, ‘barplot’, ‘violin’}</cite>) – Type of plot to generate. Default: ‘histogram’</p></li>
 <li><p><strong>bin_size</strong> (<cite>int</cite>) – If <cite>how</cite> is a histogram, then this is the bin size. Default: 100</p></li>
+<li><p><strong>cut_off</strong> (<cite>int</cite>) – Set a cut off for genes or reads by drawing a red line and print the number
+of cells over and under the cut off. Only valid if how=’histogram’.
+Default: None</p></li>
 <li><p><strong>color</strong> (<cite>str</cite>) – Color of the plot. Default: ‘#E69F00’</p></li>
 <li><p><strong>title</strong> (<cite>str</cite>) – Change the default title of the plot. Default: None</p></li>
 <li><p><strong>filename</strong> (<cite>str</cite>, optional) – Write plot to file instead of showing it on the screen. Default: None</p></li>
@@ -1777,7 +1861,7 @@ available normalizations will be used.</p></li>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, Oscar Franzen.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.1.
     </div>
   </body>
 </html>
