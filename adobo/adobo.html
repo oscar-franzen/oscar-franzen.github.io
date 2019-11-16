@@ -208,7 +208,7 @@ of time. Default: True</p></li>
 <p>Functions related to biology.</p>
 <dl class="function">
 <dt id="adobo.bio.cell_cycle_predict">
-<code class="sig-prename descclassname">adobo.bio.</code><code class="sig-name descname">cell_cycle_predict</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">clf</em>, <em class="sig-param">tr_features</em>, <em class="sig-param">name=()</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.bio.cell_cycle_predict" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.bio.</code><code class="sig-name descname">cell_cycle_predict</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">clf</em>, <em class="sig-param">tr_features</em>, <em class="sig-param">name=()</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.bio.cell_cycle_predict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Predicts cell cycle phase</p>
 <p class="rubric">Notes</p>
 <p>The classifier is trained on mouse data, so it should _only_ be used on mouse data
@@ -224,6 +224,7 @@ probability scores.</p>
 <li><p><strong>tr_features</strong> (<cite>list</cite>) – Training features.</p></li>
 <li><p><strong>name</strong> (<cite>tuple</cite>) – A tuple of normalization to use. If it has the length zero, then all available
 normalizations will be used.</p></li>
+<li><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose. Default: False</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1579,7 +1580,7 @@ package <cite>sctransform</cite>.</p>
 <p>Functions for plotting scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.plotting.cell_viz">
-<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">cell_viz</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">reduction='tsne'</em>, <em class="sig-param">normalization=()</em>, <em class="sig-param">clustering=()</em>, <em class="sig-param">metadata=()</em>, <em class="sig-param">genes=()</em>, <em class="sig-param">edges=False</em>, <em class="sig-param">cell_types=False</em>, <em class="sig-param">trajectory=None</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">marker_size=0.8</em>, <em class="sig-param">font_size=8</em>, <em class="sig-param">colors='adobo'</em>, <em class="sig-param">title=None</em>, <em class="sig-param">legend=True</em>, <em class="sig-param">legend_marker_scale=10</em>, <em class="sig-param">min_cluster_size=10</em>, <em class="sig-param">fig_size=(10</em>, <em class="sig-param">10)</em>, <em class="sig-param">margins=None</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.cell_viz" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">cell_viz</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">reduction='tsne'</em>, <em class="sig-param">normalization=()</em>, <em class="sig-param">clustering=()</em>, <em class="sig-param">metadata=()</em>, <em class="sig-param">genes=()</em>, <em class="sig-param">edges=False</em>, <em class="sig-param">cell_types=False</em>, <em class="sig-param">trajectory=None</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">marker_size=0.8</em>, <em class="sig-param">font_size=8</em>, <em class="sig-param">colors='adobo'</em>, <em class="sig-param">title=None</em>, <em class="sig-param">legend=True</em>, <em class="sig-param">legend_marker_scale=10</em>, <em class="sig-param">legend_position=(1</em>, <em class="sig-param">1)</em>, <em class="sig-param">min_cluster_size=10</em>, <em class="sig-param">fig_size=(10</em>, <em class="sig-param">10)</em>, <em class="sig-param">margins=None</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.cell_viz" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a 2d scatter plot from an embedding</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1606,6 +1607,7 @@ used). Default: adobo</p></li>
 <li><p><strong>title</strong> (<cite>str</cite>) – Title of the plot. By default the title is set to the reduction technique.</p></li>
 <li><p><strong>legend</strong> (<cite>bool</cite>) – Add legend or not. Default: True</p></li>
 <li><p><strong>legend_marker_scale</strong> (<cite>int</cite>) – Scale the markers in the legend. Default: 10</p></li>
+<li><p><strong>legend_position</strong> (<cite>tuple</cite>) – A tuple of length two describing the position of the legend. Default: (1,1)</p></li>
 <li><p><strong>min_cluster_size</strong> (<cite>int</cite>) – Can be used to prevent clusters below a certain number of cells to be
 plotted. Default: 10</p></li>
 <li><p><strong>fig_size</strong> (<cite>tuple</cite>) – Figure size in inches. Default: (10, 10)</p></li>
@@ -1935,8 +1937,8 @@ the gene. Set to None to ignore this option. Default: 0.001</p></li>
 </dd></dl>
 
 <dl class="function">
-<dt id="adobo.preproc.symbol_flip">
-<code class="sig-prename descclassname">adobo.preproc.</code><code class="sig-name descname">symbol_flip</code><span class="sig-paren">(</span><em class="sig-param">obj</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.preproc.symbol_flip" title="Permalink to this definition">¶</a></dt>
+<dt id="adobo.preproc.symbol_switch">
+<code class="sig-prename descclassname">adobo.preproc.</code><code class="sig-name descname">symbol_switch</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">species</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.preproc.symbol_switch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Changes gene symbol format</p>
 <p class="rubric">Notes</p>
 <p>If gene symbols are in the format ENS[0-9]+, this function changes gene identifiers
@@ -1948,11 +1950,19 @@ to symbol_ENS[0-9]+.</p>
 <li><p><strong>species</strong> (<em>'{'human'</em><em>, </em><em>'mouse'}'</em>) – Species. Default: ‘human’</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">adobo</span> <span class="k">as</span> <span class="nn">ad</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exp</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;pbmc8k.mat.gz&#39;</span><span class="p">,</span> <span class="n">bundled</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">symbol_switch</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">species</span><span class="o">=</span><span class="s1">&#39;human&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Modifies the passed object.</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Modifies the passed object.</p>
 </dd>
 </dl>
 </dd></dl>

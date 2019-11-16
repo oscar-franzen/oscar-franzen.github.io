@@ -630,7 +630,7 @@ Plotting mitochondrial gene expression:
    
 Cell cycle prediction
 =====================
-An extreme simplification of the cell cycle is shown below (figure from Wikipedia). It is often useful to get an understanding of cell cycle states in a new data set, and it boils down to predicting one of three cell cycle states for every cell: G1, S and G2M.
+It is often useful to get an understanding of cell cycle states in a new data set, and it boils down to predicting one of three cell cycle states for every cell: G1, S and G2M. An extreme simplification of the cell cycle is shown below (figure from Wikipedia).
 
 .. image:: cell_cycle_wikipedia.png
    :align: center
@@ -644,7 +644,7 @@ adobo contains a machine learning classifier based on the sklearn implementation
    clf, tr_features = ad.bio.cell_cycle_train()
    
    # performs the actual classification of cells in your data
-   ad.bio.cell_cycle_predict(obj, clf, tr_features)
+   ad.bio.cell_cycle_predict(exp, clf, tr_features)
 
 Classification is stored in the attribute :py:attr:`adobo.data.dataset.meta_cells` in a column `cell_cycle`. The current design does not support prediction scores, although this can easily be changed by changing the `loss parameter <https://scikit-learn.org/stable/modules/sgd.html>`_.
 
@@ -652,7 +652,7 @@ We can visualize the results:
 
 .. code-block:: python3
 
-   ad.plotting.cell_viz(obj, metadata='cell_cycle', clustering=(), genes=())
+   ad.plotting.cell_viz(exp, metadata='cell_cycle', clustering=(), genes=())
 
 .. important::
 
@@ -660,7 +660,9 @@ We can visualize the results:
 
 Cell type prediction
 ====================
-Runs marker-based cell type prediction. The smallest predicted unit is a cell cluster. Cell type prediction works on mouse and human data. Gene symbols must be ued in your data. The ``min_cluster_size`` parameter specifies which clusters to ignore (i.e. clusters with fewer cells than this are ignored). Will run on all normalizations and clusterings as default (or specify which one with ``name`` and ``clustering``).
+Runs marker-based cell type prediction. The predictable unit is a cell cluster, meaning that cell clustering must have been performed before prediction is called. Cell type prediction works on mouse and human data. Gene symbols must be ued in your data (not Ensembl identifiers). If your data use Ensembl identifiers, the function :py:func:`adobo.preproc.symbol_switch` can be used to switch to gene symbols.
+
+The ``min_cluster_size`` parameter specifies which clusters to ignore (i.e. clusters with fewer cells than this are ignored). Will run on all normalizations and clusterings as default (or specify which one with ``name`` and ``clustering``).
 
 .. code-block:: python3
 
