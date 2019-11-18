@@ -47,35 +47,35 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#module-adobo.data">adobo.data module</a><ul>
-<li><a class="reference internal" href="#id14">Summary</a></li>
+<li><a class="reference internal" href="#id17">Summary</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-adobo.de">adobo.de module</a><ul>
-<li><a class="reference internal" href="#id15">Summary</a></li>
+<li><a class="reference internal" href="#id18">Summary</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-adobo.dr">adobo.dr module</a><ul>
-<li><a class="reference internal" href="#id19">Summary</a></li>
+<li><a class="reference internal" href="#id22">Summary</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-adobo.hvg">adobo.hvg module</a><ul>
-<li><a class="reference internal" href="#id30">Summary</a></li>
+<li><a class="reference internal" href="#id33">Summary</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-adobo.normalize">adobo.normalize module</a><ul>
-<li><a class="reference internal" href="#id39">Summary</a></li>
+<li><a class="reference internal" href="#id42">Summary</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-adobo.plotting">adobo.plotting module</a><ul>
-<li><a class="reference internal" href="#id48">Summary</a></li>
+<li><a class="reference internal" href="#id51">Summary</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-adobo.preproc">adobo.preproc module</a><ul>
-<li><a class="reference internal" href="#id49">Summary</a></li>
+<li><a class="reference internal" href="#id52">Summary</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-adobo.traj">adobo.traj module</a><ul>
-<li><a class="reference internal" href="#id52">Summary</a></li>
+<li><a class="reference internal" href="#id55">Summary</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-adobo">Module contents</a></li>
@@ -319,7 +319,7 @@ Default: ‘euclidean’</p></li>
 <li><p><strong>target</strong> (<cite>{‘irlb’, ‘svd’}</cite>) – The dimensionality reduction result to run on. Default: irlb</p></li>
 <li><p><strong>graph</strong> (<cite>{‘snn’}</cite>) – Type of graph to generate. Only shared nearest neighbor (snn) supported at the
 moment.</p></li>
-<li><p><strong>clust_alg</strong> (<a href="#id4"><span class="problematic" id="id5">`</span></a>{‘leiden’, ‘walktrap’, ‘spinglass’, ‘multilevel’, ‘infomap’,) – ‘label_prop’, ‘leading_eigenvector’}`
+<li><p><strong>clust_alg</strong> (<a href="#id4"><span class="problematic" id="id5">`</span></a>{‘leiden’, ‘louvain’, ‘walktrap’, ‘spinglass’, ‘multilevel’, ‘infomap’,) – ‘label_prop’, ‘leading_eigenvector’}`
 Clustering algorithm to be used.</p></li>
 <li><p><strong>prune_snn</strong> (<cite>float</cite>) – Threshold for pruning the SNN graph, i.e. the edges  with lower value (Jaccard
 index) than this will be removed. Set to 0 to disable pruning. Increasing this
@@ -438,6 +438,42 @@ Physical Review E</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="adobo.clustering.louvain">
+<code class="sig-prename descclassname">adobo.clustering.</code><code class="sig-name descname">louvain</code><span class="sig-paren">(</span><em class="sig-param">snn_graph</em>, <em class="sig-param">res=0.8</em>, <em class="sig-param">seed=42</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.clustering.louvain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the Louvain algorithm</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>snn_graph</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – Source and target nodes.</p></li>
+<li><p><strong>res</strong> (<cite>float</cite>) – Resolution parameter, change to modify cluster resolution. Default: 0.8</p></li>
+<li><p><strong>seed</strong> (<cite>int</cite>) – For reproducibility.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="footnote brackets">
+<dt class="label" id="id13"><span class="brackets">1</span></dt>
+<dd><p><a class="reference external" href="https://github.com/taynaud/python-louvain">https://github.com/taynaud/python-louvain</a></p>
+</dd>
+<dt class="label" id="id14"><span class="brackets">2</span></dt>
+<dd><p><a class="reference external" href="https://perso.uclouvain.be/vincent.blondel/research/louvain.html">https://perso.uclouvain.be/vincent.blondel/research/louvain.html</a></p>
+</dd>
+<dt class="label" id="id15"><span class="brackets">3</span></dt>
+<dd><p>Blondel et al., Fast unfolding of communities in large networks (2008),
+Journal of Statistical Mechanics: Theory and Experiment</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Nothing. Modifies the passed object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
 <dt id="adobo.clustering.snn">
 <code class="sig-prename descclassname">adobo.clustering.</code><code class="sig-name descname">snn</code><span class="sig-paren">(</span><em class="sig-param">nn_idx</em>, <em class="sig-param">k=10</em>, <em class="sig-param">prune_snn=0.067</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.clustering.snn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes a Shared Nearest Neighbor (SNN) graph</p>
@@ -458,7 +494,7 @@ value will result in fewer edges in the graph. Default: 0.067</p></li>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id13"><span class="brackets">1</span></dt>
+<dt class="label" id="id16"><span class="brackets">1</span></dt>
 <dd><p><a class="reference external" href="http://mlwiki.org/index.php/SNN_Clustering">http://mlwiki.org/index.php/SNN_Clustering</a></p>
 </dd>
 </dl>
@@ -476,8 +512,8 @@ value will result in fewer edges in the graph. Default: 0.067</p></li>
 </div>
 <div class="section" id="module-adobo.data">
 <span id="adobo-data-module"></span><h2>adobo.data module<a class="headerlink" href="#module-adobo.data" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id14">
-<h3>Summary<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id17">
+<h3>Summary<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
 <p>This module contains a data storage class.</p>
 <dl class="class">
 <dt id="adobo.data.dataset">
@@ -612,7 +648,7 @@ of time. Default: True</p>
 <dd><p>Add meta data to the adobo object</p>
 <p class="rubric">Notes</p>
 <p>Meta data can be added to cells or genes.</p>
-<p>The parameter name ‘<a href="#id55"><span class="problematic" id="id56">type_</span></a>’ has an underscore to avoid conflict with Python’s
+<p>The parameter name ‘<a href="#id58"><span class="problematic" id="id59">type_</span></a>’ has an underscore to avoid conflict with Python’s
 internal type keyword.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -697,6 +733,53 @@ it.</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="adobo.data.dataset.remove_analysis">
+<code class="sig-name descname">remove_analysis</code><span class="sig-paren">(</span><em class="sig-param">what=()</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.dataset.remove_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove analysis results</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>what</strong> (<cite>tuple</cite>) – A tuple of strings specifying what you want to remove. Each string should be
+a key in norm_data[n] where n is the normalization.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">adobo</span> <span class="k">as</span> <span class="nn">ad</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exp</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;pbmc8k.mat.gz&#39;</span><span class="p">,</span> <span class="n">bundled</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">normalize</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">hvg</span><span class="o">.</span><span class="n">find_hvg</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">dr</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">clustering</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exp</span><span class="o">.</span><span class="n">norm_data</span><span class="p">[</span><span class="s1">&#39;standard&#39;</span><span class="p">][</span><span class="s1">&#39;clusters&#39;</span><span class="p">][</span><span class="s1">&#39;leiden&#39;</span><span class="p">]</span>
+<span class="go">    {&#39;membership&#39;: V1        6</span>
+<span class="go">    V2        0</span>
+<span class="go">    V3        5</span>
+<span class="go">    V4        1</span>
+<span class="go">    V5        0</span>
+<span class="go">             ..</span>
+<span class="go">    V8377     1</span>
+<span class="go">    V8378    10</span>
+<span class="go">    V8379    11</span>
+<span class="go">    V8380     3</span>
+<span class="go">    V8381     2</span>
+<span class="go">    Length: 8381, dtype: int64}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exp</span><span class="o">.</span><span class="n">remove_analysis</span><span class="p">(</span><span class="n">what</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;clusters&#39;</span><span class="p">,))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exp</span><span class="o">.</span><span class="n">norm_data</span><span class="p">[</span><span class="s1">&#39;standard&#39;</span><span class="p">][</span><span class="s1">&#39;clusters&#39;</span><span class="p">][</span><span class="s1">&#39;leiden&#39;</span><span class="p">]</span>
+<span class="go">    Traceback (most recent call last):</span>
+<span class="go">      File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span>
+<span class="go">    KeyError: &#39;leiden&#39;</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Nothing.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="adobo.data.dataset.save">
 <code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param">compress=True</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.dataset.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Serializes the object</p>
@@ -732,8 +815,8 @@ filename was already specified when the object was created with the
 </div>
 <div class="section" id="module-adobo.de">
 <span id="adobo-de-module"></span><h2>adobo.de module<a class="headerlink" href="#module-adobo.de" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id15">
-<h3>Summary<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id18">
+<h3>Summary<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
 <p>Functions for differential expression.</p>
 <dl class="function">
 <dt id="adobo.de.combine_tests">
@@ -754,7 +837,7 @@ Default: 10</p></li>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id16"><span class="brackets">1</span></dt>
+<dt class="label" id="id19"><span class="brackets">1</span></dt>
 <dd><p>Simes, R. J. (1986). An improved Bonferroni procedure for multiple tests of
 significance. Biometrika, 73(3):751-754.</p>
 </dd>
@@ -800,10 +883,10 @@ Default: 10</p></li>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id17"><span class="brackets">1</span></dt>
+<dt class="label" id="id20"><span class="brackets">1</span></dt>
 <dd><p><a class="reference external" href="https://www.bioconductor.org/packages/release/bioc/vignettes/limma/inst/doc/usersguide.pdf">https://www.bioconductor.org/packages/release/bioc/vignettes/limma/inst/doc/usersguide.pdf</a></p>
 </dd>
-<dt class="label" id="id18"><span class="brackets">2</span></dt>
+<dt class="label" id="id21"><span class="brackets">2</span></dt>
 <dd><p><a class="reference external" href="https://newonlinecourses.science.psu.edu/stat555/node/12/">https://newonlinecourses.science.psu.edu/stat555/node/12/</a></p>
 </dd>
 </dl>
@@ -821,8 +904,8 @@ Default: 10</p></li>
 </div>
 <div class="section" id="module-adobo.dr">
 <span id="adobo-dr-module"></span><h2>adobo.dr module<a class="headerlink" href="#module-adobo.dr" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id19">
-<h3>Summary<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id22">
+<h3>Summary<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
 <p>Functions for dimensional reduction.</p>
 <dl class="function">
 <dt id="adobo.dr.force_graph">
@@ -847,7 +930,7 @@ Default: 1.0</p></li>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id20"><span class="brackets">1</span></dt>
+<dt class="label" id="id23"><span class="brackets">1</span></dt>
 <dd><p><a class="reference external" href="https://en.wikipedia.org/wiki/Force-directed_graph_drawing">https://en.wikipedia.org/wiki/Force-directed_graph_drawing</a></p>
 </dd>
 </dl>
@@ -880,11 +963,11 @@ method of Baglama and Reichel.</p>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id21"><span class="brackets">1</span></dt>
+<dt class="label" id="id24"><span class="brackets">1</span></dt>
 <dd><p>Baglama et al (2005) Augmented Implicitly Restarted Lanczos Bidiagonalization
 Methods SIAM Journal on Scientific Computing</p>
 </dd>
-<dt class="label" id="id22"><span class="brackets">2</span></dt>
+<dt class="label" id="id25"><span class="brackets">2</span></dt>
 <dd><p><a class="reference external" href="https://github.com/bwlewis/irlbpy">https://github.com/bwlewis/irlbpy</a></p>
 </dd>
 </dl>
@@ -925,7 +1008,7 @@ function will be applied on all normalizations available.</p></li>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id23"><span class="brackets">1</span></dt>
+<dt class="label" id="id26"><span class="brackets">1</span></dt>
 <dd><p><a class="reference external" href="https://en.wikipedia.org/wiki/Principal_component_analysis">https://en.wikipedia.org/wiki/Principal_component_analysis</a></p>
 </dd>
 </dl>
@@ -958,7 +1041,7 @@ variable genes.</p></li>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id24"><span class="brackets">1</span></dt>
+<dt class="label" id="id27"><span class="brackets">1</span></dt>
 <dd><p><a class="reference external" href="https://tinyurl.com/yyt6df5x">https://tinyurl.com/yyt6df5x</a></p>
 </dd>
 </dl>
@@ -1004,11 +1087,11 @@ values can result in significanlty different results. Default: 30</p></li>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id25"><span class="brackets">1</span></dt>
+<dt class="label" id="id28"><span class="brackets">1</span></dt>
 <dd><p>van der Maaten, L.J.P.; Hinton, G.E. Visualizing High-Dimensional Data
 Using t-SNE. Journal of Machine Learning Research 9:2579-2605, 2008.</p>
 </dd>
-<dt class="label" id="id26"><span class="brackets">2</span></dt>
+<dt class="label" id="id29"><span class="brackets">2</span></dt>
 <dd><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html">https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html</a></p>
 </dd>
 </dl>
@@ -1057,14 +1140,14 @@ datasets, 500 for small). Default: None</p></li>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id27"><span class="brackets">1</span></dt>
+<dt class="label" id="id30"><span class="brackets">1</span></dt>
 <dd><p>McInnes L, Healy J, Melville J (2018) UMAP: Uniform Manifold Approximation and
 Projection for Dimension Reduction, <a class="reference external" href="https://arxiv.org/abs/1802.03426">https://arxiv.org/abs/1802.03426</a></p>
 </dd>
-<dt class="label" id="id28"><span class="brackets">2</span></dt>
+<dt class="label" id="id31"><span class="brackets">2</span></dt>
 <dd><p><a class="reference external" href="https://github.com/lmcinnes/umap">https://github.com/lmcinnes/umap</a></p>
 </dd>
-<dt class="label" id="id29"><span class="brackets">3</span></dt>
+<dt class="label" id="id32"><span class="brackets">3</span></dt>
 <dd><p><a class="reference external" href="https://umap-learn.readthedocs.io/en/latest/">https://umap-learn.readthedocs.io/en/latest/</a></p>
 </dd>
 </dl>
@@ -1082,8 +1165,8 @@ Projection for Dimension Reduction, <a class="reference external" href="https://
 </div>
 <div class="section" id="module-adobo.hvg">
 <span id="adobo-hvg-module"></span><h2>adobo.hvg module<a class="headerlink" href="#module-adobo.hvg" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id30">
-<h3>Summary<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id33">
+<h3>Summary<a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h3>
 <p>Functions for detection of highly variable genes.</p>
 <dl class="function">
 <dt id="adobo.hvg.brennecke">
@@ -1107,7 +1190,7 @@ for this code): <a class="reference external" href="https://github.com/madrury/p
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id31"><span class="brackets">1</span></dt>
+<dt class="label" id="id34"><span class="brackets">1</span></dt>
 <dd><p>Brennecke et al. (2013) Nature Methods <a class="reference external" href="https://doi.org/10.1038/nmeth.2645">https://doi.org/10.1038/nmeth.2645</a></p>
 </dd>
 </dl>
@@ -1140,10 +1223,10 @@ genes.</p>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id32"><span class="brackets">1</span></dt>
+<dt class="label" id="id35"><span class="brackets">1</span></dt>
 <dd><p><a class="reference external" href="https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-016-2897-6">https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-016-2897-6</a></p>
 </dd>
-<dt class="label" id="id33"><span class="brackets">2</span></dt>
+<dt class="label" id="id36"><span class="brackets">2</span></dt>
 <dd><p><a class="reference external" href="https://github.com/hillas/scVEGs/blob/master/scVEGs.r">https://github.com/hillas/scVEGs/blob/master/scVEGs.r</a></p>
 </dd>
 </dl>
@@ -1180,9 +1263,16 @@ might be fewer than specified by <cite>ngenes</cite> because of FDR consideratio
 </ul>
 </dd>
 </dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">adobo</span> <span class="k">as</span> <span class="nn">ad</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exp</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;pbmc8k.mat.gz&#39;</span><span class="p">,</span> <span class="n">bundled</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">normalize</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">hvg</span><span class="o">.</span><span class="n">find_hvg</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+</pre></div>
+</div>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id34"><span class="brackets">1</span></dt>
+<dt class="label" id="id37"><span class="brackets">1</span></dt>
 <dd><p>Yip et al. (2018) Briefings in Bioinformatics
 <a class="reference external" href="https://academic.oup.com/bib/advance-article/doi/10.1093/bib/bby011/4898116">https://academic.oup.com/bib/advance-article/doi/10.1093/bib/bby011/4898116</a></p>
 </dd>
@@ -1214,10 +1304,10 @@ might be fewer than specified by <cite>ngenes</cite> because of FDR consideratio
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id35"><span class="brackets">1</span></dt>
+<dt class="label" id="id38"><span class="brackets">1</span></dt>
 <dd><p><a class="reference external" href="https://doi.org/10.1093/bioinformatics/bty1044">https://doi.org/10.1093/bioinformatics/bty1044</a></p>
 </dd>
-<dt class="label" id="id36"><span class="brackets">2</span></dt>
+<dt class="label" id="id39"><span class="brackets">2</span></dt>
 <dd><p><a class="reference external" href="https://github.com/tallulandrews/M3Drop">https://github.com/tallulandrews/M3Drop</a></p>
 </dd>
 </dl>
@@ -1256,7 +1346,7 @@ technical variance predicted by the fit</p></li>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id37"><span class="brackets">1</span></dt>
+<dt class="label" id="id40"><span class="brackets">1</span></dt>
 <dd><p>Lun ATL, McCarthy DJ, Marioni JC (2016). “A step-by-step workflow for low-level
 analysis of single-cell RNA-seq data with Bioconductor.” F1000Research,
 <a class="reference external" href="https://doi.org/10.12688/f1000research.9501.2">https://doi.org/10.12688/f1000research.9501.2</a></p>
@@ -1292,7 +1382,7 @@ should be normalized first.</p>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id38"><span class="brackets">1</span></dt>
+<dt class="label" id="id41"><span class="brackets">1</span></dt>
 <dd><p><a class="reference external" href="https://cran.r-project.org/web/packages/Seurat/index.html">https://cran.r-project.org/web/packages/Seurat/index.html</a></p>
 </dd>
 </dl>
@@ -1310,8 +1400,8 @@ should be normalized first.</p>
 </div>
 <div class="section" id="module-adobo.normalize">
 <span id="adobo-normalize-module"></span><h2>adobo.normalize module<a class="headerlink" href="#module-adobo.normalize" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id39">
-<h3>Summary<a class="headerlink" href="#id39" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id42">
+<h3>Summary<a class="headerlink" href="#id42" title="Permalink to this headline">¶</a></h3>
 <p>This module contains functions to normalize raw read counts.</p>
 <dl class="function">
 <dt id="adobo.normalize.clr">
@@ -1327,7 +1417,7 @@ should be normalized first.</p>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id40"><span class="brackets">1</span></dt>
+<dt class="label" id="id43"><span class="brackets">1</span></dt>
 <dd><p>Hafemeister et al. (2019) <a class="reference external" href="https://www.biorxiv.org/content/10.1101/576827v1">https://www.biorxiv.org/content/10.1101/576827v1</a></p>
 </dd>
 </dl>
@@ -1362,11 +1452,11 @@ well.</p>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id41"><span class="brackets">1</span></dt>
+<dt class="label" id="id44"><span class="brackets">1</span></dt>
 <dd><p>Bolstad et al. (2003) Bioinformatics
 <a class="reference external" href="https://academic.oup.com/bioinformatics/article/19/2/185/372664">https://academic.oup.com/bioinformatics/article/19/2/185/372664</a></p>
 </dd>
-<dt class="label" id="id42"><span class="brackets">2</span></dt>
+<dt class="label" id="id45"><span class="brackets">2</span></dt>
 <dd><p>Cole et al. (2019) Cell Systems
 <a class="reference external" href="https://www.biorxiv.org/content/10.1101/235382v2">https://www.biorxiv.org/content/10.1101/235382v2</a></p>
 </dd>
@@ -1433,7 +1523,7 @@ Default: ‘genes’</p></li>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id43"><span class="brackets">1</span></dt>
+<dt class="label" id="id46"><span class="brackets">1</span></dt>
 <dd><p>Cole et al. (2019) Cell Systems
 <a class="reference external" href="https://www.biorxiv.org/content/10.1101/235382v2">https://www.biorxiv.org/content/10.1101/235382v2</a></p>
 </dd>
@@ -1477,7 +1567,7 @@ in the raw read counts matrix and with the same order.</p></li>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id44"><span class="brackets">1</span></dt>
+<dt class="label" id="id47"><span class="brackets">1</span></dt>
 <dd><p>Conesa et al. (2016) Genome Biology
 <a class="reference external" href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-016-0881-8">https://genomebiology.biomedcentral.com/articles/10.1186/s13059-016-0881-8</a></p>
 </dd>
@@ -1507,7 +1597,7 @@ then multiplying with a scaling factor.</p>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id45"><span class="brackets">1</span></dt>
+<dt class="label" id="id48"><span class="brackets">1</span></dt>
 <dd><p>Evans et al. (2018) Briefings in Bioinformatics
 <a class="reference external" href="https://academic.oup.com/bib/article/19/5/776/3056951">https://academic.oup.com/bib/article/19/5/776/3056951</a></p>
 </dd>
@@ -1548,10 +1638,10 @@ package <cite>sctransform</cite>.</p>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id46"><span class="brackets">1</span></dt>
+<dt class="label" id="id49"><span class="brackets">1</span></dt>
 <dd><p><a class="reference external" href="https://cran.r-project.org/web/packages/sctransform/index.html">https://cran.r-project.org/web/packages/sctransform/index.html</a></p>
 </dd>
-<dt class="label" id="id47"><span class="brackets">2</span></dt>
+<dt class="label" id="id50"><span class="brackets">2</span></dt>
 <dd><p><a class="reference external" href="https://www.biorxiv.org/content/10.1101/576827v1">https://www.biorxiv.org/content/10.1101/576827v1</a></p>
 </dd>
 </dl>
@@ -1575,8 +1665,8 @@ package <cite>sctransform</cite>.</p>
 </div>
 <div class="section" id="module-adobo.plotting">
 <span id="adobo-plotting-module"></span><h2>adobo.plotting module<a class="headerlink" href="#module-adobo.plotting" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id48">
-<h3>Summary<a class="headerlink" href="#id48" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id51">
+<h3>Summary<a class="headerlink" href="#id51" title="Permalink to this headline">¶</a></h3>
 <p>Functions for plotting scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.plotting.cell_viz">
@@ -1748,8 +1838,8 @@ normalizations will be used.</p></li>
 </div>
 <div class="section" id="module-adobo.preproc">
 <span id="adobo-preproc-module"></span><h2>adobo.preproc module<a class="headerlink" href="#module-adobo.preproc" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id49">
-<h3>Summary<a class="headerlink" href="#id49" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id52">
+<h3>Summary<a class="headerlink" href="#id52" title="Permalink to this headline">¶</a></h3>
 <p>Functions for pre-processing scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.preproc.find_ercc">
@@ -1864,12 +1954,12 @@ then it specifies the number of worker processes. Default: ‘auto’</p></li>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id50"><span class="brackets">1</span></dt>
+<dt class="label" id="id53"><span class="brackets">1</span></dt>
 <dd><p>Li &amp; Li (2018)
 An accurate and robust imputation method scImpute for single-cell
 RNA-seq data <a class="reference external" href="https://www.nature.com/articles/s41467-018-03405-7">https://www.nature.com/articles/s41467-018-03405-7</a></p>
 </dd>
-<dt class="label" id="id51"><span class="brackets">2</span></dt>
+<dt class="label" id="id54"><span class="brackets">2</span></dt>
 <dd><p><a class="reference external" href="https://github.com/Vivianstats/scImpute">https://github.com/Vivianstats/scImpute</a></p>
 </dd>
 </dl>
@@ -1971,8 +2061,8 @@ to symbol_ENS[0-9]+.</p>
 </div>
 <div class="section" id="module-adobo.traj">
 <span id="adobo-traj-module"></span><h2>adobo.traj module<a class="headerlink" href="#module-adobo.traj" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id52">
-<h3>Summary<a class="headerlink" href="#id52" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id55">
+<h3>Summary<a class="headerlink" href="#id55" title="Permalink to this headline">¶</a></h3>
 <p>Functions for trajectory analysis.</p>
 <dl class="function">
 <dt id="adobo.traj.slingshot">
@@ -1985,11 +2075,11 @@ below) and a clustering to generate a graph where vertices are clusters.</p>
 <p>Only slingthot’s ‘getLineages’ method is used at the moment.</p>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id53"><span class="brackets">1</span></dt>
+<dt class="label" id="id56"><span class="brackets">1</span></dt>
 <dd><p>Street et al. (2018) BMC Genomics. Slingshot: cell lineage and pseudotime
 inference for single-cell transcriptomics</p>
 </dd>
-<dt class="label" id="id54"><span class="brackets">2</span></dt>
+<dt class="label" id="id57"><span class="brackets">2</span></dt>
 <dd><p><a class="reference external" href="https://bioconductor.org/packages/release/bioc/html/slingshot.html">https://bioconductor.org/packages/release/bioc/html/slingshot.html</a></p>
 </dd>
 </dl>
