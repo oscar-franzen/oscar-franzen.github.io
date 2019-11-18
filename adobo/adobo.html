@@ -1785,8 +1785,8 @@ into <code class="xref py py-func docutils literal notranslate"><span class="pre
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object</p></li>
 <li><p><strong>name</strong> (<cite>str</cite>) – The name of the normalization to operate on. If this is empty or None
 then the function will be applied on all normalizations available.</p></li>
-<li><p><strong>dim</strong> (<cite>list</cite>) – A list of indices specifying components to plot. First component has
-index zero.</p></li>
+<li><p><strong>dim</strong> (<cite>list</cite> or <cite>int</cite>) – If list, then it specifies indices of components to plot. If integer, then it
+specifies the first components to plot. First component has index zero.</p></li>
 <li><p><strong>top</strong> (<cite>int</cite>) – Specifies the number of top scoring genes to include. Default: 10</p></li>
 <li><p><strong>color</strong> (<cite>str</cite>) – Color of the bars. As a string or hex code. Default: “#fcc603”</p></li>
 <li><p><strong>fontsize</strong> (<cite>int</cite>) – Specifies font size. Default: 6</p></li>
@@ -1795,11 +1795,22 @@ index zero.</p></li>
 <li><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose or not. Default: False</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">adobo</span> <span class="k">as</span> <span class="nn">ad</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exp</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;pbmc8k.mat.gz&#39;</span><span class="p">,</span> <span class="n">bundled</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">normalize</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;standard&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">hvg</span><span class="o">.</span><span class="n">find_hvg</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">dr</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">pca_contributors</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Nothing</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Nothing</p>
 </dd>
 </dl>
 </dd></dl>

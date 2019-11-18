@@ -571,10 +571,13 @@ In adobo, clustering can be performed with a single line of code:
 
 .. code-block:: python3
 
-   # to run leiden with the resolution set to 0.8 (only applicable for leiden)
+   # run leiden
    ad.clustering.generate(exp, distance='euclidean', res=0.8, clust_alg='leiden')
    
-   # to run walktrap
+   # run louvain
+   ad.clustering.generate(exp, distance='euclidean', res=0.8, clust_alg='louvain')
+   
+   # run walktrap
    ad.clustering.generate(exp, distance='euclidean', clust_alg='walktrap')
 
 The above command will run the necessary steps to cluster your single cell dataset; the cluster membership vector is stored in :py:attr:`adobo.data.dataset.clusters`, i.e. represented by an array with the same length as the number of cells after pre-processing. adobo's default clustering algorithm first builds a Shared Nearest Neighbor graph :cite:`Ertoz2003` and then finds communities in this graph using the Leiden algorithm :cite:`Traag2019` (default). It may become necessary to change value of the ``res`` (resolution) parameter to find the optimal clustering outcome.
@@ -583,6 +586,7 @@ By default :py:func:`adobo.clustering.generate` will return a ``dict`` containin
 
 Other community detection algorithms are also supported via the `igraph <https://igraph.org/redirect.html>`_ package:
 
+* ``louvain`` :cite:`Blondel2008`
 * ``walktrap`` :cite:`Pons2006`
 * ``spinglass`` :cite:`Reichardt2006`
 * ``multilevel`` :cite:`Blondel2008`

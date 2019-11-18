@@ -632,10 +632,13 @@ python3
 <p>Clustering is performed in PCA space, therefore PCA components must have been calculated first using <a class="reference internal" href="adobo.html#adobo.dr.pca" title="adobo.dr.pca"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.dr.pca()</span></code></a>.</p>
 </div>
 <p>In adobo, clustering can be performed with a single line of code:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># to run leiden with the resolution set to 0.8 (only applicable for leiden)</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># run leiden</span>
 <span class="n">ad</span><span class="o">.</span><span class="n">clustering</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">distance</span><span class="o">=</span><span class="s1">&#39;euclidean&#39;</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">clust_alg</span><span class="o">=</span><span class="s1">&#39;leiden&#39;</span><span class="p">)</span>
 
-<span class="c1"># to run walktrap</span>
+<span class="c1"># run louvain</span>
+<span class="n">ad</span><span class="o">.</span><span class="n">clustering</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">distance</span><span class="o">=</span><span class="s1">&#39;euclidean&#39;</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">clust_alg</span><span class="o">=</span><span class="s1">&#39;louvain&#39;</span><span class="p">)</span>
+
+<span class="c1"># run walktrap</span>
 <span class="n">ad</span><span class="o">.</span><span class="n">clustering</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">distance</span><span class="o">=</span><span class="s1">&#39;euclidean&#39;</span><span class="p">,</span> <span class="n">clust_alg</span><span class="o">=</span><span class="s1">&#39;walktrap&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -643,17 +646,18 @@ python3
 <p>By default <a class="reference internal" href="adobo.html#adobo.clustering.generate" title="adobo.clustering.generate"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.clustering.generate()</span></code></a> will return a <code class="docutils literal notranslate"><span class="pre">dict</span></code> containing cluster sizes (number of cells), use <code class="docutils literal notranslate"><span class="pre">retx=False</span></code> to disable this behavior.</p>
 <p>Other community detection algorithms are also supported via the <a class="reference external" href="https://igraph.org/redirect.html">igraph</a> package:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">walktrap</span></code> <a class="bibtex reference internal" href="#pons2006" id="id22">[21]</a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">spinglass</span></code> <a class="bibtex reference internal" href="#reichardt2006" id="id23">[22]</a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">multilevel</span></code> <a class="bibtex reference internal" href="#blondel2008" id="id24">[23]</a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">infomap</span></code> <a class="bibtex reference internal" href="#rosvall2008" id="id25">[24]</a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">label_prop</span></code> (label propagation) <a class="bibtex reference internal" href="#raghavan2007" id="id26">[25]</a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">leading_eigenvector</span></code> (Newman’s leading eigenvector method) <a class="bibtex reference internal" href="#newman2006" id="id27">[26]</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">louvain</span></code> <a class="bibtex reference internal" href="#blondel2008" id="id22">[21]</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">walktrap</span></code> <a class="bibtex reference internal" href="#pons2006" id="id23">[22]</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">spinglass</span></code> <a class="bibtex reference internal" href="#reichardt2006" id="id24">[23]</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">multilevel</span></code> <a class="bibtex reference internal" href="#blondel2008" id="id25">[21]</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">infomap</span></code> <a class="bibtex reference internal" href="#rosvall2008" id="id26">[24]</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">label_prop</span></code> (label propagation) <a class="bibtex reference internal" href="#raghavan2007" id="id27">[25]</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">leading_eigenvector</span></code> (Newman’s leading eigenvector method) <a class="bibtex reference internal" href="#newman2006" id="id28">[26]</a></p></li>
 </ul>
 <p>Various parameters of the these algorithms can be changed in <a class="reference internal" href="adobo.html#adobo.clustering.generate" title="adobo.clustering.generate"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.clustering.generate()</span></code></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><code class="docutils literal notranslate"><span class="pre">spinglass</span></code> does not scale well on large datasets <a class="bibtex reference internal" href="#yang2016" id="id28">[27]</a>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">spinglass</span></code> does not scale well on large datasets <a class="bibtex reference internal" href="#yang2016" id="id29">[27]</a>.</p>
 </div>
 </div>
 <div class="section" id="clustering-visualization">
@@ -686,7 +690,7 @@ python3
 <h3>Cell cycle prediction<a class="headerlink" href="#cell-cycle-prediction" title="Permalink to this headline">¶</a></h3>
 <p>It is often useful to get an understanding of cell cycle states in a new data set, and it boils down to predicting one of three cell cycle states for every cell: G1, S and G2M. An extreme simplification of the cell cycle is shown below (figure from Wikipedia).</p>
 <img alt="Source: Wikipedia" class="align-center" src="_images/cell_cycle_wikipedia.png" />
-<p>adobo contains a machine learning classifier based on the sklearn implementation of <a class="reference external" href="https://en.wikipedia.org/wiki/Stochastic_gradient_descent">Stochastic Gradient Descent</a>. The classifier is trained on mouse embryonic stem cells (n=288 cells) <a class="bibtex reference internal" href="#buettner2015" id="id29">[28]</a>. The original data can be retrieved from <a class="reference external" href="https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-2805/">here</a>. Cell cycle classification is performed by calling two functions:</p>
+<p>adobo contains a machine learning classifier based on the sklearn implementation of <a class="reference external" href="https://en.wikipedia.org/wiki/Stochastic_gradient_descent">Stochastic Gradient Descent</a>. The classifier is trained on mouse embryonic stem cells (n=288 cells) <a class="bibtex reference internal" href="#buettner2015" id="id30">[28]</a>. The original data can be retrieved from <a class="reference external" href="https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-2805/">here</a>. Cell cycle classification is performed by calling two functions:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># trains the classifier</span>
 <span class="n">clf</span><span class="p">,</span> <span class="n">tr_features</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">bio</span><span class="o">.</span><span class="n">cell_cycle_train</span><span class="p">()</span>
 
@@ -794,28 +798,28 @@ python3
 <dt class="bibtex label" id="traag2019"><span class="brackets"><a class="fn-backref" href="#id21">20</a></span></dt>
 <dd><p>V. A. Traag, L. Waltman, and N. J. van Eck. From Louvain to Leiden: guaranteeing well-connected communities. <em>Scientific Reports</em>, 9(1):5233, March 2019. <a class="reference external" href="https://doi.org/10.1038/s41598-019-41695-z">doi:10.1038/s41598-019-41695-z</a>.</p>
 </dd>
-<dt class="bibtex label" id="pons2006"><span class="brackets"><a class="fn-backref" href="#id22">21</a></span></dt>
+<dt class="bibtex label" id="blondel2008"><span class="brackets">21</span><span class="fn-backref">(<a href="#id22">1</a>,<a href="#id25">2</a>)</span></dt>
+<dd><p>Vincent D Blondel, Jean-Loup Guillaume, Renaud Lambiotte, and Etienne Lefebvre. Fast unfolding of communities in large networks. <em>Journal of Statistical Mechanics: Theory and Experiment</em>, 2008(10):P10008, Oct 2008. URL: <a class="reference external" href="http://dx.doi.org/10.1088/1742-5468/2008/10/P10008">http://dx.doi.org/10.1088/1742-5468/2008/10/P10008</a>, <a class="reference external" href="https://doi.org/10.1088/1742-5468/2008/10/p10008">doi:10.1088/1742-5468/2008/10/p10008</a>.</p>
+</dd>
+<dt class="bibtex label" id="pons2006"><span class="brackets"><a class="fn-backref" href="#id23">22</a></span></dt>
 <dd><p>Pascal Pons and Matthieu Latapy. Computing Communities in Large Networks Using Random Walks. <em>Journal of Graph Algorithms and Applications</em>, 2006.</p>
 </dd>
-<dt class="bibtex label" id="reichardt2006"><span class="brackets"><a class="fn-backref" href="#id23">22</a></span></dt>
+<dt class="bibtex label" id="reichardt2006"><span class="brackets"><a class="fn-backref" href="#id24">23</a></span></dt>
 <dd><p>Joerg Reichardt and Stefan Bornholdt. Statistical mechanics of community detection. <em>Physical Review E</em>, 74:016110, 2006.</p>
 </dd>
-<dt class="bibtex label" id="blondel2008"><span class="brackets"><a class="fn-backref" href="#id24">23</a></span></dt>
-<dd><p>Vincent D. Blondel, Jean-Loup Guillaume, Renaud Lambiotte, and Etienne Lefebvre. Fast unfolding of communities in large networks. <em>Journal of Statistical Mechanics: Theory and Experiment</em>, 2008(10):10008, Oct 2008. <a class="reference external" href="https://doi.org/10.1088/1742-5468/2008/10/P10008">doi:10.1088/1742-5468/2008/10/P10008</a>.</p>
-</dd>
-<dt class="bibtex label" id="rosvall2008"><span class="brackets"><a class="fn-backref" href="#id25">24</a></span></dt>
+<dt class="bibtex label" id="rosvall2008"><span class="brackets"><a class="fn-backref" href="#id26">24</a></span></dt>
 <dd><p>Martin Rosvall and Carl T. Bergstrom. Maps of random walks on complex networks reveal community structure. <em>Proceedings of the National Academy of Sciences</em>, 105(4):1118–1123, 2008. <a class="reference external" href="https://doi.org/10.1073/pnas.0706851105">doi:10.1073/pnas.0706851105</a>.</p>
 </dd>
-<dt class="bibtex label" id="raghavan2007"><span class="brackets"><a class="fn-backref" href="#id26">25</a></span></dt>
+<dt class="bibtex label" id="raghavan2007"><span class="brackets"><a class="fn-backref" href="#id27">25</a></span></dt>
 <dd><p>Usha Nandini Raghavan, Réka Albert, and Soundar Kumara. Near linear time algorithm to detect community structures in large-scale networks. <em>Phys. Rev. E</em>, 76:036106, Sep 2007. <a class="reference external" href="https://doi.org/10.1103/PhysRevE.76.036106">doi:10.1103/PhysRevE.76.036106</a>.</p>
 </dd>
-<dt class="bibtex label" id="newman2006"><span class="brackets"><a class="fn-backref" href="#id27">26</a></span></dt>
+<dt class="bibtex label" id="newman2006"><span class="brackets"><a class="fn-backref" href="#id28">26</a></span></dt>
 <dd><p>M. E. J. Newman. Finding community structure in networks using the eigenvectors of matrices. <em>Phys. Rev. E</em>, 74:036104, Sep 2006. <a class="reference external" href="https://doi.org/10.1103/PhysRevE.74.036104">doi:10.1103/PhysRevE.74.036104</a>.</p>
 </dd>
-<dt class="bibtex label" id="yang2016"><span class="brackets"><a class="fn-backref" href="#id28">27</a></span></dt>
+<dt class="bibtex label" id="yang2016"><span class="brackets"><a class="fn-backref" href="#id29">27</a></span></dt>
 <dd><p>Zhao Yang, René Algesheimer, and Claudio J. Tessone. A Comparative Analysis of Community Detection Algorithms on Artificial Networks. <em>Scientific Reports</em>, 6:30750, August 2016. URL: <a class="reference external" href="https://doi.org/10.1038/srep30750">https://doi.org/10.1038/srep30750</a>.</p>
 </dd>
-<dt class="bibtex label" id="buettner2015"><span class="brackets"><a class="fn-backref" href="#id29">28</a></span></dt>
+<dt class="bibtex label" id="buettner2015"><span class="brackets"><a class="fn-backref" href="#id30">28</a></span></dt>
 <dd><p>Florian Buettner, Kedar N Natarajan, F Paolo Casale, Valentina Proserpio, Antonio Scialdone, Fabian J Theis, Sarah A Teichmann, John C Marioni, and Oliver Stegle. Computational analysis of cell-to-cell heterogeneity in single-cell RNA-sequencing data reveals hidden subpopulations of cells. <em>Nature Biotechnology</em>, 33:155, January 2015.</p>
 </dd>
 </dl>
