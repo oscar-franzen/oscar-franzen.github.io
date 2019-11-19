@@ -1670,7 +1670,7 @@ package <cite>sctransform</cite>.</p>
 <p>Functions for plotting scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.plotting.cell_viz">
-<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">cell_viz</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">reduction='tsne'</em>, <em class="sig-param">normalization=()</em>, <em class="sig-param">clustering=()</em>, <em class="sig-param">metadata=()</em>, <em class="sig-param">genes=()</em>, <em class="sig-param">edges=False</em>, <em class="sig-param">cell_types=False</em>, <em class="sig-param">trajectory=None</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">marker_size=0.8</em>, <em class="sig-param">font_size=8</em>, <em class="sig-param">colors='adobo'</em>, <em class="sig-param">title=None</em>, <em class="sig-param">legend=True</em>, <em class="sig-param">legend_marker_scale=10</em>, <em class="sig-param">legend_position=(1</em>, <em class="sig-param">1)</em>, <em class="sig-param">min_cluster_size=10</em>, <em class="sig-param">fig_size=(10</em>, <em class="sig-param">10)</em>, <em class="sig-param">margins=None</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.cell_viz" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">cell_viz</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">reduction='tsne'</em>, <em class="sig-param">normalization=()</em>, <em class="sig-param">clustering=()</em>, <em class="sig-param">metadata=()</em>, <em class="sig-param">genes=()</em>, <em class="sig-param">edges=False</em>, <em class="sig-param">cell_types=False</em>, <em class="sig-param">trajectory=None</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">marker_size=0.8</em>, <em class="sig-param">font_size=8</em>, <em class="sig-param">colors='adobo'</em>, <em class="sig-param">title=None</em>, <em class="sig-param">legend=True</em>, <em class="sig-param">legend_marker_scale=10</em>, <em class="sig-param">legend_position=(1</em>, <em class="sig-param">1)</em>, <em class="sig-param">min_cluster_size=10</em>, <em class="sig-param">figsize=(10</em>, <em class="sig-param">10)</em>, <em class="sig-param">margins=None</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.cell_viz" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a 2d scatter plot from an embedding</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1700,7 +1700,7 @@ used). Default: adobo</p></li>
 <li><p><strong>legend_position</strong> (<cite>tuple</cite>) – A tuple of length two describing the position of the legend. Default: (1,1)</p></li>
 <li><p><strong>min_cluster_size</strong> (<cite>int</cite>) – Can be used to prevent clusters below a certain number of cells to be
 plotted. Default: 10</p></li>
-<li><p><strong>fig_size</strong> (<cite>tuple</cite>) – Figure size in inches. Default: (10, 10)</p></li>
+<li><p><strong>figsize</strong> (<cite>tuple</cite>) – Figure size in inches. Default: (10, 10)</p></li>
 <li><p><strong>margins</strong> (<cite>dict</cite>) – Can be used to adjust margins. Should be a dict with one or more of the
 keys: ‘left’, ‘bottom’, ‘right’, ‘top’, ‘wspace’, ‘hspace’. Set
 verbose=True to figure out the present values. Default: None</p></li>
@@ -1712,6 +1712,57 @@ verbose=True to figure out the present values. Default: None</p></li>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="adobo.plotting.genes_violin">
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">genes_violin</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">normalization=''</em>, <em class="sig-param">clust_alg=None</em>, <em class="sig-param">cluster=None</em>, <em class="sig-param">genes=None</em>, <em class="sig-param">rank_func=&lt;function median&gt;</em>, <em class="sig-param">top=10</em>, <em class="sig-param">violin=True</em>, <em class="sig-param">fontsize=6</em>, <em class="sig-param">figsize=(10</em>, <em class="sig-param">5)</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.genes_violin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot individual genes using violin plot (or box plot). Can be used to plot the top
+genes in the total dataset or top genes in individual clusters. Specific genes can
+also be selected using the parameter <cite>genes</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object</p></li>
+<li><p><strong>normalization</strong> (<cite>str</cite>) – The name of the normalization to operate on. If this is empty or None
+then the function will be applied on the last normalization that was applied.</p></li>
+<li><p><strong>clust_alg</strong> (<cite>str</cite>) – Name of the clustering strategy. If empty or None, the last one will be used.</p></li>
+<li><p><strong>cluster</strong> (<cite>list</cite> or <cite>int</cite>) – List of cluster identifiers to plot. If a list, then expecting a list of cluster
+indices. An integer specifies only one cluster index. If None, then shows the
+expression across all clusters. Default: None</p></li>
+<li><p><strong>genes</strong> (<cite>list</cite>) – Specify a list of genes to plot instead of plotting the top expressed. If this is
+none, then the top is plotted based on the ranking function specified below.
+Default: None</p></li>
+<li><p><strong>rank_func</strong> (<cite>np.median</cite>) – Ranking function. numpy’s median is the default.</p></li>
+<li><p><strong>top</strong> (<cite>int</cite>) – Specifies the number of top scoring genes to include. Default: 10</p></li>
+<li><p><strong>violin</strong> (<cite>bool</cite>) – Draws a violin plot (otherwise box plot). Default: True</p></li>
+<li><p><strong>fontsize</strong> (<cite>int</cite>) – Specifies font size. Default: 6</p></li>
+<li><p><strong>figsize</strong> (<cite>tuple</cite>) – Figure size in inches. Default: (10, 10)</p></li>
+<li><p><strong>filename</strong> (<cite>str</cite>, optional) – Write to a file instead of showing the plot on screen.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">adobo</span> <span class="k">as</span> <span class="nn">ad</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exp</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;pbmc8k.mat.gz&#39;</span><span class="p">,</span> <span class="n">bundled</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">normalize</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;standard&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">hvg</span><span class="o">.</span><span class="n">find_hvg</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">dr</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">clustering</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">clust_alg</span><span class="o">=</span><span class="s1">&#39;leiden&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># top 10 genes in cluster 0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">genes</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">cluster</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># top 10 genes across all clusters</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">genes</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Nothing</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1772,7 +1823,7 @@ Default: None</p></li>
 
 <dl class="function">
 <dt id="adobo.plotting.pca_contributors">
-<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">pca_contributors</code><span class="sig-paren">(</span><em class="sig-param">obj, name=None, clust_alg=None, cluster=None, dim=[0, 1, 2], top=10, color='#fcc603', fontsize=6, fig_size=(10, 5), filename=None, verbose=False, **args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.pca_contributors" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">pca_contributors</code><span class="sig-paren">(</span><em class="sig-param">obj, name=None, clust_alg=None, cluster=None, dim=[0, 1, 2], top=10, color='#fcc603', fontsize=6, figsize=(10, 5), filename=None, verbose=False, **args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.pca_contributors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Examine the top contributing genes to each PCA component. Optionally, one can
 examine the PCA components of a cell cluster instead.</p>
 <div class="admonition note">
@@ -1793,7 +1844,7 @@ specifies the first components to plot. First component has index zero.</p></li>
 <li><p><strong>top</strong> (<cite>int</cite>) – Specifies the number of top scoring genes to include. Default: 10</p></li>
 <li><p><strong>color</strong> (<cite>str</cite>) – Color of the bars. As a string or hex code. Default: “#fcc603”</p></li>
 <li><p><strong>fontsize</strong> (<cite>int</cite>) – Specifies font size. Default: 6</p></li>
-<li><p><strong>fig_size</strong> (<cite>tuple</cite>) – Figure size in inches. Default: (10, 10)</p></li>
+<li><p><strong>figsize</strong> (<cite>tuple</cite>) – Figure size in inches. Default: (10, 10)</p></li>
 <li><p><strong>filename</strong> (<cite>str</cite>, optional) – Write to a file instead of showing the plot on screen.</p></li>
 <li><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose or not. Default: False</p></li>
 </ul>
@@ -1823,7 +1874,7 @@ specifies the first components to plot. First component has index zero.</p></li>
 
 <dl class="function">
 <dt id="adobo.plotting.pca_elbow">
-<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">pca_elbow</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">name=()</em>, <em class="sig-param">comp_max=200</em>, <em class="sig-param">all_genes=False</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">font_size=8</em>, <em class="sig-param">fig_size=(10</em>, <em class="sig-param">10)</em>, <em class="sig-param">verbose=True</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.pca_elbow" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">pca_elbow</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">name=()</em>, <em class="sig-param">comp_max=200</em>, <em class="sig-param">all_genes=False</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">font_size=8</em>, <em class="sig-param">figsize=(10</em>, <em class="sig-param">10)</em>, <em class="sig-param">verbose=True</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.pca_elbow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a PCA elbow plot</p>
 <p class="rubric">Notes</p>
 <p>Can be used for determining the number of principal components to include. PCA is
@@ -1838,7 +1889,7 @@ normalizations will be used.</p></li>
 <li><p><strong>all_genes</strong> (<cite>bool</cite>) – Run on all genes, i.e. not only highly variable genes. Default: False</p></li>
 <li><p><strong>filename</strong> (<cite>str</cite>, optional) – Name of an output file instead of showing on screen.</p></li>
 <li><p><strong>font_size</strong> (<cite>float</cite>) – Font size. Default: 8</p></li>
-<li><p><strong>fig_size</strong> (<cite>tuple</cite>) – Figure size in inches. Default: (10, 10)</p></li>
+<li><p><strong>figsize</strong> (<cite>tuple</cite>) – Figure size in inches. Default: (10, 10)</p></li>
 <li><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose or not. Default: True</p></li>
 </ul>
 </dd>
