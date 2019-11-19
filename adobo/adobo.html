@@ -1694,7 +1694,7 @@ same length as the number of factors. If colors is set to “adobo”, then
 colors are retrieved from <code class="xref py py-attr docutils literal notranslate"><span class="pre">adobo._constants.CLUSTER_COLORS_DEFAULT</span></code>
 (but if the number of clusters exceed 50, then random colors will be
 used). Default: adobo</p></li>
-<li><p><strong>title</strong> (<cite>str</cite>) – Title of the plot. By default the title is set to the reduction technique.</p></li>
+<li><p><strong>title</strong> (<cite>str</cite>) – An optional title of the plot.</p></li>
 <li><p><strong>legend</strong> (<cite>bool</cite>) – Add legend or not. Default: True</p></li>
 <li><p><strong>legend_marker_scale</strong> (<cite>int</cite>) – Scale the markers in the legend. Default: 10</p></li>
 <li><p><strong>legend_position</strong> (<cite>tuple</cite>) – A tuple of length two describing the position of the legend. Default: (1,1)</p></li>
@@ -1772,11 +1772,12 @@ Default: None</p></li>
 
 <dl class="function">
 <dt id="adobo.plotting.pca_contributors">
-<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">pca_contributors</code><span class="sig-paren">(</span><em class="sig-param">obj, name=None, dim=[0, 1, 2], top=10, color='#fcc603', fontsize=6, fig_size=(10, 5), filename=None, verbose=False, **args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.pca_contributors" title="Permalink to this definition">¶</a></dt>
-<dd><p>Examine the top contributing genes to each PCA component</p>
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">pca_contributors</code><span class="sig-paren">(</span><em class="sig-param">obj, name=None, clust_alg=None, cluster=None, dim=[0, 1, 2], top=10, color='#fcc603', fontsize=6, fig_size=(10, 5), filename=None, verbose=False, **args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.pca_contributors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Examine the top contributing genes to each PCA component. Optionally, one can
+examine the PCA components of a cell cluster instead.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Genes are ranked by their absolute value. Additional parameters are passed
+<p>Genes are sorted by their absolute value. Additional parameters are passed
 into <code class="xref py py-func docutils literal notranslate"><span class="pre">matplotlib.pyplot.savefig()</span></code>.</p>
 </div>
 <dl class="field-list simple">
@@ -1785,6 +1786,8 @@ into <code class="xref py py-func docutils literal notranslate"><span class="pre
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object</p></li>
 <li><p><strong>name</strong> (<cite>str</cite>) – The name of the normalization to operate on. If this is empty or None
 then the function will be applied on all normalizations available.</p></li>
+<li><p><strong>clust_alg</strong> (<cite>str</cite>) – Name of the clustering strategy.</p></li>
+<li><p><strong>cluster</strong> (<cite>int</cite>) – Name of the cluster.</p></li>
 <li><p><strong>dim</strong> (<cite>list</cite> or <cite>int</cite>) – If list, then it specifies indices of components to plot. If integer, then it
 specifies the first components to plot. First component has index zero.</p></li>
 <li><p><strong>top</strong> (<cite>int</cite>) – Specifies the number of top scoring genes to include. Default: 10</p></li>
@@ -1803,6 +1806,9 @@ specifies the first components to plot. First component has index zero.</p></li>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">hvg</span><span class="o">.</span><span class="n">find_hvg</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">dr</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">pca_contributors</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># decomposition of a specific cluster</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">clustering</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">clust_alg</span><span class="o">=</span><span class="s1">&#39;leiden&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">pca_contributors</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">cluster_alg</span><span class="o">=</span><span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="n">cluster</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
