@@ -1718,7 +1718,7 @@ verbose=True to figure out the present values. Default: None</p></li>
 
 <dl class="function">
 <dt id="adobo.plotting.genes_violin">
-<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">genes_violin</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">normalization=''</em>, <em class="sig-param">clust_alg=None</em>, <em class="sig-param">cluster=None</em>, <em class="sig-param">genes=None</em>, <em class="sig-param">rank_func=&lt;function median&gt;</em>, <em class="sig-param">top=10</em>, <em class="sig-param">violin=True</em>, <em class="sig-param">fontsize=6</em>, <em class="sig-param">figsize=(10</em>, <em class="sig-param">5)</em>, <em class="sig-param">linewidth=0.5</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.genes_violin" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">genes_violin</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">normalization=''</em>, <em class="sig-param">clust_alg=None</em>, <em class="sig-param">cluster=None</em>, <em class="sig-param">gene=None</em>, <em class="sig-param">rank_func=&lt;function median&gt;</em>, <em class="sig-param">top=10</em>, <em class="sig-param">violin=True</em>, <em class="sig-param">scale='width'</em>, <em class="sig-param">fontsize=6</em>, <em class="sig-param">figsize=(10</em>, <em class="sig-param">5)</em>, <em class="sig-param">linewidth=0.5</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.genes_violin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot individual genes using violin plot (or box plot). Can be used to plot the top
 genes in the total dataset or top genes in individual clusters. Specific genes can
 also be selected using the parameter <cite>genes</cite>.</p>
@@ -1732,12 +1732,13 @@ then the function will be applied on the last normalization that was applied.</p
 <li><p><strong>cluster</strong> (<cite>list</cite> or <cite>int</cite>) – List of cluster identifiers to plot. If a list, then expecting a list of cluster
 indices. An integer specifies only one cluster index. If None, then shows the
 expression across all clusters. Default: None</p></li>
-<li><p><strong>genes</strong> (<cite>list</cite>) – Specify a list of genes to plot instead of plotting the top expressed. If this is
-none, then the top is plotted based on the ranking function specified below.
-Default: None</p></li>
+<li><p><strong>gene</strong> (<cite>str</cite>) – Compare a single gene across all clusters. If this is None, then the top is
+plotted based on the ranking function specified below. Default: None</p></li>
 <li><p><strong>rank_func</strong> (<cite>np.median</cite>) – Ranking function. numpy’s median is the default.</p></li>
 <li><p><strong>top</strong> (<cite>int</cite>) – Specifies the number of top scoring genes to include. Default: 10</p></li>
 <li><p><strong>violin</strong> (<cite>bool</cite>) – Draws a violin plot (otherwise box plot). Default: True</p></li>
+<li><p><strong>scale</strong> (<cite>{‘width’, ‘area’}</cite>) – If <cite>area</cite>, each violin will have the same area. If <code class="docutils literal notranslate"><span class="pre">width</span></code>, each violin will
+have the same width. Default: ‘width’</p></li>
 <li><p><strong>fontsize</strong> (<cite>int</cite>) – Specifies font size. Default: 6</p></li>
 <li><p><strong>figsize</strong> (<cite>tuple</cite>) – Figure size in inches. Default: (10, 10)</p></li>
 <li><p><strong>linewidth</strong> (<cite>float</cite>) – Border width. Default: 0.5</p></li>
@@ -1753,10 +1754,18 @@ Default: None</p></li>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">hvg</span><span class="o">.</span><span class="n">find_hvg</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">dr</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">clustering</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">clust_alg</span><span class="o">=</span><span class="s1">&#39;leiden&#39;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># top 10 genes in cluster 0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">genes</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">cluster</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">genes_violin</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">cluster</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># top 10 genes across all clusters</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">genes</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">genes_violin</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># plotting one gene across all clusters</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">genes_violin</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">gene</span><span class="o">=</span><span class="s1">&#39;ENSG00000163220&#39;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># same, but using a box plot</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">genes_violin</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">gene</span><span class="o">=</span><span class="s1">&#39;ENSG00000163220&#39;</span><span class="p">,</span> <span class="n">violin</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
