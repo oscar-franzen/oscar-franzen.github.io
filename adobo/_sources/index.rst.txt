@@ -682,11 +682,13 @@ DE analysis between clusters is usually a key goal in the analysis workflow. ado
 
    ad.de.linear_model(exp)
 
-The above command runs pairwise comparisons between all clusters. After running pairwise tests, a next typical goal is to join p-values so that each cluster receives a single list of marker genes. P-value merging can be achieved with Simes' procedure:
+The above command runs pairwise comparisons between all clusters. After running pairwise tests, a next typical goal is to join p-values so that each cluster receives a single list of marker genes. P-value merging can be achieved the following call:
 
 .. code-block:: python3
 
-   ad.de.combine_tests(exp)
+   ad.de.combine_tests(exp, method='fisher', mtc='bonferroni', retx=True, verbose=True)
+
+The above generate a set of marker genes for every cluster using `Fisher's method <https://en.wikipedia.org/wiki/Fisher%27s_method>`_.
 
 Indices and tables
 ==================

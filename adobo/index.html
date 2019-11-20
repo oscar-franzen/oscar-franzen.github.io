@@ -723,10 +723,11 @@ python3
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">de</span><span class="o">.</span><span class="n">linear_model</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The above command runs pairwise comparisons between all clusters. After running pairwise tests, a next typical goal is to join p-values so that each cluster receives a single list of marker genes. P-value merging can be achieved with Simes’ procedure:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">de</span><span class="o">.</span><span class="n">combine_tests</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+<p>The above command runs pairwise comparisons between all clusters. After running pairwise tests, a next typical goal is to join p-values so that each cluster receives a single list of marker genes. P-value merging can be achieved the following call:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">de</span><span class="o">.</span><span class="n">combine_tests</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;fisher&#39;</span><span class="p">,</span> <span class="n">mtc</span><span class="o">=</span><span class="s1">&#39;bonferroni&#39;</span><span class="p">,</span> <span class="n">retx</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>The above generate a set of marker genes for every cluster using <a class="reference external" href="https://en.wikipedia.org/wiki/Fisher%27s_method">Fisher’s method</a>.</p>
 </div>
 <div class="section" id="indices-and-tables">
 <h3>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h3>
