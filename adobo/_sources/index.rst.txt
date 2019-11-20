@@ -681,6 +681,9 @@ DE analysis between clusters is usually a key goal in the analysis workflow. ado
 .. code-block:: python3
 
    ad.de.linear_model(exp)
+   
+   # Mann–Whitney U test
+   ad.de.wilcox(exp)
 
 The above command runs pairwise comparisons between all clusters. After running pairwise tests, a next typical goal is to join p-values so that each cluster receives a single list of marker genes. P-value merging can be achieved the following call:
 

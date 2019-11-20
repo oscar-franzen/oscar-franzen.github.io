@@ -721,6 +721,9 @@ python3
 <h3>Differential expression (DE)<a class="headerlink" href="#differential-expression-de" title="Permalink to this headline">¶</a></h3>
 <p>DE analysis between clusters is usually a key goal in the analysis workflow. adobo implements linear models for this task similar to the limma R package. Significance is calculated from coefficients using t statistics. To execute a LM-driven DE analysis only one command is needed:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">de</span><span class="o">.</span><span class="n">linear_model</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+
+<span class="c1"># Mann–Whitney U test</span>
+<span class="n">ad</span><span class="o">.</span><span class="n">de</span><span class="o">.</span><span class="n">wilcox</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The above command runs pairwise comparisons between all clusters. After running pairwise tests, a next typical goal is to join p-values so that each cluster receives a single list of marker genes. P-value merging can be achieved the following call:</p>
