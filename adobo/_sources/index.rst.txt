@@ -229,7 +229,7 @@ Instead of writing three lines of code and always remembering the name of the ou
 
 Accessing meta data for cells and genes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Meta data can exist at the cell and gene levels. Custom meta data can easily be loaded into your data object. Meta data are stored in the adobo object (an instance of :py:class:`adobo.data.dataset`). Two data structures (instances of :class:`pandas.DataFrame`) hold meta data for cells and genes, respectively:
+Meta data can exist at cell and gene levels, and can easily be loaded into the data object. Meta data are stored in the adobo object (an instance of :py:class:`adobo.data.dataset`). Two data structures (instances of :class:`pandas.DataFrame`) hold meta data for cells and genes, respectively:
 
 >>> exp.meta_cells
        total_reads status  detected_genes
@@ -264,7 +264,15 @@ mt-Nd6               228        4.180418     OK          None  None
 
 Adding meta data
 ^^^^^^^^^^^^^^^^
-Meta data such as experimental categories (e.g. tissues, time points, batches, etc) can easily be added to your adobo object either by modifying the meta data structures directly or by calling :py:func:`adobo.data.dataset.add_meta_data`, which takes four parameters:
+Meta data such as experimental factors (e.g. tissues, time points, batches, etc) can easily be added to your adobo object either by modifying the meta data structures directly:
+
+.. code-block:: python3
+
+   # df is a pandas Series, with the same length as the number of rows in exp.meta_cells
+   # and sorted so that the order of the cells are the same as in exp.meta_cells
+   exp.meta_cells['time_point'] = df
+
+or by calling the function :py:func:`adobo.data.dataset.add_meta_data`, which takes four parameters:
 
 1. ``axis`` can be either 'cells' or 'genes' depending on whether your added data represent data for cells or genes.
 2. the ``key`` is used as variable name, choose something that makes sense, such as "tissue" for different tissues.

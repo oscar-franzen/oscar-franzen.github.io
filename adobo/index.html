@@ -346,7 +346,7 @@ python3
 </div>
 <div class="section" id="accessing-meta-data-for-cells-and-genes">
 <h4>Accessing meta data for cells and genes<a class="headerlink" href="#accessing-meta-data-for-cells-and-genes" title="Permalink to this headline">¶</a></h4>
-<p>Meta data can exist at the cell and gene levels. Custom meta data can easily be loaded into your data object. Meta data are stored in the adobo object (an instance of <a class="reference internal" href="adobo.html#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>). Two data structures (instances of <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) hold meta data for cells and genes, respectively:</p>
+<p>Meta data can exist at cell and gene levels, and can easily be loaded into the data object. Meta data are stored in the adobo object (an instance of <a class="reference internal" href="adobo.html#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>). Two data structures (instances of <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) hold meta data for cells and genes, respectively:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">exp</span><span class="o">.</span><span class="n">meta_cells</span>
 <span class="go">       total_reads status  detected_genes</span>
 <span class="go">C1            2746     OK            1513</span>
@@ -383,7 +383,13 @@ python3
 </div>
 <div class="section" id="adding-meta-data">
 <h4>Adding meta data<a class="headerlink" href="#adding-meta-data" title="Permalink to this headline">¶</a></h4>
-<p>Meta data such as experimental categories (e.g. tissues, time points, batches, etc) can easily be added to your adobo object either by modifying the meta data structures directly or by calling <a class="reference internal" href="adobo.html#adobo.data.dataset.add_meta_data" title="adobo.data.dataset.add_meta_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.data.dataset.add_meta_data()</span></code></a>, which takes four parameters:</p>
+<p>Meta data such as experimental factors (e.g. tissues, time points, batches, etc) can easily be added to your adobo object either by modifying the meta data structures directly:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># df is a pandas Series, with the same length as the number of rows in exp.meta_cells</span>
+<span class="c1"># and sorted so that the order of the cells are the same as in exp.meta_cells</span>
+<span class="n">exp</span><span class="o">.</span><span class="n">meta_cells</span><span class="p">[</span><span class="s1">&#39;time_point&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span>
+</pre></div>
+</div>
+<p>or by calling the function <a class="reference internal" href="adobo.html#adobo.data.dataset.add_meta_data" title="adobo.data.dataset.add_meta_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.data.dataset.add_meta_data()</span></code></a>, which takes four parameters:</p>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">axis</span></code> can be either ‘cells’ or ‘genes’ depending on whether your added data represent data for cells or genes.</p></li>
 <li><p>the <code class="docutils literal notranslate"><span class="pre">key</span></code> is used as variable name, choose something that makes sense, such as “tissue” for different tissues.</p></li>
