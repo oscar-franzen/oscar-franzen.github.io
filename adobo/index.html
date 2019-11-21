@@ -725,14 +725,20 @@ python3
 </div>
 <div class="section" id="differential-expression-de">
 <h3>Differential expression (DE)<a class="headerlink" href="#differential-expression-de" title="Permalink to this headline">¶</a></h3>
-<p>DE analysis between clusters is usually a key goal in the analysis workflow. adobo implements linear models for this task similar to the limma R package. Significance is calculated from coefficients using t statistics. To execute a LM-driven DE analysis only one command is needed:</p>
+<p>DE analysis between is usually a key goal in the analysis workflow. In adobo, DE analysis can be performed between clusters or experimental groups (as defined by meta data). Currently, DE can be performed using linear models or Mann-Whitney U test (also called Wilcoxon rank-sum test). Linear models are significantly faster than performing individual hypothesis tests, but underlying assumptions may be violated and cause inflation of p-values. It is therefore sometimes preferred to use a non-parametric test, which albeit robust is substantially slower.</p>
+<p>For linear models, significance is calculated from coefficients using t statistics.</p>
+<p>To execute a LM-driven DE analysis:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">de</span><span class="o">.</span><span class="n">linear_model</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
-
-<span class="c1"># Mann–Whitney U test</span>
-<span class="n">ad</span><span class="o">.</span><span class="n">de</span><span class="o">.</span><span class="n">wilcox</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The above command runs pairwise comparisons between all clusters. After running pairwise tests, a next typical goal is to join p-values so that each cluster receives a single list of marker genes. P-value merging can be achieved the following call:</p>
+<p>The above command runs pairwise comparisons between all clusters.</p>
+<p>We might prefer to use the Mann–Whitney U test:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># nworkers auto will use the complete number of physical cores</span>
+<span class="c1"># logical cores will likely not result in speedup due to Python&#39;s thread safety</span>
+<span class="n">ad</span><span class="o">.</span><span class="n">de</span><span class="o">.</span><span class="n">wilcox</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">nworkers</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>After running pairwise tests, a next typical goal is to join p-values so that each cluster receives a single list of marker genes. P-value merging can be achieved the following call:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad</span><span class="o">.</span><span class="n">de</span><span class="o">.</span><span class="n">combine_tests</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;fisher&#39;</span><span class="p">,</span> <span class="n">mtc</span><span class="o">=</span><span class="s1">&#39;bonferroni&#39;</span><span class="p">,</span> <span class="n">retx</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>

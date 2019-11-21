@@ -684,16 +684,27 @@ The output is stored in the attribute :py:attr:`adobo.data.dataset.norm_data`.
 
 Differential expression (DE)
 ============================
-DE analysis between clusters is usually a key goal in the analysis workflow. adobo implements linear models for this task similar to the limma R package. Significance is calculated from coefficients using t statistics. To execute a LM-driven DE analysis only one command is needed:
+DE analysis between is usually a key goal in the analysis workflow. In adobo, DE analysis can be performed between clusters or experimental groups (as defined by meta data). Currently, DE can be performed using linear models or Mann-Whitney U test (also called Wilcoxon rank-sum test). Linear models are significantly faster than performing individual hypothesis tests, but underlying assumptions may be violated and cause inflation of p-values. It is therefore sometimes preferred to use a non-parametric test, which albeit robust is substantially slower.
+
+For linear models, significance is calculated from coefficients using t statistics.
+
+To execute a LM-driven DE analysis:
 
 .. code-block:: python3
 
    ad.de.linear_model(exp)
-   
-   # Mann–Whitney U test
-   ad.de.wilcox(exp)
 
-The above command runs pairwise comparisons between all clusters. After running pairwise tests, a next typical goal is to join p-values so that each cluster receives a single list of marker genes. P-value merging can be achieved the following call:
+The above command runs pairwise comparisons between all clusters.
+
+We might prefer to use the Mann–Whitney U test:
+
+.. code-block:: python3
+
+   # nworkers auto will use the complete number of physical cores
+   # logical cores will likely not result in speedup due to Python's thread safety
+   ad.de.wilcox(exp, nworkers='auto')
+
+After running pairwise tests, a next typical goal is to join p-values so that each cluster receives a single list of marker genes. P-value merging can be achieved the following call:
 
 .. code-block:: python3
 
