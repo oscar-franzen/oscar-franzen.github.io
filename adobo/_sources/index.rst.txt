@@ -700,7 +700,7 @@ We might prefer to use the Mann–Whitney U test:
 
 .. code-block:: python3
 
-   # nworkers auto will use the complete number of physical cores
+   # if nworkers is auto, the complete number of physical cores will be used
    # logical cores will likely not result in speedup due to Python's thread safety
    ad.de.wilcox(exp, nworkers='auto')
 
