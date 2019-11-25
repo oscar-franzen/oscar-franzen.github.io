@@ -59,23 +59,23 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#module-adobo.hvg">adobo.hvg module</a><ul>
-<li><a class="reference internal" href="#id37">Summary</a></li>
+<li><a class="reference internal" href="#id38">Summary</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-adobo.normalize">adobo.normalize module</a><ul>
-<li><a class="reference internal" href="#id46">Summary</a></li>
+<li><a class="reference internal" href="#id47">Summary</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-adobo.plotting">adobo.plotting module</a><ul>
-<li><a class="reference internal" href="#id55">Summary</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-adobo.preproc">adobo.preproc module</a><ul>
 <li><a class="reference internal" href="#id56">Summary</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#module-adobo.preproc">adobo.preproc module</a><ul>
+<li><a class="reference internal" href="#id57">Summary</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-adobo.traj">adobo.traj module</a><ul>
-<li><a class="reference internal" href="#id59">Summary</a></li>
+<li><a class="reference internal" href="#id60">Summary</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-adobo">Module contents</a></li>
@@ -648,7 +648,7 @@ of time. Default: True</p>
 <dd><p>Add meta data to the adobo object</p>
 <p class="rubric">Notes</p>
 <p>Meta data can be added to cells or genes.</p>
-<p>The parameter name ‘<a href="#id62"><span class="problematic" id="id63">type_</span></a>’ has an underscore to avoid conflict with Python’s
+<p>The parameter name ‘<a href="#id63"><span class="problematic" id="id64">type_</span></a>’ has an underscore to avoid conflict with Python’s
 internal type keyword.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -927,7 +927,7 @@ Default: 10</p></li>
 
 <dl class="function">
 <dt id="adobo.de.wilcox">
-<code class="sig-prename descclassname">adobo.de.</code><code class="sig-name descname">wilcox</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">normalization=None</em>, <em class="sig-param">clust_alg=None</em>, <em class="sig-param">min_cluster_size=10</em>, <em class="sig-param">min_n=10</em>, <em class="sig-param">nworkers='auto'</em>, <em class="sig-param">retx=False</em>, <em class="sig-param">verbose=True</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.de.wilcox" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.de.</code><code class="sig-name descname">wilcox</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">normalization=None</em>, <em class="sig-param">clust_alg=None</em>, <em class="sig-param">min_cluster_size=10</em>, <em class="sig-param">nworkers='auto'</em>, <em class="sig-param">retx=False</em>, <em class="sig-param">verbose=True</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.de.wilcox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs differential expression analysis between clusters using the Wilcoxon
 rank-sum test (Mann–Whitney U test)</p>
 <dl class="field-list simple">
@@ -939,7 +939,6 @@ then the function will be applied on the last normalization that was applied.</p
 <li><p><strong>clust_alg</strong> (<cite>str</cite>) – Name of the clustering strategy. If empty or None, the last one will be used.</p></li>
 <li><p><strong>min_cluster_size</strong> (<cite>int</cite>) – Minimum number of cells per cluster (clusters smaller than this are ignored).
 Default: 10</p></li>
-<li><p><strong>min_n</strong> (<cite>int</cite>) – Minimum number of unique observations per group. Default: 10</p></li>
 <li><p><strong>nworkers</strong> (<cite>int</cite> or <cite>{‘auto’}</cite>) – If a string, then the only accepted value is ‘auto’, and the number of worker
 processes will be the total number of detected physical cores. If an integer
 then it specifies the number of worker processes. Default: ‘auto’</p></li>
@@ -983,7 +982,8 @@ Default: False</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object.</p></li>
-<li><p><strong>name</strong> (<cite>str</cite>) – The name of the normalization to operate on. Default is to run on all.</p></li>
+<li><p><strong>name</strong> (<cite>str</cite>) – The name of the normalization to operate on. If this is empty or None
+then the function will be applied on the last normalization that was applied.</p></li>
 <li><p><strong>iterations</strong> (<cite>int</cite>) – Number of iterations. Default: 1000</p></li>
 <li><p><strong>edgeWeightInfluence</strong> (<cite>float</cite>) – How much influence to edge weights. 0 is no influence and 1 is normal.
 Default: 1.0</p></li>
@@ -1014,17 +1014,20 @@ Default: 1.0</p></li>
 
 <dl class="function">
 <dt id="adobo.dr.irlb">
-<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">irlb</code><span class="sig-paren">(</span><em class="sig-param">data_norm</em>, <em class="sig-param">ncomp=75</em>, <em class="sig-param">seed=None</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.irlb" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">irlb</code><span class="sig-paren">(</span><em class="sig-param">data_norm</em>, <em class="sig-param">scale=True</em>, <em class="sig-param">ncomp=75</em>, <em class="sig-param">var_weigh=True</em>, <em class="sig-param">seed=None</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.irlb" title="Permalink to this definition">¶</a></dt>
 <dd><p>Truncated SVD by implicitly restarted Lanczos bidiagonalization</p>
 <p class="rubric">Notes</p>
 <p>The augmented implicitly restarted Lanczos bidiagonalization algorithm (IRLBA) finds
 a few approximate largest singular values and corresponding singular vectors using a
 method of Baglama and Reichel.</p>
+<p>Cells should be rows and genes as columns.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data_norm</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame containing normalized gene expression data.</p></li>
+<li><p><strong>scale</strong> (<cite>bool</cite>) – Scales input data prior to PCA. Default: True</p></li>
 <li><p><strong>ncomp</strong> (<cite>int</cite>) – Number of components to return. Default: 75</p></li>
+<li><p><strong>var_weigh</strong> (<cite>bool</cite>) – Weigh by the variance of each component. Default: True</p></li>
 <li><p><strong>seed</strong> (<cite>int</cite>) – For reproducibility. Default: None</p></li>
 </ul>
 </dd>
@@ -1051,8 +1054,52 @@ Methods SIAM Journal on Scientific Computing</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="adobo.dr.jackstraw">
+<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">jackstraw</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">normalization=None</em>, <em class="sig-param">permutations=500</em>, <em class="sig-param">ncomp=None</em>, <em class="sig-param">subset_frac_genes=0.05</em>, <em class="sig-param">score_thr=0.001</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.jackstraw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine the number of relevant PCA components.</p>
+<p class="rubric">Notes</p>
+<p>Permutes a subset of the data matrix and compares PCA scores with the original. The
+final output is a p-value for each component generated using a Chi-sq test.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A dataset class object.</p></li>
+<li><p><strong>normalization</strong> (<cite>str</cite>) – The name of the normalization to operate on. If this is empty or None then the
+function will be applied on all normalizations available.</p></li>
+<li><p><strong>permutations</strong> (<cite>int</cite>) – Number of permutations to run. Default: 500</p></li>
+<li><p><strong>ncomp</strong> (<cite>int</cite>) – Number of principal components to calculate significance for. If None, then
+will calculate for all components previously saved from py:func:<cite>adobo.dr.pca</cite>.
+Default: None</p></li>
+<li><p><strong>subset_frac_genes</strong> (<cite>float</cite>) – Proportion genes to use. Default: 0.10</p></li>
+<li><p><strong>score_thr</strong> (<cite>float</cite>) – Threshold for significance. Default: 1e-05</p></li>
+<li><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose. Default: False</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="footnote brackets">
+<dt class="label" id="id30"><span class="brackets">1</span></dt>
+<dd><p>Chung &amp; Storey (2015) Statistical significance of variables driving
+systematic variation in high-dimensional data, Bioinformatics
+<a class="reference external" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4325543/">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4325543/</a></p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><em>pandas.DataFrame</em> – A genes by principal component data frame containing empirical p-values for the
+significance of every gene of the PC.</p></li>
+<li><p><em>pandas.DataFrame</em> – A data frame containing a single p-value for every PC generated from a Chi^2 test.
+Can be used to select the number of components to include by examinng p-values.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
 <dt id="adobo.dr.pca">
-<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">pca</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">method='irlb'</em>, <em class="sig-param">name=None</em>, <em class="sig-param">ncomp=75</em>, <em class="sig-param">allgenes=False</em>, <em class="sig-param">scale=True</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">seed=None</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.pca" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">pca</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">method='irlb'</em>, <em class="sig-param">name=None</em>, <em class="sig-param">ncomp=75</em>, <em class="sig-param">allgenes=False</em>, <em class="sig-param">scale=True</em>, <em class="sig-param">var_weigh=True</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">seed=42</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.pca" title="Permalink to this definition">¶</a></dt>
 <dd><p>Principal Component Analysis</p>
 <p class="rubric">Notes</p>
 <p>A wrapper function around the individual normalization functions, which can also be
@@ -1069,14 +1116,15 @@ function will be applied on all normalizations available.</p></li>
 <li><p><strong>ncomp</strong> (<cite>int</cite>) – Number of components to return. Default: 75</p></li>
 <li><p><strong>allgenes</strong> (<cite>bool</cite>) – Use all genes instead of only HVG. Default: False</p></li>
 <li><p><strong>scale</strong> (<cite>bool</cite>) – Scales input data prior to PCA. Default: True</p></li>
+<li><p><strong>var_weigh</strong> (<cite>bool</cite>) – Weigh by the variance of each component. Default: True</p></li>
 <li><p><strong>verbose</strong> (<cite>bool</cite>) – Be noisy or not. Default: False</p></li>
-<li><p><strong>seed</strong> (<cite>int</cite>) – For reproducibility (only irlb). Default: None</p></li>
+<li><p><strong>seed</strong> (<cite>int</cite>) – For reproducibility (only irlb). Default: 42</p></li>
 </ul>
 </dd>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id30"><span class="brackets">1</span></dt>
+<dt class="label" id="id31"><span class="brackets">1</span></dt>
 <dd><p><a class="reference external" href="https://en.wikipedia.org/wiki/Principal_component_analysis">https://en.wikipedia.org/wiki/Principal_component_analysis</a></p>
 </dd>
 </dl>
@@ -1094,7 +1142,7 @@ function will be applied on all normalizations available.</p></li>
 
 <dl class="function">
 <dt id="adobo.dr.svd">
-<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">svd</code><span class="sig-paren">(</span><em class="sig-param">data_norm</em>, <em class="sig-param">ncomp=75</em>, <em class="sig-param">only_sdev=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.svd" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">svd</code><span class="sig-paren">(</span><em class="sig-param">data_norm</em>, <em class="sig-param">scale=True</em>, <em class="sig-param">ncomp=75</em>, <em class="sig-param">only_sdev=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.svd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Principal component analysis via singular value decomposition</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1102,6 +1150,7 @@ function will be applied on all normalizations available.</p></li>
 <li><p><strong>data_norm</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame containing normalized gene expression data. Preferrably this
 should be a subset of the normalized gene expression matrix containing highly
 variable genes.</p></li>
+<li><p><strong>scale</strong> (<cite>bool</cite>) – Scales input data prior to PCA. Default: True</p></li>
 <li><p><strong>ncomp</strong> (<cite>int</cite>) – Number of components to return. Default: 75</p></li>
 <li><p><strong>only_sdev</strong> (<cite>bool</cite>) – Only return the standard deviation of the components. Default: False</p></li>
 </ul>
@@ -1109,7 +1158,7 @@ variable genes.</p></li>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id31"><span class="brackets">1</span></dt>
+<dt class="label" id="id32"><span class="brackets">1</span></dt>
 <dd><p><a class="reference external" href="https://tinyurl.com/yyt6df5x">https://tinyurl.com/yyt6df5x</a></p>
 </dd>
 </dl>
@@ -1155,11 +1204,11 @@ values can result in significanlty different results. Default: 30</p></li>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id32"><span class="brackets">1</span></dt>
+<dt class="label" id="id33"><span class="brackets">1</span></dt>
 <dd><p>van der Maaten, L.J.P.; Hinton, G.E. Visualizing High-Dimensional Data
 Using t-SNE. Journal of Machine Learning Research 9:2579-2605, 2008.</p>
 </dd>
-<dt class="label" id="id33"><span class="brackets">2</span></dt>
+<dt class="label" id="id34"><span class="brackets">2</span></dt>
 <dd><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html">https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html</a></p>
 </dd>
 </dl>
@@ -1208,14 +1257,14 @@ datasets, 500 for small). Default: None</p></li>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id34"><span class="brackets">1</span></dt>
+<dt class="label" id="id35"><span class="brackets">1</span></dt>
 <dd><p>McInnes L, Healy J, Melville J (2018) UMAP: Uniform Manifold Approximation and
 Projection for Dimension Reduction, <a class="reference external" href="https://arxiv.org/abs/1802.03426">https://arxiv.org/abs/1802.03426</a></p>
 </dd>
-<dt class="label" id="id35"><span class="brackets">2</span></dt>
+<dt class="label" id="id36"><span class="brackets">2</span></dt>
 <dd><p><a class="reference external" href="https://github.com/lmcinnes/umap">https://github.com/lmcinnes/umap</a></p>
 </dd>
-<dt class="label" id="id36"><span class="brackets">3</span></dt>
+<dt class="label" id="id37"><span class="brackets">3</span></dt>
 <dd><p><a class="reference external" href="https://umap-learn.readthedocs.io/en/latest/">https://umap-learn.readthedocs.io/en/latest/</a></p>
 </dd>
 </dl>
@@ -1233,8 +1282,8 @@ Projection for Dimension Reduction, <a class="reference external" href="https://
 </div>
 <div class="section" id="module-adobo.hvg">
 <span id="adobo-hvg-module"></span><h2>adobo.hvg module<a class="headerlink" href="#module-adobo.hvg" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id37">
-<h3>Summary<a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id38">
+<h3>Summary<a class="headerlink" href="#id38" title="Permalink to this headline">¶</a></h3>
 <p>Functions for detection of highly variable genes.</p>
 <dl class="function">
 <dt id="adobo.hvg.brennecke">
@@ -1258,7 +1307,7 @@ for this code): <a class="reference external" href="https://github.com/madrury/p
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id38"><span class="brackets">1</span></dt>
+<dt class="label" id="id39"><span class="brackets">1</span></dt>
 <dd><p>Brennecke et al. (2013) Nature Methods <a class="reference external" href="https://doi.org/10.1038/nmeth.2645">https://doi.org/10.1038/nmeth.2645</a></p>
 </dd>
 </dl>
@@ -1291,10 +1340,10 @@ genes.</p>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id39"><span class="brackets">1</span></dt>
+<dt class="label" id="id40"><span class="brackets">1</span></dt>
 <dd><p><a class="reference external" href="https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-016-2897-6">https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-016-2897-6</a></p>
 </dd>
-<dt class="label" id="id40"><span class="brackets">2</span></dt>
+<dt class="label" id="id41"><span class="brackets">2</span></dt>
 <dd><p><a class="reference external" href="https://github.com/hillas/scVEGs/blob/master/scVEGs.r">https://github.com/hillas/scVEGs/blob/master/scVEGs.r</a></p>
 </dd>
 </dl>
@@ -1340,7 +1389,7 @@ might be fewer than specified by <cite>ngenes</cite> because of FDR consideratio
 </div>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id41"><span class="brackets">1</span></dt>
+<dt class="label" id="id42"><span class="brackets">1</span></dt>
 <dd><p>Yip et al. (2018) Briefings in Bioinformatics
 <a class="reference external" href="https://academic.oup.com/bib/advance-article/doi/10.1093/bib/bby011/4898116">https://academic.oup.com/bib/advance-article/doi/10.1093/bib/bby011/4898116</a></p>
 </dd>
@@ -1372,10 +1421,10 @@ might be fewer than specified by <cite>ngenes</cite> because of FDR consideratio
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id42"><span class="brackets">1</span></dt>
+<dt class="label" id="id43"><span class="brackets">1</span></dt>
 <dd><p><a class="reference external" href="https://doi.org/10.1093/bioinformatics/bty1044">https://doi.org/10.1093/bioinformatics/bty1044</a></p>
 </dd>
-<dt class="label" id="id43"><span class="brackets">2</span></dt>
+<dt class="label" id="id44"><span class="brackets">2</span></dt>
 <dd><p><a class="reference external" href="https://github.com/tallulandrews/M3Drop">https://github.com/tallulandrews/M3Drop</a></p>
 </dd>
 </dl>
@@ -1414,7 +1463,7 @@ technical variance predicted by the fit</p></li>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id44"><span class="brackets">1</span></dt>
+<dt class="label" id="id45"><span class="brackets">1</span></dt>
 <dd><p>Lun ATL, McCarthy DJ, Marioni JC (2016). “A step-by-step workflow for low-level
 analysis of single-cell RNA-seq data with Bioconductor.” F1000Research,
 <a class="reference external" href="https://doi.org/10.12688/f1000research.9501.2">https://doi.org/10.12688/f1000research.9501.2</a></p>
@@ -1450,7 +1499,7 @@ should be normalized first.</p>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id45"><span class="brackets">1</span></dt>
+<dt class="label" id="id46"><span class="brackets">1</span></dt>
 <dd><p><a class="reference external" href="https://cran.r-project.org/web/packages/Seurat/index.html">https://cran.r-project.org/web/packages/Seurat/index.html</a></p>
 </dd>
 </dl>
@@ -1468,8 +1517,8 @@ should be normalized first.</p>
 </div>
 <div class="section" id="module-adobo.normalize">
 <span id="adobo-normalize-module"></span><h2>adobo.normalize module<a class="headerlink" href="#module-adobo.normalize" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id46">
-<h3>Summary<a class="headerlink" href="#id46" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id47">
+<h3>Summary<a class="headerlink" href="#id47" title="Permalink to this headline">¶</a></h3>
 <p>This module contains functions to normalize raw read counts.</p>
 <dl class="function">
 <dt id="adobo.normalize.clr">
@@ -1485,7 +1534,7 @@ should be normalized first.</p>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id47"><span class="brackets">1</span></dt>
+<dt class="label" id="id48"><span class="brackets">1</span></dt>
 <dd><p>Hafemeister et al. (2019) <a class="reference external" href="https://www.biorxiv.org/content/10.1101/576827v1">https://www.biorxiv.org/content/10.1101/576827v1</a></p>
 </dd>
 </dl>
@@ -1520,11 +1569,11 @@ well.</p>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id48"><span class="brackets">1</span></dt>
+<dt class="label" id="id49"><span class="brackets">1</span></dt>
 <dd><p>Bolstad et al. (2003) Bioinformatics
 <a class="reference external" href="https://academic.oup.com/bioinformatics/article/19/2/185/372664">https://academic.oup.com/bioinformatics/article/19/2/185/372664</a></p>
 </dd>
-<dt class="label" id="id49"><span class="brackets">2</span></dt>
+<dt class="label" id="id50"><span class="brackets">2</span></dt>
 <dd><p>Cole et al. (2019) Cell Systems
 <a class="reference external" href="https://www.biorxiv.org/content/10.1101/235382v2">https://www.biorxiv.org/content/10.1101/235382v2</a></p>
 </dd>
@@ -1593,7 +1642,7 @@ Default: ‘genes’</p></li>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id50"><span class="brackets">1</span></dt>
+<dt class="label" id="id51"><span class="brackets">1</span></dt>
 <dd><p>Cole et al. (2019) Cell Systems
 <a class="reference external" href="https://www.biorxiv.org/content/10.1101/235382v2">https://www.biorxiv.org/content/10.1101/235382v2</a></p>
 </dd>
@@ -1637,7 +1686,7 @@ in the raw read counts matrix and with the same order.</p></li>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id51"><span class="brackets">1</span></dt>
+<dt class="label" id="id52"><span class="brackets">1</span></dt>
 <dd><p>Conesa et al. (2016) Genome Biology
 <a class="reference external" href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-016-0881-8">https://genomebiology.biomedcentral.com/articles/10.1186/s13059-016-0881-8</a></p>
 </dd>
@@ -1667,7 +1716,7 @@ then multiplying with a scaling factor.</p>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id52"><span class="brackets">1</span></dt>
+<dt class="label" id="id53"><span class="brackets">1</span></dt>
 <dd><p>Evans et al. (2018) Briefings in Bioinformatics
 <a class="reference external" href="https://academic.oup.com/bib/article/19/5/776/3056951">https://academic.oup.com/bib/article/19/5/776/3056951</a></p>
 </dd>
@@ -1708,10 +1757,10 @@ package <cite>sctransform</cite>.</p>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id53"><span class="brackets">1</span></dt>
+<dt class="label" id="id54"><span class="brackets">1</span></dt>
 <dd><p><a class="reference external" href="https://cran.r-project.org/web/packages/sctransform/index.html">https://cran.r-project.org/web/packages/sctransform/index.html</a></p>
 </dd>
-<dt class="label" id="id54"><span class="brackets">2</span></dt>
+<dt class="label" id="id55"><span class="brackets">2</span></dt>
 <dd><p><a class="reference external" href="https://www.biorxiv.org/content/10.1101/576827v1">https://www.biorxiv.org/content/10.1101/576827v1</a></p>
 </dd>
 </dl>
@@ -1735,8 +1784,8 @@ package <cite>sctransform</cite>.</p>
 </div>
 <div class="section" id="module-adobo.plotting">
 <span id="adobo-plotting-module"></span><h2>adobo.plotting module<a class="headerlink" href="#module-adobo.plotting" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id55">
-<h3>Summary<a class="headerlink" href="#id55" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id56">
+<h3>Summary<a class="headerlink" href="#id56" title="Permalink to this headline">¶</a></h3>
 <p>Functions for plotting scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.plotting.cell_viz">
@@ -1802,8 +1851,9 @@ then the function will be applied on the last normalization that was applied.</p
 <li><p><strong>cluster</strong> (<cite>list</cite> or <cite>int</cite>) – List of cluster identifiers to plot. If a list, then expecting a list of cluster
 indices. An integer specifies only one cluster index. If None, then shows the
 expression across all clusters. Default: None</p></li>
-<li><p><strong>gene</strong> (<cite>str</cite>) – Compare a single gene across all clusters. If this is None, then the top is
-plotted based on the ranking function specified below. Default: None</p></li>
+<li><p><strong>gene</strong> (<cite>str</cite>) – Compare a single gene across all clusters (can also be a regular expression, but
+it must match a single gene). If this is None, then the top is plotted based on
+the ranking function specified below. Default: None</p></li>
 <li><p><strong>rank_func</strong> (<cite>np.median</cite>) – Ranking function. numpy’s median is the default.</p></li>
 <li><p><strong>top</strong> (<cite>int</cite>) – Specifies the number of top scoring genes to include. Default: 10</p></li>
 <li><p><strong>violin</strong> (<cite>bool</cite>) – Draws a violin plot (otherwise box plot). Default: True</p></li>
@@ -1904,7 +1954,7 @@ Default: None</p></li>
 
 <dl class="function">
 <dt id="adobo.plotting.pca_contributors">
-<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">pca_contributors</code><span class="sig-paren">(</span><em class="sig-param">obj, name=None, clust_alg=None, cluster=None, dim=[0, 1, 2], top=10, color='#fcc603', fontsize=6, figsize=(10, 5), filename=None, verbose=False, **args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.pca_contributors" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">pca_contributors</code><span class="sig-paren">(</span><em class="sig-param">obj, normalization=None, clust_alg=None, cluster=None, dim=[0, 1, 2, 3, 4], top=10, color='#E69F00', fontsize=6, figsize=(10, 5), filename=None, **args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.pca_contributors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Examine the top contributing genes to each PCA component. Optionally, one can
 examine the PCA components of a cell cluster instead.</p>
 <div class="admonition note">
@@ -1916,9 +1966,10 @@ into <code class="xref py py-func docutils literal notranslate"><span class="pre
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object</p></li>
-<li><p><strong>name</strong> (<cite>str</cite>) – The name of the normalization to operate on. If this is empty or None
-then the function will be applied on all normalizations available.</p></li>
-<li><p><strong>clust_alg</strong> (<cite>str</cite>) – Name of the clustering strategy.</p></li>
+<li><p><strong>normalization</strong> (<cite>str</cite>) – The name of the normalization to operate on. If empty or None, the last one
+generated is be used. Default: None</p></li>
+<li><p><strong>clust_alg</strong> (<cite>str</cite>) – Name of the clustering strategy. If empty or None, the last one generated is
+be used. Default: None</p></li>
 <li><p><strong>cluster</strong> (<cite>int</cite>) – Name of the cluster.</p></li>
 <li><p><strong>dim</strong> (<cite>list</cite> or <cite>int</cite>) – If list, then it specifies indices of components to plot. If integer, then it
 specifies the first components to plot. First component has index zero.</p></li>
@@ -1927,7 +1978,6 @@ specifies the first components to plot. First component has index zero.</p></li>
 <li><p><strong>fontsize</strong> (<cite>int</cite>) – Specifies font size. Default: 6</p></li>
 <li><p><strong>figsize</strong> (<cite>tuple</cite>) – Figure size in inches. Default: (10, 10)</p></li>
 <li><p><strong>filename</strong> (<cite>str</cite>, optional) – Write to a file instead of showing the plot on screen.</p></li>
-<li><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose or not. Default: False</p></li>
 </ul>
 </dd>
 </dl>
@@ -1940,7 +1990,7 @@ specifies the first components to plot. First component has index zero.</p></li>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">pca_contributors</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># decomposition of a specific cluster</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">clustering</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">clust_alg</span><span class="o">=</span><span class="s1">&#39;leiden&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">pca_contributors</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">cluster_alg</span><span class="o">=</span><span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="n">cluster</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">pca_contributors</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">cluster</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -1955,23 +2005,24 @@ specifies the first components to plot. First component has index zero.</p></li>
 
 <dl class="function">
 <dt id="adobo.plotting.pca_elbow">
-<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">pca_elbow</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">name=()</em>, <em class="sig-param">comp_max=200</em>, <em class="sig-param">all_genes=False</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">font_size=8</em>, <em class="sig-param">figsize=(10</em>, <em class="sig-param">10)</em>, <em class="sig-param">verbose=True</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.pca_elbow" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">pca_elbow</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">normalization=None</em>, <em class="sig-param">comp_max=100</em>, <em class="sig-param">all_genes=False</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">font_size=8</em>, <em class="sig-param">figsize=(6</em>, <em class="sig-param">4)</em>, <em class="sig-param">color='#E69F00'</em>, <em class="sig-param">title='PCA elbow plot'</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.pca_elbow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a PCA elbow plot</p>
 <p class="rubric">Notes</p>
-<p>Can be used for determining the number of principal components to include. PCA is
-based on singular value decomposition.</p>
+<p>Can be useful for determining the number of components to include. Here, PCA is
+computed using singular value decomposition.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object</p></li>
-<li><p><strong>name</strong> (<cite>tuple</cite>) – A tuple of normalization to use. If it has the length zero, then all available
-normalizations will be used.</p></li>
-<li><p><strong>comp_max</strong> (<cite>int</cite>) – Maximum number of components to include.</p></li>
+<li><p><strong>normalization</strong> (<cite>str</cite>) – The name of the normalization to operate on. If empty or None, the last one
+generated is be used. Default: None</p></li>
+<li><p><strong>comp_max</strong> (<cite>int</cite>) – Maximum number of components to include. Default: 100</p></li>
 <li><p><strong>all_genes</strong> (<cite>bool</cite>) – Run on all genes, i.e. not only highly variable genes. Default: False</p></li>
 <li><p><strong>filename</strong> (<cite>str</cite>, optional) – Name of an output file instead of showing on screen.</p></li>
 <li><p><strong>font_size</strong> (<cite>float</cite>) – Font size. Default: 8</p></li>
 <li><p><strong>figsize</strong> (<cite>tuple</cite>) – Figure size in inches. Default: (10, 10)</p></li>
-<li><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose or not. Default: True</p></li>
+<li><p><strong>color</strong> (<cite>str</cite>) – Color of the line. Default: #fcc603</p></li>
+<li><p><strong>title</strong> (<cite>str</cite>) – A plot title.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1983,12 +2034,40 @@ normalizations will be used.</p></li>
 </dl>
 </dd></dl>
 
+<dl class="function">
+<dt id="adobo.plotting.tree">
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">tree</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">normalization=''</em>, <em class="sig-param">clust_alg=None</em>, <em class="sig-param">method='complete'</em>, <em class="sig-param">min_cluster_size=10</em>, <em class="sig-param">fontsize=8</em>, <em class="sig-param">figsize=(10</em>, <em class="sig-param">10)</em>, <em class="sig-param">filename=None</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.tree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a dendrogram of cluster relationships</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object</p></li>
+<li><p><strong>normalization</strong> (<cite>str</cite>) – The name of the normalization to operate on. If this is empty or None
+then the function will be applied on the last normalization that was applied.</p></li>
+<li><p><strong>clust_alg</strong> (<cite>str</cite>) – Name of the clustering strategy. If empty or None, the last one will be used.</p></li>
+<li><p><strong>method</strong> (<cite>‘{‘complete’, ‘single’, ‘average’, ‘weighted’, ‘centroid’, ‘median’, ‘ward’}’</cite>) – The linkage algorithm to use. Default: ‘complete’</p></li>
+<li><p><strong>min_cluster_size</strong> (<cite>int</cite>) – Can be used to prevent clusters below a certain number of cells to be
+plotted. Default: 10</p></li>
+<li><p><strong>fontsize</strong> (<cite>int</cite>) – Specifies font size. Default: 6</p></li>
+<li><p><strong>figsize</strong> (<cite>tuple</cite>) – Figure size in inches. Default: (10, 10)</p></li>
+<li><p><strong>filename</strong> (<cite>str</cite>) – Write to a file instead of showing the plot on screen. Default: None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Nothing</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 </div>
 <div class="section" id="module-adobo.preproc">
 <span id="adobo-preproc-module"></span><h2>adobo.preproc module<a class="headerlink" href="#module-adobo.preproc" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id56">
-<h3>Summary<a class="headerlink" href="#id56" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id57">
+<h3>Summary<a class="headerlink" href="#id57" title="Permalink to this headline">¶</a></h3>
 <p>Functions for pre-processing scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.preproc.find_ercc">
@@ -2103,12 +2182,12 @@ then it specifies the number of worker processes. Default: ‘auto’</p></li>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id57"><span class="brackets">1</span></dt>
+<dt class="label" id="id58"><span class="brackets">1</span></dt>
 <dd><p>Li &amp; Li (2018)
 An accurate and robust imputation method scImpute for single-cell
 RNA-seq data <a class="reference external" href="https://www.nature.com/articles/s41467-018-03405-7">https://www.nature.com/articles/s41467-018-03405-7</a></p>
 </dd>
-<dt class="label" id="id58"><span class="brackets">2</span></dt>
+<dt class="label" id="id59"><span class="brackets">2</span></dt>
 <dd><p><a class="reference external" href="https://github.com/Vivianstats/scImpute">https://github.com/Vivianstats/scImpute</a></p>
 </dd>
 </dl>
@@ -2210,8 +2289,8 @@ to symbol_ENS[0-9]+.</p>
 </div>
 <div class="section" id="module-adobo.traj">
 <span id="adobo-traj-module"></span><h2>adobo.traj module<a class="headerlink" href="#module-adobo.traj" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id59">
-<h3>Summary<a class="headerlink" href="#id59" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id60">
+<h3>Summary<a class="headerlink" href="#id60" title="Permalink to this headline">¶</a></h3>
 <p>Functions for trajectory analysis.</p>
 <dl class="function">
 <dt id="adobo.traj.slingshot">
@@ -2224,11 +2303,11 @@ below) and a clustering to generate a graph where vertices are clusters.</p>
 <p>Only slingthot’s ‘getLineages’ method is used at the moment.</p>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id60"><span class="brackets">1</span></dt>
+<dt class="label" id="id61"><span class="brackets">1</span></dt>
 <dd><p>Street et al. (2018) BMC Genomics. Slingshot: cell lineage and pseudotime
 inference for single-cell transcriptomics</p>
 </dd>
-<dt class="label" id="id61"><span class="brackets">2</span></dt>
+<dt class="label" id="id62"><span class="brackets">2</span></dt>
 <dd><p><a class="reference external" href="https://bioconductor.org/packages/release/bioc/html/slingshot.html">https://bioconductor.org/packages/release/bioc/html/slingshot.html</a></p>
 </dd>
 </dl>
