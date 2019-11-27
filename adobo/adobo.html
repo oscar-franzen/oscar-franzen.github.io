@@ -2225,9 +2225,9 @@ RNA-seq data <a class="reference external" href="https://www.nature.com/articles
 <dl class="function">
 <dt id="adobo.preproc.simple_filter">
 <code class="sig-prename descclassname">adobo.preproc.</code><code class="sig-name descname">simple_filter</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">what='cells'</em>, <em class="sig-param">minreads=1000</em>, <em class="sig-param">maxreads=None</em>, <em class="sig-param">mingenes=None</em>, <em class="sig-param">maxgenes=None</em>, <em class="sig-param">min_exp=0.001</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.preproc.simple_filter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Removes cells with too few reads and genes with very low expression</p>
+<dd><p>Removes cells with too few reads or genes with very low expression</p>
 <p class="rubric">Notes</p>
-<p>The cells are filtered first and then genes.</p>
+<p>Default is to remove cells.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -2253,7 +2253,8 @@ Set to None to ignore this option. Default: 0.001</p></li>
 <p class="rubric">Example</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">adobo</span> <span class="k">as</span> <span class="nn">ad</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">exp</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;pbmc8k.mat.gz&#39;</span><span class="p">,</span> <span class="n">bundled</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">simple_filter</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">minreads</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">maxreads</span><span class="o">=</span><span class="mi">15000</span><span class="p">,</span> <span class="n">minexpgenes</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">simple_filter</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="s1">&#39;cells&#39;</span><span class="p">,</span> <span class="n">minreads</span><span class="o">=</span><span class="mi">1500</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">simple_filter</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="s1">&#39;genes&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <dl class="field-list simple">

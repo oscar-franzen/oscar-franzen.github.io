@@ -5,7 +5,7 @@ Welcome to adobo's documentation!
 
 What adobo is
 *************
-adobo is an analysis framework for single cell RNA sequencing data (scRNA-seq) and enables exploratory analysis through a set of Python modules. adobo can be used to compose scripts, used in interactive workflows and much more. The goal of adobo is to consolidate single cell computational analysis methods in the Python 3.x programming language. adobo can be used to construct new pipelines and workflows in order to facilitate biological interpretation of scRNA-seq data.
+adobo is an analysis framework for single cell RNA sequencing data (scRNA-seq) and enables exploratory analysis through a set of Python modules. adobo can be used to create analysis pipelines, facilitating analysis and interpetation of scRNA-seq data. The goal of adobo is to consolidate single cell computational analysis methods in the Python 3.x programming language.
 
 Contact
 *******
@@ -83,20 +83,20 @@ adobo is organized into several modules containing related functions. All module
    
    * - Module name
      - Meaning
+   * - ``IO``
+     - reading and writing data (input/output)
    * - ``data``
      - the dataset container class
    * - ``preproc``
-     - data preprocessing such as filtering cells and genes
-   * - ``IO``
-     - reading and writing data (input/output)
+     - data preprocessing such as filtering out cells and genes
    * - ``normalize``
      - normalization of raw read counts
    * - ``hvg``
      - highly variable gene discovery
    * - ``dr``
-     - dimensional reduction techniques
+     - linear and non-linear dimensional reduction techniques
    * - ``clustering``
-     - functions related to data clustering operations
+     - functions related to cell clustering
    * - ``de``
      - differential expression between cell clusters
    * - ``plotting``
@@ -105,7 +105,7 @@ adobo is organized into several modules containing related functions. All module
      - functions related to biology, for example cell cycle and cell type prediction
    * - ``traj``
      - trajectory analysis
-   * - ``stats``
+   * - ``_stats``
      - miscellaneous or general statistical functions that don't fit anywhere else
 
 Internal modules

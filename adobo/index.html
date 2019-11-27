@@ -114,7 +114,7 @@
 <h1>Welcome to adobo’s documentation!<a class="headerlink" href="#welcome-to-adobo-s-documentation" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="what-adobo-is">
 <h2>What adobo is<a class="headerlink" href="#what-adobo-is" title="Permalink to this headline">¶</a></h2>
-<p>adobo is an analysis framework for single cell RNA sequencing data (scRNA-seq) and enables exploratory analysis through a set of Python modules. adobo can be used to compose scripts, used in interactive workflows and much more. The goal of adobo is to consolidate single cell computational analysis methods in the Python 3.x programming language. adobo can be used to construct new pipelines and workflows in order to facilitate biological interpretation of scRNA-seq data.</p>
+<p>adobo is an analysis framework for single cell RNA sequencing data (scRNA-seq) and enables exploratory analysis through a set of Python modules. adobo can be used to create analysis pipelines, facilitating analysis and interpetation of scRNA-seq data. The goal of adobo is to consolidate single cell computational analysis methods in the Python 3.x programming language.</p>
 </div>
 <div class="section" id="contact">
 <h2>Contact<a class="headerlink" href="#contact" title="Permalink to this headline">¶</a></h2>
@@ -187,14 +187,14 @@ python3
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">data</span></code></p></td>
-<td><p>the dataset container class</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">preproc</span></code></p></td>
-<td><p>data preprocessing such as filtering cells and genes</p></td>
-</tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">IO</span></code></p></td>
 <td><p>reading and writing data (input/output)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">data</span></code></p></td>
+<td><p>the dataset container class</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">preproc</span></code></p></td>
+<td><p>data preprocessing such as filtering out cells and genes</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">normalize</span></code></p></td>
 <td><p>normalization of raw read counts</p></td>
@@ -203,10 +203,10 @@ python3
 <td><p>highly variable gene discovery</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dr</span></code></p></td>
-<td><p>dimensional reduction techniques</p></td>
+<td><p>linear and non-linear dimensional reduction techniques</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">clustering</span></code></p></td>
-<td><p>functions related to data clustering operations</p></td>
+<td><p>functions related to cell clustering</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">de</span></code></p></td>
 <td><p>differential expression between cell clusters</p></td>
@@ -220,7 +220,7 @@ python3
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">traj</span></code></p></td>
 <td><p>trajectory analysis</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">stats</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">_stats</span></code></p></td>
 <td><p>miscellaneous or general statistical functions that don’t fit anywhere else</p></td>
 </tr>
 </tbody>
