@@ -681,6 +681,53 @@ it.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="adobo.data.dataset.delete">
+<code class="sig-name descname">delete</code><span class="sig-paren">(</span><em class="sig-param">what</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.dataset.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes analysis results from the norm_data dictionary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>what</strong> (<cite>str</cite>, <cite>tuple</cite>) – A string (or tuple of strings) specifying keys of what you want to delete.
+Each string should be a key in norm_data.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">adobo</span> <span class="k">as</span> <span class="nn">ad</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exp</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;pbmc8k.mat.gz&#39;</span><span class="p">,</span> <span class="n">bundled</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">normalize</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">hvg</span><span class="o">.</span><span class="n">find_hvg</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">dr</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">clustering</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exp</span><span class="o">.</span><span class="n">norm_data</span><span class="p">[</span><span class="s1">&#39;standard&#39;</span><span class="p">][</span><span class="s1">&#39;clusters&#39;</span><span class="p">][</span><span class="s1">&#39;leiden&#39;</span><span class="p">]</span>
+<span class="go">    {&#39;membership&#39;: V1        6</span>
+<span class="go">    V2        0</span>
+<span class="go">    V3        5</span>
+<span class="go">    V4        1</span>
+<span class="go">    V5        0</span>
+<span class="go">             ..</span>
+<span class="go">    V8377     1</span>
+<span class="go">    V8378    10</span>
+<span class="go">    V8379    11</span>
+<span class="go">    V8380     3</span>
+<span class="go">    V8381     2</span>
+<span class="go">    Length: 8381, dtype: int64}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exp</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">what</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;clusters&#39;</span><span class="p">,))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exp</span><span class="o">.</span><span class="n">norm_data</span><span class="p">[</span><span class="s1">&#39;standard&#39;</span><span class="p">][</span><span class="s1">&#39;clusters&#39;</span><span class="p">][</span><span class="s1">&#39;leiden&#39;</span><span class="p">]</span>
+<span class="go">    Traceback (most recent call last):</span>
+<span class="go">      File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span>
+<span class="go">    KeyError: &#39;leiden&#39;</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Nothing.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="adobo.data.dataset.df_mem_usage">
 <code class="sig-name descname">df_mem_usage</code><span class="sig-paren">(</span><em class="sig-param">var</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.dataset.df_mem_usage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Memory usage for a data frame in mega bytes</p>
@@ -731,53 +778,6 @@ it.</p>
 <dt id="adobo.data.dataset.print_dict">
 <code class="sig-name descname">print_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.dataset.print_dict" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
-
-<dl class="method">
-<dt id="adobo.data.dataset.remove_analysis">
-<code class="sig-name descname">remove_analysis</code><span class="sig-paren">(</span><em class="sig-param">what=()</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.data.dataset.remove_analysis" title="Permalink to this definition">¶</a></dt>
-<dd><p>Remove analysis results</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>what</strong> (<cite>tuple</cite>) – A tuple of strings specifying what you want to remove. Each string should be
-a key in norm_data[n] where n is the normalization.</p>
-</dd>
-</dl>
-<p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">adobo</span> <span class="k">as</span> <span class="nn">ad</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">exp</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;pbmc8k.mat.gz&#39;</span><span class="p">,</span> <span class="n">bundled</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">normalize</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">hvg</span><span class="o">.</span><span class="n">find_hvg</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">dr</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">clustering</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">exp</span><span class="o">.</span><span class="n">norm_data</span><span class="p">[</span><span class="s1">&#39;standard&#39;</span><span class="p">][</span><span class="s1">&#39;clusters&#39;</span><span class="p">][</span><span class="s1">&#39;leiden&#39;</span><span class="p">]</span>
-<span class="go">    {&#39;membership&#39;: V1        6</span>
-<span class="go">    V2        0</span>
-<span class="go">    V3        5</span>
-<span class="go">    V4        1</span>
-<span class="go">    V5        0</span>
-<span class="go">             ..</span>
-<span class="go">    V8377     1</span>
-<span class="go">    V8378    10</span>
-<span class="go">    V8379    11</span>
-<span class="go">    V8380     3</span>
-<span class="go">    V8381     2</span>
-<span class="go">    Length: 8381, dtype: int64}</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">exp</span><span class="o">.</span><span class="n">remove_analysis</span><span class="p">(</span><span class="n">what</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;clusters&#39;</span><span class="p">,))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">exp</span><span class="o">.</span><span class="n">norm_data</span><span class="p">[</span><span class="s1">&#39;standard&#39;</span><span class="p">][</span><span class="s1">&#39;clusters&#39;</span><span class="p">][</span><span class="s1">&#39;leiden&#39;</span><span class="p">]</span>
-<span class="go">    Traceback (most recent call last):</span>
-<span class="go">      File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span>
-<span class="go">    KeyError: &#39;leiden&#39;</span>
-</pre></div>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>Nothing.</p>
-</dd>
-</dl>
-</dd></dl>
 
 <dl class="method">
 <dt id="adobo.data.dataset.save">
@@ -1560,9 +1560,8 @@ should be normalized first.</p>
 <code class="sig-prename descclassname">adobo.normalize.</code><code class="sig-name descname">fqn</code><span class="sig-paren">(</span><em class="sig-param">data</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.normalize.fqn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs full quantile normalization (FQN)</p>
 <p class="rubric">Notes</p>
-<p>FQN was shown to perform well on single cell data [1] and was a popular
-normalization scheme for microarray data. The present function does not handle ties
-well.</p>
+<p>FQN has been shown to perform well on single cell data and was a popular normalization
+scheme for microarray data. The present function does not handle ties well.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – A pandas data frame object containing raw read counts (rows=genes, columns=cells).</p>
@@ -1790,18 +1789,26 @@ package <cite>sctransform</cite>.</p>
 <p>Functions for plotting scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.plotting.cell_viz">
-<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">cell_viz</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">reduction='tsne'</em>, <em class="sig-param">normalization=()</em>, <em class="sig-param">clustering=()</em>, <em class="sig-param">metadata=()</em>, <em class="sig-param">genes=()</em>, <em class="sig-param">edges=False</em>, <em class="sig-param">cell_types=False</em>, <em class="sig-param">trajectory=None</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">marker_size=0.8</em>, <em class="sig-param">font_size=8</em>, <em class="sig-param">colors='adobo'</em>, <em class="sig-param">title=None</em>, <em class="sig-param">legend=True</em>, <em class="sig-param">legend_marker_scale=10</em>, <em class="sig-param">legend_position=(1</em>, <em class="sig-param">1)</em>, <em class="sig-param">min_cluster_size=10</em>, <em class="sig-param">figsize=(10</em>, <em class="sig-param">10)</em>, <em class="sig-param">margins=None</em>, <em class="sig-param">dark=False</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.cell_viz" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">cell_viz</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">reduction='tsne'</em>, <em class="sig-param">normalization=()</em>, <em class="sig-param">clustering=()</em>, <em class="sig-param">metadata=()</em>, <em class="sig-param">genes=()</em>, <em class="sig-param">highlight=None</em>, <em class="sig-param">highlight_color=('black'</em>, <em class="sig-param">'red')</em>, <em class="sig-param">selection_mode=False</em>, <em class="sig-param">edges=False</em>, <em class="sig-param">cell_types=False</em>, <em class="sig-param">trajectory=None</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">marker_size=0.8</em>, <em class="sig-param">font_size=8</em>, <em class="sig-param">colors='adobo'</em>, <em class="sig-param">title=None</em>, <em class="sig-param">legend=True</em>, <em class="sig-param">legend_marker_scale=10</em>, <em class="sig-param">legend_position=(1</em>, <em class="sig-param">1)</em>, <em class="sig-param">min_cluster_size=10</em>, <em class="sig-param">figsize=(10</em>, <em class="sig-param">10)</em>, <em class="sig-param">margins=None</em>, <em class="sig-param">dark=False</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.cell_viz" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a 2d scatter plot from an embedding</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object</p></li>
 <li><p><strong>reduction</strong> (<cite>{‘tsne’, ‘umap’, ‘pca’, ‘force_graph’}</cite>) – The dimensional reduction to use. Default: tsne</p></li>
-<li><p><strong>normalization</strong> (<cite>tuple</cite>) – A tuple of normalization to use. If it has the length zero, then all
-available normalizations will be used.</p></li>
-<li><p><strong>clustering</strong> (<cite>tuple</cite>, optional) – Specifies the clustering outcomes to plot.</p></li>
+<li><p><strong>normalization</strong> (<cite>tuple</cite>) – A tuple of normalization to use. If it has the length zero, then the last
+generated will be used.</p></li>
+<li><p><strong>clustering</strong> (<cite>tuple</cite>) – Specifies the clustering outcomes to plot. If None, then the last generated
+clustering is plotted.</p></li>
 <li><p><strong>metadata</strong> (<cite>tuple</cite>, optional) – Specifies the metadata variables to plot.</p></li>
-<li><p><strong>genes</strong> (<cite>tuple</cite>, optional) – Specifies genes to plot.</p></li>
+<li><p><strong>genes</strong> (<cite>tuple</cite>, optional) – Specifies genes to plot. Can also be a regular expression matching a single
+gene name.</p></li>
+<li><p><strong>highlight</strong> (<cite>int</cite> or <cite>str</cite>) – Highlight a cluster or a single cell. Integer if cluster and string if a cell.</p></li>
+<li><p><strong>highlight_color</strong> (<cite>tuple</cite>) – The colors to use when highlighting a cluster. Should be a tuple of length two.
+First item is the color of all other cluster than the selected, the second item
+is the color of the highlighted cluster.</p></li>
+<li><p><strong>selection_mode</strong> (<cite>bool</cite>) – Enables interactive selection of cells. Prints the IDs of the cells inside the
+rectangle. Default: False</p></li>
 <li><p><strong>edges</strong> (<cite>bool</cite>) – Draw edges (only applicable if reduction=’force_graph’). Default: False</p></li>
 <li><p><strong>cell_types</strong> (<cite>bool</cite>) – Print cell type predictions, applicable if <a class="reference internal" href="#adobo.bio.cell_type_predict" title="adobo.bio.cell_type_predict"><code class="xref py py-func docutils literal notranslate"><span class="pre">adobo.bio.cell_type_predict()</span></code></a>
 has been run. Default: False</p></li>
@@ -2040,7 +2047,7 @@ generated is be used. Default: None</p></li>
 
 <dl class="function">
 <dt id="adobo.plotting.tree">
-<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">tree</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">normalization=''</em>, <em class="sig-param">clust_alg=None</em>, <em class="sig-param">method='complete'</em>, <em class="sig-param">min_cluster_size=10</em>, <em class="sig-param">fontsize=8</em>, <em class="sig-param">figsize=(10</em>, <em class="sig-param">10)</em>, <em class="sig-param">filename=None</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.tree" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">tree</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">normalization=''</em>, <em class="sig-param">clust_alg=None</em>, <em class="sig-param">method='complete'</em>, <em class="sig-param">cell_types=True</em>, <em class="sig-param">min_cluster_size=10</em>, <em class="sig-param">fontsize=8</em>, <em class="sig-param">figsize=(10</em>, <em class="sig-param">5)</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">title=None</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.tree" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a dendrogram of cluster relationships</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -2050,18 +2057,32 @@ generated is be used. Default: None</p></li>
 then the function will be applied on the last normalization that was applied.</p></li>
 <li><p><strong>clust_alg</strong> (<cite>str</cite>) – Name of the clustering strategy. If empty or None, the last one will be used.</p></li>
 <li><p><strong>method</strong> (<cite>‘{‘complete’, ‘single’, ‘average’, ‘weighted’, ‘centroid’, ‘median’, ‘ward’}’</cite>) – The linkage algorithm to use. Default: ‘complete’</p></li>
+<li><p><strong>cell_types</strong> (<cite>bool</cite>) – Add putative cell type annotations (if available). Default: True</p></li>
 <li><p><strong>min_cluster_size</strong> (<cite>int</cite>) – Can be used to prevent clusters below a certain number of cells to be
 plotted. Default: 10</p></li>
 <li><p><strong>fontsize</strong> (<cite>int</cite>) – Specifies font size. Default: 6</p></li>
 <li><p><strong>figsize</strong> (<cite>tuple</cite>) – Figure size in inches. Default: (10, 10)</p></li>
 <li><p><strong>filename</strong> (<cite>str</cite>) – Write to a file instead of showing the plot on screen. Default: None</p></li>
+<li><p><strong>title</strong> (<cite>str</cite>) – Plot title.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">adobo</span> <span class="k">as</span> <span class="nn">ad</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exp</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;pbmc8k.mat.gz&#39;</span><span class="p">,</span> <span class="n">bundled</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">normalize</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;standard&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">hvg</span><span class="o">.</span><span class="n">find_hvg</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">dr</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">clustering</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">clust_alg</span><span class="o">=</span><span class="s1">&#39;leiden&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">tree</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Nothing</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Nothing</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2148,11 +2169,19 @@ expression to the cellular meta data</p>
 <li><p><strong>verbose</strong> (<em>boolean</em>) – Be verbose or not. Default: False</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Number of mitochondrial genes detected.</p>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">adobo</span> <span class="k">as</span> <span class="nn">ad</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exp</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;pbmc8k.mat.gz&#39;</span><span class="p">,</span> <span class="n">bundled</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">find_mitochondrial_genes</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Number of mitochondrial genes detected.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>int</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
 </dd>
 </dl>
 </dd></dl>
