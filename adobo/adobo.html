@@ -1845,6 +1845,54 @@ verbose=True to figure out the present values. Default: None</p></li>
 </dd></dl>
 
 <dl class="function">
+<dt id="adobo.plotting.exp_genes">
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">exp_genes</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">normalization=None</em>, <em class="sig-param">clust_alg=None</em>, <em class="sig-param">cluster=None</em>, <em class="sig-param">min_cluster_size=10</em>, <em class="sig-param">violin=True</em>, <em class="sig-param">scale='width'</em>, <em class="sig-param">fontsize=10</em>, <em class="sig-param">figsize=(10</em>, <em class="sig-param">5)</em>, <em class="sig-param">linewidth=0.5</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">title=None</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.exp_genes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compare number of expressed genes across clusters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object</p></li>
+<li><p><strong>normalization</strong> (<cite>str</cite>) – The name of the normalization to operate on. If this is empty or None
+then the function will be applied on the last normalization that was applied.</p></li>
+<li><p><strong>clust_alg</strong> (<cite>str</cite>) – Name of the clustering strategy. If empty or None, the last one will be used.</p></li>
+<li><p><strong>cluster</strong> (<cite>list</cite> or <cite>int</cite>) – List of cluster identifiers to plot. If a list, then expecting a list of cluster
+indices. An integer specifies only one cluster index. If None, then shows the
+expression across all clusters. Default: None</p></li>
+<li><p><strong>min_cluster_size</strong> (<cite>int</cite>) – Can be used to prevent clusters below a certain number of cells to be
+plotted. Default: 10</p></li>
+<li><p><strong>violin</strong> (<cite>bool</cite>) – Draws a violin plot (otherwise a box plot). Default: True</p></li>
+<li><p><strong>scale</strong> (<cite>{‘width’, ‘area’}</cite>) – If <cite>area</cite>, each violin will have the same area. If <code class="docutils literal notranslate"><span class="pre">width</span></code>, each violin will
+have the same width. Default: ‘width’</p></li>
+<li><p><strong>fontsize</strong> (<cite>int</cite>) – Specifies font size. Default: 6</p></li>
+<li><p><strong>figsize</strong> (<cite>tuple</cite>) – Figure size in inches. Default: (10, 10)</p></li>
+<li><p><strong>linewidth</strong> (<cite>float</cite>) – Border width. Default: 0.5</p></li>
+<li><p><strong>filename</strong> (<cite>str</cite>, optional) – Write to a file instead of showing the plot on screen.</p></li>
+<li><p><strong>title</strong> (<cite>str</cite>) – Title of the plot. Default: None</p></li>
+<li><p><strong>**args</strong> – Passed on into seaborn’s violinplot and boxplot functions</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">adobo</span> <span class="k">as</span> <span class="nn">ad</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exp</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;pbmc8k.mat.gz&#39;</span><span class="p">,</span> <span class="n">bundled</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">normalize</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;standard&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">hvg</span><span class="o">.</span><span class="n">find_hvg</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">dr</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">clustering</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">clust_alg</span><span class="o">=</span><span class="s1">&#39;leiden&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">exp_genes</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Nothing</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
 <dt id="adobo.plotting.genes_violin">
 <code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">genes_violin</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">normalization=''</em>, <em class="sig-param">clust_alg=None</em>, <em class="sig-param">cluster=None</em>, <em class="sig-param">gene=None</em>, <em class="sig-param">rank_func=&lt;function median&gt;</em>, <em class="sig-param">top=10</em>, <em class="sig-param">violin=True</em>, <em class="sig-param">scale='width'</em>, <em class="sig-param">fontsize=10</em>, <em class="sig-param">figsize=(10</em>, <em class="sig-param">5)</em>, <em class="sig-param">linewidth=0.5</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.genes_violin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot individual genes using violin plot (or box plot). Can be used to plot the top
@@ -1865,7 +1913,7 @@ it must match a single gene). If this is None, then the top is plotted based on
 the ranking function specified below. Default: None</p></li>
 <li><p><strong>rank_func</strong> (<cite>np.median</cite>) – Ranking function. numpy’s median is the default.</p></li>
 <li><p><strong>top</strong> (<cite>int</cite>) – Specifies the number of top scoring genes to include. Default: 10</p></li>
-<li><p><strong>violin</strong> (<cite>bool</cite>) – Draws a violin plot (otherwise box plot). Default: True</p></li>
+<li><p><strong>violin</strong> (<cite>bool</cite>) – Draws a violin plot (otherwise a box plot). Default: True</p></li>
 <li><p><strong>scale</strong> (<cite>{‘width’, ‘area’}</cite>) – If <cite>area</cite>, each violin will have the same area. If <code class="docutils literal notranslate"><span class="pre">width</span></code>, each violin will
 have the same width. Default: ‘width’</p></li>
 <li><p><strong>fontsize</strong> (<cite>int</cite>) – Specifies font size. Default: 6</p></li>
@@ -1964,7 +2012,7 @@ Default: None</p></li>
 
 <dl class="function">
 <dt id="adobo.plotting.pca_contributors">
-<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">pca_contributors</code><span class="sig-paren">(</span><em class="sig-param">obj, normalization=None, clust_alg=None, cluster=None, dim=[0, 1, 2, 3, 4], top=10, color='#E69F00', fontsize=6, figsize=(10, 5), filename=None, **args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.pca_contributors" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">pca_contributors</code><span class="sig-paren">(</span><em class="sig-param">obj, normalization=None, clust_alg=None, cluster=None, all_genes=False, dim=[0, 1, 2, 3, 4], top=10, color='#E69F00', fontsize=6, figsize=(10, 5), filename=None, **args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.pca_contributors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Examine the top contributing genes to each PCA component. Optionally, one can
 examine the PCA components of a cell cluster instead.</p>
 <div class="admonition note">
@@ -1981,6 +2029,8 @@ generated is be used. Default: None</p></li>
 <li><p><strong>clust_alg</strong> (<cite>str</cite>) – Name of the clustering strategy. If empty or None, the last one generated is
 be used. Default: None</p></li>
 <li><p><strong>cluster</strong> (<cite>int</cite>) – Name of the cluster.</p></li>
+<li><p><strong>all_genes</strong> (<cite>bool</cite>) – If <cite>cluster</cite> is set, then indicates if PCA should be computed on all genes or only
+on the highly variable genes. Default: False</p></li>
 <li><p><strong>dim</strong> (<cite>list</cite> or <cite>int</cite>) – If list, then it specifies indices of components to plot. If integer, then it
 specifies the first components to plot. First component has index zero.</p></li>
 <li><p><strong>top</strong> (<cite>int</cite>) – Specifies the number of top scoring genes to include. Default: 10</p></li>
@@ -2070,10 +2120,12 @@ plotted. Default: 10</p></li>
 <p class="rubric">Example</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">adobo</span> <span class="k">as</span> <span class="nn">ad</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">exp</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;pbmc8k.mat.gz&#39;</span><span class="p">,</span> <span class="n">bundled</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">preproc</span><span class="o">.</span><span class="n">symbol_switch</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">species</span><span class="o">=</span><span class="s1">&#39;human&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">normalize</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;standard&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">hvg</span><span class="o">.</span><span class="n">find_hvg</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">dr</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">clustering</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">clust_alg</span><span class="o">=</span><span class="s1">&#39;leiden&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">bio</span><span class="o">.</span><span class="n">cell_type_predict</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ad</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">tree</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
 </pre></div>
 </div>
