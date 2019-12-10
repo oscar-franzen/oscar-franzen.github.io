@@ -40,6 +40,7 @@
 <li><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
 <li><a class="reference internal" href="#method-1-downloading-sources-from-the-repository">Method 1 - downloading sources from the repository</a></li>
 <li><a class="reference internal" href="#method-2-using-the-python-package-index-pypi">Method 2 - using the Python package index (PyPI)</a></li>
+<li><a class="reference internal" href="#post-installation">Post-installation</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#package-organization">Package organization</a><ul>
@@ -139,7 +140,7 @@
 <h4>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p>At least Python 3.6</p></li>
-<li><p>PIP 19.3.1</p></li>
+<li><p>PIP (Python Package Manager) 19.3.1</p></li>
 </ul>
 <p>To use adobo the first step is to install it. The recommended way to install adobo is to use the Python package manager <code class="docutils literal notranslate"><span class="pre">pip</span></code>, streamlining installation of package dependencies. First, make sure a recent version of <code class="docutils literal notranslate"><span class="pre">pip</span></code> is installed, and when this is done the repository can be cloned and installed (instead of using git to clone, it is also possible to just navigate to the <a class="reference external" href="https://github.com/oscar-franzen/adobo/">repository</a> and press the download button):</p>
 <p>First make sure you are using an updated <code class="docutils literal notranslate"><span class="pre">pip</span></code> version:</p>
@@ -165,7 +166,7 @@ python3 -m pip install . --user
 rm -rf adobo
 </pre></div>
 </div>
-<p>After installing it, you can now delete the cloned repository and test that everything works by firing up your Python 3 interpreter:</p>
+<p>After installing it, you can now delete the cloned repository.</p>
 </div>
 <div class="section" id="method-2-using-the-python-package-index-pypi">
 <h4>Method 2 - using the Python package index (PyPI)<a class="headerlink" href="#method-2-using-the-python-package-index-pypi" title="Permalink to this headline">¶</a></h4>
@@ -173,6 +174,10 @@ rm -rf adobo
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 -m pip install adobo --user
 </pre></div>
 </div>
+</div>
+<div class="section" id="post-installation">
+<h4>Post-installation<a class="headerlink" href="#post-installation" title="Permalink to this headline">¶</a></h4>
+<p>To test that everything works, fire up up your Python 3 interpreter and try importing the library. It should greet you with the current version and the URL to the documentation (this page):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># not necessary to set this environment variable,</span>
 <span class="c1"># but setting it prevents unexpected multithreading</span>
 <span class="nb">export</span> <span class="nv">OPENBLAS_NUM_THREADS</span><span class="o">=</span><span class="m">1</span>
@@ -180,7 +185,6 @@ rm -rf adobo
 python3
 </pre></div>
 </div>
-<p>Try importing the library and it should greet you with the current version and the URL to the documentation (this page):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">adobo</span> <span class="k">as</span> <span class="nn">ad</span>
 <span class="go">adobo version 0.2.34. Documentation: https://oscar-franzen.github.io/adobo/</span>
 </pre></div>

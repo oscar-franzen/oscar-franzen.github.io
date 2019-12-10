@@ -26,7 +26,7 @@ Installation
 Prerequisites
 ^^^^^^^^^^^^^
 * At least Python 3.6
-* PIP 19.3.1
+* PIP (Python Package Manager) 19.3.1
 
 To use adobo the first step is to install it. The recommended way to install adobo is to use the Python package manager ``pip``, streamlining installation of package dependencies. First, make sure a recent version of ``pip`` is installed, and when this is done the repository can be cloned and installed (instead of using git to clone, it is also possible to just navigate to the `repository <https://github.com/oscar-franzen/adobo/>`_ and press the download button):
 
@@ -58,7 +58,7 @@ The first installation method requires that ``git`` is installed on your system.
    cd ..
    rm -rf adobo
 
-After installing it, you can now delete the cloned repository and test that everything works by firing up your Python 3 interpreter:
+After installing it, you can now delete the cloned repository.
 
 Method 2 - using the Python package index (PyPI)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -68,6 +68,10 @@ This will download the and compile the package and its dependencies from PyPI.
 
    python3 -m pip install adobo --user
 
+Post-installation
+^^^^^^^^^^^^^^^^^
+To test that everything works, fire up up your Python 3 interpreter and try importing the library. It should greet you with the current version and the URL to the documentation (this page):
+
 .. code-block:: bash
 
    # not necessary to set this environment variable,
@@ -75,8 +79,6 @@ This will download the and compile the package and its dependencies from PyPI.
    export OPENBLAS_NUM_THREADS=1
    
    python3
-
-Try importing the library and it should greet you with the current version and the URL to the documentation (this page):
 
 >>> import adobo as ad
 adobo version 0.2.34. Documentation: https://oscar-franzen.github.io/adobo/
