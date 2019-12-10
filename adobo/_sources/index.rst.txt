@@ -23,6 +23,11 @@ Jupyter notebooks can be found `here <https://github.com/oscar-franzen/adobo/tre
 
 Installation
 ============
+Prerequisites
+^^^^^^^^^^^^^
+* At least Python 3.6
+* PIP 19.3.1
+
 To use adobo the first step is to install it. The recommended way to install adobo is to use the Python package manager ``pip``, streamlining installation of package dependencies. First, make sure a recent version of ``pip`` is installed, and when this is done the repository can be cloned and installed (instead of using git to clone, it is also possible to just navigate to the `repository <https://github.com/oscar-franzen/adobo/>`_ and press the download button):
 
 First make sure you are using an updated ``pip`` version:
@@ -37,7 +42,9 @@ The above command should return 19.3.1 or higher. If it does not, upgrade throug
 
    python3 -m pip install --upgrade pip --user
 
-We can now install adobo with the following commands:
+Method 1 - downloading sources from the repository
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The first installation method requires that ``git`` is installed on your system. We can install adobo with the following commands:
 
 .. code-block:: bash
 
@@ -51,15 +58,15 @@ We can now install adobo with the following commands:
    cd ..
    rm -rf adobo
 
-.. note::
-
-   Support for ``PyPI`` is on the TODO list.
-
-.. note::
-
-   adobo is developed and tested on Python version 3.6; older versions may work but are untested.
-
 After installing it, you can now delete the cloned repository and test that everything works by firing up your Python 3 interpreter:
+
+Method 2 - using the Python package index (PyPI)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+This will download the and compile the package and its dependencies from PyPI.
+
+.. code-block:: bash
+
+   python3 -m pip install adobo --user
 
 .. code-block:: bash
 
