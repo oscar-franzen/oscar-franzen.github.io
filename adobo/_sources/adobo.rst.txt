@@ -28,6 +28,14 @@ adobo.bio module
    :undoc-members:
    :show-inheritance:
 
+adobo.bulk module
+-----------------
+
+.. automodule:: adobo.bulk
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 adobo.clustering module
 -----------------------
 
