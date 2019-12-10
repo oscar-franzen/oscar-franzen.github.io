@@ -9,7 +9,7 @@ adobo is an analysis framework for single cell RNA sequencing data (scRNA-seq) a
 
 Contact
 *******
-adobo is developed by Oscar Franzén at Karolinska Institutet. Limited support is available over e-mail: p.oscar.franzen@gmail.com or oscar.franzen@ki.se
+adobo is developed by Oscar Franzén at Karolinska Institutet. Limited support is available over e-mail: p.oscar.franzen@gmail.com
 
 Notes on this document
 ======================
