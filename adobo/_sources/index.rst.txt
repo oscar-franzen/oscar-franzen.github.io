@@ -81,7 +81,7 @@ To test that everything works, fire up up your Python 3 interpreter and try impo
    python3
 
 >>> import adobo as ad
-adobo version 0.2.34. Documentation: https://oscar-franzen.github.io/adobo/
+adobo version 0.2.57. Documentation: https://oscar-franzen.github.io/adobo/
 
 Package organization
 ====================
@@ -152,11 +152,11 @@ The first step is to load the adobo package by importing it:
 
 Loading your data from a text file
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-First we need to create a new adobo object, which is an instance of the class :py:class:`adobo.data.dataset`. This will be a new object containing the single cell data, meta data and analysis results. The input file should be a gene expression matrix (rows as genes and cells as columns) in plain text format. Fields can be separated by any character and it can be changed with the ``sep`` parameter. ``sep`` can be a single character or a regular expression (default is the regular expression ``\s``). The data matrix file can have a header or not (``header=True`` indicates a header is present, otherwise use ``header=False``). :py:func:`adobo.IO.load_from_file` calls `datatable.fread <https://datatable.readthedocs.io/en/latest/>`_ and any additional parameters are passed on into this method. The function :py:func:`adobo.IO.load_from_file` is used to load data from a raw read counts matrix and the returned object is an instance of :class:`adobo.data.dataset`.
+First we need to create an instance of the data container class (an adobo object, :py:class:`adobo.data.dataset`). This will be a new object containing the single cell data, meta data and analysis results. The input file should be a gene expression matrix (rows as genes and cells as columns) in plain text format. Fields can be separated by any character and it can be changed with the ``sep`` parameter. ``sep`` can be a single character or a regular expression (default is the regular expression ``\s``). The data matrix file can have a header or not (``header=True`` indicates a header is present, otherwise use ``header=False``). :py:func:`adobo.IO.load_from_file` calls `datatable.fread <https://datatable.readthedocs.io/en/latest/>`_ and any additional parameters are passed on into this method. The function :py:func:`adobo.IO.load_from_file` is used to load data from a raw read counts matrix and the returned object is an instance of :class:`adobo.data.dataset`.
 
-We can load compressed data directly without having to uncompress it first; the compression format is detected automatically (``gzip``, ``bz2``, ``zip`` and ``xz`` are supported).
+We can load compressed data directly without having to uncompress it first; the compression format is detected automatically (``gzip``, ``bz2``, ``zip`` and ``xz`` are indirectly supported through pandas).
 
-In the below example we set ``bundled=True``, which tells adobo to search its internal ``data`` directory for the file. For normal data, ``bundled`` should be ``False`` (default).
+In the below example we set ``bundled=True``, which tells adobo to search its internal ``data`` directory for the file. For normal data, ``bundled`` should be ``False`` (default). Here we use data (`GEO95315 <https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE95315>`_) from the mouse dentate gyrus generated using 10X Chromium:
 
 .. code-block:: python3
 
@@ -170,9 +170,9 @@ In the below example we set ``bundled=True``, which tells adobo to search its in
                               sep='\t')
 
    # example 2
-   exp = ad.IO.load_from_file('GSE95315.tab.gz')
+   exp = ad.IO.load_from_file('GSE95315.tab.gz', bundled=True)
 
-``desc`` can be used to specify an arbitrary string describing the data, but it can also be left empty. The raw read counts matrix is stored in the attribute ``count_data`` inside the dataset object (:py:attr:`adobo.data.dataset.count_data`). Here we use data from `GEO95315 <https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE95315>`_ and it ships with adobo. By default, raw read counts are stored in a sparse data frame; sparsity can slow down the data loading step, but leaves a smaller memory footprint. Sparsity can be turned off by setting ``sparse=False`` in ``load_from_file``. Currently, the normalized data are not stored in a sparse matrix, because not all numpy vector operations can be applied on sparse matrices.
+``desc`` can be used to specify an arbitrary string describing the data, but it can also be left empty. The raw read counts matrix is stored in the attribute ``count_data`` inside the dataset object (:py:attr:`adobo.data.dataset.count_data`). By default, raw read counts are stored in a sparse data frame; sparsity can slow down the data loading step, but leaves a smaller memory footprint. Sparsity can be turned off by setting ``sparse=False`` in ``load_from_file``. Currently, the normalized data are not stored in a sparse matrix, because not all numpy vector operations can be applied on sparse matrices.
 
 Your loaded data are stored in the attribute ``exp.count_data``, and after loading it is good practise to examine that the data were loaded properly:
 
@@ -240,7 +240,7 @@ Instead of writing three lines of code and always remembering the name of the ou
 
 Accessing meta data for cells and genes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Meta data can exist at cell and gene levels, and can easily be loaded into the data object. Meta data are stored in the adobo object (an instance of :py:class:`adobo.data.dataset`). Two data structures (instances of :class:`pandas.DataFrame`) hold meta data for cells and genes, respectively:
+Both cells and genes can bave meta data. Meta data can easily be loaded into the data object. Meta data are stored in the adobo object (an instance of :py:class:`adobo.data.dataset`). Two data structures (instances of :class:`pandas.DataFrame`) hold meta data for cells and genes, respectively:
 
 >>> exp.meta_cells
        total_reads status  detected_genes
