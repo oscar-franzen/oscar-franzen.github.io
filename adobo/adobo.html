@@ -1389,7 +1389,7 @@ of components to include by examinng p-values.</p></li>
 
 <dl class="function">
 <dt id="adobo.dr.pca">
-<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">pca</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">method='irlb'</em>, <em class="sig-param">normalization=None</em>, <em class="sig-param">ncomp=75</em>, <em class="sig-param">genes='hvg'</em>, <em class="sig-param">scale=True</em>, <em class="sig-param">var_weigh=True</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">seed=42</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.pca" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.dr.</code><code class="sig-name descname">pca</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">method='irlb'</em>, <em class="sig-param">normalization=None</em>, <em class="sig-param">ncomp=75</em>, <em class="sig-param">genes='hvg'</em>, <em class="sig-param">scale=True</em>, <em class="sig-param">var_weigh=True</em>, <em class="sig-param">use_combat=False</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">seed=42</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.dr.pca" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs Principal Component Analysis (PCA)</p>
 <p class="rubric">Notes</p>
 <p>Scaling of the data is achieved by setting scale=True (default),
@@ -1883,6 +1883,12 @@ shown to perform well on single cell data. The drawback of using
 ComBat is that all cells in a batch is used for estimating model
 parameters. This implementation follows the ComBat function in the
 R package SVA.</p>
+<p>Commands should run in this order:
+&gt;&gt;&gt; ad.normalize.norm(exp)
+&gt;&gt;&gt; exp.add_meta_data(axis=’cells’, key=’batch’, data=batch_vector)
+&gt;&gt;&gt; ad.normalize.ComBat(exp, meta_cells_var=’batch’, verbose=True)
+&gt;&gt;&gt; ad.hvg.find_hvg(exp, use_combat=True)
+&gt;&gt;&gt; ad.dr.pca(exp, use_combat=True, verbose=True)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
