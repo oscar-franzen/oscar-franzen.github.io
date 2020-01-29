@@ -79,7 +79,7 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#module-adobo.traj">adobo.traj module</a><ul>
-<li><a class="reference internal" href="#id73">Summary</a></li>
+<li><a class="reference internal" href="#id74">Summary</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-adobo">Module contents</a></li>
@@ -827,7 +827,7 @@ of time. Default: True</p>
 <dd><p>Add meta data to the adobo object</p>
 <p class="rubric">Notes</p>
 <p>Meta data can be added to cells or genes.</p>
-<p>The parameter name ‘<a href="#id76"><span class="problematic" id="id77">type_</span></a>’ has an underscore to avoid conflict
+<p>The parameter name ‘<a href="#id77"><span class="problematic" id="id78">type_</span></a>’ has an underscore to avoid conflict
 with Python’s internal type keyword.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1409,6 +1409,7 @@ highly variable genes or ‘all’ to use all genes. If a list,
 then the list specifies the list of genes to use. Default:
 ‘hvg’</p></li>
 <li><p><strong>scale</strong> (<cite>bool</cite>) – Scales input data prior to PCA. Default: True</p></li>
+<li><p><strong>use_combat</strong> (<cite>bool</cite>) – Use ComBat corrected data or not. Default: False</p></li>
 <li><p><strong>var_weigh</strong> (<cite>bool</cite>) – Weigh by the variance of each component. Default: True</p></li>
 <li><p><strong>verbose</strong> (<cite>bool</cite>) – Be noisy or not. Default: False</p></li>
 <li><p><strong>seed</strong> (<cite>int</cite>) – For reproducibility (only irlb). Default: 42</p></li>
@@ -2799,6 +2800,44 @@ RNA-seq data <a class="reference external" href="https://www.nature.com/articles
 </dd></dl>
 
 <dl class="function">
+<dt id="adobo.preproc.mad_outlier">
+<code class="sig-prename descclassname">adobo.preproc.</code><code class="sig-name descname">mad_outlier</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">nmads=3</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.preproc.mad_outlier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Outlier detection based on median absolute deviation</p>
+<p class="rubric">Notes</p>
+<p>Removes cells with a number of median absolute deviations below
+the median of either of two quality metrics. The quality metrics
+are the log of the library size and the log of number of detected
+genes. The principle is similar to Lun et al. Three mads is the
+default.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object.</p></li>
+<li><p><strong>nmads</strong> (<cite>int</cite>) – Number of median absolute deviations below the median for the
+cell to be considered an outlier. Default: 3</p></li>
+<li><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose or not. Default: False</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="footnote brackets">
+<dt class="label" id="id73"><span class="brackets">1</span></dt>
+<dd><p>Lun et al. (2016) F1000Res, A step-by-step workflow for
+low-level analysis of single-cell RNA-seq data with Bioconductor,
+<a class="reference external" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5112579/">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5112579/</a></p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Modifies the passed object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
 <dt id="adobo.preproc.reset_filters">
 <code class="sig-prename descclassname">adobo.preproc.</code><code class="sig-name descname">reset_filters</code><span class="sig-paren">(</span><em class="sig-param">obj</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.preproc.reset_filters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resets cell and gene filters</p>
@@ -2899,8 +2938,8 @@ gene identifiers to symbol_ENS[0-9]+.</p>
 </div>
 <div class="section" id="module-adobo.traj">
 <span id="adobo-traj-module"></span><h2>adobo.traj module<a class="headerlink" href="#module-adobo.traj" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id73">
-<h3>Summary<a class="headerlink" href="#id73" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id74">
+<h3>Summary<a class="headerlink" href="#id74" title="Permalink to this headline">¶</a></h3>
 <p>Functions for trajectory analysis.</p>
 <dl class="function">
 <dt id="adobo.traj.slingshot">
@@ -2913,11 +2952,11 @@ below) and a clustering to generate a graph where vertices are clusters.</p>
 <p>Only slingthot’s ‘getLineages’ method is used at the moment.</p>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id74"><span class="brackets">1</span></dt>
+<dt class="label" id="id75"><span class="brackets">1</span></dt>
 <dd><p>Street et al. (2018) BMC Genomics. Slingshot: cell lineage and pseudotime
 inference for single-cell transcriptomics</p>
 </dd>
-<dt class="label" id="id75"><span class="brackets">2</span></dt>
+<dt class="label" id="id76"><span class="brackets">2</span></dt>
 <dd><p><a class="reference external" href="https://bioconductor.org/packages/release/bioc/html/slingshot.html">https://bioconductor.org/packages/release/bioc/html/slingshot.html</a></p>
 </dd>
 </dl>
