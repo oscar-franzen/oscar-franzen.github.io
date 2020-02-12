@@ -157,7 +157,7 @@ programs</p>
 <li><p><strong>filename</strong> (<cite>str</cite>) – Output filename or path.</p></li>
 <li><p><strong>norm</strong> (<cite>str</cite>) – Name of the normalisation. For example ‘standard’.</p></li>
 <li><p><strong>clust</strong> (<cite>str</cite>) – Name of the clustering. For example: ‘leiden̈́’.</p></li>
-<li><p><strong>what</strong> (<a href="#id1"><span class="problematic" id="id2">`</span></a>{‘normalized’, ‘clusters’, ‘pca’, ‘tsne’, ‘umap’, ‘cell_type_pred’,) – ‘median_expr’}`
+<li><p><strong>what</strong> (<a href="#id1"><span class="problematic" id="id2">`</span></a>{‘normalized’, ‘clusters’, ‘pca’, ‘tsne’, ‘umap’, ‘cell_type_pred’,) – ‘cell_type_pred_full’, ‘median_expr’}`
 What to export.</p></li>
 <li><p><strong>transpose</strong> (<cite>bool</cite>) – Transpose the data before writing it. Default: False</p></li>
 <li><p><strong>sep</strong> (<cite>str</cite>) – A character or regular expression used to separate
@@ -411,26 +411,29 @@ similar to the method in Dong2019</p>
 <p class="rubric">Notes</p>
 <dl class="simple">
 <dt>Finds two non-negative matrices</dt><dd><ol class="arabic simple">
-<li><p>a basis matrix, B, dimensions N x K (N genes and K cell types)</p></li>
-<li><p>a proportion matrix, P, dimensions K x M (K cell types and M samples)</p></li>
+<li><p>a basis matrix, B, dimensions N x K (N genes and K cell
+types)</p></li>
+<li><p>a proportion matrix, P, dimensions K x M (K cell types and
+M samples)</p></li>
 </ol>
 </dd>
 <dt>satisfying:</dt><dd><p>Y = B x P</p>
 </dd>
 </dl>
-<p>where Y is a bulk gene expression matrix with dimensions N x M (N genes and
-M samples)</p>
+<p>where Y is a bulk gene expression matrix with dimensions N x M
+(N genes and M samples)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A dataset class object.</p></li>
-<li><p><strong>bulk</strong> (<cite>pandas.DataFrame</cite>) – A pandas data frame containing the bulk gene expression. Genes as rows and
-samples as columns.</p></li>
-<li><p><strong>cell_type_var</strong> (<cite>str</cite>) – A string (column name) of the meta data variable that contains the cell
-types. Can be set to None or empty to instead use clusters.</p></li>
-<li><p><strong>sample_var</strong> (<cite>str</cite>) – A string (column name) of the meta data variable that contains sample
-names. If this is None or empty, then it is assumed all cells come from
-the same sample.</p></li>
+<li><p><strong>bulk</strong> (<cite>pandas.DataFrame</cite>) – A pandas data frame containing the bulk gene expression. Genes
+as rows and samples as columns.</p></li>
+<li><p><strong>cell_type_var</strong> (<cite>str</cite>) – A string (column name) of the meta data variable that contains
+the cell types. Can be set to None or empty to instead use
+clusters.</p></li>
+<li><p><strong>sample_var</strong> (<cite>str</cite>) – A string (column name) of the meta data variable that contains
+sample names. If this is None or empty, then it is assumed all
+cells come from the same sample.</p></li>
 <li><p><strong>target_ct</strong> (<cite>list</cite>) – A list of cell types to use. Default: None</p></li>
 <li><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose or not. Default: False</p></li>
 </ul>
@@ -2231,7 +2234,7 @@ number of worker processes. Default: ‘auto’</p></li>
 <p>Functions for plotting scRNA-seq data.</p>
 <dl class="function">
 <dt id="adobo.plotting.cell_viz">
-<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">cell_viz</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">reduction=None</em>, <em class="sig-param">normalization=()</em>, <em class="sig-param">clustering=()</em>, <em class="sig-param">metadata=()</em>, <em class="sig-param">genes=()</em>, <em class="sig-param">highlight=None</em>, <em class="sig-param">highlight_color=('black'</em>, <em class="sig-param">'red')</em>, <em class="sig-param">selection_mode=False</em>, <em class="sig-param">edges=False</em>, <em class="sig-param">cell_types=False</em>, <em class="sig-param">trajectory=None</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">marker_size=0.8</em>, <em class="sig-param">font_size=8</em>, <em class="sig-param">colors='adobo'</em>, <em class="sig-param">title=None</em>, <em class="sig-param">legend=True</em>, <em class="sig-param">legend_marker_scale=10</em>, <em class="sig-param">legend_position=(1</em>, <em class="sig-param">1)</em>, <em class="sig-param">min_cluster_size=10</em>, <em class="sig-param">figsize=(10</em>, <em class="sig-param">10)</em>, <em class="sig-param">margins=None</em>, <em class="sig-param">dark=False</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.cell_viz" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">cell_viz</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">reduction=None</em>, <em class="sig-param">normalization=()</em>, <em class="sig-param">clustering=()</em>, <em class="sig-param">metadata=()</em>, <em class="sig-param">genes=()</em>, <em class="sig-param">highlight=None</em>, <em class="sig-param">highlight_color=('black'</em>, <em class="sig-param">'red')</em>, <em class="sig-param">selection_mode=False</em>, <em class="sig-param">edges=False</em>, <em class="sig-param">cell_types=False</em>, <em class="sig-param">trajectory=None</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">marker_size=0.8</em>, <em class="sig-param">font_size=8</em>, <em class="sig-param">colors='adobo'</em>, <em class="sig-param">title=None</em>, <em class="sig-param">legend=True</em>, <em class="sig-param">legend_marker_scale=10</em>, <em class="sig-param">legend_position=(1</em>, <em class="sig-param">1)</em>, <em class="sig-param">min_cluster_size=10</em>, <em class="sig-param">figsize=(10</em>, <em class="sig-param">10)</em>, <em class="sig-param">margins=None</em>, <em class="sig-param">dark=False</em>, <em class="sig-param">aspect_ratio='equal'</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.cell_viz" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a 2d scatter plot from an embedding</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -2261,7 +2264,7 @@ reduction=’force_graph’). Default: False</p></li>
 False</p></li>
 <li><p><strong>trajectory</strong> (<cite>str</cite>, optional) – The trajectory to plot. For example ‘slingshot’. Default: None</p></li>
 <li><p><strong>filename</strong> (<cite>str</cite>, optional) – Name of an output file instead of showing on screen.</p></li>
-<li><p><strong>marker_size</strong> (<cite>float</cite>) – The size of the markers.</p></li>
+<li><p><strong>marker_size</strong> (<cite>float</cite>) – The size of the markers. Default: 0.8</p></li>
 <li><p><strong>font_size</strong> (<cite>float</cite>) – Font size. Default: 8</p></li>
 <li><p><strong>colors</strong> (<cite>{‘default’, ‘random’}</cite> or <cite>list</cite>) – Can be: (i) “adobo” or “random”; or (ii) a <cite>list</cite> of colors
 with the same length as the number of factors. If colors is
@@ -2282,6 +2285,8 @@ more of the keys: ‘left’, ‘bottom’, ‘right’, ‘top’, ‘wspace’
 ‘hspace’. Set verbose=True to figure out the present
 values. Default: None</p></li>
 <li><p><strong>dark</strong> (<cite>bool</cite>) – Make the background color black. Default: False</p></li>
+<li><p><strong>aspect_ratio</strong> (<cite>{‘equal’, ‘auto’}</cite>) – Set the aspect of the axis scaling, i.e. the ratio of y-unit
+to x-unit. Default: ‘equal’</p></li>
 <li><p><strong>verbose</strong> (<cite>bool</cite>) – Be verbose or not. Default: True</p></li>
 </ul>
 </dd>
@@ -2443,16 +2448,16 @@ normalization that was applied.</p></li>
 
 <dl class="function">
 <dt id="adobo.plotting.overall">
-<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">overall</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">what='reads'</em>, <em class="sig-param">how='histogram'</em>, <em class="sig-param">bin_size=100</em>, <em class="sig-param">cut_off=None</em>, <em class="sig-param">color='#E69F00'</em>, <em class="sig-param">title=None</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.overall" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">adobo.plotting.</code><code class="sig-name descname">overall</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">what='cells'</em>, <em class="sig-param">how='histogram'</em>, <em class="sig-param">bin_size=100</em>, <em class="sig-param">cut_off=None</em>, <em class="sig-param">color='#E69F00'</em>, <em class="sig-param">title=None</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">**args</em><span class="sig-paren">)</span><a class="headerlink" href="#adobo.plotting.overall" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a plot of read counts per cell or expressed genes per
 cell</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference internal" href="#adobo.data.dataset" title="adobo.data.dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">adobo.data.dataset</span></code></a>) – A data class object.</p></li>
-<li><p><strong>what</strong> (<cite>{‘reads’, ‘genes’}</cite>) – If ‘reads’ then plots the number of reads per cell. If
+<li><p><strong>what</strong> (<cite>{‘cells’, ‘genes’}</cite>) – If ‘cells’ then plots the number of reads per cell. If
 ‘genes’, then plots the number of expressed genes per
-cell. Default: ‘reads’</p></li>
+cell. Default: ‘cells’</p></li>
 <li><p><strong>how</strong> (<cite>{‘histogram’, ‘boxplot’, ‘barplot’, ‘violin’}</cite>) – Type of plot to generate. Default: ‘histogram’</p></li>
 <li><p><strong>bin_size</strong> (<cite>int</cite>) – If <cite>how</cite> is a histogram, then this is the bin size. Default: 100</p></li>
 <li><p><strong>cut_off</strong> (<cite>int</cite>) – Set a cut off for genes or reads by drawing a red line and
