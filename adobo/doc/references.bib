@@ -1,0 +1,364 @@
+@article{Blondel2008,
+   title={Fast unfolding of communities in large networks},
+   volume={2008},
+   ISSN={1742-5468},
+   url={http://dx.doi.org/10.1088/1742-5468/2008/10/P10008},
+   DOI={10.1088/1742-5468/2008/10/p10008},
+   number={10},
+   journal={Journal of Statistical Mechanics: Theory and Experiment},
+   publisher={IOP Publishing},
+   author={Blondel, Vincent D and Guillaume, Jean-Loup and Lambiotte, Renaud and Lefebvre, Etienne},
+   year={2008},
+   month={Oct},
+   pages={P10008}
+}
+
+@article{Jiang2011,
+	title = {Synthetic spike-in standards for {RNA}-seq experiments},
+	volume = {21},
+	issn = {1549-5469},
+	doi = {10.1101/gr.121095.111},
+	abstract = {High-throughput sequencing of cDNA (RNA-seq) is a widely deployed transcriptome profiling and annotation technique, but questions about the performance of different protocols and platforms remain. We used a newly developed pool of 96 synthetic RNAs with various lengths, and GC content covering a 2(20) concentration range as spike-in controls to measure sensitivity, accuracy, and biases in RNA-seq experiments as well as to derive standard curves for quantifying the abundance of transcripts. We observed linearity between read density and RNA input over the entire detection range and excellent agreement between replicates, but we observed significantly larger imprecision than expected under pure Poisson sampling errors. We use the control RNAs to directly measure reproducible protocol-dependent biases due to GC content and transcript length as well as stereotypic heterogeneity in coverage across transcripts correlated with position relative to RNA termini and priming sequence bias. These effects lead to biased quantification for short transcripts and individual exons, which is a serious problem for measurements of isoform abundances, but that can partially be corrected using appropriate models of bias. By using the control RNAs, we derive limits for the discovery and detection of rare transcripts in RNA-seq experiments. By using data collected as part of the model organism and human Encyclopedia of DNA Elements projects (ENCODE and modENCODE), we demonstrate that external RNA controls are a useful resource for evaluating sensitivity and accuracy of RNA-seq experiments for transcriptome discovery and quantification. These quality metrics facilitate comparable analysis across different samples, protocols, and platforms.},
+	language = {eng},
+	number = {9},
+	journal = {Genome Research},
+	author = {Jiang, Lichun and Schlesinger, Felix and Davis, Carrie A. and Zhang, Yu and Li, Renhua and Salit, Marc and Gingeras, Thomas R. and Oliver, Brian},
+	month = sep,
+	year = {2011},
+	pmid = {21816910},
+	pmcid = {PMC3166838},
+	pages = {1543--1551}
+}
+
+@article{Conesa2016,
+	title = {A survey of best practices for {RNA}-seq data analysis},
+	volume = {17},
+	issn = {1474-760X},
+	doi = {10.1186/s13059-016-0881-8},
+	abstract = {RNA-sequencing (RNA-seq) has a wide variety of applications, but no single analysis pipeline can be used in all cases. We review all of the major steps in RNA-seq data analysis, including experimental design, quality control, read alignment, quantification of gene and transcript levels, visualization, differential gene expression, alternative splicing, functional analysis, gene fusion detection and eQTL mapping. We highlight the challenges associated with each step. We discuss the analysis of small RNAs and the integration of RNA-seq with other functional genomics techniques. Finally, we discuss the outlook for novel technologies that are changing the state of the art in transcriptomics.},
+	number = {1},
+	journal = {Genome Biology},
+	author = {Conesa, Ana and Madrigal, Pedro and Tarazona, Sonia and Gomez-Cabrero, David and Cervera, Alejandra and McPherson, Andrew and Szcze{\'s}niak, Micha{\l } Wojciech and Gaffney, Daniel J. and Elo, Laura L. and Zhang, Xuegong and Mortazavi, Ali},
+	month = jan,
+	year = {2016},
+	pages = {13}
+}
+
+@article{Bolstad2003,
+    author = {Bolstad, B.M. and Irizarry, R.A and Åstrand, M. and Speed, T.P.},
+    title = "{A comparison of normalization methods for high density oligonucleotide array data based on variance and bias}",
+    journal = {Bioinformatics},
+    volume = {19},
+    number = {2},
+    pages = {185-193},
+    year = {2003},
+    month = {01},
+    abstract = "{Motivation: When running experiments that
+involve multiple high density oligonucleotide arrays, it is
+important to remove sources of variation between arrays of
+non-biological origin. Normalization is a process for reducing
+this variation. It is common to see non-linear relations between
+arrays and the standard normalization provided by Affymetrix
+does not perform well in these situations.Results: We present three methods of
+performing normalization at the probe intensity level. These
+methods are called complete data methods because they make use
+of data from all arrays in an experiment to form the normalizing
+relation. These algorithms are compared to two methods that make
+use of a baseline array: a one number scaling based algorithm
+and a method that uses a non-linear normalizing relation by
+comparing the variability and bias of an expression measure. Two
+publicly available datasets are used to carry out the
+comparisons.  The simplest and quickest complete data method is
+found to perform favorably.Availability: Software implementing all three
+of the complete data normalization methods is available as part
+of the R package Affy, which is a part of the Bioconductor
+project http://www.bioconductor.org.Contact: bolstad@stat.berkeley.edu.Supplementary information: Additional
+figures may be found at http://www.stat.berkeley.edu/~bolstad/normalize/index.html*To whom correspondence
+    should be addressed.}",
+    issn = {1367-4803},
+    doi = {10.1093/bioinformatics/19.2.185}
+}
+
+@article {Cole2018,
+	author = {Cole, Michael B. and Risso, Davide and Wagner, Allon and DeTomaso, David and Ngai, John and Purdom, Elizabeth and Dudoit, Sandrine and Yosef, Nir},
+	title = {Performance Assessment and Selection of Normalization Procedures for Single-Cell RNA-seq},
+	elocation-id = {235382},
+	year = {2018},
+	doi = {10.1101/235382},
+	publisher = {Cold Spring Harbor Laboratory},
+	abstract = {Systematic measurement biases make data normalization an essential preprocessing step in single-cell RNA sequencing (scRNA-seq) analysis. There may be multiple, competing considerations behind the assessment of normalization performance, some of them study-specific. Because normalization can have a large impact on downstream results (e.g., clustering and differential expression), it is critically important that practitioners assess the performance of competing methods.We have developed scone {\textemdash} a flexible framework for assessing normalization performance based on a comprehensive panel of data-driven metrics. Through graphical summaries and quantitative reports, scone summarizes performance trade-offs and ranks large numbers of normalization methods by aggregate panel performance. The method is implemented in the open-source Bioconductor R software package scone. We demonstrate the effectiveness of scone on a collection of scRNA-seq datasets, generated with different protocols, including Fluidigm C1 and 10x platforms. We show that top-performing normalization methods lead to better agreement with independent validation data.},
+	journal = {bioRxiv}
+}
+
+@article {Hafemeister2019,
+	author = {Hafemeister, Christoph and Satija, Rahul},
+	title = {Normalization and variance stabilization of single-cell RNA-seq data using regularized negative binomial regression},
+	elocation-id = {576827},
+	year = {2019},
+	doi = {10.1101/576827},
+	publisher = {Cold Spring Harbor Laboratory},
+	abstract = {Single-cell RNA-seq (scRNA-seq) data exhibits significant cell-to-cell variation due to technical factors, including the number of detected molecules in each cell, which can confound biological heterogeneity with technical effects. To address this, we present a modeling framework for the normalization and variance stabilization of molecular count data from scRNA-seq experiments. We propose that the Pearson residuals from {\textquoteright}regularized negative binomial regression{\textquoteright}, where cellular sequencing depth is utilized as a covariate in a generalized linear model, successfully remove the influence of technical characteristics from downstream analyses while preserving biological heterogeneity. Importantly, we show that an unconstrained negative binomial model may overfit scRNA-seq data, and overcome this by pooling information across genes with similar abundances to obtain stable parameter estimates. Our procedure omits the need for heuristic steps including pseudocount addition or log-transformation, and improves common downstream analytical tasks including variable gene selection, dimensional reduction, and differential expression. Our procedure can be applied to any UMI-based scRNA-seq dataset and is freely available as part of the R package sctransform, with a direct interface to our single-cell toolkit Seurat.},
+	journal = {bioRxiv}
+}
+
+@article{Stuart2018,
+    author = {Tim Stuart and Andrew Butler and Paul Hoffman and Christoph Hafemeister and Efthymia Papalexi and William M Mauck III and Marlon Stoeckius and Peter Smibert and Rahul Satija},
+    title = {Comprehensive integration of single cell data},
+    journal = {bioRxiv},
+    year = {2018},
+    doi = {10.1101/460147}
+}
+
+@article{Yip2018,
+    author = {Yip, Shun H and Sham, Pak Chung and Wang, Junwen},
+    title = "{Evaluation of tools for highly variable gene discovery from single-cell RNA-seq data}",
+    journal = {Briefings in Bioinformatics},
+    year = {2018},
+    month = {02},
+    abstract = "{Traditional RNA sequencing (RNA-seq) allows the detection of gene expression variations between two or more cell populations through differentially expressed gene (DEG) analysis. However, genes that contribute to cell-to-cell differences are not discoverable with RNA-seq because RNA-seq samples are obtained from a mixture of cells. Single-cell RNA-seq (scRNA-seq) allows the detection of gene expression in each cell. With scRNA-seq, highly variable gene (HVG) discovery allows the detection of genes that contribute strongly to cell-to-cell variation within a homogeneous cell population, such as a population of embryonic stem cells. This analysis is implemented in many software packages. In this study, we compare seven HVG methods from six software packages, including BASiCS, Brennecke, scLVM, scran, scVEGs and Seurat. Our results demonstrate that reproducibility in HVG analysis requires a larger sample size than DEG analysis. Discrepancies between methods and potential issues in these tools are discussed and recommendations are made.}",
+    issn = {1477-4054},
+    doi = {10.1093/bib/bby011}
+}
+
+@article{Brennecke2013,
+	title = {Accounting for technical noise in single-cell {RNA}-seq experiments},
+	volume = {10},
+	url = {https://doi.org/10.1038/nmeth.2645},
+	journal = {Nature Methods},
+	author = {Brennecke, Philip and Anders, Simon and Kim, Jong Kyoung and Ko{\l }odziejczyk, Aleksandra A and Zhang, Xiuwei and Proserpio, Valentina and Baying, Bianka and Benes, Vladimir and Teichmann, Sarah A and Marioni, John C and Heisler, Marcus G},
+	month = sep,
+	year = {2013},
+	pages = {1093}
+}
+
+@article{Lun2016,
+	title = {A step-by-step workflow for low-level analysis of single-cell {RNA}-seq data with {Bioconductor}},
+	volume = {5},
+	issn = {2046-1402},
+	doi = {10.12688/f1000research.9501.2},
+	abstract = {Single-cell RNA sequencing (scRNA-seq) is widely used to profile the transcriptome of individual cells. This provides biological resolution that cannot be matched by bulk RNA sequencing, at the cost of increased technical noise and data complexity. The differences between scRNA-seq and bulk RNA-seq data mean that the analysis of the former cannot be performed by recycling bioinformatics pipelines for the latter. Rather, dedicated single-cell methods are required at various steps to exploit the cellular resolution while accounting for technical noise. This article describes a computational workflow for low-level analyses of scRNA-seq data, based primarily on software packages from the open-source Bioconductor project. It covers basic steps including quality control, data exploration and normalization, as well as more complex procedures such as cell cycle phase assignment, identification of highly variable and correlated genes, clustering into subpopulations and marker gene detection. Analyses were demonstrated on gene-level count data from several publicly available datasets involving haematopoietic stem cells, brain-derived cells, T-helper cells and mouse embryonic stem cells. This will provide a range of usage scenarios from which readers can construct their own analysis pipelines.},
+	language = {eng},
+	journal = {F1000Research},
+	author = {Lun, Aaron T. L. and McCarthy, Davis J. and Marioni, John C.},
+	year = {2016},
+	pmid = {27909575},
+	pmcid = {PMC5112579},
+	pages = {2122}
+}
+
+@article{Chen2016,
+	title = {Detection of high variability in gene expression from single-cell {RNA}-seq profiling},
+	volume = {17},
+	issn = {1471-2164},
+	doi = {10.1186/s12864-016-2897-6},
+	abstract = {The advancement of the next-generation sequencing technology enables mapping gene expression at the single-cell level, capable of tracking cell heterogeneity and determination of cell subpopulations using single-cell RNA sequencing (scRNA-seq). Unlike the objectives of conventional RNA-seq where differential expression analysis is the integral component, the most important goal of scRNA-seq is to identify highly variable genes across a population of cells, to account for the discrete nature of single-cell gene expression and uniqueness of sequencing library preparation protocol for single-cell sequencing. However, there is lack of generic expression variation model for different scRNA-seq data sets. Hence, the objective of this study is to develop a gene expression variation model (GEVM), utilizing the relationship between coefficient of variation (CV) and average expression level to address the over-dispersion of single-cell data, and its corresponding statistical significance to quantify the variably expressed genes (VEGs).},
+	number = {7},
+	journal = {BMC Genomics},
+	author = {Chen, Hung-I Harry and Jin, Yufang and Huang, Yufei and Chen, Yidong},
+	month = aug,
+	year = {2016},
+	pages = {508}
+}
+
+@article{Andrews2018,
+    author = {Andrews, Tallulah S and Hemberg, Martin},
+    title = "{M3Drop: dropout-based feature selection for scRNASeq}",
+    journal = {Bioinformatics},
+    volume = {35},
+    number = {16},
+    pages = {2865-2867},
+    year = {2018},
+    month = {12},
+    abstract = "{Most genomes contain thousands of genes, but for most functional responses, only a subset of those genes are relevant. To facilitate many single-cell RNASeq (scRNASeq) analyses the set of genes is often reduced through feature selection, i.e. by removing genes only subject to technical noise.We present M3Drop, an R package that implements popular existing feature selection methods and two novel methods which take advantage of the prevalence of zeros (dropouts) in scRNASeq data to identify features. We show these new methods outperform existing methods on simulated and real datasets.M3Drop is freely available on github as an R package and is compatible with other popular scRNASeq tools: https://github.com/tallulandrews/M3Drop.Supplementary data are available at Bioinformatics online.}",
+    issn = {1367-4803},
+    doi = {10.1093/bioinformatics/bty1044}
+}
+
+@article{Baglama2005,
+ author = {Baglama, James and Reichel, Lothar},
+ title = {Augmented Implicitly Restarted Lanczos Bidiagonalization Methods},
+ journal = {SIAM J. Sci. Comput.},
+ issue_date = {2005},
+ volume = {27},
+ number = {1},
+ month = jul,
+ year = {2005},
+ issn = {1064-8275},
+ pages = {19--42},
+ numpages = {24},
+ doi = {10.1137/04060593X},
+ acmid = {1081223},
+ publisher = {Society for Industrial and Applied Mathematics},
+ address = {Philadelphia, PA, USA}
+} 
+
+@article{vanDerMaaten2008,
+  author = {van der Maaten, Laurens and Hinton, Geoffrey},
+  journal = {Journal of Machine Learning Research},
+  pages = {2579--2605},
+  title = {Visualizing Data using {t-SNE} },
+  volume = 9,
+  year = 2008
+}
+
+@article{Abdi2010,
+author = {Abdi, Hervé and Williams, Lynne J.},
+title = {Principal component analysis},
+journal = {Wiley Interdisciplinary Reviews: Computational Statistics},
+volume = {2},
+number = {4},
+pages = {433-459},
+doi = {10.1002/wics.101},
+abstract = {Abstract Principal component analysis (PCA) is a multivariate technique that analyzes a data table in which observations are described by several inter-correlated quantitative dependent variables. Its goal is to extract the important information from the table, to represent it as a set of new orthogonal variables called principal components, and to display the pattern of similarity of the observations and of the variables as points in maps. The quality of the PCA model can be evaluated using cross-validation techniques such as the bootstrap and the jackknife. PCA can be generalized as correspondence analysis (CA) in order to handle qualitative variables and as multiple factor analysis (MFA) in order to handle heterogeneous sets of variables. Mathematically, PCA depends upon the eigen-decomposition of positive semi-definite matrices and upon the singular value decomposition (SVD) of rectangular matrices. Copyright © 2010 John Wiley \& Sons, Inc. This article is categorized under: Statistical and Graphical Methods of Data Analysis > Multivariate Analysis Statistical and Graphical Methods of Data Analysis > Dimension Reduction},
+year = {2010}
+}
+
+@article {Kobak2019,
+	author = {Kobak, Dmitry and Berens, Philipp},
+	title = {The art of using t-SNE for single-cell transcriptomics},
+	elocation-id = {453449},
+	year = {2019},
+	doi = {10.1101/453449},
+	publisher = {Cold Spring Harbor Laboratory},
+	abstract = {Single-cell transcriptomics yields ever growing data sets containing RNA expression levels for thousands of genes from up to millions of cells. Common data analysis pipelines include a dimensionality reduction step for visualising the data in two dimensions, most frequently performed using t-distributed stochastic neighbour embedding (t-SNE). It excels at revealing local structure in high-dimensional data, but naive applications often suffer from severe shortcomings, e.g. the global structure of the data is not represented accurately. Here we describe how to circumvent such pitfalls, and develop a protocol for creating more faithful t-SNE visualisations. It includes PCA initialisation, a high learning rate, and multi-scale similarity kernels; for very large data sets, we additionally use exaggeration and downsampling-based initialisation. We use published single-cell RNA-seq data sets to demonstrate that this protocol yields superior results compared to the naive application of t-SNE.},
+	journal = {bioRxiv}
+}
+
+@article{Pedregosa2011,
+ title={Scikit-learn: Machine Learning in {P}ython},
+ author={Pedregosa, F. and Varoquaux, G. and Gramfort, A. and Michel, V.
+         and Thirion, B. and Grisel, O. and Blondel, M. and Prettenhofer, P.
+         and Weiss, R. and Dubourg, V. and Vanderplas, J. and Passos, A. and
+         Cournapeau, D. and Brucher, M. and Perrot, M. and Duchesnay, E.},
+ journal={Journal of Machine Learning Research},
+ volume={12},
+ pages={2825--2830},
+ year={2011}
+}
+
+@ARTICLE{McInnes2018,
+       author = {{McInnes}, Leland and {Healy}, John and {Melville}, James},
+        title = "{UMAP: Uniform Manifold Approximation and Projection for Dimension Reduction}",
+      journal = {arXiv e-prints},
+         year = "2018",
+        month = "Feb",
+          eid = {arXiv:1802.03426},
+        pages = {arXiv:1802.03426},
+archivePrefix = {arXiv},
+       eprint = {1802.03426},
+ primaryClass = {stat.ML}
+}
+
+@INPROCEEDINGS{Ertoz2003,
+    author = {Levent Ertöz and Michael Steinbach and Vipin Kumar},
+    title = {Finding clusters of different sizes, shapes, and densities in noisy, high dimensional data},
+    booktitle = {in Proceedings of Second SIAM International Conference on Data Mining},
+    year = {2003}
+}
+
+
+@article{Traag2019,
+	title = {From {Louvain} to {Leiden}: guaranteeing well-connected communities},
+	volume = {9},
+	issn = {2045-2322},
+	doi = {10.1038/s41598-019-41695-z},
+	abstract = {Community detection is often used to understand the structure of large and complex networks. One of the most popular algorithms for uncovering community structure is the so-called Louvain algorithm. We show that this algorithm has a major defect that largely went unnoticed until now: the Louvain algorithm may yield arbitrarily badly connected communities. In the worst case, communities may even be disconnected, especially when running the algorithm iteratively. In our experimental analysis, we observe that up to 25\% of the communities are badly connected and up to 16\% are disconnected. To address this problem, we introduce the Leiden algorithm. We prove that the Leiden algorithm yields communities that are guaranteed to be connected. In addition, we prove that, when the Leiden algorithm is applied iteratively, it converges to a partition in which all subsets of all communities are locally optimally assigned. Furthermore, by relying on a fast local move approach, the Leiden algorithm runs faster than the Louvain algorithm. We demonstrate the performance of the Leiden algorithm for several benchmark and real-world networks. We find that the Leiden algorithm is faster than the Louvain algorithm and uncovers better partitions, in addition to providing explicit guarantees.},
+	number = {1},
+	journal = {Scientific Reports},
+	author = {Traag, V. A. and Waltman, L. and van Eck, N. J.},
+	month = mar,
+	year = {2019},
+	pages = {5233}
+}
+
+@ARTICLE{Pons2006,
+       author = {{Pons}, Pascal and {Latapy}, Matthieu},
+        title = "{Computing Communities in Large Networks Using Random Walks}",
+      journal = {Journal of Graph Algorithms and Applications},
+         year = "2006"
+}
+
+@article{Reichardt2006,
+  author = {Reichardt, Joerg and Bornholdt, Stefan},
+  journal = {Physical Review E},
+  pages = 016110,
+  title = {Statistical Mechanics of Community Detection},
+  volume = 74,
+  year = 2006
+}
+
+@article{Yang2016,
+	title = {A {Comparative} {Analysis} of {Community} {Detection} {Algorithms} on {Artificial} {Networks}},
+	volume = {6},
+	url = {https://doi.org/10.1038/srep30750},
+	journal = {Scientific Reports},
+	author = {Yang, Zhao and Algesheimer, Ren{\'e} and Tessone, Claudio J.},
+	month = aug,
+	year = {2016},
+	pages = {30750}
+}
+
+@article {Rosvall2008,
+	author = {Rosvall, Martin and Bergstrom, Carl T.},
+	title = {Maps of random walks on complex networks reveal community structure},
+	volume = {105},
+	number = {4},
+	pages = {1118--1123},
+	year = {2008},
+	doi = {10.1073/pnas.0706851105},
+	abstract = {To comprehend the multipartite organization of large-scale biological and social systems, we introduce an information theoretic approach that reveals community structure in weighted and directed networks. We use the probability flow of random walks on a network as a proxy for information flows in the real system and decompose the network into modules by compressing a description of the probability flow. The result is a map that both simplifies and highlights the regularities in the structure and their relationships. We illustrate the method by making a map of scientific communication as captured in the citation patterns of \&gt;6,000 journals. We discover a multicentric organization with fields that vary dramatically in size and degree of integration into the network of science. Along the backbone of the network{\textemdash}including physics, chemistry, molecular biology, and medicine{\textemdash}information flows bidirectionally, but the map reveals a directional pattern of citation from the applied fields to the basic sciences.},
+	issn = {0027-8424},
+	journal = {Proceedings of the National Academy of Sciences}
+}
+
+@article{Raghavan2007,
+  title = {Near linear time algorithm to detect community structures in large-scale networks},
+  author = {Raghavan, Usha Nandini and Albert, R\'eka and Kumara, Soundar},
+  journal = {Phys. Rev. E},
+  volume = {76},
+  issue = {3},
+  pages = {036106},
+  numpages = {11},
+  year = {2007},
+  month = {Sep},
+  publisher = {American Physical Society},
+  doi = {10.1103/PhysRevE.76.036106}
+}
+
+@article{Newman2006,
+  title = {Finding community structure in networks using the eigenvectors of matrices},
+  author = {Newman, M. E. J.},
+  journal = {Phys. Rev. E},
+  volume = {74},
+  issue = {3},
+  pages = {036104},
+  numpages = {19},
+  year = {2006},
+  month = {Sep},
+  publisher = {American Physical Society},
+  doi = {10.1103/PhysRevE.74.036104},
+}
+
+@article{Buettner2015,
+	title = {Computational analysis of cell-to-cell heterogeneity in single-cell {RNA}-sequencing data reveals hidden subpopulations of cells},
+	volume = {33},
+	journal = {Nature Biotechnology},
+	author = {Buettner, Florian and Natarajan, Kedar N and Casale, F Paolo and Proserpio, Valentina and Scialdone, Antonio and Theis, Fabian J and Teichmann, Sarah A and Marioni, John C and Stegle, Oliver},
+	month = jan,
+	year = {2015},
+	pages = {155}
+}
+
+@article{Li2018,
+	title = {An accurate and robust imputation method {scImpute} for single-cell {RNA}-seq data},
+	volume = {9},
+	issn = {2041-1723},
+	doi = {10.1038/s41467-018-03405-7},
+	abstract = {The emerging single-cell RNA sequencing (scRNA-seq) technologies enable the investigation of transcriptomic landscapes at the~single-cell resolution. ScRNA-seq data analysis is complicated by excess zero counts, the so-called dropouts due to low amounts of mRNA sequenced within individual cells. We introduce scImpute, a statistical method to accurately and robustly impute the dropouts in scRNA-seq data. scImpute automatically identifies likely dropouts, and only perform imputation on these values without introducing new biases to the rest data. scImpute also detects outlier cells and excludes them from imputation. Evaluation based on both simulated and real human and mouse scRNA-seq data suggests that scImpute is an effective tool to recover transcriptome dynamics masked by dropouts. scImpute is shown to identify likely dropouts, enhance the clustering of cell subpopulations, improve the accuracy of differential expression analysis, and aid the study of gene expression dynamics.},
+	number = {1},
+	journal = {Nature Communications},
+	author = {Li, Wei Vivian and Li, Jingyi Jessica},
+	month = mar,
+	year = {2018},
+	pages = {997}
+}
